@@ -1,6 +1,6 @@
 # DSAI Group 7: Multimodal Digital Assistant
 
-##Set-up:
+## Set-up:
 
 1. Click Run
 2. Homepage is available on localhost:8080 
