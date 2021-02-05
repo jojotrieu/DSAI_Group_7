@@ -1,0 +1,23 @@
+configurations-view,
+#configurations-view {
+    display: block;
+    padding: 1em;
+}
+configurations-view,
+#load-button{
+    margin-left: 5px;
+}
+
+configurations-view,
+#create-button{
+    margin-left: 1em;
+    background-color: #fe4a49;
+    color: white;
+}
+
+configurations-view,
+#create-button:hover{
+    margin-left: 1em;
+    background-color: #b43636;
+    color: white;
+}
