@@ -19,7 +19,6 @@ import com.vaadin.flow.router.RouteAlias;
 public class ChatBotView extends HorizontalLayout {
 
     private TextField questions;
-    private Button enter;
 
     public ChatBotView() {
         setId("hello-world-view");
