@@ -9,15 +9,32 @@ configurations-view,
 }
 
 configurations-view,
-#create-button{
-    margin-left: 1em;
+#delete-button{
+    margin:5px;
     background-color: #fe4a49;
     color: white;
 }
 
 configurations-view,
-#create-button:hover{
-    margin-left: 1em;
+#delete-button:hover{
     background-color: #b43636;
+    color: white;
+}
+
+configurations-view,
+#delete-button:disabled{
+    background-color: #ffcccb;
+    color: white;
+}
+
+configurations-view,
+#add-button{
+    background-color: #67c104;
+    color: white;
+}
+
+configurations-view,
+#add-button:hover{
+    background-color: #478800;
     color: white;
 }

@@ -26,7 +26,7 @@ import java.util.List;
 public class ChatBotView extends HorizontalLayout {
 
     private TextField questionTextField;
-    private Button clear = new Button("Clear Chat");
+    private Button clearButton = new Button("Clear Chat");
     private H4 thinking = new H4("ChatBot: Mmmm... Let me think.");
     private ChatBot chatBot = new ChatBot();
 
@@ -35,6 +35,7 @@ public class ChatBotView extends HorizontalLayout {
         List<H4> exchange = new ArrayList<>();
         questionTextField = new TextField("Ask me anything");
         questionTextField.setSizeFull();
+        clearButton.setId("clear-button");
         questionTextField.addKeyPressListener(Key.ENTER, e -> {
                 //disable Text Field while ChatBot is thinking
                 questionTextField.setEnabled(false);
@@ -53,22 +54,22 @@ public class ChatBotView extends HorizontalLayout {
                 } catch (InterruptedException interruptedException) {
                     interruptedException.printStackTrace();
                 }
-                //clear Text Field
+                //clearButton Text Field
                 questionTextField.clear();
                 //re-enable Text Field
                 questionTextField.setEnabled(true);
                 remove(thinking);
-                clear.setEnabled(true);
+                clearButton.setEnabled(true);
         });
         add(questionTextField);
-        add(clear);
-        clear.addClickListener( e -> {
+        add(clearButton);
+        clearButton.addClickListener( e -> {
             for(H4 h4: exchange){
                 remove(h4);
             }
-            clear.setEnabled(false);
+            clearButton.setEnabled(false);
         });
-        clear.setEnabled(false);
+        clearButton.setEnabled(false);
     }
 
 }
