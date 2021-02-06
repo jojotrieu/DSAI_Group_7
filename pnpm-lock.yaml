@@ -2,6 +2,7 @@ dependencies:
   '@polymer/iron-icon': 3.0.1
   '@polymer/iron-list': 3.1.0
   '@polymer/polymer': 3.2.0
+  '@vaadin-component-factory/vcf-chat': 1.2.2
   '@vaadin/flow-frontend': 'link:target/flow-frontend'
   '@vaadin/form': 'link:target/flow-frontend/form'
   '@vaadin/router': 1.7.2
@@ -1142,6 +1143,30 @@ packages:
     dev: true
     resolution:
       integrity: sha512-gHUHI6pJaANIO2r6WcbT7+WMgbL9GZooR4tWpuBOETpDIqFNxwaJluE+6rj6VGYe8k6OkfhbHz2Fkm8kl06Igw==
+  /@vaadin-component-factory/vcf-avatar-item/1.0.5:
+    dependencies:
+      '@polymer/polymer': 3.2.0
+      '@vaadin/vaadin-element-mixin': 2.4.2
+      '@vaadin/vaadin-license-checker': 2.1.2
+      '@vaadin/vaadin-lumo-styles': 1.6.1
+      '@vaadin/vaadin-themable-mixin': 1.6.2
+    dev: false
+    resolution:
+      integrity: sha512-7UsZ34QzzbGcKPYFSoB6KYortmcJ50HM3E4a76QRY73Ik/Zo2PON73f4ZfT0MqVQ/jHGjlerg38/fRW6H8k3Ww==
+  /@vaadin-component-factory/vcf-chat/1.2.2:
+    dependencies:
+      '@polymer/iron-list': 3.1.0
+      '@polymer/polymer': 3.2.0
+      '@vaadin-component-factory/vcf-avatar-item': 1.0.5
+      '@vaadin/vaadin-button': 2.4.0
+      '@vaadin/vaadin-element-mixin': 2.4.2
+      '@vaadin/vaadin-lumo-styles': 1.6.1
+      '@vaadin/vaadin-progress-bar': 1.3.0
+      '@vaadin/vaadin-text-field': 2.8.2
+      '@vaadin/vaadin-themable-mixin': 1.6.2
+    dev: false
+    resolution:
+      integrity: sha512-XS3uxw1WCof9PvCRpNfw9b9DC0cIZElR8AXkfa3oAcEyXx9Szm8bSvLDdv42FWkuqe0FriJFJ9UPUiZ9cJlLRA==
   /@vaadin/router/1.7.2:
     dependencies:
       '@vaadin/vaadin-usage-statistics': 2.1.0
@@ -7706,6 +7731,7 @@ specifiers:
   '@polymer/iron-list': 3.1.0
   '@polymer/polymer': 3.2.0
   '@types/validator': 13.1.0
+  '@vaadin-component-factory/vcf-chat': 1.2.2
   '@vaadin/flow-frontend': ./target/flow-frontend
   '@vaadin/form': ./target/flow-frontend/form
   '@vaadin/router': 1.7.2

@@ -37,34 +37,34 @@ public class ChatBotView extends HorizontalLayout {
         questionTextField.setSizeFull();
         clearButton.setId("clear-button");
         questionTextField.addKeyPressListener(Key.ENTER, e -> {
-                //disable Text Field while ChatBot is thinking
-                questionTextField.setEnabled(false);
-                //display question in H4
-                H4 questionH4 = new H4("You: " + questionTextField.getValue());
-                add(questionH4);
-                exchange.add(questionH4);
-                //display "thinking" while ChatBot is thinking
-                add(thinking);
-                //get response from chatBot
-                try {
-                    String responseString = chatBot.response(questionTextField.getValue());
-                    H4 responseH4 = new H4("ChatBot: " + responseString);
-                    add(responseH4);
-                    exchange.add(responseH4);
-                } catch (InterruptedException interruptedException) {
-                    interruptedException.printStackTrace();
-                }
-                //clearButton Text Field
-                questionTextField.clear();
-                //re-enable Text Field
-                questionTextField.setEnabled(true);
-                remove(thinking);
-                clearButton.setEnabled(true);
+            //disable Text Field while ChatBot is thinking
+            questionTextField.setEnabled(false);
+            //display question in H4
+            H4 questionH4 = new H4("You: " + questionTextField.getValue());
+            add(questionH4);
+            exchange.add(questionH4);
+            //display "thinking" while ChatBot is thinking
+            add(thinking);
+            //get response from chatBot
+            try {
+                String responseString = chatBot.response(questionTextField.getValue());
+                H4 responseH4 = new H4("ChatBot: " + responseString);
+                add(responseH4);
+                exchange.add(responseH4);
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
+            //clearButton Text Field
+            questionTextField.clear();
+            //re-enable Text Field
+            questionTextField.setEnabled(true);
+            remove(thinking);
+            clearButton.setEnabled(true);
         });
         add(questionTextField);
         add(clearButton);
-        clearButton.addClickListener( e -> {
-            for(H4 h4: exchange){
+        clearButton.addClickListener(e -> {
+            for (H4 h4 : exchange) {
                 remove(h4);
             }
             clearButton.setEnabled(false);
