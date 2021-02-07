@@ -1,5 +1,3 @@
-package com.example.application.services;
-
 public class Skill {
 
     private String action, entity, property;

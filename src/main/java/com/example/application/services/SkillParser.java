@@ -1,6 +1,3 @@
-package com.example.application.services;
-
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -12,7 +9,7 @@ import java.io.IOException;
 
 public class SkillParser {
     private JSONParser jParser;
-    private JSONArray skillsArray=null;
+    private JSONArray skillsArray;
 
     public SkillParser(){
         jParser = new JSONParser();
@@ -35,7 +32,6 @@ public class SkillParser {
         }
 
     }
-
     public String query(String query){
         loadFile("skills.JSON");
         for(Object o: skillsArray){
@@ -54,6 +50,15 @@ public class SkillParser {
 
     private Skill makeSkill(JSONArray jsArray) {
         //TODO: make the skill object
+        try {
+            jParser.parse(jsArray.toJSONString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Object action = jsArray.get(0);
+        Object entity = jsArray.get(1);
+        Object property = jsArray.get(2);
+        Skill skill = new Skill((String)action, (String)entity, (String)property);
         return null;
     }
 
@@ -65,10 +70,14 @@ public class SkillParser {
 
         String firstLine = query.substring(0, query.indexOf("\n")); //TODO: check if newline is \n or \r or something else
 
+        System.out.println(firstLine);
         //TODO: insert each line in a JSON object
-
+        JSONObject jsonObject = new JSONObject();
 
         newSkill.put(firstLine, contentOfSkill);
+        for (int j = 0; j < newSkill.size(); j++) {
+            jsonObject.put(newSkill.values(), newSkill.keySet());
+        }
 
         skillsArray.add(newSkill);
 
