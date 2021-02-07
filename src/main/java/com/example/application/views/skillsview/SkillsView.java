@@ -28,7 +28,7 @@ public class SkillsView extends Div {
     TreeGrid<String> grid = new TreeGrid<>();
 
     public SkillsView() {
-        setId("skills-view");
+        setId("configurations-view");
         request.setWidth("500px");
         response.setWidth("500px");
         newTemplate.setWidth("550px");
