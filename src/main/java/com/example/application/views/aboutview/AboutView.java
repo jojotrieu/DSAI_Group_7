@@ -8,8 +8,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 @Route(value = "about", layout = MainView.class)
-//temporary css
-@CssImport("./styles/views/configurations/configurations.css")
+@CssImport("./styles/views/about/about.css")
 @PageTitle("About")
 
 public class AboutView extends Div {
