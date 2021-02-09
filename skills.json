@@ -1,0 +1,1 @@
+{"What do we eat on <day> at <time> ?":{"slots":["Monday","Friday"],"property template":{"<day>":5,"<time>":7},"actions":{"Pizza":{"<TIME>":"12pm","<DAY>":"Monday"}}}}
