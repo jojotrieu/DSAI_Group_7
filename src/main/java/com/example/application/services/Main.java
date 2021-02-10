@@ -22,7 +22,22 @@ public class Main {
 
         jsonFile.addAction(question, "Pizza", actionConditions);
 
+        Question question2 = new Question("What class do we have on <DAY> at <TIME>?");
 
+
+        jsonFile.newSkill(question2);
+
+        jsonFile.addSlot(question2, "Monday");
+        jsonFile.addSlot(question2, "Friday");
+
+        JSONObject actionConditions2 = new JSONObject();
+        actionConditions2.put("<day>", "Monday");
+        actionConditions2.put("<time>", "12pm");
+
+        jsonFile.addAction(question2, "Math", actionConditions2);
+
+        String ans = jsonFile.answer("What do we eat on Monday at 12pm?");
+        System.out.println(ans);
 
     }
 
