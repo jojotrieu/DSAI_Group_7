@@ -4,13 +4,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 public class SkillParser {
     private JSONObject skillsArray = null;
@@ -89,41 +85,71 @@ public class SkillParser {
         }
     }
 
+    /**
+     * Method that answers the query based on the skillsArray
+     * @param query question to look for in the skills
+     * @return possible answer if query matches with data stored in the answers
+     */
     public String answer(String query){
+        loadSkills();
         String result = "I don't know";
         if(query.contains("?")) query = query.substring(0,query.indexOf("?")); // getting rid of the question mark
         for(Object keyset : skillsArray.keySet()){ //iterate through the key of skillsArray
             String skillQuestion = (String) keyset;
             if(correspond(query,skillQuestion)){
-                JSONObject skill =(JSONObject) skillsArray.get(skillQuestion);
-                JSONObject action = (JSONObject) skill.get("actions");
-                for(Object answer : action.keySet()){
-                    JSONObject conditions = (JSONObject) action.get(answer);
-
-                    String[] queryArray = query.split(" ");
-                    String[] questionArray = skillQuestion.split(" ");
-
-//                    System.out.println(conditions);
-                    boolean found = true;
-                    for (int i = 0; i < queryArray.length; i++) {
-                        if(questionArray[i].contains("<") ) {
-//                            System.out.println(questionArray[i]);
-//                            System.out.println(conditions.get(queryArray[i])); //we can't access the value with a key that is the same string
-                            for(Object key: conditions.keySet()){
-                                String placeHolder = (String) key;
-                                if(placeHolder.equals(questionArray[i])&&!(conditions.get(key)).toString().equals(queryArray[i])) found= false;
-                            }
-
-                            if (found) return answer.toString();
-                        }
-                    }
-                    if (found)return (String) answer;
-                }
+                result = checkSlots(skillQuestion, query);
             }
         }
         return result;
     }
 
+    /**
+     * compare the query with the skill to see if the query correspond
+     * @param skillQuestion skill coming from the skill array
+     * @param query question asked by user
+     * @return possible answer if query matches with data stored in the answers
+     */
+    private String checkSlots(String skillQuestion, String query) {
+        JSONObject skill =(JSONObject) skillsArray.get(skillQuestion);
+        JSONObject action = (JSONObject) skill.get("actions");
+        for(Object answer : action.keySet()){
+            JSONObject conditions = (JSONObject) action.get(answer);
+            String[] queryArray = query.split(" "), questionArray = skillQuestion.split(" ");
+
+            boolean found = true;
+
+            found = checkPlaceHolders(queryArray,questionArray, conditions);
+
+            if (found) return (String) answer;
+        }
+        return "I don't know";
+    }
+
+    /**
+     * check if place holders correspond to those of the conditions (of the current answer)
+     * @param queryArray question asked in string array (by user)
+     * @param questionArray question in data
+     * @param conditions condition of the current answer
+     * @return true if it corresponds
+     */
+    private boolean checkPlaceHolders(String[] queryArray, String[] questionArray, JSONObject conditions) {
+        for (int i = 0; i < queryArray.length; i++) {
+            if(questionArray[i].contains("<") ) {
+                for(Object key: conditions.keySet()){
+                    String placeHolder = (String) key;
+                    if(placeHolder.equals(questionArray[i])&&!(conditions.get(key)).toString().equals(queryArray[i])) return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * check if the query correspond the the skill stored in data
+     * @param query question asked by user
+     * @param skillQuestion skill from data
+     * @return true if it corresponds
+     */
     private boolean correspond(String query, String skillQuestion){
         String[] qarray = query.split(" "),
         sQarray= skillQuestion.split(" ");

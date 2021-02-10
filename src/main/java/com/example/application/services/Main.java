@@ -36,7 +36,7 @@ public class Main {
 
         jsonFile.addAction(question2, "Math", actionConditions2);
 
-        String ans = jsonFile.answer("What do we eat on Monday at 12pm?");
+        String ans = jsonFile.answer("What class do we have on Monday at 12pm?");
         System.out.println(ans);
 
     }
