@@ -3,3 +3,8 @@ settings-view,
     display: block;
     padding: 1em;
 }
+settings-view,
+#theme-button {
+    margin-left: 750px;
+}
+
