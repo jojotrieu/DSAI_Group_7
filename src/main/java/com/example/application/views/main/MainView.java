@@ -3,6 +3,7 @@ package com.example.application.views.main;
 import java.util.Optional;
 
 import com.example.application.views.aboutview.AboutView;
+import com.example.application.views.contactView.ContactView;
 import com.example.application.views.settingsview.SettingsView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
@@ -80,7 +81,7 @@ public class MainView extends AppLayout {
 
     private Component[] createMenuItems() {
         return new Tab[]{createTab("ChatBot", ChatBotView.class), createTab("Skills Editor", SkillsView.class),
-        createTab("Settings", SettingsView.class), createTab("About", AboutView.class)};
+        createTab("Settings", SettingsView.class), createTab("About", AboutView.class), createTab("Contact", ContactView.class)};
     }
 
     private static Tab createTab(String text, Class<? extends Component> navigationTarget) {
