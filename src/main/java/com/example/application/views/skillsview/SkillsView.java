@@ -1,6 +1,5 @@
 package com.example.application.views.skillsview;
 
-import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -36,6 +35,7 @@ public class SkillsView extends Div {
     private Paragraph errorText = new Paragraph();
 
     private TreeGrid<String> grid = new TreeGrid<>();
+
 
     public SkillsView() {
         setId("configurations-view");
