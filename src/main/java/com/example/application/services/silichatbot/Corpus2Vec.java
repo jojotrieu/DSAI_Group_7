@@ -18,10 +18,11 @@ import java.util.*;
 public class Corpus2Vec {
 
     private Word2Vec word2Vec;
-    private String modelFileName = "src/main/java/com/example/application/services/wdclabs/word2vecmodel.gz";
+    private String ROOT_PATH="src/main/java/com/example/application/services/silichatbot/";
+    private String modelFileName = ROOT_PATH + "word2vecmodel.gz";
 
     public void init() throws IOException {
-        String corpusFileName = "src/main/java/com/example/application/services/wdclabs/cleancorpus.txt";
+        String corpusFileName = ROOT_PATH + "cleancorpus.txt";
         SentenceIterator iter = new LineSentenceIterator(new File(corpusFileName));
         TokenizerFactory t = new DefaultTokenizerFactory();
         t.setTokenPreProcessor(new CommonPreprocessor());
@@ -96,7 +97,7 @@ public class Corpus2Vec {
         Set<String> vocab = new HashSet<>();
         try {
             File textFile =
-                    new File("src/main/java/com/example/application/services/wdclabs/rawcorpus.txt");
+                    new File(ROOT_PATH + "rawcorpus.txt");
             Scanner myReader = new Scanner(textFile);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
@@ -145,7 +146,7 @@ public class Corpus2Vec {
         }
         corpus = trimVocab(corpus,vocab);
         try {
-            String cleanFileName = "src/main/java/com/example/application/services/wdclabs/cleancorpus.txt";
+            String cleanFileName = ROOT_PATH + "cleancorpus.txt";
             FileWriter myWriter =
                     new FileWriter(cleanFileName, false);
             for(String str : corpus){
