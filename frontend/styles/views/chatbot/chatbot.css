@@ -3,3 +3,23 @@ chatbot-view,
   display: block;
   padding: 1em;
 }
+chatbot-view,
+#question-field {
+  margin-top: 100px;
+  position: absolute;
+  bottom: 5%;
+  width: 75%;
+}
+chatbot-view,
+#text-area {
+  position: absolute;
+  width: 78%;
+  max-height: 75%;
+  font-size: 16pt;
+}
+chatbot-view,
+#clear-button {
+  position: absolute;
+  bottom: 5%;
+  right: 1% ;
+}
