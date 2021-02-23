@@ -1,4 +1,4 @@
-package com.example.application.services;
+package com.example.application.services.phase1chatbot;
 
 import org.json.simple.JSONObject;
 

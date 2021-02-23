@@ -1,16 +1,19 @@
-package com.example.application.services;
+package com.example.application.services.phase1chatbot;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.stereotype.Service;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+@Service
 public class SkillParser {
     private JSONObject skillsArray = null;
-    private final String path = "skills.json";
+    private final String path = "src/main/java/com/example/application/services/phase1chatbot/skills.json";
 
     public SkillParser(){
         loadSkills();

@@ -1,6 +1,7 @@
 package com.example.application.views.chatbotview;
 
 import com.example.application.services.ChatBot;
+import com.example.application.services.phase1chatbot.SkillParser;
 import com.vaadin.flow.component.HtmlComponent;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyDownEvent;
@@ -31,6 +32,7 @@ public class ChatBotView extends HorizontalLayout {
     private TextArea area = new TextArea();
     private ChatBot chatBot = new ChatBot();
     private String conversation = "";
+    private SkillParser skillParser = new SkillParser();
 
     public ChatBotView() {
         setId("chatbot-view");
@@ -48,14 +50,10 @@ public class ChatBotView extends HorizontalLayout {
             //display "thinking" while ChatBot is thinking
             add(thinking);
             //get response from chatBot
-            try {
-                String responseString = chatBot.response(questionTextField.getValue());
-                String responseH4 = "ChatBot: " + responseString;
-                conversation += responseH4 + "\n";
-                area.setValue(conversation);
-            } catch (InterruptedException interruptedException) {
-                interruptedException.printStackTrace();
-            }
+            String responseString = skillParser.answer(questionTextField.getValue());
+            String responseH4 = "ChatBot: " + responseString;
+            conversation += responseH4 + "\n";
+            area.setValue(conversation);
             //clearButton Text Field
             questionTextField.clear();
             //re-enable Text Field
