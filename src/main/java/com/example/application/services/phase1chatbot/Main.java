@@ -10,7 +10,6 @@ public class Main {
 
         Question question = new Question("What do we eat on <DAY> at <TIME>?");
 
-
         jsonFile.newSkill(question);
 
         jsonFile.addSlot(question, "Monday");

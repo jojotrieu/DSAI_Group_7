@@ -18,7 +18,7 @@ import java.util.*;
 public class Corpus2Vec {
 
     private Word2Vec word2Vec;
-    private String ROOT_PATH="src/main/java/com/example/application/services/silichatbot/";
+    private String ROOT_PATH = "src/main/java/com/example/application/services/silichatbot/";
     private String modelFileName = ROOT_PATH + "word2vecmodel.gz";
 
     public void init() throws IOException {
@@ -38,18 +38,18 @@ public class Corpus2Vec {
 
         System.out.println("Fitting Word2Vec model....");
         vec.fit();
-        WordVectorSerializer.writeWord2VecModel(vec,modelFileName);
+        WordVectorSerializer.writeWord2VecModel(vec, modelFileName);
     }
 
-    private void readModel (){
-        if(word2Vec==null){
+    private void readModel() {
+        if (word2Vec == null) {
             word2Vec = WordVectorSerializer.readWord2VecModel(modelFileName);
         }
     }
 
 
-    public List<String> trimVocab(List<String> corpus, Set<String> vocab){
-        System.out.println("Size of vocabulary before trimming: " +vocab.size());
+    public List<String> trimVocab(List<String> corpus, Set<String> vocab) {
+        System.out.println("Size of vocabulary before trimming: " + vocab.size());
         //create list of common english suffixes
         List<String> suffixes = new ArrayList<>();
         suffixes.add("en");
@@ -65,11 +65,11 @@ public class Corpus2Vec {
         suffixes.add("ing");
         List<String> toRemove = new ArrayList<>();
         //go through collected vocabulary to remove variations according to suffix list
-        for(String word : vocab){
-            for(String suffix : suffixes){
-                if(word.endsWith(suffix)){
-                    String trimmed = word.substring(0,word.length()-suffix.length());
-                    if(vocab.contains(trimmed)){
+        for (String word : vocab) {
+            for (String suffix : suffixes) {
+                if (word.endsWith(suffix)) {
+                    String trimmed = word.substring(0, word.length() - suffix.length());
+                    if (vocab.contains(trimmed)) {
                         toRemove.add(word);
                     }
                 }
@@ -80,11 +80,11 @@ public class Corpus2Vec {
         //replace all variants of words in corpus with their primitives
         for (int i = 0; i < corpus.size(); i++) {
             String word = corpus.get(i);
-            for(String suffix : suffixes){
-                if(word.endsWith(suffix)){
-                    String trimmed = word.substring(0,word.length()-suffix.length());
-                    if(vocab.contains(trimmed)){
-                        corpus.set(i,trimmed);
+            for (String suffix : suffixes) {
+                if (word.endsWith(suffix)) {
+                    String trimmed = word.substring(0, word.length() - suffix.length());
+                    if (vocab.contains(trimmed)) {
+                        corpus.set(i, trimmed);
                     }
                 }
             }
@@ -92,7 +92,7 @@ public class Corpus2Vec {
         return corpus;
     }
 
-    public void cleanCorpus(){
+    public void cleanCorpus() {
         List<String> corpus = new ArrayList<>();
         Set<String> vocab = new HashSet<>();
         try {
@@ -101,38 +101,38 @@ public class Corpus2Vec {
             Scanner myReader = new Scanner(textFile);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                String [] arr = data.split(",?\\ ");
-                for(String s : arr){
+                String[] arr = data.split(",?\\ ");
+                for (String s : arr) {
                     boolean newLine = false;
                     s = s.toLowerCase();
-                    if(!s.isEmpty() && (Character.isDigit(s.charAt(0))||Character.isDigit(s.charAt(s.length()-1)))){
+                    if (!s.isEmpty() && (Character.isDigit(s.charAt(0)) || Character.isDigit(s.charAt(s.length() - 1)))) {
                         s = "<NUM>";
                         corpus.add(s);
                         break;
                     }
-                    while(!s.isEmpty() && !Character.isLetter(s.charAt(0))){
+                    while (!s.isEmpty() && !Character.isLetter(s.charAt(0))) {
                         s = s.substring(1);
                     }
-                    while(!s.isEmpty() && !Character.isLetter(s.charAt(s.length()-1))){
-                        char lastChar = s.charAt(s.length()-1);
-                        if((lastChar=='.' || lastChar=='?' || lastChar=='!')
-                                && !s.equals("dr.") && !s.equals("mr.") && !s.equals("ms.")){
-                            newLine=true;
-                            s = s.substring(0,s.length()-1);
+                    while (!s.isEmpty() && !Character.isLetter(s.charAt(s.length() - 1))) {
+                        char lastChar = s.charAt(s.length() - 1);
+                        if ((lastChar == '.' || lastChar == '?' || lastChar == '!')
+                                && !s.equals("dr.") && !s.equals("mr.") && !s.equals("ms.")) {
+                            newLine = true;
+                            s = s.substring(0, s.length() - 1);
                             break;
                         }
-                        s = s.substring(0,s.length()-1);
+                        s = s.substring(0, s.length() - 1);
                     }
-                    if(s.startsWith("http") || s.startsWith("www.")){
-                        s="<WEBSITE>";
+                    if (s.startsWith("http") || s.startsWith("www.")) {
+                        s = "<WEBSITE>";
                     }
-                    if(s.indexOf('@')>=0 && s.indexOf('.')>=0){
-                        s="<EMAIL_ADDRESS>";
+                    if (s.indexOf('@') >= 0 && s.indexOf('.') >= 0) {
+                        s = "<EMAIL_ADDRESS>";
                     }
-                    if(!s.isEmpty()){
+                    if (!s.isEmpty()) {
                         corpus.add(s);
                         vocab.add(s);
-                        if(newLine){
+                        if (newLine) {
                             corpus.add("[<<NEWLINE>>]");
                         }
                     }
@@ -144,13 +144,13 @@ public class Corpus2Vec {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-        corpus = trimVocab(corpus,vocab);
+        corpus = trimVocab(corpus, vocab);
         try {
             String cleanFileName = ROOT_PATH + "cleancorpus.txt";
             FileWriter myWriter =
                     new FileWriter(cleanFileName, false);
-            for(String str : corpus){
-                if(str.equals("[<<NEWLINE>>]")){
+            for (String str : corpus) {
+                if (str.equals("[<<NEWLINE>>]")) {
                     myWriter.write(System.lineSeparator());
                 } else {
                     myWriter.write(str + " ");

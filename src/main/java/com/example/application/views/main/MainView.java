@@ -81,7 +81,7 @@ public class MainView extends AppLayout {
 
     private Component[] createMenuItems() {
         return new Tab[]{createTab("ChatBot", ChatBotView.class), createTab("Skills Editor", SkillsView.class),
-        createTab("Settings", SettingsView.class), createTab("About", AboutView.class), createTab("Contact", ContactView.class)};
+                createTab("Settings", SettingsView.class), createTab("About", AboutView.class), createTab("Contact", ContactView.class)};
     }
 
     private static Tab createTab(String text, Class<? extends Component> navigationTarget) {

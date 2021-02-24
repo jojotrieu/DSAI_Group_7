@@ -1,6 +1,6 @@
 package com.example.application.views.contactView;
 
-public class Person{
+public class Person {
 
     private String studentID;
     private String firstName;
