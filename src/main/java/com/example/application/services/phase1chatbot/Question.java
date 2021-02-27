@@ -34,9 +34,9 @@ public class Question {
 
         JSONObject properties = new JSONObject();
 
-        while(m.find()) {
+        while (m.find()) {
             String string = m.group(1);
-            String property = "<" + string +  ">";
+            String property = "<" + string + ">";
             int propertyIndex = ArrayUtils.indexOf(splittedQuestion, property);
 
             properties.put(property, propertyIndex);

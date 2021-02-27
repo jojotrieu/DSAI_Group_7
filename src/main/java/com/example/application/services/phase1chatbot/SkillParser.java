@@ -15,17 +15,17 @@ public class SkillParser {
     private JSONObject skillsArray = null;
     private final String path = "src/main/java/com/example/application/services/phase1chatbot/skills.json";
 
-    public SkillParser(){
+    public SkillParser() {
         loadSkills();
     }
 
-    public void loadSkills(){
+    public void loadSkills() {
         JSONParser jParser = new JSONParser();
 
         try (FileReader file = new FileReader(path)) {
             skillsArray = (JSONObject) jParser.parse(file);
 
-        } catch(IOException | ParseException f) {
+        } catch (IOException | ParseException f) {
             f.printStackTrace();
         }
     }
@@ -80,7 +80,7 @@ public class SkillParser {
     }
 
     private void updateFile() {
-        try (FileWriter file = new FileWriter(path)){
+        try (FileWriter file = new FileWriter(path)) {
             file.write(skillsArray.toJSONString());
 
         } catch (IOException e) {
@@ -90,16 +90,17 @@ public class SkillParser {
 
     /**
      * Method that answers the query based on the skillsArray
+     *
      * @param query question to look for in the skills
      * @return possible answer if query matches with data stored in the answers
      */
-    public String answer(String query){
+    public String answer(String query) {
         loadSkills();
         String result = "I don't know";
-        if(query.contains("?")) query = query.substring(0,query.indexOf("?")); // getting rid of the question mark
-        for(Object keyset : skillsArray.keySet()){ //iterate through the key of skillsArray
+        if (query.contains("?")) query = query.substring(0, query.indexOf("?")); // getting rid of the question mark
+        for (Object keyset : skillsArray.keySet()) { //iterate through the key of skillsArray
             String skillQuestion = (String) keyset;
-            if(correspond(query,skillQuestion)){
+            if (correspond(query, skillQuestion)) {
                 result = checkSlots(skillQuestion, query);
             }
         }
@@ -108,20 +109,21 @@ public class SkillParser {
 
     /**
      * compare the query with the skill to see if the query correspond
+     *
      * @param skillQuestion skill coming from the skill array
-     * @param query question asked by user
+     * @param query         question asked by user
      * @return possible answer if query matches with data stored in the answers
      */
     private String checkSlots(String skillQuestion, String query) {
-        JSONObject skill =(JSONObject) skillsArray.get(skillQuestion);
+        JSONObject skill = (JSONObject) skillsArray.get(skillQuestion);
         JSONObject action = (JSONObject) skill.get("actions");
-        for(Object answer : action.keySet()){
+        for (Object answer : action.keySet()) {
             JSONObject conditions = (JSONObject) action.get(answer);
             String[] queryArray = query.split(" "), questionArray = skillQuestion.split(" ");
 
             boolean found = true;
 
-            found = checkPlaceHolders(queryArray,questionArray, conditions);
+            found = checkPlaceHolders(queryArray, questionArray, conditions);
 
             if (found) return (String) answer;
         }
@@ -130,17 +132,19 @@ public class SkillParser {
 
     /**
      * check if place holders correspond to those of the conditions (of the current answer)
-     * @param queryArray question asked in string array (by user)
+     *
+     * @param queryArray    question asked in string array (by user)
      * @param questionArray question in data
-     * @param conditions condition of the current answer
+     * @param conditions    condition of the current answer
      * @return true if it corresponds
      */
     private boolean checkPlaceHolders(String[] queryArray, String[] questionArray, JSONObject conditions) {
         for (int i = 0; i < queryArray.length; i++) {
-            if(questionArray[i].contains("<") ) {
-                for(Object key: conditions.keySet()){
+            if (questionArray[i].contains("<")) {
+                for (Object key : conditions.keySet()) {
                     String placeHolder = (String) key;
-                    if(placeHolder.equals(questionArray[i])&&!(conditions.get(key)).toString().equals(queryArray[i])) return false;
+                    if (placeHolder.equals(questionArray[i]) && !(conditions.get(key)).toString().equals(queryArray[i]))
+                        return false;
                 }
             }
         }
@@ -149,15 +153,16 @@ public class SkillParser {
 
     /**
      * check if the query correspond the the skill stored in data
-     * @param query question asked by user
+     *
+     * @param query         question asked by user
      * @param skillQuestion skill from data
      * @return true if it corresponds
      */
-    private boolean correspond(String query, String skillQuestion){
+    private boolean correspond(String query, String skillQuestion) {
         String[] qarray = query.split(" "),
-        sQarray= skillQuestion.split(" ");
+                sQarray = skillQuestion.split(" ");
         for (int i = 0; i < qarray.length; i++) {
-            if(!qarray[i].equals(sQarray[i]) && !sQarray[i].contains("<")) return false;
+            if (!qarray[i].equals(sQarray[i]) && !sQarray[i].contains("<")) return false;
         }
         return true;
     }

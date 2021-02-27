@@ -48,11 +48,11 @@ public class SkillsView extends Div {
         add(upload, output);
     }
 
-    private void initGrid(){
+    private void initGrid() {
 
     }
 
-    private void initDialog(){
+    private void initDialog() {
         request.setWidth("500px");
         response.setWidth("500px");
         newTemplate.setWidth("550px");
@@ -73,15 +73,15 @@ public class SkillsView extends Div {
         });
     }
 
-    private void initDeleteButton(){
+    private void initDeleteButton() {
         deleteEntry.setId("delete-button");
         deleteEntry.setEnabled(false);
     }
 
-    private void initUpload(){
+    private void initUpload() {
         upload.setMaxFiles(1);
         upload.setDropLabel(new Label("Upload a max. 10KB file in .txt or .csv format"));
-        upload.setAcceptedFileTypes("text/csv",".txt");
+        upload.setAcceptedFileTypes("text/csv", ".txt");
         upload.setMaxFileSize(10000);
         upload.setUploadButton(mergeButton);
         upload.addFileRejectedListener(event -> {
@@ -89,7 +89,7 @@ public class SkillsView extends Div {
             output.add(errorText);
         });
         upload.addSucceededListener(event -> {
-           output.remove(errorText);
+            output.remove(errorText);
         });
     }
 }

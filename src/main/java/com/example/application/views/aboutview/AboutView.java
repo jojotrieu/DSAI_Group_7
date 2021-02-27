@@ -13,7 +13,7 @@ import com.vaadin.flow.router.Route;
 
 public class AboutView extends Div {
 
-    public AboutView(){
+    public AboutView() {
         setId("about-view");
         add(new Text("Why we did it, how we did it and maybe some general info about the used algorithms"));
     }
