@@ -1,0 +1,159 @@
+Introduction to Computer Science 1 KEN1120
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+Desired Prior Knowledge
+what do I need to know
+----------------------------------------------------
+None. The course appears as desired prior knowledge for the
+courses Introduction to Computer Science 2, Data Structures and Algorithms, Software
+Engineering, Databases and Machine Learning.
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+Prerequisites
+what courses do I have to have passed need
+----------------------------------------------------
+None. It appears as part of the pre-requisites of the second semester
+project in year 1, both projects of year 2 and the third year courses Prolog, Parallel
+Programming and Robotics.
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+Description
+what it is
+info
+----------------------------------------------------
+The course provides the basics of computer science and computer
+programming. After a short introduction to computer organization, the principles of
+programming are presented. The main topics of the course are: data types, variables,
+methods, parameters, decision structures, iteration, arrays, recursion and a brief
+introduction of objects. Programming skills will be acquired during practical sessions
+using the object-oriented programming language Java.
+Knowledge and understanding: The course offers preliminary methodological and
+theoretical bases for studying and applying computers and computer programming on
+which the rest of the curriculum builds.
+Applying knowledge and understanding: Whenever a computer system or a
+programming system has to be designed and implemented the knowledge and insights
+acquired during the course can be used and applied.
+Making judgements: After successful completion of the course, students will be able to
+judge the quality and correctness of simple non-object-oriented programs.
+Communication: The skills acquired during the course will enable student to
+communicate about standard programming constructs and algorithmic basics.
+Learning skills: After successful completion of the course students will be able to
+formalize, analyse and program solutions to simple software problems.
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+Study material
+books
+----------------------------------------------------
+Cay Horstmann (2012). Big Java Late Objects. John Wiley & Sons, New
+York, ISBN 978-1-1180-8788-6 (Chapters 1 through 6 and 13)
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+Exam grading
+----------------------------------------------------
+Closed-book written exam (80%) + Assignments (20%)
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+ECTS credits
+----------------------------------------------------
+4
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+course code
+----------------------------------------------------
+KEN1120
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+====================================================
+Discrete Mathematics KEN1130
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+Desired Prior Knowledge
+what do I need to know
+----------------------------------------------------
+None.
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+Prerequisites
+what courses do I have to have passed need
+----------------------------------------------------
+None.
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+Description
+what it is
+info
+----------------------------------------------------
+In this course, we build a mathematical framework that is based on logic
+and reason. The main objective of the course is to make students familiar with the
+language of mathematics. Students will learn how to make sound arguments and to
+detect where and why certain arguments go wrong. For this purpose, we will discuss
+the basic principles of logic and, closely related, the basic types of mathematical
+proofs. In doing so, we will encounter numbers such as integers, natural numbers and
+real numbers and we shall examine what makes these numbers special. After that,
+we will use basic logic to discuss, among other things, the following mathematical
+concepts: infinity, sets, relations, functions, permutations and combinations. Our
+fundamental tool in all of this is plain common sense. You really do not need your
+toolbox of mathematical formulas learned in previous studies and neither do you need
+a calculator. Pen and paper are the basic instruments needed. After completing each
+topic, exercises will be provided to be completed in class or at home, since mathematics
+is mainly learned by practising repeatedly.
+Knowledge and understanding: Students will be able to read, interpret and manipulate
+basic mathematical terminology (propositional logic, quantifiers, set theory, relations,
+functions, and combinatorics). Students will also be able to read and interpret several
+different types of mathematical proofs and identify whether a purported proof is
+mathematically sound.
+Applying knowledge and understanding: Upon completion of the course students
+will know how to read, interpret, write and manipulate rigorous mathematical
+statements using propositional logic, quantifiers, set theory, relations, functions and
+combinatorics. Students will be able to select, from a range of mathematical tools,
+which is appropriate to prove or disprove a given mathematical statement, and apply
+the chosen tools, rigorously and clearly in order to achieve the desired goal.
+Making judgements: Students will be able to distinguish between mathematically sound
+and unsound statements and defend the rigour of their own mathematical arguments.
+Communication: Students will be able to write clear, rigorous and explicit
+mathematical arguments using standardized mathematical terminology and such that
+each step in the argument is a logical consequence of earlier steps.
+Learning skills: By the end of the course, students will be able to autonomously and
+critically reflect upon the mathematical correctness of their own arguments.
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+Study material
+books
+----------------------------------------------------
+A. Chetwynd & P. Diggle: Discrete Mathematics. Butterworth-Heinemann, Oxford, ISBN 0 340 61047 6.
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+Exam grading
+----------------------------------------------------
+Written exam and optional weekly bonus exercises (the results of which are
+added to your exam score, up to 10%).
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+ECTS credits
+----------------------------------------------------
+4
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+course code
+----------------------------------------------------
+KEN1130
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+====================================================
+Dr. G. Spanakis
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+email address contact
+----------------------------------------------------
+jerry.spanakis@maastrichtuniversity.nl
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+office where
+----------------------------------------------------
+Paul-Henri Spaaklaan 1, Room C4.029A (4th floor)
+6229EN, Maastricht, The Netherlands
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+====================================================
+Dr E. Hortal Quesada
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+email address contact
+----------------------------------------------------
+enrique.hortal@maastrichtuniversity.nl
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+====================================================
+Dr S.M. Kelk
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+email address contact
+----------------------------------------------------
+steven.kelk@maastrichtuniversity.nl
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+====================================================
+Dr. M. Musegaas
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+email address contact
+----------------------------------------------------
+m.musegaas@maastrichtuniversity.nl
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+====================================================

@@ -1,0 +1,4 @@
+teach professor examiner,Dr. G. Spanakis,Introduction to Computer Science 1 KEN1120
+teach professor examiner,Dr E. Hortal Quesada,Introduction to Computer Science 1 KEN1120
+teach professor examiner,Dr S.M. Kelk,Discrete Mathematics KEN1130
+teach professor examiner,Dr. M. Musegaas,Discrete Mathematics KEN1130
