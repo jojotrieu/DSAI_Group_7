@@ -1,5 +1,8 @@
 package com.example.application.views.skillsview;
 
+import com.example.application.services.phase1chatbot.Question;
+import com.example.application.services.phase1chatbot.SkillParser;
+import com.sun.xml.bind.v2.TODO;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -14,6 +17,9 @@ import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.example.application.views.main.MainView;
+import org.json.simple.JSONObject;
+
+import java.util.List;
 
 @Route(value = "skills", layout = MainView.class)
 @CssImport("./styles/views/configurations/configurations.css")
@@ -28,6 +34,8 @@ public class SkillsView extends Div {
     private Button mergeButton = new Button("Merge with other skills");
 
     private TextField request = new TextField("Request");
+    private TextField slotOne = new TextField("Slot 1");
+    private TextField slotTwo = new TextField("Slot 2");
     private TextField response = new TextField("Response");
     private MemoryBuffer buffer = new MemoryBuffer();
     private Upload upload = new Upload(buffer);
@@ -35,6 +43,7 @@ public class SkillsView extends Div {
     private Paragraph errorText = new Paragraph();
 
     private TreeGrid<String> grid = new TreeGrid<>();
+    private SkillParser jsonFile = new SkillParser();
 
 
     public SkillsView() {
@@ -42,6 +51,7 @@ public class SkillsView extends Div {
         initDialog();
         initDeleteButton();
         initUpload();
+        initGrid();
         add(new H4("Templates Editor"));
         add(grid);
         add(addTemplate, deleteEntry, editEntry);
@@ -55,9 +65,14 @@ public class SkillsView extends Div {
     private void initDialog() {
         request.setWidth("500px");
         response.setWidth("500px");
+        slotOne.setWidth("200px");
+        slotTwo.setWidth("200px");
+        slotTwo.setId("slot-two");
         newTemplate.setWidth("550px");
-        newTemplate.setHeight("300");
+        newTemplate.setHeight("450");
         newTemplate.add(request);
+        newTemplate.add(slotOne);
+        newTemplate.add(slotTwo);
         newTemplate.add(response);
         newTemplate.add(submitTemplate);
         request.setId("request-textfield");
@@ -69,6 +84,23 @@ public class SkillsView extends Div {
             newTemplate.open();
         });
         submitTemplate.addClickListener(e -> {
+            String requestString = request.getValue();
+            String responseString = response.getValue();
+            String slotOneString = slotOne.getValue();
+            String slotTwoString = slotTwo.getValue();
+            boolean error = requestString.isEmpty() || responseString.isEmpty() ||
+                    slotOneString.isEmpty() || slotTwoString.isEmpty();
+            if (!error) {
+                Question newQuestion = new Question(requestString);
+                List<String> properties = newQuestion.getPropertiesList();
+                jsonFile.newSkill(newQuestion);
+                JSONObject actionConditions = new JSONObject();
+                actionConditions.put(properties.get(0), slotOneString);
+                actionConditions.put(properties.get(1), slotTwoString);
+                jsonFile.addAction(newQuestion, responseString, actionConditions);
+            } else {
+                //TODO: Add error window here(not all fields have text)
+            }
             newTemplate.close();
         });
     }

@@ -2,6 +2,8 @@ package com.example.application.services.phase1chatbot;
 
 import org.json.simple.JSONObject;
 
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -9,6 +11,11 @@ public class Main {
         SkillParser jsonFile = new SkillParser();
 
         Question question = new Question("What do we eat on <DAY> at <TIME>?");
+        List<String> testProperties = question.getPropertiesList();
+
+        for (int i = 0; i < testProperties.size(); i++) {
+            System.out.println("property: " + testProperties.get(i));
+        }
 
         jsonFile.newSkill(question);
 

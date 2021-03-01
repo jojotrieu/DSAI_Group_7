@@ -3,14 +3,18 @@ package com.example.application.services.phase1chatbot;
 import org.apache.commons.lang.ArrayUtils;
 import org.json.simple.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Question {
     private String question = "";
+    private List<String> propertiesList = new ArrayList<>();
 
     public Question(String question) {
         this.question = question;
+        getPropertyIndicesTemplate();
         cleanQuestion();
     }
 
@@ -38,10 +42,13 @@ public class Question {
             String string = m.group(1);
             String property = "<" + string + ">";
             int propertyIndex = ArrayUtils.indexOf(splittedQuestion, property);
-
+            this.propertiesList.add(property);
             properties.put(property, propertyIndex);
         }
-
         return properties;
+    }
+
+    public List<String> getPropertiesList() {
+        return propertiesList;
     }
 }

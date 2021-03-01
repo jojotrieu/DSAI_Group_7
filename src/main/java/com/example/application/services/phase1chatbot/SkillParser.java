@@ -12,8 +12,8 @@ import java.io.IOException;
 
 @Service
 public class SkillParser {
-    private JSONObject skillsArray = null;
     private final String path = "src/main/java/com/example/application/services/phase1chatbot/skills.json";
+    private JSONObject skillsArray = null;
 
     public SkillParser() {
         loadSkills();
@@ -165,5 +165,9 @@ public class SkillParser {
             if (!qarray[i].equals(sQarray[i]) && !sQarray[i].contains("<")) return false;
         }
         return true;
+    }
+
+    public JSONObject getSkillsArray() {
+        return skillsArray;
     }
 }
