@@ -9,32 +9,32 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Question {
-    private String question = "";
+    private String skill;
     private List<String> propertiesList = new ArrayList<>();
 
     public Question(String question) {
-        this.question = question;
-        getPropertyIndicesTemplate();
+        this.skill = question;
         cleanQuestion();
+        computePropertiesList();
     }
 
-    public String getString() {
-        return question;
+    public String getSkill() {
+        return skill;
     }
 
     private void cleanQuestion() {
-        question = question.replace("?", " ?");
-        question = question.replace("!", " !");
-        question = question.toLowerCase();
-        question = question.substring(0, 1).toUpperCase() + question.substring(1);
+        skill = skill.replace("?", " ?");
+        skill = skill.replace("!", " !");
+        skill = skill.toLowerCase();
+        skill = skill.substring(0, 1).toUpperCase() + skill.substring(1);
     }
 
 
     public JSONObject getPropertyIndicesTemplate() {
         Pattern p = Pattern.compile("\\<(.*?)\\>");
-        Matcher m = p.matcher(question);
+        Matcher m = p.matcher(skill);
 
-        String[] splittedQuestion = question.split(" ");
+        String[] splittedQuestion = skill.split(" ");
 
         JSONObject properties = new JSONObject();
 
@@ -42,13 +42,27 @@ public class Question {
             String string = m.group(1);
             String property = "<" + string + ">";
             int propertyIndex = ArrayUtils.indexOf(splittedQuestion, property);
-            this.propertiesList.add(property);
             properties.put(property, propertyIndex);
         }
         return properties;
     }
 
+    public void computePropertiesList(){
+        Pattern p = Pattern.compile("\\<(.*?)\\>");
+        Matcher m = p.matcher(skill);
+        while (m.find()) {
+            String string = m.group(1);
+            String property = "<" + string + ">";
+            this.propertiesList.add(property);
+        }
+    }
+
     public List<String> getPropertiesList() {
         return propertiesList;
+    }
+
+    @Override
+    public String toString() {
+        return skill;
     }
 }

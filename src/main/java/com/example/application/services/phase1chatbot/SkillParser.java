@@ -31,7 +31,7 @@ public class SkillParser {
     }
 
     public void newSkill(Question question) {
-        String questionString = question.getString();
+        String questionString = question.getSkill();
 
         if (skillsArray.get(questionString) == null) {
             skillsArray.put(questionString, getSkillTemplate(question));
@@ -42,7 +42,7 @@ public class SkillParser {
 
 
     public void addSlot(Question question, String slot) {
-        String questionString = question.getString();
+        String questionString = question.getSkill();
         JSONObject parameters = (JSONObject) skillsArray.get(questionString);
         JSONArray slots = (JSONArray) parameters.get("slots");
 
@@ -53,7 +53,7 @@ public class SkillParser {
     }
 
     public void addAction(Question question, String action, JSONObject conditions) {
-        String questionString = question.getString();
+        String questionString = question.getSkill();
         JSONObject parameters = (JSONObject) skillsArray.get(questionString);
         JSONObject actions = (JSONObject) parameters.get("actions");
 
