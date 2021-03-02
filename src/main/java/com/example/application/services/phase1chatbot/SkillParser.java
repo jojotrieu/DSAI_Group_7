@@ -161,7 +161,7 @@ public class SkillParser {
     private boolean correspond(String query, String skillQuestion) {
         String[] qarray = query.split(" "),
                 sQarray = skillQuestion.split(" ");
-        for (int i = 0; i < qarray.length; i++) {
+        for (int i = 0; i < Math.min(qarray.length,sQarray.length); i++) {
             if (!qarray[i].equals(sQarray[i]) && !sQarray[i].contains("<")) return false;
         }
         return true;
@@ -169,5 +169,32 @@ public class SkillParser {
 
     public JSONObject getSkillsArray() {
         return skillsArray;
+    }
+
+    /**
+     * Delete one skill from the JSON file
+     *
+     * @param questionToDelete question to delete with placeholders
+     *                         the placeholders don't need to correspond
+     * @return true if the question was deleted
+     */
+    public boolean deleteSkill(String questionToDelete){
+        loadSkills();
+        boolean found = false;
+        JSONObject newSkillArray = new JSONObject();
+        for (Object keyset : skillsArray.keySet()) { //iterate through the key of skillsArray
+            String skillQuestion = (String) keyset;
+            if (!correspond(questionToDelete, skillQuestion)||!correspond(skillQuestion,questionToDelete)) {
+                newSkillArray.put(keyset, skillsArray.get(keyset));
+            }else{
+                found = true;
+            }
+        }
+
+        skillsArray = newSkillArray; //update the skill array
+        updateFile();
+        System.out.println(skillsArray);
+        return found;
+
     }
 }
