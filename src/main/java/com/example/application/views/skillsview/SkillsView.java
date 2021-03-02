@@ -1,8 +1,12 @@
 package com.example.application.views.skillsview;
 
+import com.example.application.services.phase1chatbot.Question;
+import com.example.application.services.phase1chatbot.SkillParser;
+import com.sun.xml.bind.v2.TODO;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Label;
@@ -14,6 +18,12 @@ import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.example.application.views.main.MainView;
+import org.json.simple.JSONObject;
+
+import javax.json.Json;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Route(value = "skills", layout = MainView.class)
 @CssImport("./styles/views/configurations/configurations.css")
@@ -28,13 +38,18 @@ public class SkillsView extends Div {
     private Button mergeButton = new Button("Merge with other skills");
 
     private TextField request = new TextField("Request");
+    private TextField slotOne = new TextField("Slot 1");
+    private TextField slotTwo = new TextField("Slot 2");
+    private TextField slotThree = new TextField("Slot 3");
+    private TextField slotFour = new TextField("Slot 4");
     private TextField response = new TextField("Response");
     private MemoryBuffer buffer = new MemoryBuffer();
     private Upload upload = new Upload(buffer);
     private Div output = new Div();
     private Paragraph errorText = new Paragraph();
 
-    private TreeGrid<String> grid = new TreeGrid<>();
+    private Grid<Question> grid = new Grid<>(Question.class);
+    private SkillParser jsonFile = new SkillParser();
 
 
     public SkillsView() {
@@ -42,6 +57,7 @@ public class SkillsView extends Div {
         initDialog();
         initDeleteButton();
         initUpload();
+        initGrid();
         add(new H4("Templates Editor"));
         add(grid);
         add(addTemplate, deleteEntry, editEntry);
@@ -49,15 +65,32 @@ public class SkillsView extends Div {
     }
 
     private void initGrid() {
-
+        JSONObject skillsArray = jsonFile.getSkillsArray();
+        List<Question> dataBase = new ArrayList<>();
+        Object[] questions = skillsArray.keySet().toArray();
+        for (Object question : questions) {
+            dataBase.add(new Question((String) question));
+        }
+        grid.setItems(dataBase);
+        grid.setColumns("skill", "propertiesList");
     }
 
     private void initDialog() {
         request.setWidth("500px");
         response.setWidth("500px");
+        slotOne.setWidth("200px");
+        slotTwo.setWidth("200px");
+        slotThree.setWidth("200px");
+        slotFour.setWidth("200px");
+        slotTwo.setId("slot-two");
+        slotFour.setId("slot-four");
         newTemplate.setWidth("550px");
-        newTemplate.setHeight("300");
+        newTemplate.setHeight("600");
         newTemplate.add(request);
+        newTemplate.add(slotOne);
+        newTemplate.add(slotTwo);
+        newTemplate.add(slotThree);
+        newTemplate.add(slotFour);
         newTemplate.add(response);
         newTemplate.add(submitTemplate);
         request.setId("request-textfield");
@@ -69,13 +102,35 @@ public class SkillsView extends Div {
             newTemplate.open();
         });
         submitTemplate.addClickListener(e -> {
+            String requestString = request.getValue();
+            String responseString = response.getValue();
+            String[] slotArray = new String[]{slotOne.getValue(), slotTwo.getValue(), slotThree.getValue(), slotFour.getValue()};
+            boolean error = requestString.isEmpty() || responseString.isEmpty();
+            if (!error) {
+                Question newQuestion = new Question(requestString);
+                jsonFile.newSkill(newQuestion);
+                List<String> properties = newQuestion.getPropertiesList();
+                JSONObject actionConditions = new JSONObject();
+                for (int i = 0; i < properties.size(); i++) {
+                    actionConditions.put(properties.get(i), slotArray[i]);
+                }
+                jsonFile.addAction(newQuestion, responseString, actionConditions);
+                initGrid();
+            } else {
+                //TODO: Add error window here(not all fields have text)
+            }
             newTemplate.close();
         });
     }
 
     private void initDeleteButton() {
         deleteEntry.setId("delete-button");
-        deleteEntry.setEnabled(false);
+        deleteEntry.addClickListener(e -> {
+            Object[] tempSet = grid.getSelectedItems().toArray();
+            String deleteQuestion = tempSet[0].toString();
+            jsonFile.deleteSkill(deleteQuestion);
+            initGrid();
+        });
     }
 
     private void initUpload() {

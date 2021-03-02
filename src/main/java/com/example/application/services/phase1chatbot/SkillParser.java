@@ -12,8 +12,8 @@ import java.io.IOException;
 
 @Service
 public class SkillParser {
-    private JSONObject skillsArray = null;
     private final String path = "src/main/java/com/example/application/services/phase1chatbot/skills.json";
+    private JSONObject skillsArray = null;
 
     public SkillParser() {
         loadSkills();
@@ -31,7 +31,7 @@ public class SkillParser {
     }
 
     public void newSkill(Question question) {
-        String questionString = question.getString();
+        String questionString = question.getSkill();
 
         if (skillsArray.get(questionString) == null) {
             skillsArray.put(questionString, getSkillTemplate(question));
@@ -42,7 +42,7 @@ public class SkillParser {
 
 
     public void addSlot(Question question, String slot) {
-        String questionString = question.getString();
+        String questionString = question.getSkill();
         JSONObject parameters = (JSONObject) skillsArray.get(questionString);
         JSONArray slots = (JSONArray) parameters.get("slots");
 
@@ -53,7 +53,7 @@ public class SkillParser {
     }
 
     public void addAction(Question question, String action, JSONObject conditions) {
-        String questionString = question.getString();
+        String questionString = question.getSkill();
         JSONObject parameters = (JSONObject) skillsArray.get(questionString);
         JSONObject actions = (JSONObject) parameters.get("actions");
 
@@ -161,9 +161,40 @@ public class SkillParser {
     private boolean correspond(String query, String skillQuestion) {
         String[] qarray = query.split(" "),
                 sQarray = skillQuestion.split(" ");
-        for (int i = 0; i < qarray.length; i++) {
+        for (int i = 0; i < Math.min(qarray.length,sQarray.length); i++) {
             if (!qarray[i].equals(sQarray[i]) && !sQarray[i].contains("<")) return false;
         }
         return true;
+    }
+
+    public JSONObject getSkillsArray() {
+        return skillsArray;
+    }
+
+    /**
+     * Delete one skill from the JSON file
+     *
+     * @param questionToDelete question to delete with placeholders
+     *                         the placeholders don't need to correspond
+     * @return true if the question was deleted
+     */
+    public boolean deleteSkill(String questionToDelete){
+        loadSkills();
+        boolean found = false;
+        JSONObject newSkillArray = new JSONObject();
+        for (Object keyset : skillsArray.keySet()) { //iterate through the key of skillsArray
+            String skillQuestion = (String) keyset;
+            if (!correspond(questionToDelete, skillQuestion)||!correspond(skillQuestion,questionToDelete)) {
+                newSkillArray.put(keyset, skillsArray.get(keyset));
+            }else{
+                found = true;
+            }
+        }
+
+        skillsArray = newSkillArray; //update the skill array
+        updateFile();
+        System.out.println(skillsArray);
+        return found;
+
     }
 }

@@ -38,3 +38,13 @@ configurations-view,
     background-color: #478800;
     color: white;
 }
+
+configurations-view,
+#slot-two{
+    margin-left: 35px;
+}
+
+configurations-view,
+#slot-four{
+    margin-left: 35px;
+}
