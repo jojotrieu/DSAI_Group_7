@@ -69,7 +69,7 @@ public class SkillsView extends Div {
         List<Question> dataBase = new ArrayList<>();
         Object[] questions = skillsArray.keySet().toArray();
         for (Object question : questions) {
-            dataBase.add(new Question((String) question));
+            dataBase.add(new Question((String) question,true));
         }
         grid.setItems(dataBase);
         grid.setColumns("skill", "propertiesList");
@@ -107,7 +107,7 @@ public class SkillsView extends Div {
             String[] slotArray = new String[]{slotOne.getValue(), slotTwo.getValue(), slotThree.getValue(), slotFour.getValue()};
             boolean error = requestString.isEmpty() || responseString.isEmpty();
             if (!error) {
-                Question newQuestion = new Question(requestString);
+                Question newQuestion = new Question(requestString,false);
                 jsonFile.newSkill(newQuestion);
                 List<String> properties = newQuestion.getPropertiesList();
                 JSONObject actionConditions = new JSONObject();
@@ -127,8 +127,10 @@ public class SkillsView extends Div {
         deleteEntry.setId("delete-button");
         deleteEntry.addClickListener(e -> {
             Object[] tempSet = grid.getSelectedItems().toArray();
+            System.out.println(tempSet[0].toString());
             String deleteQuestion = tempSet[0].toString();
             jsonFile.deleteSkill(deleteQuestion);
+            grid.deselectAll();
             initGrid();
         });
     }

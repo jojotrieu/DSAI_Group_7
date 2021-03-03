@@ -12,9 +12,11 @@ public class Question {
     private String skill;
     private List<String> propertiesList = new ArrayList<>();
 
-    public Question(String question) {
+    public Question(String question,boolean reconstruct) {
         this.skill = question;
-        cleanQuestion();
+        if(!reconstruct){
+            cleanQuestion();
+        }
         computePropertiesList();
     }
 
@@ -35,7 +37,6 @@ public class Question {
         Matcher m = p.matcher(skill);
 
         String[] splittedQuestion = skill.split(" ");
-
         JSONObject properties = new JSONObject();
 
         while (m.find()) {

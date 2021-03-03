@@ -10,7 +10,7 @@ public class Main {
 
         SkillParser jsonFile = new SkillParser();
 
-        Question question = new Question("What do we eat on <DAY> at <TIME>?");
+        Question question = new Question("What do we eat on <DAY> at <TIME>?",false);
         List<String> testProperties = question.getPropertiesList();
 
         for (int i = 0; i < testProperties.size(); i++) {
@@ -28,7 +28,7 @@ public class Main {
 
         jsonFile.addAction(question, "Pizza", actionConditions);
 
-        Question question2 = new Question("What class do we have on <DAY> at <TIME>?");
+        Question question2 = new Question("What class do we have on <DAY> at <TIME>?",false);
 
 
         jsonFile.newSkill(question2);
