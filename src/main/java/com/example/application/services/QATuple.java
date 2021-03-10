@@ -1,3 +1,5 @@
+package com.example.application.services;
+
 public class QATuple {
     private String question;
     private String answer;
