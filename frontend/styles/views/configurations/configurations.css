@@ -48,3 +48,14 @@ configurations-view,
 #slot-four{
     margin-left: 35px;
 }
+
+configurations-view,
+#cancel-button{
+    margin-right:5px;
+}
+
+configurations-view,
+#submit-button{
+    margin-right:5px;
+    background-color: rgb(200,205,205);
+}

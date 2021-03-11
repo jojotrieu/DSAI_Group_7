@@ -32,6 +32,7 @@ public class SkillsView extends Div {
     private Button editEntry = new Button("Edit");
     private Button submitTemplate = new Button("Submit");
     private Button mergeButton = new Button("Merge with other skills");
+    private Button cancelButton = new Button("Cancel");
 
     private TextField request = new TextField("Request");
     private TextField slotOne = new TextField("Slot 1");
@@ -122,6 +123,10 @@ public class SkillsView extends Div {
             grid.deselectAll();
             initGrid();
         });
+
+        cancelButton.addClickListener(e -> {
+            newTemplate.close();
+        });
     }
 
     /**
@@ -145,10 +150,12 @@ public class SkillsView extends Div {
         newTemplate.add(slotFour);
         newTemplate.add(response);
         newTemplate.add(submitTemplate);
+        newTemplate.add(cancelButton);
         request.setId("request-textfield");
         response.setId("response-textfield");
         addTemplate.setId("add-button");
-        //TODO : Add cancel button if no modification (will close the skill template)
+        cancelButton.setId("cancel-button");
+        submitTemplate.setId("submit-button");
     }
 
     private void initDeleteButton() {
@@ -165,28 +172,31 @@ public class SkillsView extends Div {
 
     private void initEditButton() {
         editEntry.setId("edit-button");
-        editEntry.addClickListener(e -> {
-            newTemplate.open();
-            Object [] tempSet = grid.getSelectedItems().toArray();
-            String requestString = tempSet[0].toString();
-            request.setValue(requestString);
-            deleteQuestion = requestString;
-            SkillParser skillParser = new SkillParser();
-            response.setValue(skillParser.answer(requestString));
 
-            Question question = new Question(requestString,false);
-            List<String> slots = question.getPropertiesList();
-            if (slots.size() >= 1){
-                slotOne.setValue(slots.get(0));
-            }
-            if (slots.size() >= 2){
-                slotTwo.setValue(slots.get(1));
-            }
-            if (slots.size() >= 3){
-                slotTwo.setValue(slots.get(2));
-            }
-            if (slots.size() >= 4){
-                slotTwo.setValue(slots.get(3));
+        editEntry.addClickListener(e -> {
+            if (grid.getSelectedItems().toArray().length != 0){ // if item is selected
+                newTemplate.open();
+                Object [] tempSet = grid.getSelectedItems().toArray();
+                String requestString = tempSet[0].toString();
+                request.setValue(requestString);
+                deleteQuestion = requestString;
+                SkillParser skillParser = new SkillParser();
+                response.setValue(skillParser.answer(requestString));
+
+                Question question = new Question(requestString,false);
+                List<String> slots = question.getPropertiesList();
+                if (slots.size() >= 1){
+                    slotOne.setValue(slots.get(0));
+                }
+                if (slots.size() >= 2){
+                    slotTwo.setValue(slots.get(1));
+                }
+                if (slots.size() >= 3){
+                    slotTwo.setValue(slots.get(2));
+                }
+                if (slots.size() >= 4){
+                    slotTwo.setValue(slots.get(3));
+                }
             }
         });
     }
