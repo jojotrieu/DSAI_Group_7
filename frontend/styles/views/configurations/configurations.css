@@ -59,3 +59,25 @@ configurations-view,
     margin-right:5px;
     background-color: rgb(200,205,205);
 }
+
+configurations-view,
+#request {
+}
+
+configurations-view,
+#response {
+}
+
+configurations-view,
+#request-must-be-filled {
+    outline: 1px solid;
+    outline-color: red;
+    background-color: rgb(500,200,200);
+}
+
+configurations-view,
+#response-must-be-filled {
+    outline: 1px solid;
+    outline-color: red;
+    background-color: rgb(500,200,200);
+}

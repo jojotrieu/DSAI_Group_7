@@ -109,19 +109,24 @@ public class SkillsView extends Div {
                     actionConditions.put(properties.get(i), slotArray[i]);
                 }
                 jsonFile.addAction(newQuestion, responseString, actionConditions);
+
                 skillTemplateEmpty();
                 initGrid();
+                newTemplate.close();
+                grid.deselectAll();
             }
             else {
-                System.out.println("error");
-                //TODO: Add error window here(not all fields have text)
-                // or shake skill window and enable to save skill
-                // or textfield to be filled in red
-
+                if (requestString.isEmpty()){
+                    request.setId("request-must-be-filled"); //TODO make it look better
+                }else{
+                    request.setId("request");
+                }
+                if (responseString.isEmpty()){
+                    response.setId("response-must-be-filled"); //TODO make it look better
+                }else{
+                    response.setId("response");
+                }
             }
-            newTemplate.close();
-            grid.deselectAll();
-            initGrid();
         });
 
         cancelButton.addClickListener(e -> {
@@ -208,6 +213,9 @@ public class SkillsView extends Div {
         slotTwo.setValue("");
         slotThree.setValue("");
         slotFour.setValue("");
+
+        request.setId("request-textfield");
+        response.setId("response-textfield");
     }
 
     private void initUpload() {
