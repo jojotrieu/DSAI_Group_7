@@ -2,7 +2,6 @@ package com.example.application.views.skillsview;
 
 import com.example.application.services.phase1chatbot.Question;
 import com.example.application.services.phase1chatbot.SkillParser;
-import com.sun.xml.bind.v2.TODO;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -12,7 +11,6 @@ import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.component.treegrid.TreeGrid;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
 import com.vaadin.flow.router.PageTitle;
@@ -20,10 +18,8 @@ import com.vaadin.flow.router.Route;
 import com.example.application.views.main.MainView;
 import org.json.simple.JSONObject;
 
-import javax.json.Json;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Route(value = "skills", layout = MainView.class)
 @CssImport("./styles/views/configurations/configurations.css")
@@ -36,6 +32,7 @@ public class SkillsView extends Div {
     private Button editEntry = new Button("Edit");
     private Button submitTemplate = new Button("Submit");
     private Button mergeButton = new Button("Merge with other skills");
+    private Button cancelButton = new Button("Cancel");
 
     private TextField request = new TextField("Request");
     private TextField slotOne = new TextField("Slot 1");
@@ -51,11 +48,15 @@ public class SkillsView extends Div {
     private Grid<Question> grid = new Grid<>(Question.class);
     private SkillParser jsonFile = new SkillParser();
 
+    private String deleteQuestion;
+    private Question newQuestion;
+
 
     public SkillsView() {
         setId("configurations-view");
         initDialog();
         initDeleteButton();
+        initEditButton();
         initUpload();
         initGrid();
         add(new H4("Templates Editor"));
@@ -64,6 +65,9 @@ public class SkillsView extends Div {
         add(upload, output);
     }
 
+    /**
+     * Displays a grid containing all skills
+     */
     private void initGrid() {
         JSONObject skillsArray = jsonFile.getSkillsArray();
         List<Question> dataBase = new ArrayList<>();
@@ -76,6 +80,64 @@ public class SkillsView extends Div {
     }
 
     private void initDialog() {
+        setUpTemplate();
+
+        addTemplate.addClickListener(e -> {
+            skillTemplateEmpty();
+            newTemplate.open();
+            deleteQuestion = "";
+        });
+
+        submitTemplate.addClickListener(e -> {
+            String requestString = request.getValue();
+            String responseString = response.getValue();
+            String[] slotArray = new String[]{slotOne.getValue(), slotTwo.getValue(), slotThree.getValue(), slotFour.getValue()};
+            boolean error = requestString.isEmpty() || responseString.isEmpty();
+            if (!error) {
+                // delete skill whenever there is a skill to delete
+                if (deleteQuestion.length() != 0){
+                    jsonFile.deleteSkill(deleteQuestion);
+                    System.out.println(jsonFile.deleteSkill(deleteQuestion));
+                }
+
+                // add new skill
+                newQuestion = new Question(requestString,false);
+                jsonFile.newSkill(newQuestion);
+                List<String> properties = newQuestion.getPropertiesList();
+                JSONObject actionConditions = new JSONObject();
+                for (int i = 0; i < properties.size(); i++) {
+                    actionConditions.put(properties.get(i), slotArray[i]);
+                }
+                jsonFile.addAction(newQuestion, responseString, actionConditions);
+
+                skillTemplateEmpty();
+                initGrid();
+                newTemplate.close();
+                grid.deselectAll();
+            }
+            else {
+                if (requestString.isEmpty()){
+                    request.setId("request-must-be-filled"); //TODO make it look better
+                }else{
+                    request.setId("request");
+                }
+                if (responseString.isEmpty()){
+                    response.setId("response-must-be-filled"); //TODO make it look better
+                }else{
+                    response.setId("response");
+                }
+            }
+        });
+
+        cancelButton.addClickListener(e -> {
+            newTemplate.close();
+        });
+    }
+
+    /**
+     * Set up the template for adding/editing a skill
+     */
+    private void setUpTemplate(){
         request.setWidth("500px");
         response.setWidth("500px");
         slotOne.setWidth("200px");
@@ -93,34 +155,12 @@ public class SkillsView extends Div {
         newTemplate.add(slotFour);
         newTemplate.add(response);
         newTemplate.add(submitTemplate);
+        newTemplate.add(cancelButton);
         request.setId("request-textfield");
         response.setId("response-textfield");
         addTemplate.setId("add-button");
-        editEntry.setId("edit-button");
-        editEntry.setEnabled(false);
-        addTemplate.addClickListener(e -> {
-            newTemplate.open();
-        });
-        submitTemplate.addClickListener(e -> {
-            String requestString = request.getValue();
-            String responseString = response.getValue();
-            String[] slotArray = new String[]{slotOne.getValue(), slotTwo.getValue(), slotThree.getValue(), slotFour.getValue()};
-            boolean error = requestString.isEmpty() || responseString.isEmpty();
-            if (!error) {
-                Question newQuestion = new Question(requestString,false);
-                jsonFile.newSkill(newQuestion);
-                List<String> properties = newQuestion.getPropertiesList();
-                JSONObject actionConditions = new JSONObject();
-                for (int i = 0; i < properties.size(); i++) {
-                    actionConditions.put(properties.get(i), slotArray[i]);
-                }
-                jsonFile.addAction(newQuestion, responseString, actionConditions);
-                initGrid();
-            } else {
-                //TODO: Add error window here(not all fields have text)
-            }
-            newTemplate.close();
-        });
+        cancelButton.setId("cancel-button");
+        submitTemplate.setId("submit-button");
     }
 
     private void initDeleteButton() {
@@ -133,6 +173,49 @@ public class SkillsView extends Div {
             grid.deselectAll();
             initGrid();
         });
+    }
+
+    private void initEditButton() {
+        editEntry.setId("edit-button");
+
+        editEntry.addClickListener(e -> {
+            if (grid.getSelectedItems().toArray().length != 0){ // if item is selected
+                newTemplate.open();
+                Object [] tempSet = grid.getSelectedItems().toArray();
+                String requestString = tempSet[0].toString();
+                request.setValue(requestString);
+                deleteQuestion = requestString;
+                SkillParser skillParser = new SkillParser();
+                response.setValue(skillParser.answer(requestString));
+
+                Question question = new Question(requestString,false);
+                List<String> slots = question.getPropertiesList();
+                if (slots.size() >= 1){
+                    slotOne.setValue(slots.get(0));
+                }
+                if (slots.size() >= 2){
+                    slotTwo.setValue(slots.get(1));
+                }
+                if (slots.size() >= 3){
+                    slotTwo.setValue(slots.get(2));
+                }
+                if (slots.size() >= 4){
+                    slotTwo.setValue(slots.get(3));
+                }
+            }
+        });
+    }
+
+    private void skillTemplateEmpty() {
+        request.setValue("");
+        response.setValue("");
+        slotOne.setValue("");
+        slotTwo.setValue("");
+        slotThree.setValue("");
+        slotFour.setValue("");
+
+        request.setId("request-textfield");
+        response.setId("response-textfield");
     }
 
     private void initUpload() {
