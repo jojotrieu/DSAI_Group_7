@@ -21,7 +21,7 @@ public class Corpus2Vec {
     private String ROOT_PATH = "src/main/java/com/example/application/services/silichatbot/";
     private String modelFileName = ROOT_PATH + "word2vecmodel.gz";
 
-    public void init() throws IOException {
+    public void init() {
         String corpusFileName = ROOT_PATH + "cleancorpus.txt";
         SentenceIterator iter = new LineSentenceIterator(new File(corpusFileName));
         TokenizerFactory t = new DefaultTokenizerFactory();
@@ -29,7 +29,7 @@ public class Corpus2Vec {
         System.out.println("Building Word2Vec model...");
         Word2Vec vec = new Word2Vec.Builder()
                 .minWordFrequency(5)
-                .layerSize(100)
+                .layerSize(200)
                 .seed(42)
                 .windowSize(5)
                 .iterate(iter)
@@ -105,6 +105,9 @@ public class Corpus2Vec {
                 for (String s : arr) {
                     boolean newLine = false;
                     s = s.toLowerCase();
+                    if(s.equals("which")){
+                        s="what";
+                    }
                     if (!s.isEmpty() && (Character.isDigit(s.charAt(0)) || Character.isDigit(s.charAt(s.length() - 1)))) {
                         s = "<NUM>";
                         corpus.add(s);
