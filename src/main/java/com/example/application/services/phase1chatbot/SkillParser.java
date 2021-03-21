@@ -143,7 +143,7 @@ public class SkillParser {
             if (questionArray[i].contains("<")) {
                 for (Object key : conditions.keySet()) {
                     String placeHolder = (String) key;
-                    if (placeHolder.equals(questionArray[i]) && !(conditions.get(key)).toString().equals(queryArray[i]))
+                    if (placeHolder.equalsIgnoreCase(questionArray[i]) && !(conditions.get(key)).toString().equalsIgnoreCase(queryArray[i]))
                         return false;
                 }
             }
@@ -162,7 +162,7 @@ public class SkillParser {
         String[] qarray = query.split(" "),
                 sQarray = skillQuestion.split(" ");
         for (int i = 0; i < Math.min(qarray.length,sQarray.length); i++) {
-            if (!qarray[i].equals(sQarray[i]) && !sQarray[i].contains("<")) return false;
+            if (!qarray[i].equalsIgnoreCase(sQarray[i]) && !sQarray[i].contains("<")) return false;
         }
         return true;
     }

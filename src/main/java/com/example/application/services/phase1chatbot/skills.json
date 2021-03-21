@@ -1,1 +1,364 @@
-{"Where am i going on <day>?":{"slots":[],"property template":{"<day>":5},"actions":{"T":{"<day>":"","<DAY>":"Wednesday"}}},"Where is <name> at <time> ?":{"slots":[],"property template":{"<time>":4,"<name>":2},"actions":{"Lectures":{"<time>":"11am","<name>":"Andrew"}}},"What class do we have on <day> at <time> ?":{"slots":["Monday","Friday"],"property template":{"<day>":6,"<time>":8},"actions":{"Math":{"<day>":"Monday","<time>":"12pm"}}},"What do we eat on <day> at <time> ?":{"slots":["Monday","Friday"],"property template":{"<day>":5,"<time>":7},"actions":{"Pizza":{"<day>":"Monday","<time>":"12pm"}}},"Where do we go to on <day> at <time> ?":{"slots":[],"property template":{"<day>":6,"<time>":8},"actions":{"Park":{"<TIME>":"10pm","<DAY>":"Thursday"}}},"What should i do on <day> at <time> if <name> comes to visit ?":{"slots":[],"property template":{"<day>":5,"<time>":7,"<name>":9},"actions":{"Prepare dinner.":{"<day>":"Friday","<time>":"6pm","<name>":"Bob"}}}}
+{
+  "What are the measures against covid at <place> ?": {
+    "slots": [
+      "Dke"
+    ],
+    "property template": {
+      "<place>": 7
+    },
+    "actions": {
+      "Distanciation of 1.5m, wearing mask whenever you move, follow the arrows.": {
+        "<place>": "DKE"
+      }
+    }
+  },
+  "Who are you  ?": {
+    "slots": [],
+    "property template": {},
+    "actions": {
+      "I'm the cousin of alexa & siri": {}
+    }
+  },
+  "What should i eat on <day> ?": {
+    "slots": [],
+    "property template": {
+      "<day>": 5
+    },
+    "actions": {
+      "Eat pizza !": {
+        "<day>": "Tuesday"
+      },
+      "Eat a pizza !": {
+        "<day>": "Saturday"
+      },
+      "Eat a salad !": {
+        "<day>": "Friday"
+      },
+      "Eat a burger !": {
+        "<day>": "Wednesday"
+      },
+      "Eat a sandwich !": {
+        "<day>": "Sunday"
+      },
+      "Seafood !": {
+        "<day>": "Thursday"
+      }
+    }
+  },
+  "What is your name  ?": {
+    "slots": [],
+    "property template": {},
+    "actions": {
+      "Everyone calls me chatbot, sounds original right  ?": {}
+    }
+  },
+  "When is the <coursename> exam ?": {
+    "slots": [],
+    "property template": {
+      "<coursename>": 3
+    },
+    "actions": {
+      "You don't have an exam for hci, but the deadline for the report is on 2nd april.": {
+        "<coursename>": "HCI"
+      },
+      "It's on thursday !": {
+        "<coursename>": "TCS"
+      },
+      "It's on tuesday !": {
+        "<coursename>": "MM"
+      }
+    }
+  },
+  "Who is the teacher of <coursename> ?": {
+    "slots": [
+      "Tcs",
+      "Mm",
+      "Hci"
+    ],
+    "property template": {
+      "<coursename>": 5
+    },
+    "actions": {
+      "Joel karel and ralf peeters": {
+        "<coursename>": "MM"
+      },
+      "Georgios stamoulis": {
+        "<coursename>": "TCS"
+      },
+      "Stelios asteriadis": {
+        "<coursename>": "HCI"
+      }
+    }
+  },
+  "Hello": {
+    "slots": [],
+    "property template": {},
+    "actions": {
+      "Hey there !": {}
+    }
+  },
+  "What time is it  ?": {
+    "slots": [],
+    "property template": {},
+    "actions": {
+      "Same time as yesterday at the same time of the day": {}
+    }
+  },
+  "Sad": {
+    "slots": [],
+    "property template": {},
+    "actions": {
+      "That makes me sad !": {}
+    }
+  },
+  "Tell me a joke": {
+    "slots": [],
+    "property template": {},
+    "actions": {
+      "Did you hear about the claustrophobic astronaut  ?  he just needed a little space. ": {}
+    }
+  },
+  "What class do we have on <day> at <time> ?": {
+    "slots": [],
+    "property template": {
+      "<day>": 6,
+      "<time>": 8
+    },
+    "actions": {
+      "You have hci  !": {
+        "<day>": "Thursday",
+        "<time>": "9am"
+      },
+      "You don't have a class  !": {
+        "<day>": "Tuesday",
+        "<time>": "11am"
+      },
+      "You have dsa  ! ": {
+        "<day>": "Thursday",
+        "<time>": "11am"
+      },
+      "You have mm  !": {
+        "<day>": "Friday",
+        "<time>": "9am"
+      },
+      "You don't have classes on saturday  ! ": {
+        "<day>": "Saturday",
+        "<time>": ""
+      },
+      "You have nlp !": {
+        "<day>": "Monday",
+        "<time>": "9am"
+      },
+      "You don't have classes on sunday  !": {
+        "<day>": "Sunday",
+        "<time>": ""
+      },
+      "You have cs1 !": {
+        "<day>": "Monday",
+        "<time>": "11pm"
+      },
+      "You have mathematical modelling  !": {
+        "<day>": "Tuesday",
+        "<time>": "9am"
+      },
+      "You have linear algebra  !": {
+        "<day>": "Friday ",
+        "<time>": "11am"
+      },
+      "You have tcs  !": {
+        "<day>": "Wednesday",
+        "<time>": "9am"
+      },
+      "You have numerical maths  !": {
+        "<day>": "Wednesday",
+        "<time>": "11am "
+      },
+      "You have cs1  !": {
+        "<day>": "Monday",
+        "<time>": "11am"
+      }
+    }
+  },
+  "Fine": {
+    "slots": [],
+    "property template": {},
+    "actions": {
+      "Nice ! ": {}
+    }
+  },
+  "Hey": {
+    "slots": [],
+    "property template": {},
+    "actions": {
+      "Hello  !": {}
+    }
+  },
+  "How are you ?": {
+    "slots": [],
+    "property template": {},
+    "actions": {
+      "I'm fine ! How about you ?": {}
+    }
+  },
+  "Where can i <activity>": {
+    "slots": [
+      "Swim",
+      "Study",
+      "Chill"
+    ],
+    "property template": {
+      "<activity>": 3
+    },
+    "actions": {
+      "At randwyck library": {
+        "<activity>": "study"
+      },
+      "At um sport": {
+        "<activity>": "swim"
+      },
+      "In downtown, there are several bars": {
+        "<activity>": "chill"
+      }
+    }
+  },
+  "How long is a year on <planet> ?": {
+    "slots": [],
+    "property template": {
+      "<planet>": 5
+    },
+    "actions": {
+      "87.96 Earth days": {
+        "<planet>": "Mercury"
+      },
+      "224.68 Earth days": {
+        "<planet>": "Venus"
+      },
+      "365.26 Earth days": {
+        "<planet>": "Earth"
+      },
+      "686.98 Earth days": {
+        "<planet>": "Mars"
+      },
+      "11.862 Earth years": {
+        "<planet>": "Jupiter"
+      },
+      "29.456 Earth years": {
+        "<planet>": "Saturn"
+      },
+      "84.07 Earth years": {
+        "<planet>": "Uranus"
+      },
+      "164.81 Earth years": {
+        "<planet>": "Neptune"
+      },
+      "A year on this dwarfplanet takes, 247.7 Earth years": {
+        "<planet>": "Pluto"
+      }
+    }
+  },
+  "How many moons does <planet> have ?": {
+    "slots": [],
+    "property template": {
+      "<planet>": 5
+    },
+    "actions": {
+      "Mercury doesn't have any moons": {
+        "<planet>": "Mercury"
+      },
+      "Venus doesn't have any moons": {
+        "<planet>": "Venus"
+      },
+      "One moon, the moon. It one of the five largest moons in the solar system. The moon is sometimes called our twin planet because of it's proportionally large mass. 1/81 of the mass on earth. ": {
+        "<planet>": "Earth"
+      },
+      "Two moons: Phobos and Deimos. In Roman mythology Phobos was the son of Venus and Mars": {
+        "<planet>": "Mars"
+      },
+      "Jupiter has approximately 300 objects in it's orbit. 79 are moons. Ganymedes is it's largest and it's also the largest moon of the solar system. One other moon of Jupiter, is called Callisto. Callisto has an icy layer of 200 kilometers, below that crust is a salty ocean of 10 kilometers wide.": {
+        "<planet>": "Jupiter"
+      },
+      "Saturn has 82 moons. Titan is the largest moon of Jupiter. In Januari 2007 the Cassini-Huygens mission confirmed that there are hydrocarbon lakes on Titan. These are the first stable bodies of surface liquid found outside the Earth. ": {
+        "<planet>": "Saturn"
+      },
+      "Uranus has 27 known moons. Thirtheen inner and five major moons in prograde orbits. While the orbit of the irregular moons are mostly retrogade. So some moons rotate in the opposite direction.": {
+        "<planet>": "Uranus"
+      },
+      "Neptune has 14 known moons. The largest of them is Triton. Like some Uranian moons it has a retrogade orbit. So it rotates in the opposite direction.": {
+        "<planet>": "Neptune"
+      },
+      "Pluto is a dwarf planet with 5 moons The largest moon of it called Charon is always locked with Pluto. So Pluto-Charon is sometimes considered a double dwarf planet. Most planets in the solar system are on the ecliptic plane but Pluto is not. It does not collide however because the orbits don't intersect. It's surface is composed of nitrogen ice.": {
+        "<planet>": "Pluto"
+      }
+    }
+  },
+  "What is the mass of <planet> ?": {
+    "slots": [],
+    "property template": {
+      "<planet>": 5
+    },
+    "actions": {
+      "Mercury has a mass of 330,000,000,000,000,000,000,000 kilos": {
+        "<planet>": "Mercury"
+      },
+      "Venus has a mass of 4,870,000,000,000,000,000,000,000 kilos": {
+        "<planet>": "Venus"
+      },
+      "The Earth has a mass of 5,980,000,000,000,000,000,000,000 kilos": {
+        "<planet>": "Earth"
+      },
+      "Mars has a mass of 642,000,000,000,000,000,000,000 kilos": {
+        "<planet>": "Mars"
+      },
+      "Jupiter has a mass of 1,900,000,000,000,000,000,000,000,000 kilos": {
+        "<planet>": "Jupiter"
+      },
+      "Saturn has a mass of 569,000,000,000,000,000,000,000,000 kilos": {
+        "<planet>": "Saturn"
+      },
+      "Uranus has a mass of 86,800,000,000,000,000,000,000,000 kilos": {
+        "<planet>": "Uranus"
+      },
+      "Neptune has a mass of 102,000,000,000,000,000,000,000,000 kilos": {
+        "<planet>": "Neptune"
+      },
+      "Pluto has a mass of 12,900,000,000,000,000,000,000 kilos": {
+        "<planet>": "Pluto"
+      }
+    }
+  },
+  "What is the temperature on <planet> ?": {
+    "slots": [],
+    "property template": {
+      "<planet>": 5
+    },
+    "actions": {
+      "Mercury has a minimum surface temperature of -170 degrees celsius and a maximum surface temperature of 449 degrees celsius": {
+        "<planet>": "Mercury"
+      },
+      "Venus has a minimum surface temperature of 465 degrees celsius and a maximum surface temperature of 465 degrees celsius": {
+        "<planet>": "Venus"
+      },
+      "Our planet Earth has a minimum surface temperature of -89 degrees celsius and a maximum surface temperature of 58 degrees celsius": {
+        "<planet>": "Earth"
+      },
+      "Mars has a minimum surface temperature of -125 degrees celsius and a maximum surface temperature of 20 degrees celsius": {
+        "<planet>": "Mars"
+      },
+      "The clouds on the gass giant Jupiter are about minus 145 degrees celsius. Near the core the temperature is about 24.000 degrees celsius": {
+        "<planet>": "Jupiter"
+      },
+      "The average temperature on Saturn is minus 278 degrees celsius": {
+        "<planet>": "Saturn"
+      },
+      "The temperature on Uranus is minus 218 degrees celsius": {
+        "<planet>": "Uranus"
+      },
+      "The temperature on Neptune is 214 degrees celsius": {
+        "<planet>": "Neptune"
+      },
+      "The temperature on Pluto ranges from minus 226 to minus 240 degrees celsius": {
+        "<planet>": "Pluto"
+      }
+    }
+  }
+}
