@@ -1,0 +1,6 @@
+<SCHEDULE> * <DAY> Saturday There are no lectures on Saturday 
+<SCHEDULE> * <DAY> Monday <TIME> 9 We start the week with math 
+<SCHEDULE> * <DAY> Monday <TIME> 12 On Monday noon we have Theoretical Computer Science 
+<LOCATION> * <ROOM> DeepSpace DeepSpace is the first room after the entrance 
+<LOCATION> * <ROOM> is on the first floor 
+<ACTION> I have no idea 

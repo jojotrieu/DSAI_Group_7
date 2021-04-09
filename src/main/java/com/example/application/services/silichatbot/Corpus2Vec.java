@@ -1,5 +1,6 @@
 package com.example.application.services.silichatbot;
 
+import com.example.application.services.utils.TextFileIO;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.word2vec.Word2Vec;
 import org.deeplearning4j.text.sentenceiterator.LineSentenceIterator;
@@ -9,7 +10,6 @@ import org.deeplearning4j.text.tokenization.tokenizerfactory.DefaultTokenizerFac
 import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
@@ -95,58 +95,50 @@ public class Corpus2Vec {
     public void cleanCorpus() {
         List<String> corpus = new ArrayList<>();
         Set<String> vocab = new HashSet<>();
-        try {
-            File textFile =
-                    new File(ROOT_PATH + "rawcorpus.txt");
-            Scanner myReader = new Scanner(textFile);
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
-                String[] arr = data.split(",?\\ ");
-                for (String s : arr) {
-                    boolean newLine = false;
-                    s = s.toLowerCase();
-                    if(s.equals("which")){
-                        s="what";
-                    }
-                    if (!s.isEmpty() && (Character.isDigit(s.charAt(0)) || Character.isDigit(s.charAt(s.length() - 1)))) {
-                        s = "<NUM>";
-                        corpus.add(s);
+        List<String> textFromFile = TextFileIO.read(ROOT_PATH+"rawcorpus.txt");
+        for(String data : textFromFile) {
+            String[] arr = data.split(",?\\ ");
+            for (String s : arr) {
+                boolean newLine = false;
+                s = s.toLowerCase();
+                if(s.equals("which")){
+                    s="what";
+                }
+                if (!s.isEmpty() && (Character.isDigit(s.charAt(0)) || Character.isDigit(s.charAt(s.length() - 1)))) {
+                    s = "<NUM>";
+                    corpus.add(s);
+                    break;
+                }
+                while (!s.isEmpty() && !Character.isLetter(s.charAt(0))) {
+                    s = s.substring(1);
+                }
+                while (!s.isEmpty() && !Character.isLetter(s.charAt(s.length() - 1))) {
+                    char lastChar = s.charAt(s.length() - 1);
+                    if ((lastChar == '.' || lastChar == '?' || lastChar == '!')
+                            && !s.equals("dr.") && !s.equals("mr.") && !s.equals("ms.")) {
+                        newLine = true;
+                        s = s.substring(0, s.length() - 1);
                         break;
                     }
-                    while (!s.isEmpty() && !Character.isLetter(s.charAt(0))) {
-                        s = s.substring(1);
-                    }
-                    while (!s.isEmpty() && !Character.isLetter(s.charAt(s.length() - 1))) {
-                        char lastChar = s.charAt(s.length() - 1);
-                        if ((lastChar == '.' || lastChar == '?' || lastChar == '!')
-                                && !s.equals("dr.") && !s.equals("mr.") && !s.equals("ms.")) {
-                            newLine = true;
-                            s = s.substring(0, s.length() - 1);
-                            break;
-                        }
-                        s = s.substring(0, s.length() - 1);
-                    }
-                    if (s.startsWith("http") || s.startsWith("www.")) {
-                        s = "<WEBSITE>";
-                    }
-                    if (s.indexOf('@') >= 0 && s.indexOf('.') >= 0) {
-                        s = "<EMAIL_ADDRESS>";
-                    }
-                    if (!s.isEmpty()) {
-                        corpus.add(s);
-                        vocab.add(s);
-                        if (newLine) {
-                            corpus.add("[<<NEWLINE>>]");
-                        }
-                    }
-                    vocab.add("[<<NEWLINE>>]");
+                    s = s.substring(0, s.length() - 1);
                 }
+                if (s.startsWith("http") || s.startsWith("www.")) {
+                    s = "<WEBSITE>";
+                }
+                if (s.indexOf('@') >= 0 && s.indexOf('.') >= 0) {
+                    s = "<EMAIL_ADDRESS>";
+                }
+                if (!s.isEmpty()) {
+                    corpus.add(s);
+                    vocab.add(s);
+                    if (newLine) {
+                        corpus.add("[<<NEWLINE>>]");
+                    }
+                }
+                vocab.add("[<<NEWLINE>>]");
             }
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
         }
+
         corpus = trimVocab(corpus, vocab);
         try {
             String cleanFileName = ROOT_PATH + "cleancorpus.txt";
