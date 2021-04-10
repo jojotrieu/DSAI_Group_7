@@ -11,4 +11,16 @@ public class Rule {
     int id;
     String variable;
     @EqualsAndHashCode.Exclude List<String> expressions = new ArrayList<>();
+
+    public int getId() {
+        return id;
+    }
+
+    public String getVariable() {
+        return variable;
+    }
+
+    public List<String> getExpressions() {
+        return expressions;
+    }
 }
