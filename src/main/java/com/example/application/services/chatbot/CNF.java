@@ -50,4 +50,16 @@ public class CNF {
     public Map<String, List<String>> getCnf() {
         return cnf;
     }
+
+    // if CNF yields word -> return index of rule
+    // TODO:create new HashMap subclass that supports indexation with int?? // OR just use a counter to keep track of the index
+    public int yields(String word){
+        return 0;
+    }
+
+    // return a list of indices of non terminal symbol[0] yielding 2 non terminal symbols[1,2]
+    // Ra -> Rb Rc   return a b c 
+    public int[][] ruleYield(){
+        return null;
+    }
 }
