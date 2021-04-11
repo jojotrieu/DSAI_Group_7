@@ -53,13 +53,37 @@ public class CNF {
 
     // if CNF yields word -> return index of rule
     // TODO:create new HashMap subclass that supports indexation with int?? // OR just use a counter to keep track of the index
-    public int yields(String word){
-        return 0;
+    public int[] yields(String word){
+        return null;
     }
 
     // return a list of indices of non terminal symbol[0] yielding 2 non terminal symbols[1,2]
-    // Ra -> Rb Rc   return a b c 
+    // Ra -> Rb Rc   return a b c
     public int[][] ruleYield(){
         return null;
+    }
+
+    public boolean CYK(String query){
+        //maybe some kind of preprocessing/normalization including what to do with coma
+        String[] S = query.split(" ");
+
+        boolean[][][] P = new boolean[S.length][S.length][getCnf().size()];
+
+        for (int i = 0; i < S.length; i++) {
+            for(int j: yields(S[i])){ P[i][0][j]=true;}
+        }
+        for (int i = 1; i < S.length; i++) {
+            for (int j = 0; j < S.length - i + 1; j++) {
+                for (int k = 0; k < i - 1; k++) {
+                    for (int[] abc: ruleYield()) {
+                        if(P[j][k][abc[1]] && P[j+k][i-k][abc[2]]) P[i][j][abc[0]]=true;
+                    }
+                }
+            }
+        }
+        for (int x = 0; x < getCnf().size(); x++) {
+            if(P[0][S.length][x]) return true;
+        }
+        return false;
     }
 }
