@@ -17,12 +17,7 @@ public class CNFTest {
             System.out.println();
         }
 
-//        cnf.replace(cnf.getCnf().get("<ACTION>"), 0);
-//        System.out.println(cnf.getCnf().get("<ACTION>"));
-
-//        String test = " <LOCATION>", test2 = " <LOCATION> ";
-//
-//        System.out.println(cnf.unary(test));
-//        System.out.println(cnf.unary(test2));
+        String query = "Which lectures are there on Monday at 9";
+        System.out.println(cnf.CYK(query));
     }
 }

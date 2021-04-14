@@ -24,12 +24,79 @@ public class CNF {
         for(Map.Entry<String, List<String>> entry: cnf.entrySet()){
             for(int i=0; i<entry.getValue().size();i++) {
                 while (unary(entry.getValue().get(i))) {
-                    entry.setValue(replace(entry.getValue(), i));
+                    entry.setValue(replace(entry.getValue(), i)); //TODO: verify if deleting unused token is ok -> do it if so
                 }
             }
         }
-        // all RHS are variable or terminal
+        // all RHS are variable or terminal:
+
+
+//        cnf.forEach((k,v) -> System.out.println(k+ " "+v));
+        HashMap<String, List<String>> newVariables = new HashMap<>();
+        for(Map.Entry<String, List<String>> entry: cnf.entrySet()){
+            for(int i=0; i<entry.getValue().size();i++) {
+                 if(entry.getValue().get(i).split(" ").length>1){
+                     String[] line = entry.getValue().get(i).split(" ");
+                     if(line.length == 2 && line[0].contains("<") && line[1].contains("<")) continue;
+                     else {
+                         String newWord = "";
+                         for(String w : line){
+                             if(!w.contains("<")) {
+                                 String key = "<" + w.toUpperCase() + "PL> ";
+                                 newWord += key;
+                                 if (!newVariables.containsKey(key)) newVariables.put(key, toArrayList(w));
+                             }else{
+                                 newWord += w+" ";
+                             }  //TODO: instead of cutting last space -> if statement
+                             entry.getValue().set(i, newWord.substring(0,newWord.length()-1)); // getting rid of the last space
+                         }
+                     }
+                 }else{ //normally all RHS should be terminal here
+//                     System.out.println("rhs terminal?:" + entry.getValue().get(i));
+                 }
+
+            }
+        }
+        // all RHS non-terminal must be at most 2 of length:
+//        for(Map.Entry<String, List<String>> entry:cnf.entrySet()) for(String w: entry.getValue()) System.out.println("pre processed: "+ w);
+        int counter = 1;
+        for(Map.Entry<String, List<String>> entry: cnf.entrySet()){
+            for(int i=0; i<entry.getValue().size();i++) {
+                while(entry.getValue().get(i).split(" ").length>2){
+                    String newline="<Y"+counter+"> ";
+                    String firstTwo = firstTwo(entry.getValue().get(i));
+                    newline+=entry.getValue().get(i).substring(firstTwo.length()+1);
+                    newVariables.put("<Y"+counter+">", toArrayList(firstTwo));
+                    counter++;
+                    entry.getValue().set(i, newline);
+//                    System.out.println(newline);
+                }
+
+            }
+        }
+
+
+        cnf.putAll(newVariables);
     }
+
+    private String firstTwo(String s) {
+        boolean encountered = false;
+        for (int i = 0; i < s.length(); i++) {
+            if(s.charAt(i) == ' '){
+                if(!encountered) encountered = true;
+                else return s.substring(0,i);
+            }
+        }
+        return null;
+    }
+
+    private List<String> toArrayList(String w) {
+        ArrayList<String> result = new ArrayList<>();
+        result.add(w);
+        return result;
+    }
+
+    private String replaceWith(String word){return null;}
 
     // replace the tag at index "i" with the RHS of corresponding tag
     public List<String> replace(List<String> line, int index){
@@ -82,7 +149,7 @@ public class CNF {
             }
         }
         for (int x = 0; x < getCnf().size(); x++) {
-            if(P[0][S.length][x]) return true;
+            if(P[0][S.length-1][x]) return true;
         }
         return false;
     }
