@@ -41,12 +41,12 @@ public class Skills {
 
     }
 
-    public void addRule(Action action){
+    public void addAction(Action action){
         action.id = actions.get(actions.size()-1).id +1;
         actions.add(action);
     }
 
-    public void removeRule(int id){
+    public void removeAction(int id){
         actions.removeIf(action -> action.id==id);
     }
 
