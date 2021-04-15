@@ -5,6 +5,7 @@ import java.util.*;
 public class CNF {
     private CFG cfg;
     private Map<String, List<String>> cnf;
+    private Map<String, Integer> indexMap;
 
     public CNF(){
         cfg = new CFG();
@@ -42,13 +43,14 @@ public class CNF {
                          String newWord = "";
                          for(String w : line){
                              if(!w.contains("<")) {
-                                 String key = "<" + w.toUpperCase() + "PL> ";
-                                 newWord += key;
+                                 String key = "<" + w + "PL>";
+                                 newWord += key +" ";
                                  if (!newVariables.containsKey(key)) newVariables.put(key, toArrayList(w));
                              }else{
                                  newWord += w+" ";
-                             }  //TODO: instead of cutting last space -> if statement
-                             entry.getValue().set(i, newWord.substring(0,newWord.length()-1)); // getting rid of the last space
+                             }
+                             entry.getValue().set(i, newWord.strip());
+                              // getting rid of the last space
                          }
                      }
                  }else{ //normally all RHS should be terminal here
@@ -77,6 +79,16 @@ public class CNF {
 
 
         cnf.putAll(newVariables);
+        initializeIndexMap();
+    }
+
+    private void initializeIndexMap(){
+        indexMap = new HashMap<>();
+        int i=0;
+        for(Map.Entry<String, List<String>> entry:cnf.entrySet()){
+            indexMap.put(entry.getKey(), i++);
+//            System.out.println(entry.getKey());
+        }
     }
 
     private String firstTwo(String s) {
@@ -96,7 +108,6 @@ public class CNF {
         return result;
     }
 
-    private String replaceWith(String word){return null;}
 
     // replace the tag at index "i" with the RHS of corresponding tag
     public List<String> replace(List<String> line, int index){
@@ -121,13 +132,63 @@ public class CNF {
     // if CNF yields word -> return index of rule
     // TODO:create new HashMap subclass that supports indexation with int?? // OR just use a counter to keep track of the index
     public int[] yields(String word){
-        return null;
+        ArrayList<Integer> result = new ArrayList<>();
+        int index = 0;
+        for(Map.Entry<String, List<String>> entry: cnf.entrySet()){
+            for (int i = 0; i < entry.getValue().size(); i++) {
+                if(entry.getValue().get(i).split(" ").length==1 && entry.getValue().get(i).equals(word)){
+                    result.add(index);
+//                    System.out.println(word+" "+index+ " ");
+//                    for(Map.Entry<String, Integer> e: indexMap.entrySet()){
+//                        if(e.getValue().equals(new Integer(index))) System.out.println("correspond to "+ e.getKey());
+//                    }
+                }
+            }
+
+            index++;
+        }
+        return toArray(result);
+    }
+
+    private int[] toArray(ArrayList<Integer> result) {
+        int[] array = new int[result.size()];
+        for (int i = 0; i < result.size(); i++) {
+            array[i]=result.get(i);
+        }
+        return array;
     }
 
     // return a list of indices of non terminal symbol[0] yielding 2 non terminal symbols[1,2]
     // Ra -> Rb Rc   return a b c
     public int[][] ruleYield(){
-        return null;
+        ArrayList<int[]> result = new ArrayList<>();
+        for(Map.Entry<String, List<String>> entry: cnf.entrySet()){
+            for (int i = 0; i < entry.getValue().size(); i++) {
+                if(entry.getValue().get(i).split(" ").length==2){
+//                    System.out.println(entry.getKey());
+//                    System.out.println(entry.getValue().get(i).split(" ")[0]+" "+entry.getValue().get(i).split(" ")[1]);
+                    int[] a = new int[]{indexMap.get(entry.getKey()),
+                            indexMap.get(entry.getValue().get(i).split(" ")[0]),
+                            indexMap.get(entry.getValue().get(i).split(" ")[1])};
+                    result.add(a);
+//                    System.out.println(indexMap.get(entry.getKey())+" "+ entry.getKey());
+//                    System.out.println(indexMap.get(entry.getValue().get(i).split(" ")[0])+" "+ entry.getValue().get(i).split(" ")[0]);
+//                    System.out.println(indexMap.get(entry.getValue().get(i).split(" ")[1])+" "+ entry.getValue().get(i).split(" ")[1]);
+
+                }
+            }
+
+        }
+
+        return toArray(result, true);
+    }
+
+    private int[][] toArray(ArrayList<int[]> result, boolean temp) {
+        int[][] array = new int[result.size()][3];
+        for (int i = 0; i < result.size(); i++) {
+            array[i] = result.get(i);
+        }
+        return array;
     }
 
     public boolean CYK(String query){
@@ -137,13 +198,18 @@ public class CNF {
         boolean[][][] P = new boolean[S.length][S.length][getCnf().size()];
 
         for (int i = 0; i < S.length; i++) {
-            for(int j: yields(S[i])){ P[i][0][j]=true;}
+            for(int j: yields(S[i])){
+                P[i][0][j]=true;
+                System.out.println(i+" "+S[i]+" "+j+" ");
+            }
         }
         for (int i = 1; i < S.length; i++) {
-            for (int j = 0; j < S.length - i + 1; j++) {
-                for (int k = 0; k < i - 1; k++) {
+            for (int j = 0; j < S.length - i ; j++) {
+                for (int k = 0; k < i ; k++) {
                     for (int[] abc: ruleYield()) {
-                        if(P[j][k][abc[1]] && P[j+k][i-k][abc[2]]) P[i][j][abc[0]]=true;
+                        if(P[j][k][abc[1]] && P[j+k+1][i-k-1][abc[2]])
+                            P[j][i][abc[0]]=true;
+
                     }
                 }
             }
