@@ -16,11 +16,23 @@ public class Rule {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getVariable() {
         return variable;
     }
 
+    public void setVariable(String var) {
+        this.variable = var;
+    }
+
     public List<String> getExpressions() {
         return expressions;
+    }
+
+    public void setExpressions(List<String> expr) {
+        this.expressions = expr;
     }
 }

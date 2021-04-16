@@ -2,16 +2,20 @@ package com.example.application.services.chatbot;
 
 import com.example.application.services.utils.TextFileIO;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class CFG {
-    private final List<Rule> rules = new ArrayList<>();
-    private String PATH = "src/main/java/com/example/application/services/chatbot/rules.txt";
+    public static final ArrayList<Rule> rules = new ArrayList<>();
+    private static final String PATH = "src/main/java/com/example/application/services/chatbot/rules.txt";
 
-    public boolean loadRules(){
+    public static boolean loadRules(){
+        rules.clear();
+
         int id = 0;
         List<String> textFromFile = TextFileIO.read(PATH);
         for(String line : textFromFile){
@@ -46,7 +50,8 @@ public class CFG {
         return true;
     }
 
-    public void writeRules(){
+    public static void writeRules() throws FileNotFoundException {
+        clearFile();
         List<String> toBeWritten = new ArrayList<>();
         for(Rule rule : rules){
             StringBuilder writtenRuleBuilder = new StringBuilder();
@@ -57,7 +62,12 @@ public class CFG {
             toBeWritten.add(writtenRuleBuilder.substring(0,writtenRuleBuilder.length()-3));
         }
         TextFileIO.write(PATH, toBeWritten);
+    }
 
+    private static void clearFile() throws FileNotFoundException {
+        PrintWriter writer = new PrintWriter(PATH);
+        writer.print("");
+        writer.close();
     }
 
     public static boolean isVariable(String string){
@@ -108,12 +118,12 @@ public class CFG {
         return new ArrayList<>(upRelated);
     }
 
-    public void addRule(Rule rule){
+    public static void addRule(Rule rule){
         rule.id = rules.get(rules.size()-1).id +1;
         rules.add(rule);
     }
 
-    public void removeRule(int id){
+    public static void removeRule(int id){
         rules.removeIf(rule -> rule.id==id);
     }
 

@@ -1,0 +1,36 @@
+configurations2-view,
+#configurations2-view {
+    display: block;
+    padding: 1em;
+}
+
+configurations2-view,
+#delete-button{
+    margin:5px;
+    background-color: #fe4a49;
+    color: white;
+}
+
+configurations2-view,
+#delete-button:hover{
+    background-color: #b43636;
+    color: white;
+}
+
+configurations2-view,
+#delete-button:disabled{
+    background-color: #ffcccb;
+    color: white;
+}
+
+configurations2-view,
+#create-button{
+    background-color: #67c104;
+    color: white;
+}
+
+configurations2-view,
+#create-button:hover{
+    background-color: #478800;
+    color: white;
+}

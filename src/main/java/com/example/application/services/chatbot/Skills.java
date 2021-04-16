@@ -2,14 +2,18 @@ package com.example.application.services.chatbot;
 
 import com.example.application.services.utils.TextFileIO;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Skills {
-    private List<Action> actions = new ArrayList<>();
-    private String PATH = "src/main/java/com/example/application/services/chatbot/actions.txt";
+    public static ArrayList<Action> actions = new ArrayList<>();
+    private static final String PATH = "src/main/java/com/example/application/services/chatbot/actions.txt";
 
-    public void loadActions(){
+    public static void loadActions(){
+        actions.clear();
+
         int id = 0;
         List<String> textFromFile = TextFileIO.read(PATH);
         for(String line : textFromFile){
@@ -32,7 +36,8 @@ public class Skills {
         }
     }
 
-    public void writeActions(){
+    public static void writeActions() throws FileNotFoundException {
+        clearFile();
         List<String> toBeWritten = new ArrayList<>();
         for(Action action : actions){
             toBeWritten.add(action.variable + " " + action.expression);
@@ -41,7 +46,13 @@ public class Skills {
 
     }
 
-    public void addAction(Action action){
+    private static void clearFile() throws FileNotFoundException {
+        PrintWriter writer = new PrintWriter(PATH);
+        writer.print("");
+        writer.close();
+    }
+
+    public static void addAction(Action action){
         action.id = actions.get(actions.size()-1).id +1;
         actions.add(action);
     }
