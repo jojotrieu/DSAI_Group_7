@@ -6,6 +6,8 @@ public class CNF {
     private CFG cfg;
     private Map<String, List<String>> cnf;
     private Map<String, Integer> indexMap;
+    private String[] rules;
+    private String suffix="PL";
 
     public CNF(){
         cfg = new CFG();
@@ -16,6 +18,11 @@ public class CNF {
         cfg=c;
     }
 
+    /**
+     * create the cnf HashMap in order to use the CYK algorithm
+     * should be called each timethere is a change in the cfg before
+     * using CYK
+     */
     public void initialize(){
         cnf = new HashMap<>();
         for(Rule rule : cfg.getRules()){
@@ -24,33 +31,29 @@ public class CNF {
         // eliminate unit rule
         for(Map.Entry<String, List<String>> entry: cnf.entrySet()){
             for(int i=0; i<entry.getValue().size();i++) {
-                while (unary(entry.getValue().get(i))) {
+                while (unary(entry.getValue().get(i))) { //while there is a rule that yields non terminal symbol
                     entry.setValue(replace(entry.getValue(), i)); //TODO: verify if deleting unused token is ok -> do it if so
-                }
+                } // replace with whatever the non terminal symbol yields
             }
         }
         // all RHS are variable or terminal:
-
-
-//        cnf.forEach((k,v) -> System.out.println(k+ " "+v));
         HashMap<String, List<String>> newVariables = new HashMap<>();
         for(Map.Entry<String, List<String>> entry: cnf.entrySet()){
             for(int i=0; i<entry.getValue().size();i++) {
-                 if(entry.getValue().get(i).split(" ").length>1){
+                 if(entry.getValue().get(i).split(" ").length>1){ // if RHS has more than a symbol (else it should be a terminal)
                      String[] line = entry.getValue().get(i).split(" ");
-                     if(line.length == 2 && line[0].contains("<") && line[1].contains("<")) continue;
+                     if(line.length == 2 && line[0].contains("<") && line[1].contains("<")) continue; //nothing to do it is already in the good form: 2 non terminal symbols
                      else {
                          String newWord = "";
                          for(String w : line){
                              if(!w.contains("<")) {
-                                 String key = "<" + w + "PL>";
+                                 String key = "<" + w +suffix+ ">"; // -> new non terminal symbol
                                  newWord += key +" ";
                                  if (!newVariables.containsKey(key)) newVariables.put(key, toArrayList(w));
                              }else{
                                  newWord += w+" ";
                              }
-                             entry.getValue().set(i, newWord.strip());
-                              // getting rid of the last space
+                             entry.getValue().set(i, newWord.strip()); // getting rid of the last space
                          }
                      }
                  }else{ //normally all RHS should be terminal here
@@ -60,37 +63,46 @@ public class CNF {
             }
         }
         // all RHS non-terminal must be at most 2 of length:
-//        for(Map.Entry<String, List<String>> entry:cnf.entrySet()) for(String w: entry.getValue()) System.out.println("pre processed: "+ w);
-        int counter = 1;
+        int counter = 1; // counter to have a different name for each new variable
         for(Map.Entry<String, List<String>> entry: cnf.entrySet()){
             for(int i=0; i<entry.getValue().size();i++) {
                 while(entry.getValue().get(i).split(" ").length>2){
                     String newline="<Y"+counter+"> ";
-                    String firstTwo = firstTwo(entry.getValue().get(i));
-                    newline+=entry.getValue().get(i).substring(firstTwo.length()+1);
-                    newVariables.put("<Y"+counter+">", toArrayList(firstTwo));
+                    String firstTwo = firstTwo(entry.getValue().get(i)); // get the 2 first words
+                    newline+=entry.getValue().get(i).substring(firstTwo.length()+1); // copy the rest of the string into newline
+                    newVariables.put("<Y"+counter+">", toArrayList(firstTwo)); // put this new rule in the new hashmap
                     counter++;
-                    entry.getValue().set(i, newline);
-//                    System.out.println(newline);
+                    entry.getValue().set(i, newline); // change the string in the original hashmap
                 }
 
             }
         }
-
-
         cnf.putAll(newVariables);
         initializeIndexMap();
     }
 
+    /**
+     * make a new hashmap to remember the index of each rule
+     */
     private void initializeIndexMap(){
         indexMap = new HashMap<>();
         int i=0;
+        rules = new String[cnf.size()];
         for(Map.Entry<String, List<String>> entry:cnf.entrySet()){
+            rules[i]=entry.getKey();
             indexMap.put(entry.getKey(), i++);
+
 //            System.out.println(entry.getKey());
         }
+
+
     }
 
+    /**
+     * method that takes a string and return the first 2 words
+     * @param s string that should be words separated by spaces
+     * @return the 2 first words
+     */
     private String firstTwo(String s) {
         boolean encountered = false;
         for (int i = 0; i < s.length(); i++) {
@@ -102,17 +114,9 @@ public class CNF {
         return null;
     }
 
-    private List<String> toArrayList(String w) {
-        ArrayList<String> result = new ArrayList<>();
-        result.add(w);
-        return result;
-    }
-
 
     // replace the tag at index "i" with the RHS of corresponding tag
     public List<String> replace(List<String> line, int index){
-//        System.out.println("value: "+ line.get(index));
-//        System.out.println("replace with: " +cnf.get(line.get(index)));
         line.addAll( cnf.get(line.get(index) ));
         line.remove(index);
         return line;
@@ -130,7 +134,6 @@ public class CNF {
     }
 
     // if CNF yields word -> return index of rule
-    // TODO:create new HashMap subclass that supports indexation with int?? // OR just use a counter to keep track of the index
     public int[] yields(String word){
         ArrayList<Integer> result = new ArrayList<>();
         int index = 0;
@@ -138,24 +141,12 @@ public class CNF {
             for (int i = 0; i < entry.getValue().size(); i++) {
                 if(entry.getValue().get(i).split(" ").length==1 && entry.getValue().get(i).equals(word)){
                     result.add(index);
-//                    System.out.println(word+" "+index+ " ");
-//                    for(Map.Entry<String, Integer> e: indexMap.entrySet()){
-//                        if(e.getValue().equals(new Integer(index))) System.out.println("correspond to "+ e.getKey());
-//                    }
                 }
             }
 
             index++;
         }
         return toArray(result);
-    }
-
-    private int[] toArray(ArrayList<Integer> result) {
-        int[] array = new int[result.size()];
-        for (int i = 0; i < result.size(); i++) {
-            array[i]=result.get(i);
-        }
-        return array;
     }
 
     // return a list of indices of non terminal symbol[0] yielding 2 non terminal symbols[1,2]
@@ -165,15 +156,10 @@ public class CNF {
         for(Map.Entry<String, List<String>> entry: cnf.entrySet()){
             for (int i = 0; i < entry.getValue().size(); i++) {
                 if(entry.getValue().get(i).split(" ").length==2){
-//                    System.out.println(entry.getKey());
-//                    System.out.println(entry.getValue().get(i).split(" ")[0]+" "+entry.getValue().get(i).split(" ")[1]);
                     int[] a = new int[]{indexMap.get(entry.getKey()),
                             indexMap.get(entry.getValue().get(i).split(" ")[0]),
                             indexMap.get(entry.getValue().get(i).split(" ")[1])};
                     result.add(a);
-//                    System.out.println(indexMap.get(entry.getKey())+" "+ entry.getKey());
-//                    System.out.println(indexMap.get(entry.getValue().get(i).split(" ")[0])+" "+ entry.getValue().get(i).split(" ")[0]);
-//                    System.out.println(indexMap.get(entry.getValue().get(i).split(" ")[1])+" "+ entry.getValue().get(i).split(" ")[1]);
 
                 }
             }
@@ -190,9 +176,42 @@ public class CNF {
         }
         return array;
     }
+    private List<String> toArrayList(String w) {
+        ArrayList<String> result = new ArrayList<>();
+        result.add(w);
+        return result;
+    }
 
+    private int[] toArray(ArrayList<Integer> result) {
+        int[] array = new int[result.size()];
+        for (int i = 0; i < result.size(); i++) {
+            array[i]=result.get(i);
+        }
+        return array;
+    }
+
+    private static boolean isStringUpperCase(String str){
+
+        //convert String to char array
+        char[] charArray = str.toCharArray();
+
+        for(int i=0; i < charArray.length; i++){
+
+            //if any character is not in upper case, return false
+            if( !Character.isUpperCase( charArray[i] ))
+                return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * CYK algo: check whether a query string is in the form of the language of the CFG
+     * @param query
+     * @return
+     */
     public boolean CYK(String query){
-        //maybe some kind of preprocessing/normalization including what to do with coma
+        //TODO:maybe some kind of preprocessing/normalization including what to do with coma
         String[] S = query.split(" ");
 
         boolean[][][] P = new boolean[S.length][S.length][getCnf().size()];
@@ -200,16 +219,18 @@ public class CNF {
         for (int i = 0; i < S.length; i++) {
             for(int j: yields(S[i])){
                 P[i][0][j]=true;
-                System.out.println(i+" "+S[i]+" "+j+" ");
+                if(isStringUpperCase(rules[j].substring(1,rules[j].length()-1))) System.out.println(rules[j]+"="+S[i]); // we got the DAY and TIME
+//                System.out.println(i+" "+S[i]+" "+j+" ");
             }
         }
         for (int i = 1; i < S.length; i++) {
             for (int j = 0; j < S.length - i ; j++) {
                 for (int k = 0; k < i ; k++) {
                     for (int[] abc: ruleYield()) {
-                        if(P[j][k][abc[1]] && P[j+k+1][i-k-1][abc[2]])
-                            P[j][i][abc[0]]=true;
-
+                        if(P[j][k][abc[1]] && P[j+k+1][i-k-1][abc[2]]) {
+                            P[j][i][abc[0]] = true;
+                            if(rules[abc[0]].contains("ACTION")) System.out.println(rules[abc[0]]+"="+rules[abc[1]]+" "+rules[abc[2]]);
+                        }
                     }
                 }
             }
