@@ -1,0 +1,9 @@
+<S> <ACTION>
+<ACTION> <LOCATION> | <SCHEDULE>
+<SCHEDULE> Which lectures are there <TIMEEXPRESSION> | <TIMEEXPRESSION> which lectures are there
+<TIMEEXPRESSION> on <DAY> at <TIME> | at <TIME> on <DAY>
+<TIME> 9 | 12
+<LOCATION> Where is <ROOM> | How do <PRO> get to <ROOM> | Where is <ROOM> located
+<PRO> I | you | he | she
+<ROOM> DeepSpace | SpaceBox
+<DAY> Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday
