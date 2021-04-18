@@ -82,23 +82,43 @@ public class SkillsView2 extends Div {
         deleteButton1.setId("delete-button");
         deleteButton1.addClickListener(e -> {
             Object[] tempSet = rulesGrid.getSelectedItems().toArray();
-            System.out.println(tempSet[0].toString());
-            String deleteQuestion = tempSet[0].toString();
-            //TODO delete from table
-            //TODO remove from file
+            String deleteRule = tempSet[0].toString();
+
+            for (Rule rule : rules){
+                if (rule.toString().equals(deleteRule)){
+                    CFG.removeRule(rule.getId());
+                    rules.remove(rule);
+                    break;
+                }
+            }
             rulesGrid.deselectAll();
             rulesGrid.setItems(rules);
+            try {
+                CFG.writeRules();
+            } catch (FileNotFoundException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
+            }
         });
 
         deleteButton2.setId("delete-button");
         deleteButton2.addClickListener(e -> {
-            Object[] tempSet = rulesGrid.getSelectedItems().toArray();
-            System.out.println(tempSet[0].toString());
-            String deleteQuestion = tempSet[0].toString();
-            //TODO delete from table
-            //TODO remove from file
+            Object[] tempSet = actionsGrid.getSelectedItems().toArray();
+            String deleteAction = tempSet[0].toString();
+
+            for (Action action : actions){
+                if (action.toString().equals(deleteAction)){
+                    Skills.removeAction(action.getId());
+                    actions.remove(action);
+                    break;
+                }
+            }
             actionsGrid.deselectAll();
             actionsGrid.setItems(actions);
+            try {
+                Skills.writeActions();
+            } catch (FileNotFoundException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
+            }
         });
     }
 
@@ -212,6 +232,8 @@ public class SkillsView2 extends Div {
         pressed = 0;
         variable1.setValue("");
         expression1.setValue("");
+        additionalExpr.setValue("");
+        additionalExprBis.setValue("");
         newTemplate1.removeAll();
         newTemplate1.add(variable1);
         newTemplate1.add(expression1);

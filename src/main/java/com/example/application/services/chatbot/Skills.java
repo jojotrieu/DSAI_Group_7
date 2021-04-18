@@ -57,7 +57,7 @@ public class Skills {
         actions.add(action);
     }
 
-    public void removeAction(int id){
+    public static void removeAction(int id){
         actions.removeIf(action -> action.id==id);
     }
 
