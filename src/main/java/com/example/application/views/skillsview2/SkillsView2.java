@@ -38,6 +38,8 @@ public class SkillsView2 extends Div {
     private TextField additionalExpr = new TextField("Expression");
     private TextField additionalExprBis = new TextField("Expression");
     private Button saveButton1 = new Button("Save");
+    private boolean editPressed1 = false;
+    private String selection1;
 
     private Grid<Action> actionsGrid = new Grid<>(Action.class);
     private ArrayList<Action> actions = Skills.actions;
@@ -50,6 +52,8 @@ public class SkillsView2 extends Div {
     private TextField variable2 = new TextField("Variable");
     private TextField expression2 = new TextField("Expression");
     private Button saveButton2 = new Button("Save");
+    private boolean editPressed2 = false;
+    private String selection2;
 
     public SkillsView2() {
         setId("configurations2-view");
@@ -66,12 +70,14 @@ public class SkillsView2 extends Div {
     private void initCreateButtons() {
         createButton1.setId("create-button");
         createButton1.addClickListener(e -> {
+            editPressed1 = false;
             template1Empty();
             newTemplate1.open();
         });
 
         createButton2.setId("create-button");
         createButton2.addClickListener(e -> {
+            editPressed2 = false;
             template2Empty();
             newTemplate2.open();
         });
@@ -84,13 +90,8 @@ public class SkillsView2 extends Div {
             Object[] tempSet = rulesGrid.getSelectedItems().toArray();
             String deleteRule = tempSet[0].toString();
 
-            for (Rule rule : rules){
-                if (rule.toString().equals(deleteRule)){
-                    CFG.removeRule(rule.getId());
-                    rules.remove(rule);
-                    break;
-                }
-            }
+            removeRule(deleteRule);
+
             rulesGrid.deselectAll();
             rulesGrid.setItems(rules);
             try {
@@ -105,13 +106,8 @@ public class SkillsView2 extends Div {
             Object[] tempSet = actionsGrid.getSelectedItems().toArray();
             String deleteAction = tempSet[0].toString();
 
-            for (Action action : actions){
-                if (action.toString().equals(deleteAction)){
-                    Skills.removeAction(action.getId());
-                    actions.remove(action);
-                    break;
-                }
-            }
+            removeAction(deleteAction);
+
             actionsGrid.deselectAll();
             actionsGrid.setItems(actions);
             try {
@@ -124,11 +120,60 @@ public class SkillsView2 extends Div {
 
     private void initEditButtons() {
         editButton1.addClickListener(e -> {
+            if (rulesGrid.getSelectedItems().toArray().length != 0) {
+                editPressed1 = true;
+                newTemplate1.open();
 
+                Object[] tempSet = rulesGrid.getSelectedItems().toArray();
+                selection1 = tempSet[0].toString();
+                Rule selectedRule = new Rule();
+
+                for (Rule rule : rules) {
+                    if (rule.toString().equals(selection1)) {
+                        selectedRule.setId(rule.getId());
+                        selectedRule.setVariable(rule.getVariable());
+                        selectedRule.setExpressions(rule.getExpressions());
+                        break;
+                    }
+                }
+
+                variable1.setValue(selectedRule.getVariable());
+                expression1.setValue(selectedRule.getExpressions().get(0));
+                if(selectedRule.getExpressions().get(1).length() > 0){
+                    pressed = 1;
+                    newTemplate1.add(additionalExpr);
+                    additionalExpr.setValue(selectedRule.getExpressions().get(1));
+                }
+                if(selectedRule.getExpressions().get(2).length() > 0){
+                    pressed = 2;
+                    newTemplate1.add(additionalExprBis);
+                    additionalExprBis.setValue(selectedRule.getExpressions().get(2));
+                }
+            }
         });
 
         editButton2.addClickListener(e -> {
 
+            if (actionsGrid.getSelectedItems().toArray().length != 0) {
+                editPressed2 = true;
+                newTemplate2.open();
+
+                Object[] tempSet = actionsGrid.getSelectedItems().toArray();
+                selection2 = tempSet[0].toString();
+                Action selectedAction = new Action();
+
+                for (Action action : actions) {
+                    if (action.toString().equals(selection2)) {
+                        selectedAction.setId(action.getId());
+                        selectedAction.setVariable(action.getVariable());
+                        selectedAction.setExpression(action.getExpression());
+                        break;
+                    }
+                }
+
+                variable2.setValue(selectedAction.getVariable());
+                expression2.setValue(selectedAction.getExpression());
+            }
         });
     }
 
@@ -194,6 +239,20 @@ public class SkillsView2 extends Div {
             CFG.loadRules();
             rulesGrid.setItems(rules);
 
+            if(editPressed1){
+                removeRule(selection1);
+                rulesGrid.deselectAll();
+                rulesGrid.setItems(rules);
+                try {
+                    CFG.writeRules();
+                } catch (FileNotFoundException fileNotFoundException) {
+                    fileNotFoundException.printStackTrace();
+                }
+            }
+
+            editPressed1 = false;
+            selection1 = "";
+
             template1Empty();
             newTemplate1.close();
         });
@@ -213,6 +272,20 @@ public class SkillsView2 extends Div {
             }
             Skills.loadActions();
             actionsGrid.setItems(actions);
+
+            if(editPressed2){
+                removeAction(selection2);
+                actionsGrid.deselectAll();
+                actionsGrid.setItems(actions);
+                try {
+                    Skills.writeActions();
+                } catch (FileNotFoundException fileNotFoundException) {
+                    fileNotFoundException.printStackTrace();
+                }
+            }
+
+            editPressed1 = false;
+            selection1 = "";
 
             template2Empty();
             newTemplate2.close();
@@ -239,5 +312,25 @@ public class SkillsView2 extends Div {
         newTemplate1.add(expression1);
         newTemplate1.add(plusExpr1);
         newTemplate1.add(saveButton1);
+    }
+
+    private void removeRule(String deleteRule) {
+        for (Rule rule : rules){
+            if (rule.toString().equals(deleteRule)){
+                CFG.removeRule(rule.getId());
+                rules.remove(rule);
+                break;
+            }
+        }
+    }
+
+    private void removeAction(String deleteAction) {
+        for (Action action : actions){
+            if (action.toString().equals(deleteAction)){
+                Skills.removeAction(action.getId());
+                actions.remove(action);
+                break;
+            }
+        }
     }
 }
