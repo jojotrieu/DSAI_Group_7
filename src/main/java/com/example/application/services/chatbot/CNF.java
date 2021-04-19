@@ -9,6 +9,8 @@ public class CNF {
     private String[] rules;
     private String prefix="plhld";
     private Skills skills;
+    private Map<String, String> placeHolders;
+    private String action;
 
     public CNF(){
         cfg = new CFG();
@@ -207,24 +209,23 @@ public class CNF {
     }
 
     /**
-     * CYK algo: check whether a query string is in the form of the language of the CFG
-     * @param query
-     * @return
+     * CYK algo: check whether a query string is in the language of the CFG
+     * @param query the question the user ask
+     * @return true if so, false otherwise
      */
     public boolean CYK(String query){
         //TODO:maybe some kind of preprocessing/normalization including what to do with coma, '?', '.'
         String[] S = query.split(" ");
-        HashMap<String, String> placeHolders = new HashMap<>();
+        placeHolders = new HashMap<>();
         boolean[][][] P = new boolean[S.length][S.length][getCnf().size()];
 
         for (int i = 0; i < S.length; i++) {
             for(int j: yields(S[i])){
                 P[i][0][j]=true;
                 if(isStringUpperCase(rules[j].substring(1,rules[j].length()-1))) placeHolders.put(rules[j],S[i]); // we got the DAY and TIME
-//                System.out.println(i+" "+S[i]+" "+j+" ");
             }
         }
-        String action = "";
+        action = "";
         for (int i = 1; i < S.length; i++) {
             for (int j = 0; j < S.length - i ; j++) {
                 for (int k = 0; k < i ; k++) {
@@ -240,55 +241,66 @@ public class CNF {
                 }
             }
         }
-        /**
-         * This piece of code reconstruct the skill in CFG form
-         */
-        while(action.contains(prefix)){ // while some of the placeholder are made up by CNF new variables
-            String[] arguments = action.split(" ");
-            String nAction="";
-            for (int i = 0; i < arguments.length; i++) {
-                if(arguments[i].contains(prefix)){
-                    nAction+= cnf.get(arguments[i]).get(0); // replace those with
-                }else{
-                    nAction+=arguments[i];
-                }
-                if(i<arguments.length-1)nAction+=" ";
-            }
-            action = nAction;
-        }
-        System.out.println(action);
-        String actionVariable=null;
 
-        CFG.loadRules();
-        for(Rule r: cfg.getRules()){
-            for( String s: r.getExpressions()){
-                if(s.equals(action)) actionVariable=r.getVariable();
-            }
-        }
-        /**
-         * this piece of code retrieve the answer
-         */
-        Skills.loadActions(); // TODO: oh no needs to be clone !
-        skills = new Skills();
-        for(Action a: skills.getActions()){
-            if(a.getVariable().equals(actionVariable)){
-                String[] expression = a.getExpression().split(" ");
-                boolean found = true;
-                for (int i = 0; i < expression.length; i++) { //check each word of the expression
-
-                    if(CFG.isVariable(expression[i]) ) { // if it is a <VARIABLE>
-                        if (placeHolders.containsKey(expression[i]) && // if it's recorded in placeHolders
-                                !placeHolders.get(expression[i]).equals(expression[i + 1])) found = false; // but not the same value
-                        else if(placeHolders.containsKey(expression[i])) found = false; // if it is not recorded in placeHolders...????????
-                    }
-
-                }if (found) System.out.println(a.getExpression()); //TODO: take the substring of the answer without parameters
-            }
-        }
 
         for (int x = 0; x < getCnf().size(); x++) {
             if(P[0][S.length-1][x]) return true;
         }
         return false;
+    }
+
+    /**
+     * method to be called to retrieve the answer
+     * @return answer action in String variable
+     */
+    public String getAnswer(String query) {
+        if (CYK(query)) {
+            while (action.contains(prefix)) { // while some of the placeholder are made up by CNF new variables
+                String[] arguments = action.split(" ");
+                String nAction = "";
+                for (int i = 0; i < arguments.length; i++) {
+                    if (arguments[i].contains(prefix)) {
+                        nAction += cnf.get(arguments[i]).get(0); // replace those with
+                    } else {
+                        nAction += arguments[i];
+                    }
+                    if (i < arguments.length - 1) nAction += " ";
+                }
+                action = nAction;
+            }
+//            System.out.println(action);
+            String actionVariable = null;
+
+            CFG.loadRules();
+            for (Rule r : cfg.getRules()) {
+                for (String s : r.getExpressions()) {
+                    if (s.equals(action)) actionVariable = r.getVariable();
+                }
+            }
+            /**
+             * this piece of code retrieve the answer
+             */
+            Skills.loadActions(); // TODO: oh no needs to be clone !
+            skills = new Skills();
+
+//            System.out.println("yooo: "+actionVariable);
+            for (Action a : skills.getActions()) {
+                if (a.getVariable().equals(actionVariable)) {
+                    String[] expression = a.getExpression().split(" ");
+                    boolean found = true;
+                    for (int i = 0; i < expression.length; i++) { //check each word of the expression
+
+                        if (CFG.isVariable(expression[i])) { // if it is a <VARIABLE>
+                            if (placeHolders.containsKey(expression[i]) && // if it's recorded in placeHolders
+                                    !placeHolders.get(expression[i]).equals(expression[i + 1]))
+                                found = false; // but not the same value
+                            else if (!placeHolders.containsKey(expression[i]))
+                                found = false; // if it is not recorded in placeHolders...????????
+                        }
+                    }
+                    if (found) return a.getExpression(); //TODO: take the substring of the answer without parameters
+                }
+            }
+        } return"I don't know";
     }
 }

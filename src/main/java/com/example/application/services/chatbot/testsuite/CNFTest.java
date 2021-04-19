@@ -19,5 +19,6 @@ public class CNFTest {
 //        System.out.println(cnf.yields("Monday")[0]);
         String query = "Which lectures are there on Monday at 9 ";
         System.out.println(cnf.CYK(query));
+        System.out.println(cnf.getAnswer(query));
     }
 }
