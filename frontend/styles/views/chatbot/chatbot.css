@@ -23,10 +23,16 @@ chatbot-view,
   bottom: 5%;
   right: 9% ;
 }
-
 chatbot-view,
 #camera-button {
   position: absolute;
   bottom: 5%;
   right: 1% ;
+}
+
+chatbot-view,
+#snapshot-button {
+  position: absolute;
+  bottom: 10%;
+  right: 40% ;
 }
