@@ -7,6 +7,7 @@ import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyDownEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
@@ -28,7 +29,9 @@ import java.util.List;
 public class ChatBotView extends HorizontalLayout {
 
     private TextField questionTextField;
+    private Dialog cameraPopUp = new Dialog();
     private Button clearButton = new Button("Clear Chat");
+    private Button cameraCheck = new Button("Camera Check");
     private H4 thinking = new H4("ChatBot: Mmmm... Let me think.");
     private TextArea area = new TextArea();
     private ChatBot chatBot = new ChatBot();
@@ -42,6 +45,10 @@ public class ChatBotView extends HorizontalLayout {
         questionTextField = new TextField("Ask me anything");
         questionTextField.setId("question-field");
         clearButton.setId("clear-button");
+        cameraCheck.setId("camera-button");
+        cameraPopUp.setWidth("500px");
+        cameraPopUp.setHeight("500px");
+        questionTextField.setEnabled(false);
         questionTextField.addKeyPressListener(Key.ENTER, e -> {
             //disable Text Field while ChatBot is thinking
             questionTextField.setEnabled(false);
@@ -62,6 +69,7 @@ public class ChatBotView extends HorizontalLayout {
             remove(thinking);
             clearButton.setEnabled(true);
         });
+        add(cameraCheck);
         add(questionTextField);
         add(clearButton);
         add(area);
@@ -71,6 +79,12 @@ public class ChatBotView extends HorizontalLayout {
             clearButton.setEnabled(false);
         });
         clearButton.setEnabled(false);
+
+        cameraCheck.addClickListener(e -> {
+            questionTextField.setEnabled(true);
+            cameraPopUp.open();
+        });
     }
+
 
 }

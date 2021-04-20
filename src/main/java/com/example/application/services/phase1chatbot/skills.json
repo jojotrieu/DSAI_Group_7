@@ -200,7 +200,7 @@
       "I'm fine ! How about you ?": {}
     }
   },
-  "Where can i <activity>": {
+  "Where can i <activity> ?": {
     "slots": [
       "Swim",
       "Study",
