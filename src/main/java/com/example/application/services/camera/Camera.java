@@ -24,7 +24,9 @@ public class Camera {
                 WebcamResolution.VGA.getSize().height / 2);
         webcam.setViewSize(viewSize);
         webcam.open();
-        return webcam.getImage();
+        BufferedImage snapshot = webcam.getImage();
+        webcam.close();
+        return snapshot;
     }
 
     public StreamResource createImage() {

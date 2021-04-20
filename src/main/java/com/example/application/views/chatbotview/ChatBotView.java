@@ -86,9 +86,10 @@ public class ChatBotView extends HorizontalLayout {
         });
 
         snapshot.addClickListener(e -> {
+            cameraPopUp.removeAll();
             Camera camera = new Camera();
             StreamResource streamResource = camera.createImage();
-            Image cameraPic = new Image(String.valueOf(streamResource),"capture");
+            Image cameraPic = new Image(streamResource,"capture");
             cameraPic.setId("camera-frame");
             cameraPopUp.add(cameraPic);
         });
