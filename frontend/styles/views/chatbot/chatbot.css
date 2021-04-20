@@ -36,3 +36,10 @@ chatbot-view,
   bottom: 10%;
   right: 40% ;
 }
+
+chatbot-view,
+#camera-frame {
+  position: absolute;
+  bottom: 30%;
+  right: 18% ;
+}

@@ -79,19 +79,19 @@ public class ChatBotView extends HorizontalLayout {
         clearButton.setEnabled(false);
 
         cameraCheck.addClickListener(e -> {
-            questionTextField.setEnabled(true);
+            cameraPopUp.removeAll();
             snapshot.setId("snapshot-button");
             cameraPopUp.add(snapshot);
             cameraPopUp.open();
         });
 
         snapshot.addClickListener(e -> {
-            cameraPopUp.removeAll();
             Camera camera = new Camera();
             StreamResource streamResource = camera.createImage();
             Image cameraPic = new Image(streamResource,"capture");
             cameraPic.setId("camera-frame");
             cameraPopUp.add(cameraPic);
+            questionTextField.setEnabled(true);
         });
 
 
