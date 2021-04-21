@@ -34,3 +34,42 @@ configurations2-view,
     background-color: #478800;
     color: white;
 }
+
+configurations2-view,
+#variable1-error {
+    outline: 1px solid;
+    outline-color: red;
+    background-color: rgb(500,200,200);
+}
+
+configurations2-view,
+#variable2-error{
+    outline: 1px solid;
+    outline-color: red;
+    background-color: rgb(500,200,200);
+}
+
+configurations2-view,
+#variable1{
+}
+
+configurations2-view,
+#variable2{
+}
+
+configurations2-view,
+#plus-expr-button{
+    margin:5px;
+}
+
+configurations2-view,
+#save-button-1{
+    margin:5px;
+    margin-right:5px;
+}
+
+configurations2-view,
+#save-button-2{
+    margin:5px;
+    margin-right:5px;
+}

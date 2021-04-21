@@ -178,28 +178,40 @@ public class SkillsView2 extends Div {
     }
 
     private void initGrid1() {
+        //TODO add title to grid
         rulesGrid.setItems(rules);
-        //rulesGrid.setColumns("id", "variables", "expressions");
+        rulesGrid.removeAllColumns();
+        rulesGrid.addColumn("id").setHeader("RULES");
+        rulesGrid.addColumn("variable");
+        rulesGrid.addColumn("expressions");
         add(rulesGrid);
         add(createButton1, deleteButton1, editButton1);
     }
 
     private void initGrid2() {
+        //TODO add title to grid
         actionsGrid.setItems(actions);
-        //actionsGrid.setColumns("id", "variables", "expressions");
+        actionsGrid.removeAllColumns();
+        actionsGrid.addColumn("id").setHeader("ACTIONS");
+        actionsGrid.addColumn("variable");
+        actionsGrid.addColumn("expression");
         add(actionsGrid);
         add(createButton2, deleteButton2, editButton2);
     }
 
-    private void setUpTemplates(){
+    private void setUpTemplates() {
         variable1.setWidth("500px");
         expression1.setWidth("500px");
         newTemplate1.setWidth("700px");
         newTemplate1.setHeight("700");
+        additionalExpr.setWidth("500px");
+        additionalExprBis.setWidth("500px");
         newTemplate1.add(variable1);
         newTemplate1.add(expression1);
         newTemplate1.add(plusExpr1);
         newTemplate1.add(saveButton1);
+        plusExpr1.setId("plus-expr-button");
+        saveButton1.setId("save-button-1");
 
         variable2.setWidth("500px");
         expression2.setWidth("500px");
@@ -208,87 +220,104 @@ public class SkillsView2 extends Div {
         newTemplate2.add(variable2);
         newTemplate2.add(expression2);
         newTemplate2.add(saveButton2);
+        saveButton2.setId("save-button-2");
 
         plusExpr1.addClickListener(e -> {
             pressed++;
-            if(pressed==1){
+            if (pressed == 1) {
+                newTemplate1.remove(saveButton1);
                 newTemplate1.add(additionalExpr);
-            }else if(pressed==2){
+                newTemplate1.add(saveButton1);
+                saveButton1.setId("save-button-1");
+            } else if (pressed == 2) {
+                newTemplate1.remove(saveButton1);
                 newTemplate1.add(additionalExprBis);
+                newTemplate1.add(saveButton1);
+                saveButton1.setId("save-button-1");
             }
         });
 
         saveButton1.addClickListener(e -> {
-            Rule rule = new Rule();
+            if(!error1()){
+                System.out.println(error1());
+                Rule rule = new Rule();
 
-            List<String> expressions = new ArrayList<>();
-            expressions.add(expression1.getValue());
-            expressions.add(additionalExpr.getValue());
-            expressions.add(additionalExprBis.getValue());
+                List<String> expressions = new ArrayList<>();
+                expressions.add(expression1.getValue());
+                expressions.add(additionalExpr.getValue());
+                expressions.add(additionalExprBis.getValue());
 
-            rule.setVariable(variable1.getValue());
-            rule.setId(rules.size()+1);
-            rule.setExpressions(expressions);
+                rule.setVariable(variable1.getValue());
+                rule.setId(rules.size() + 1);
+                rule.setExpressions(expressions);
 
-            CFG.addRule(rule);
-            try {
-                CFG.writeRules();
-            } catch (FileNotFoundException fileNotFoundException) {
-                fileNotFoundException.printStackTrace();
-            }
-            CFG.loadRules();
-            rulesGrid.setItems(rules);
-
-            if(editPressed1){
-                removeRule(selection1);
-                rulesGrid.deselectAll();
-                rulesGrid.setItems(rules);
+                CFG.addRule(rule);
                 try {
                     CFG.writeRules();
                 } catch (FileNotFoundException fileNotFoundException) {
                     fileNotFoundException.printStackTrace();
                 }
+                CFG.loadRules();
+                rulesGrid.setItems(rules);
+
+                if (editPressed1) {
+                    removeRule(selection1);
+                    rulesGrid.deselectAll();
+                    rulesGrid.setItems(rules);
+                    try {
+                        CFG.writeRules();
+                    } catch (FileNotFoundException fileNotFoundException) {
+                        fileNotFoundException.printStackTrace();
+                    }
+                }
+                editPressed1 = false;
+                selection1 = "";
+
+                template1Empty();
+                newTemplate1.close();
             }
-
-            editPressed1 = false;
-            selection1 = "";
-
-            template1Empty();
-            newTemplate1.close();
+            else {
+                variable1.setId("variable1-error");
+            }
         });
 
         saveButton2.addClickListener(e -> {
-            Action action = new Action();
+            if (!error2()) {
+                Action action = new Action();
 
-            action.setId(actions.size()+1);
-            action.setVariable(variable2.getValue());
-            action.setExpression(expression2.getValue());
+                action.setId(actions.size() + 1);
+                action.setVariable(variable2.getValue());
+                action.setExpression(expression2.getValue());
 
-            Skills.addAction(action);
-            try {
-                Skills.writeActions();
-            } catch (FileNotFoundException fileNotFoundException) {
-                fileNotFoundException.printStackTrace();
-            }
-            Skills.loadActions();
-            actionsGrid.setItems(actions);
-
-            if(editPressed2){
-                removeAction(selection2);
-                actionsGrid.deselectAll();
-                actionsGrid.setItems(actions);
+                Skills.addAction(action);
                 try {
                     Skills.writeActions();
                 } catch (FileNotFoundException fileNotFoundException) {
                     fileNotFoundException.printStackTrace();
                 }
+                Skills.loadActions();
+                actionsGrid.setItems(actions);
+
+                if (editPressed2) {
+                    removeAction(selection2);
+                    actionsGrid.deselectAll();
+                    actionsGrid.setItems(actions);
+                    try {
+                        Skills.writeActions();
+                    } catch (FileNotFoundException fileNotFoundException) {
+                        fileNotFoundException.printStackTrace();
+                    }
+                }
+
+                editPressed2 = false;
+                selection2 = "";
+
+                template2Empty();
+                newTemplate2.close();
+
+            } else {
+                variable2.setId("variable2-error");
             }
-
-            editPressed1 = false;
-            selection1 = "";
-
-            template2Empty();
-            newTemplate2.close();
         });
     }
 
@@ -299,6 +328,7 @@ public class SkillsView2 extends Div {
         newTemplate2.add(variable2);
         newTemplate2.add(expression2);
         newTemplate2.add(saveButton2);
+        variable2.setId("variable2");
     }
 
     private void template1Empty() {
@@ -312,6 +342,7 @@ public class SkillsView2 extends Div {
         newTemplate1.add(expression1);
         newTemplate1.add(plusExpr1);
         newTemplate1.add(saveButton1);
+        variable1.setId("variable1");
     }
 
     private void removeRule(String deleteRule) {
@@ -331,6 +362,36 @@ public class SkillsView2 extends Div {
                 actions.remove(action);
                 break;
             }
+        }
+    }
+
+    private boolean error1(){
+        int len = variable1.getValue().length();
+
+        if (variable1.getValue().charAt(0)=='<'){
+            if(variable1.getValue().charAt(len-1)=='>'){
+                variable1.getValue().toUpperCase();
+                return false;
+            }else{
+                return true;
+            }
+        }else{
+            return true;
+        }
+    }
+
+    private boolean error2(){
+        int len = variable2.getValue().length();
+
+        if (variable2.getValue().charAt(0)=='<'){
+            if(variable2.getValue().charAt(len-1)=='>'){
+                variable2.getValue().toUpperCase();
+                return false;
+            }else{
+                return true;
+            }
+        }else{
+            return true;
         }
     }
 }
