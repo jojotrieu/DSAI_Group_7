@@ -1,9 +1,7 @@
 package com.example.application.views.skillsview2;
 
-import com.example.application.services.chatbot.Action;
-import com.example.application.services.chatbot.CFG;
-import com.example.application.services.chatbot.Rule;
-import com.example.application.services.chatbot.Skills;
+import com.example.application.services.chatbot.*;
+
 import com.example.application.views.main.MainView;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;

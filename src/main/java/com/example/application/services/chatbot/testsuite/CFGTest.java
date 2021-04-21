@@ -1,7 +1,7 @@
 package com.example.application.services.chatbot.testsuite;
 
-import com.example.application.services.chatbot.CFG;
-import com.example.application.services.chatbot.Rule;
+import com.example.application.services.chatbot.*;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -10,7 +10,7 @@ class CFGTest {
 
     @Test
     void isVariable() {
-        assert com.example.application.services.chatbot.CFG.isVariable("<J>");
+        assert CFG.isVariable("<J>");
         assert !CFG.isVariable("<>");
         assert !CFG.isVariable("<JkK>");
         assert CFG.isVariable("<J5K>");
