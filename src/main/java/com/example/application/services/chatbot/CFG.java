@@ -130,4 +130,10 @@ public class CFG {
     public List<Rule> getRules() {
         return rules;
     }
+
+    public List<Rule> getRulesCopy() {
+        List<Rule> copy = new ArrayList<>();
+        rules.forEach(r -> copy.add(r.copy()));
+        return copy;
+    }
 }

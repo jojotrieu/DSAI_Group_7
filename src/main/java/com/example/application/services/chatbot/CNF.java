@@ -28,7 +28,7 @@ public class CNF {
      */
     public void initialize(){
         cnf = new HashMap<>();
-        for(Rule rule : cfg.getRules()){
+        for(Rule rule : cfg.getRulesCopy()){
             cnf.put(rule.getVariable(), rule.getExpressions()); //TODO: find a way to clone those string string list
         }
         // eliminate unit rule
@@ -222,7 +222,9 @@ public class CNF {
         for (int i = 0; i < S.length; i++) {
             for(int j: yields(S[i])){
                 P[i][0][j]=true;
-                if(isStringUpperCase(rules[j].substring(1,rules[j].length()-1))) placeHolders.put(rules[j],S[i]); // we got the DAY and TIME
+                if(isStringUpperCase(rules[j].substring(1,rules[j].length()-1))) {
+                    placeHolders.put(rules[j], S[i]); // we got the DAY and TIME
+                }
             }
         }
         action = "";
@@ -232,10 +234,13 @@ public class CNF {
                     for (int[] abc: ruleYield()) {
                         if(P[j][k][abc[1]] && P[j+k+1][i-k-1][abc[2]]) {
                             P[j][i][abc[0]] = true;
-                            if(rules[abc[0]].contains("ACTION"))  // retrieve the appropriate action
+                            if(rules[abc[0]].contains("ACTION")) {
+                                // retrieve the appropriate action
                                 action+= rules[abc[1]]+" "+rules[abc[2]]; //TODO: change the hardcoded "ACTION"?
-                            if(isStringUpperCase(rules[abc[0]].substring(1,rules[abc[0]].length()-1 ))) placeHolders.put(rules[abc[0]], rules[abc[1]]+ " "+rules[abc[2]]);
-
+                            }
+                            if(isStringUpperCase(rules[abc[0]].substring(1,rules[abc[0]].length()-1 ))) {
+                                placeHolders.put(rules[abc[0]], rules[abc[1]] + " " + rules[abc[2]]);
+                            }
                         }
                     }
                 }

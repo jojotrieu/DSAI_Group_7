@@ -35,4 +35,12 @@ public class Rule {
     public void setExpressions(List<String> expr) {
         this.expressions = expr;
     }
+
+    public Rule copy(){
+        Rule copy = new Rule();
+        copy.setId(id);
+        copy.setVariable(variable);
+        copy.setExpressions(new ArrayList<>(expressions));
+        return copy;
+    }
 }
