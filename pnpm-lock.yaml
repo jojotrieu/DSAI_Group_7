@@ -4831,13 +4831,13 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-2eis5WqQGV7peooDyLmNEPUrps9+SXX5c9pL3xEB+4e9HnGuDa7mB7kHxHw4CbqS9k1T2hOH3miL8n8WtiYVtg==
-  /is-docker/2.1.1:
+  /is-docker/2.2.1:
     dev: false
     engines:
       node: '>=8'
     hasBin: true
     resolution:
-      integrity: sha512-ZOoqiXfEwtGknTiuDEy8pN2CfE3TxMHprvNer1mXiqwkOT77Rw3YVrUQ52EqAOU3QAWDQ+bQdx7HJzrv7LS2Hw==
+      integrity: sha512-F+i2BKsFrH66iaUFc0woD8sLy8getkwTwtOBjvs56Cx4CgJDeKQeqfz8wAYiSb8JOprWhHH5p77PbmYCvvUuXQ==
   /is-extendable/0.1.1:
     dev: true
     engines:
@@ -4973,7 +4973,7 @@ packages:
       integrity: sha1-HxbkqiKwTRM2tmGIpmrzxgDDpm0=
   /is-wsl/2.2.0:
     dependencies:
-      is-docker: 2.1.1
+      is-docker: 2.2.1
     dev: false
     engines:
       node: '>=8'
@@ -5750,7 +5750,7 @@ packages:
       integrity: sha1-BnQoIw/WdEOyeUsiu6UotoZ5YtQ=
   /open/7.4.2:
     dependencies:
-      is-docker: 2.1.1
+      is-docker: 2.2.1
       is-wsl: 2.2.0
     dev: false
     engines:

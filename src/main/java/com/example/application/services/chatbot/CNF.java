@@ -1,13 +1,16 @@
 package com.example.application.services.chatbot;
 
 import java.util.*;
-
+//TODO: rename this class? or restructure the code accordingly
 public class CNF {
     private CFG cfg;
     private Map<String, List<String>> cnf;
     private Map<String, Integer> indexMap;
     private String[] rules;
-    private String suffix="PL";
+    private String prefix="plhld";
+    private Skills skills;
+    private Map<String, String> placeHolders;
+    private String action;
 
     public CNF(){
         cfg = new CFG();
@@ -47,7 +50,7 @@ public class CNF {
                          String newWord = "";
                          for(String w : line){
                              if(!w.contains("<")) {
-                                 String key = "<" + w +suffix+ ">"; // -> new non terminal symbol
+                                 String key = "<"+prefix + w + ">"; // -> new non terminal symbol
                                  newWord += key +" ";
                                  if (!newVariables.containsKey(key)) newVariables.put(key, toArrayList(w));
                              }else{
@@ -67,10 +70,10 @@ public class CNF {
         for(Map.Entry<String, List<String>> entry: cnf.entrySet()){
             for(int i=0; i<entry.getValue().size();i++) {
                 while(entry.getValue().get(i).split(" ").length>2){
-                    String newline="<Y"+counter+"> ";
+                    String newline="<"+prefix+"Y"+counter+"> ";
                     String firstTwo = firstTwo(entry.getValue().get(i)); // get the 2 first words
                     newline+=entry.getValue().get(i).substring(firstTwo.length()+1); // copy the rest of the string into newline
-                    newVariables.put("<Y"+counter+">", toArrayList(firstTwo)); // put this new rule in the new hashmap
+                    newVariables.put("<"+prefix+"Y"+counter+">", toArrayList(firstTwo)); // put this new rule in the new hashmap
                     counter++;
                     entry.getValue().set(i, newline); // change the string in the original hashmap
                 }
@@ -206,38 +209,98 @@ public class CNF {
     }
 
     /**
-     * CYK algo: check whether a query string is in the form of the language of the CFG
-     * @param query
-     * @return
+     * CYK algo: check whether a query string is in the language of the CFG
+     * @param query the question the user ask
+     * @return true if so, false otherwise
      */
     public boolean CYK(String query){
-        //TODO:maybe some kind of preprocessing/normalization including what to do with coma
+        //TODO:maybe some kind of preprocessing/normalization including what to do with coma, '?', '.'
         String[] S = query.split(" ");
-
+        placeHolders = new HashMap<>();
         boolean[][][] P = new boolean[S.length][S.length][getCnf().size()];
 
         for (int i = 0; i < S.length; i++) {
             for(int j: yields(S[i])){
                 P[i][0][j]=true;
-                if(isStringUpperCase(rules[j].substring(1,rules[j].length()-1))) System.out.println(rules[j]+"="+S[i]); // we got the DAY and TIME
-//                System.out.println(i+" "+S[i]+" "+j+" ");
+                if(isStringUpperCase(rules[j].substring(1,rules[j].length()-1))) placeHolders.put(rules[j],S[i]); // we got the DAY and TIME
             }
         }
+        action = "";
         for (int i = 1; i < S.length; i++) {
             for (int j = 0; j < S.length - i ; j++) {
                 for (int k = 0; k < i ; k++) {
                     for (int[] abc: ruleYield()) {
                         if(P[j][k][abc[1]] && P[j+k+1][i-k-1][abc[2]]) {
                             P[j][i][abc[0]] = true;
-                            if(rules[abc[0]].contains("ACTION")) System.out.println(rules[abc[0]]+"="+rules[abc[1]]+" "+rules[abc[2]]);
+                            if(rules[abc[0]].contains("ACTION"))  // retrieve the appropriate action
+                                action+= rules[abc[1]]+" "+rules[abc[2]]; //TODO: change the hardcoded "ACTION"?
+                            if(isStringUpperCase(rules[abc[0]].substring(1,rules[abc[0]].length()-1 ))) placeHolders.put(rules[abc[0]], rules[abc[1]]+ " "+rules[abc[2]]);
+
                         }
                     }
                 }
             }
         }
+
+
         for (int x = 0; x < getCnf().size(); x++) {
             if(P[0][S.length-1][x]) return true;
         }
         return false;
+    }
+
+    /**
+     * method to be called to retrieve the answer
+     * @return answer action in String variable
+     */
+    public String getAnswer(String query) {
+        if (CYK(query)) {
+            while (action.contains(prefix)) { // while some of the placeholder are made up by CNF new variables
+                String[] arguments = action.split(" ");
+                String nAction = "";
+                for (int i = 0; i < arguments.length; i++) {
+                    if (arguments[i].contains(prefix)) {
+                        nAction += cnf.get(arguments[i]).get(0); // replace those with
+                    } else {
+                        nAction += arguments[i];
+                    }
+                    if (i < arguments.length - 1) nAction += " ";
+                }
+                action = nAction;
+            }
+//            System.out.println(action);
+            String actionVariable = null;
+
+            CFG.loadRules();
+            for (Rule r : cfg.getRules()) {
+                for (String s : r.getExpressions()) {
+                    if (s.equals(action)) actionVariable = r.getVariable();
+                }
+            }
+            /**
+             * this piece of code retrieve the answer
+             */
+            Skills.loadActions(); // TODO: oh no needs to be clone !
+            skills = new Skills();
+
+//            System.out.println("yooo: "+actionVariable);
+            for (Action a : skills.getActions()) {
+                if (a.getVariable().equals(actionVariable)) {
+                    String[] expression = a.getExpression().split(" ");
+                    boolean found = true;
+                    for (int i = 0; i < expression.length; i++) { //check each word of the expression
+
+                        if (CFG.isVariable(expression[i])) { // if it is a <VARIABLE>
+                            if (placeHolders.containsKey(expression[i]) && // if it's recorded in placeHolders
+                                    !placeHolders.get(expression[i]).equals(expression[i + 1]))
+                                found = false; // but not the same value
+                            else if (!placeHolders.containsKey(expression[i]))
+                                found = false; // if it is not recorded in placeHolders...????????
+                        }
+                    }
+                    if (found) return a.getExpression(); //TODO: take the substring of the answer without parameters
+                }
+            }
+        } return"I don't know";
     }
 }

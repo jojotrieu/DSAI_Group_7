@@ -1,25 +1,23 @@
 package com.example.application.views.chatbotview;
 
 import com.example.application.services.ChatBot;
+import com.example.application.services.camera.Camera;
 import com.example.application.services.phase1chatbot.SkillParser;
-import com.vaadin.flow.component.HtmlComponent;
+import com.example.application.views.main.MainView;
 import com.vaadin.flow.component.Key;
-import com.vaadin.flow.component.KeyDownEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H4;
-import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.example.application.views.main.MainView;
 import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.server.StreamResource;
+import com.vaadin.flow.component.html.Image;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Route(value = "chatbot", layout = MainView.class)
 @PageTitle("ChatBot")
@@ -28,7 +26,10 @@ import java.util.List;
 public class ChatBotView extends HorizontalLayout {
 
     private TextField questionTextField;
+    private Dialog cameraPopUp = new Dialog();
     private Button clearButton = new Button("Clear Chat");
+    private Button snapshot = new Button("Snapshot!");
+    private Button cameraCheck = new Button("Camera Check");
     private H4 thinking = new H4("ChatBot: Mmmm... Let me think.");
     private TextArea area = new TextArea();
     private ChatBot chatBot = new ChatBot();
@@ -42,6 +43,10 @@ public class ChatBotView extends HorizontalLayout {
         questionTextField = new TextField("Ask me anything");
         questionTextField.setId("question-field");
         clearButton.setId("clear-button");
+        cameraCheck.setId("camera-button");
+        cameraPopUp.setWidth("500px");
+        cameraPopUp.setHeight("500px");
+        questionTextField.setEnabled(false);
         questionTextField.addKeyPressListener(Key.ENTER, e -> {
             //disable Text Field while ChatBot is thinking
             questionTextField.setEnabled(false);
@@ -62,6 +67,7 @@ public class ChatBotView extends HorizontalLayout {
             remove(thinking);
             clearButton.setEnabled(true);
         });
+        add(cameraCheck);
         add(questionTextField);
         add(clearButton);
         add(area);
@@ -71,6 +77,25 @@ public class ChatBotView extends HorizontalLayout {
             clearButton.setEnabled(false);
         });
         clearButton.setEnabled(false);
+
+        cameraCheck.addClickListener(e -> {
+            cameraPopUp.removeAll();
+            snapshot.setId("snapshot-button");
+            cameraPopUp.add(snapshot);
+            cameraPopUp.open();
+        });
+
+        snapshot.addClickListener(e -> {
+            Camera camera = new Camera();
+            StreamResource streamResource = camera.createImage();
+            Image cameraPic = new Image(streamResource,"capture");
+            cameraPic.setId("camera-frame");
+            cameraPopUp.add(cameraPic);
+            questionTextField.setEnabled(true);
+        });
+
+
     }
+
 
 }

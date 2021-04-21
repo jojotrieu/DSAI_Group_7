@@ -8,7 +8,7 @@ chatbot-view,
   margin-top: 100px;
   position: absolute;
   bottom: 5%;
-  width: 70%;
+  width: 58%;
 }
 chatbot-view,
 #text-area {
@@ -21,5 +21,25 @@ chatbot-view,
 #clear-button {
   position: absolute;
   bottom: 5%;
+  right: 11% ;
+}
+chatbot-view,
+#camera-button {
+  position: absolute;
+  bottom: 5%;
   right: 1% ;
+}
+
+chatbot-view,
+#snapshot-button {
+  position: absolute;
+  bottom: 10%;
+  right: 40% ;
+}
+
+chatbot-view,
+#camera-frame {
+  position: absolute;
+  bottom: 30%;
+  right: 18% ;
 }
