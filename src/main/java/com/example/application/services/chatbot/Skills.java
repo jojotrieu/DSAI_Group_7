@@ -67,11 +67,19 @@ public class Skills {
         if(!action.nonTerminals.keySet().stream().allMatch(CFG::isVariable) && !action.nonTerminals.isEmpty()){
             return false;
         }
-        if(action.nonTerminals.values().stream().anyMatch(CFG::isVariable) && !action.nonTerminals.isEmpty()){
+        for(String value : action.nonTerminals.values()){
+            String[] symbols = value.split(" ");
+            for(String s : symbols){
+                if(CFG.isVariable(s)){
+                    return false;
+                }
+            }
+        }
+        String[] symbols = action.expression.split(" ");
+        if(Arrays.stream(symbols).anyMatch(CFG::isVariable)){
             return false;
         }
-        String[] symbols = action.expression.split("[\\\\s,]+");
-        if(Arrays.stream(symbols).anyMatch(CFG::isVariable)){
+        if(action.expression.length()==0){
             return false;
         }
         return true;

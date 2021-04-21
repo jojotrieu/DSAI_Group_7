@@ -40,5 +40,4 @@ public class Action {
     public Map<String, String> getNonTerminals() {
         return nonTerminals;
     }
-
 }
