@@ -86,7 +86,7 @@ public class CFG {
         return false;
     }
 
-    public List<Rule> down (Rule rule){
+    public static List<Rule> down (Rule rule){
         Set<Rule> downRelated = new HashSet<>();
         List<String> variables = new ArrayList<>();
         for(String expression : rule.expressions){
@@ -107,7 +107,7 @@ public class CFG {
         return new ArrayList<>(downRelated);
     }
 
-    public List<Rule> up (Rule rule){
+    public static List<Rule> up (Rule rule){
         Set<Rule> upRelated = new HashSet<>();
         for(Rule r : rules){
             List<Rule> downRelated = down(r);
@@ -127,11 +127,11 @@ public class CFG {
         rules.removeIf(rule -> rule.id==id);
     }
 
-    public List<Rule> getRules() {
+    public static List<Rule> getRules() {
         return rules;
     }
 
-    public List<Rule> getRulesCopy() {
+    public static List<Rule> getRulesCopy() {
         List<Rule> copy = new ArrayList<>();
         rules.forEach(r -> copy.add(r.copy()));
         return copy;

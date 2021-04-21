@@ -2,12 +2,15 @@ package com.example.application.services.chatbot;
 
 import lombok.Data;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Data
 public class Action {
     int id;
     String variable;
+    Map<String,String> nonTerminals = new HashMap<>();
     String expression;
 
     public int getId() {
@@ -33,4 +36,9 @@ public class Action {
     public void setExpression(String expr) {
         this.expression = expr;
     }
+
+    public Map<String, String> getNonTerminals() {
+        return nonTerminals;
+    }
+
 }
