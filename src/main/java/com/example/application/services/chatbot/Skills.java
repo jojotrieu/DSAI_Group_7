@@ -123,7 +123,13 @@ public class Skills {
         actions.removeIf(action -> action.id==id);
     }
 
-    public List<Action> getActions() {
+    public static List<Action> getActions() {
         return actions;
+    }
+
+    public static List<Action> getActionsCopy(){
+        List<Action> actionsCopy = new ArrayList<>();
+        actions.forEach(a -> actionsCopy.add(a.copy()));
+        return actionsCopy;
     }
 }

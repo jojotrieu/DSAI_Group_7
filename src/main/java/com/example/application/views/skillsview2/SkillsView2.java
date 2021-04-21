@@ -24,7 +24,7 @@ import java.util.List;
 public class SkillsView2 extends Div {
 
     private Grid<Rule> rulesGrid = new Grid<>(Rule.class);
-    private ArrayList<Rule> rules = CFG.rules;
+    private List<Rule> rules = CFG.getRules();
     private Dialog newTemplate1 = new Dialog();
 
     private Button createButton1 = new Button("New");

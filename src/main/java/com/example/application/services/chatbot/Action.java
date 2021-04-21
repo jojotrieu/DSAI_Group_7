@@ -1,6 +1,7 @@
 package com.example.application.services.chatbot;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Map;
 public class Action {
     int id;
     String variable;
+    @EqualsAndHashCode.Exclude
     Map<String,String> nonTerminals = new HashMap<>();
     String expression;
 
@@ -39,5 +41,14 @@ public class Action {
 
     public Map<String, String> getNonTerminals() {
         return nonTerminals;
+    }
+
+    public Action copy(){
+        Action copy = new Action();
+        copy.id=id;
+        copy.variable=variable;
+        copy.nonTerminals=new HashMap<>(nonTerminals);
+        copy.expression=expression;
+        return copy;
     }
 }

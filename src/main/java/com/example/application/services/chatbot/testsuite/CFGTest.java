@@ -10,7 +10,7 @@ class CFGTest {
 
     @Test
     void isVariable() {
-        assert CFG.isVariable("<J>");
+        assert com.example.application.services.chatbot.CFG.isVariable("<J>");
         assert !CFG.isVariable("<>");
         assert !CFG.isVariable("<JkK>");
         assert CFG.isVariable("<J5K>");
@@ -20,13 +20,12 @@ class CFGTest {
 
     @Test
     void upANDDown(){
-        CFG cfg = new CFG();
-        cfg.loadRules();
-        for(Rule rule : cfg.getRules()){
+        assert CFG.loadRules();
+        for(Rule rule : CFG.getRules()){
             System.out.println("---------------------------------------------");
             System.out.println(rule.getVariable() + " - id#: " + rule.getId());
-            List<Rule> up = cfg.up(rule);
-            List<Rule> down = cfg.down(rule);
+            List<Rule> up = CFG.up(rule);
+            List<Rule> down = CFG.down(rule);
             System.out.println("UP:");
             for(Rule r : up){
                 System.out.println(r.getVariable());
@@ -37,4 +36,7 @@ class CFGTest {
             }
         }
     }
+
+
+
 }

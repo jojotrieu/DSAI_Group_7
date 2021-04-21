@@ -10,7 +10,8 @@ import java.util.List;
 public class Rule {
     int id;
     String variable;
-    @EqualsAndHashCode.Exclude List<String> expressions = new ArrayList<>();
+    @EqualsAndHashCode.Exclude
+    List<String> expressions = new ArrayList<>();
 
     public int getId() {
         return id;
