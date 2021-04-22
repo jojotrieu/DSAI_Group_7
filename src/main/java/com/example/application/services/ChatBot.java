@@ -14,7 +14,7 @@ public class ChatBot {
         CNF.initialize();
     }
 
-    public static String respondTo(String question) throws InterruptedException {
+    public static String respondTo(String question) {
         if (CYK.isValidLanguage(question)) {
             String action = CYK.getAction();
             while (action.contains(PREFIX)) { // while some of the placeholder are made up by CNF new variables

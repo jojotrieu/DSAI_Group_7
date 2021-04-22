@@ -32,9 +32,7 @@ public class ChatBotView extends HorizontalLayout {
     private Button cameraCheck = new Button("Camera Check");
     private H4 thinking = new H4("ChatBot: Mmmm... Let me think.");
     private TextArea area = new TextArea();
-    private ChatBot chatBot = new ChatBot();
     private String conversation = "";
-    private SkillParser skillParser = new SkillParser();
 
     public ChatBotView() {
         setId("chatbot-view");
@@ -56,7 +54,7 @@ public class ChatBotView extends HorizontalLayout {
             //display "thinking" while ChatBot is thinking
             add(thinking);
             //get response from chatBot
-            String responseString = skillParser.answer(questionTextField.getValue());
+            String responseString = ChatBot.respondTo(questionTextField.getValue());
             String responseH4 = "ChatBot: " + responseString;
             conversation += responseH4 + "\n";
             area.setValue(conversation);
