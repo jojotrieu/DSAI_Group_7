@@ -61,3 +61,21 @@ chatbot-view,
     bottom: 10%;
     right: 32%;
 }
+
+chatbot-view,
+#facefound-text {
+    position: absolute;
+    top: 10%;
+    right: 38%;
+    color: #67c104;
+    font-size: 20px;
+}
+
+chatbot-view,
+#notfound-text {
+    position: absolute;
+    top: 10%;
+    right: 31%;
+    color: #b43636;
+    font-size: 20px;
+}

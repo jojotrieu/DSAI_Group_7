@@ -8,6 +8,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H4;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
@@ -93,33 +94,47 @@ public class ChatBotView extends HorizontalLayout {
             cameraPopUp.removeAll();
             BufferedImage cameraSnapshot = camera.captureImage();
             StreamResource streamResource = camera.generateUiImage(cameraSnapshot);
-            Image cameraPic = new Image(streamResource,"capture");
+            Image cameraPic = new Image(streamResource, "capture");
             cameraPic.setId("camera-frame");
             cameraPopUp.add(cameraPic);
             cameraPopUp.add(retakeImage);
             cameraPopUp.add(analyzeButton);
         });
 
-        retakeImage.addClickListener(e ->{
+        retakeImage.addClickListener(e -> {
             cameraPopUp.removeAll();
             BufferedImage cameraSnapshot = camera.captureImage();
             StreamResource streamResource = camera.generateUiImage(cameraSnapshot);
-            Image cameraPic = new Image(streamResource,"capture");
+            Image cameraPic = new Image(streamResource, "capture");
             cameraPic.setId("camera-frame");
             cameraPopUp.add(cameraPic);
             cameraPopUp.add(retakeImage);
             cameraPopUp.add(analyzeButton);
         });
 
-        analyzeButton.addClickListener(e ->{
-           cameraPopUp.removeAll();
-           BufferedImage detectedFaces = camera.detectFaces();
-           int count = camera.getFacesCount();
-           if(count > 0){
-               questionTextField.setEnabled(true);
-           }
+        analyzeButton.addClickListener(e -> {
+            cameraPopUp.removeAll();
+            BufferedImage detectedFaces = camera.detectFaces();
+            int count = camera.getFacesCount();
+            if (count > 0) {
+                questionTextField.setEnabled(true);
+                Span faceFound = new Span("I found a face!");
+                faceFound.setId("facefound-text");
+                cameraPopUp.add(faceFound);
+                String responseH4 = "ChatBot: " + "Let's chat beautiful human!";
+                conversation = responseH4 + "\n";
+                area.setValue(conversation);
+            } else {
+                questionTextField.setEnabled(false);
+                Span notFound = new Span("I couldn't find anyone!");
+                notFound.setId("notfound-text");
+                cameraPopUp.add(notFound);
+                String responseH4 = "ChatBot: " + "Looks like nobody is there!";
+                conversation = responseH4 + "\n";
+                area.setValue(conversation);
+            }
             StreamResource streamResource = camera.generateUiImage(detectedFaces);
-            Image cameraPic = new Image(streamResource,"capture");
+            Image cameraPic = new Image(streamResource, "capture");
             cameraPic.setId("camera-frame");
             cameraPopUp.add(cameraPic);
             cameraPopUp.add(retakeImage);

@@ -3,61 +3,62 @@ configurations-view,
     display: block;
     padding: 1em;
 }
+
 configurations-view,
-#load-button{
+#load-button {
     margin-left: 5px;
 }
 
 configurations-view,
-#delete-button{
-    margin:5px;
+#delete-button {
+    margin: 5px;
     background-color: #fe4a49;
     color: white;
 }
 
 configurations-view,
-#delete-button:hover{
+#delete-button:hover {
     background-color: #b43636;
     color: white;
 }
 
 configurations-view,
-#delete-button:disabled{
+#delete-button:disabled {
     background-color: #ffcccb;
     color: white;
 }
 
 configurations-view,
-#add-button{
+#add-button {
     background-color: #67c104;
     color: white;
 }
 
 configurations-view,
-#add-button:hover{
+#add-button:hover {
     background-color: #478800;
     color: white;
 }
 
 configurations-view,
-#slot-two{
+#slot-two {
     margin-left: 35px;
 }
 
 configurations-view,
-#slot-four{
+#slot-four {
     margin-left: 35px;
 }
 
 configurations-view,
-#cancel-button{
-    margin-right:5px;
+#cancel-button {
+    margin-right: 5px;
 }
 
 configurations-view,
-#submit-button{
-    margin-right:5px;
-    background-color: rgb(200,205,205);
+#submit-button {
+    margin-right: 5px;
+    background-color: rgb(200, 205, 205);
 }
 
 configurations-view,
@@ -72,12 +73,12 @@ configurations-view,
 #request-must-be-filled {
     outline: 1px solid;
     outline-color: red;
-    background-color: rgb(500,200,200);
+    background-color: rgb(500, 200, 200);
 }
 
 configurations-view,
 #response-must-be-filled {
     outline: 1px solid;
     outline-color: red;
-    background-color: rgb(500,200,200);
+    background-color: rgb(500, 200, 200);
 }

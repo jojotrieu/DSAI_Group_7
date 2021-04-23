@@ -5,32 +5,32 @@ configurations2-view,
 }
 
 configurations2-view,
-#delete-button{
-    margin:5px;
+#delete-button {
+    margin: 5px;
     background-color: #fe4a49;
     color: white;
 }
 
 configurations2-view,
-#delete-button:hover{
+#delete-button:hover {
     background-color: #b43636;
     color: white;
 }
 
 configurations2-view,
-#delete-button:disabled{
+#delete-button:disabled {
     background-color: #ffcccb;
     color: white;
 }
 
 configurations2-view,
-#create-button{
+#create-button {
     background-color: #67c104;
     color: white;
 }
 
 configurations2-view,
-#create-button:hover{
+#create-button:hover {
     background-color: #478800;
     color: white;
 }
@@ -39,37 +39,37 @@ configurations2-view,
 #variable1-error {
     outline: 1px solid;
     outline-color: red;
-    background-color: rgb(500,200,200);
+    background-color: rgb(500, 200, 200);
 }
 
 configurations2-view,
-#variable2-error{
+#variable2-error {
     outline: 1px solid;
     outline-color: red;
-    background-color: rgb(500,200,200);
+    background-color: rgb(500, 200, 200);
 }
 
 configurations2-view,
-#variable1{
+#variable1 {
 }
 
 configurations2-view,
-#variable2{
+#variable2 {
 }
 
 configurations2-view,
-#plus-expr-button{
-    margin:5px;
+#plus-expr-button {
+    margin: 5px;
 }
 
 configurations2-view,
-#save-button-1{
-    margin:5px;
-    margin-right:5px;
+#save-button-1 {
+    margin: 5px;
+    margin-right: 5px;
 }
 
 configurations2-view,
-#save-button-2{
-    margin:5px;
-    margin-right:5px;
+#save-button-2 {
+    margin: 5px;
+    margin-right: 5px;
 }

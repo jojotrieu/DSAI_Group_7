@@ -55,20 +55,19 @@ public class Camera {
         this.facesCount = faces.size();
         BufferedImage newImage = imageToAnalyze;
         Graphics2D g2 = newImage.createGraphics();
-        Stroke STROKE = new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, new float[] { 1.0f }, 0.0f);
+        Stroke STROKE = new BasicStroke(2f);
         for (DetectedFace face : faces) {
             Rectangle faceBounds = face.getBounds();
 
-            int dx = (int) (0.1 * faceBounds.width);
-            int dy = (int) (0.2 * faceBounds.height);
+            int dx = (int) (0.05 * faceBounds.width);
+            int dy = (int) (0.1 * faceBounds.height);
             int x = (int) faceBounds.x - dx;
             int y = (int) faceBounds.y - dy;
-            int w = (int) faceBounds.width + 2 * dx;
-            int h = (int) faceBounds.height + dy;
+            int w = (int) faceBounds.width + dx;
+            int h = (int) faceBounds.height + 2 * dy;
 
-            g2.drawImage(newImage, x, y, w, h, null);
             g2.setStroke(STROKE);
-            g2.setColor(Color.RED);
+            g2.setColor(Color.YELLOW);
             g2.drawRect(x, y, w, h);
         }
         return newImage;
