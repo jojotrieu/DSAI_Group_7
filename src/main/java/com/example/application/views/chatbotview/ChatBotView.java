@@ -2,7 +2,6 @@ package com.example.application.views.chatbotview;
 
 import com.example.application.services.ChatBot;
 import com.example.application.services.camera.Camera;
-import com.example.application.services.phase1chatbot.SkillParser;
 import com.example.application.views.main.MainView;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
@@ -18,6 +17,8 @@ import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.component.html.Image;
 
+import java.awt.image.BufferedImage;
+
 
 @Route(value = "chatbot", layout = MainView.class)
 @PageTitle("ChatBot")
@@ -28,11 +29,14 @@ public class ChatBotView extends HorizontalLayout {
     private TextField questionTextField;
     private Dialog cameraPopUp = new Dialog();
     private Button clearButton = new Button("Clear Chat");
+    private Button analyzeButton = new Button("Analyze!");
+    private Button retakeImage = new Button("Retake!");
     private Button snapshot = new Button("Snapshot!");
     private Button cameraCheck = new Button("Camera Check");
     private H4 thinking = new H4("ChatBot: Mmmm... Let me think.");
     private TextArea area = new TextArea();
     private String conversation = "";
+    private Camera camera = new Camera();
 
     public ChatBotView() {
         setId("chatbot-view");
@@ -42,6 +46,8 @@ public class ChatBotView extends HorizontalLayout {
         questionTextField.setId("question-field");
         clearButton.setId("clear-button");
         cameraCheck.setId("camera-button");
+        analyzeButton.setId("analyze-button");
+        retakeImage.setId("retake-button");
         cameraPopUp.setWidth("500px");
         cameraPopUp.setHeight("500px");
         questionTextField.setEnabled(false);
@@ -84,12 +90,40 @@ public class ChatBotView extends HorizontalLayout {
         });
 
         snapshot.addClickListener(e -> {
-            Camera camera = new Camera();
-            StreamResource streamResource = camera.createImage();
+            cameraPopUp.removeAll();
+            BufferedImage cameraSnapshot = camera.captureImage();
+            StreamResource streamResource = camera.generateUiImage(cameraSnapshot);
             Image cameraPic = new Image(streamResource,"capture");
             cameraPic.setId("camera-frame");
             cameraPopUp.add(cameraPic);
-            questionTextField.setEnabled(true);
+            cameraPopUp.add(retakeImage);
+            cameraPopUp.add(analyzeButton);
+        });
+
+        retakeImage.addClickListener(e ->{
+            cameraPopUp.removeAll();
+            BufferedImage cameraSnapshot = camera.captureImage();
+            StreamResource streamResource = camera.generateUiImage(cameraSnapshot);
+            Image cameraPic = new Image(streamResource,"capture");
+            cameraPic.setId("camera-frame");
+            cameraPopUp.add(cameraPic);
+            cameraPopUp.add(retakeImage);
+            cameraPopUp.add(analyzeButton);
+        });
+
+        analyzeButton.addClickListener(e ->{
+           cameraPopUp.removeAll();
+           BufferedImage detectedFaces = camera.detectFaces();
+           int count = camera.getFacesCount();
+           if(count > 0){
+               questionTextField.setEnabled(true);
+           }
+            StreamResource streamResource = camera.generateUiImage(detectedFaces);
+            Image cameraPic = new Image(streamResource,"capture");
+            cameraPic.setId("camera-frame");
+            cameraPopUp.add(cameraPic);
+            cameraPopUp.add(retakeImage);
+            cameraPopUp.add(analyzeButton);
         });
 
 

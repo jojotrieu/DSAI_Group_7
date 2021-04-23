@@ -1,45 +1,63 @@
 chatbot-view,
 #chatbot-view {
-  display: block;
-  padding: 1em;
+    display: block;
+    padding: 1em;
 }
+
 chatbot-view,
 #question-field {
-  margin-top: 100px;
-  position: absolute;
-  bottom: 5%;
-  width: 58%;
+    margin-top: 100px;
+    position: absolute;
+    bottom: 5%;
+    width: 58%;
 }
+
 chatbot-view,
 #text-area {
-  position: absolute;
-  width: 78%;
-  max-height: 75%;
-  font-size: 16pt;
+    position: absolute;
+    width: 78%;
+    max-height: 75%;
+    font-size: 16pt;
 }
+
 chatbot-view,
 #clear-button {
-  position: absolute;
-  bottom: 5%;
-  right: 11% ;
+    position: absolute;
+    bottom: 5%;
+    right: 11%;
 }
+
 chatbot-view,
 #camera-button {
-  position: absolute;
-  bottom: 5%;
-  right: 1% ;
+    position: absolute;
+    bottom: 5%;
+    right: 1%;
 }
 
 chatbot-view,
 #snapshot-button {
-  position: absolute;
-  bottom: 10%;
-  right: 40% ;
+    position: absolute;
+    bottom: 10%;
+    right: 40%;
 }
 
 chatbot-view,
 #camera-frame {
-  position: absolute;
-  bottom: 30%;
-  right: 18% ;
+    position: absolute;
+    bottom: 30%;
+    right: 18%;
+}
+
+chatbot-view,
+#retake-button {
+    position: absolute;
+    bottom: 10%;
+    right: 52%;
+}
+
+chatbot-view,
+#analyze-button {
+    position: absolute;
+    bottom: 10%;
+    right: 32%;
 }

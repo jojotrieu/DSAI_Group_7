@@ -9,39 +9,72 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.vaadin.flow.server.StreamResource;
+import org.openimaj.image.ImageUtilities;
+import org.openimaj.image.processing.face.detection.DetectedFace;
+import org.openimaj.image.processing.face.detection.HaarCascadeDetector;
+import org.openimaj.math.geometry.shape.Rectangle;
 
 import javax.imageio.ImageIO;
 
-//TODO: Extract camera stream
-public class Camera {
 
-    public BufferedImage openCamera() {
-        Webcam webcam = Webcam.getDefault();
+public class Camera {
+    private BufferedImage imageToAnalyze;
+    private final HaarCascadeDetector haarCascadeDetector = new HaarCascadeDetector();
+    private List<DetectedFace> faces = new ArrayList<>();
+    private int facesCount;
+
+    public BufferedImage captureImage() {
+        Webcam webcam = Webcam.getWebcams().get(0);
         Dimension viewSize = new Dimension(WebcamResolution.VGA.getSize().width / 2,
                 WebcamResolution.VGA.getSize().height / 2);
         webcam.setViewSize(viewSize);
         webcam.open();
         BufferedImage snapshot = webcam.getImage();
         webcam.close();
+        this.imageToAnalyze = snapshot;
         return snapshot;
     }
 
-    public StreamResource createImage() {
-
-
-        BufferedImage cameraPic = openCamera();
-
+    public StreamResource generateUiImage(BufferedImage image) {
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ImageIO.write(cameraPic, "png", bos);
+            ImageIO.write(image, "png", bos);
             return new StreamResource("webcamCapture.png", () -> new ByteArrayInputStream(bos.toByteArray()));
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
+    }
 
+    public BufferedImage detectFaces(){
+        this.faces = haarCascadeDetector.detectFaces(ImageUtilities.createFImage(imageToAnalyze));
+        this.facesCount = faces.size();
+        BufferedImage newImage = imageToAnalyze;
+        Graphics2D g2 = newImage.createGraphics();
+        Stroke STROKE = new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, new float[] { 1.0f }, 0.0f);
+        for (DetectedFace face : faces) {
+            Rectangle faceBounds = face.getBounds();
+
+            int dx = (int) (0.1 * faceBounds.width);
+            int dy = (int) (0.2 * faceBounds.height);
+            int x = (int) faceBounds.x - dx;
+            int y = (int) faceBounds.y - dy;
+            int w = (int) faceBounds.width + 2 * dx;
+            int h = (int) faceBounds.height + dy;
+
+            g2.drawImage(newImage, x, y, w, h, null);
+            g2.setStroke(STROKE);
+            g2.setColor(Color.RED);
+            g2.drawRect(x, y, w, h);
+        }
+        return newImage;
+    }
+
+    public int getFacesCount(){
+        return facesCount;
     }
 }
