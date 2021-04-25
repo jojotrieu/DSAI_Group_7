@@ -17,10 +17,11 @@ import org.openimaj.image.ImageUtilities;
 import org.openimaj.image.processing.face.detection.DetectedFace;
 import org.openimaj.image.processing.face.detection.HaarCascadeDetector;
 import org.openimaj.math.geometry.shape.Rectangle;
+import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
 
-
+@Service
 public class Camera {
     private BufferedImage imageToAnalyze;
     private final HaarCascadeDetector haarCascadeDetector = new HaarCascadeDetector();
