@@ -3,6 +3,7 @@ package com.example.application.services.chatbot;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +54,52 @@ public class Action {
 
     public Map<String, String> getNonTerminals() {
         return nonTerminals;
+    }
+
+    public void addElement2NonTerminals(String key, String value) {
+        this.nonTerminals.put(key, value);
+    }
+
+    public void setNonTerminals(Map<String, String> nt) {
+        this.nonTerminals = nt;
+    }
+
+    public String getNonTerminalsToString(){
+
+        if(!nonTerminals.keySet().isEmpty()){
+            StringBuilder mapAsString = new StringBuilder();
+            for (String key : nonTerminals.keySet()) {
+                mapAsString.append(key + " " + nonTerminals.get(key) + " ");
+            }
+            mapAsString.delete(mapAsString.length()-1, mapAsString.length());
+            return mapAsString.toString();
+        }else{
+            String empty = "";
+            return empty;
+        }
+    }
+
+    public static Map<String, String> stringToHashMap(String nt){
+        Map<String, String> map = new HashMap<>();
+
+        if(nt.isEmpty()){
+            return map; // return empty map
+        }else{
+            String[] array = nt.split(" ", 20);
+
+            for(int i = 0; i < array.length; i +=2){
+                if(i+1<array.length && i<array.length){
+                    if(CFG.isVariable(array[i+1])){
+                        map.put(array[i], "default value");
+                    }else{
+                        map.put(array[i], array[i+1]);
+                    }
+                }else{
+                    map.put(array[i], "default value");
+                }
+            }
+            return map;
+        }
     }
 
     public Action copy(){

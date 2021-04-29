@@ -14,7 +14,9 @@ import com.vaadin.flow.router.Route;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Route(value = "skills2", layout = MainView.class)
 @CssImport("./styles/views/configurations/configurations2.css")
@@ -31,10 +33,6 @@ public class SkillsView2 extends Div {
 
     private TextField variable1 = new TextField("Variable");
     private TextField expression1 = new TextField("Expression");
-    private Button plusExpr1 = new Button("+");
-    private int pressed = 0;
-    private TextField additionalExpr = new TextField("Expression");
-    private TextField additionalExprBis = new TextField("Expression");
     private Button saveButton1 = new Button("Save");
     private boolean editPressed1 = false;
     private String selection1;
@@ -48,6 +46,7 @@ public class SkillsView2 extends Div {
     private Button editButton2 = new Button("Edit");
 
     private TextField variable2 = new TextField("Variable");
+    private TextField nonterminals2 = new TextField("Keys");
     private TextField expression2 = new TextField("Expression");
     private Button saveButton2 = new Button("Save");
     private boolean editPressed2 = false;
@@ -136,17 +135,7 @@ public class SkillsView2 extends Div {
                 }
 
                 variable1.setValue(selectedRule.getVariable());
-                expression1.setValue(selectedRule.getExpressions().get(0));
-                if(selectedRule.getExpressions().get(1).length() > 0){
-                    pressed = 1;
-                    newTemplate1.add(additionalExpr);
-                    additionalExpr.setValue(selectedRule.getExpressions().get(1));
-                }
-                if(selectedRule.getExpressions().get(2).length() > 0){
-                    pressed = 2;
-                    newTemplate1.add(additionalExprBis);
-                    additionalExprBis.setValue(selectedRule.getExpressions().get(2));
-                }
+                expression1.setValue(expressionToString(selectedRule.getExpressions()));
             }
         });
 
@@ -164,19 +153,20 @@ public class SkillsView2 extends Div {
                     if (action.toString().equals(selection2)) {
                         selectedAction.setId(action.getId());
                         selectedAction.setVariable(action.getVariable());
+                        selectedAction.setNonTerminals(action.getNonTerminals());
                         selectedAction.setExpression(action.getExpression());
                         break;
                     }
                 }
 
                 variable2.setValue(selectedAction.getVariable());
+                nonterminals2.setValue(selectedAction.getNonTerminalsToString());
                 expression2.setValue(selectedAction.getExpression());
             }
         });
     }
 
     private void initGrid1() {
-        //TODO add title to grid
         rulesGrid.setItems(rules);
         rulesGrid.removeAllColumns();
         rulesGrid.addColumn("id").setHeader("RULES");
@@ -187,11 +177,11 @@ public class SkillsView2 extends Div {
     }
 
     private void initGrid2() {
-        //TODO add title to grid
         actionsGrid.setItems(actions);
         actionsGrid.removeAllColumns();
         actionsGrid.addColumn("id").setHeader("ACTIONS");
         actionsGrid.addColumn("variable");
+        actionsGrid.addColumn("nonTerminals");
         actionsGrid.addColumn("expression");
         add(actionsGrid);
         add(createButton2, deleteButton2, editButton2);
@@ -202,51 +192,30 @@ public class SkillsView2 extends Div {
         expression1.setWidth("500px");
         newTemplate1.setWidth("700px");
         newTemplate1.setHeight("700");
-        additionalExpr.setWidth("500px");
-        additionalExprBis.setWidth("500px");
         newTemplate1.add(variable1);
         newTemplate1.add(expression1);
-        newTemplate1.add(plusExpr1);
         newTemplate1.add(saveButton1);
-        plusExpr1.setId("plus-expr-button");
         saveButton1.setId("save-button-1");
 
         variable2.setWidth("500px");
+        nonterminals2.setWidth("500px");
         expression2.setWidth("500px");
         newTemplate2.setWidth("700px");
         newTemplate2.setHeight("700");
         newTemplate2.add(variable2);
+        newTemplate2.add(nonterminals2);
         newTemplate2.add(expression2);
         newTemplate2.add(saveButton2);
         saveButton2.setId("save-button-2");
 
-        plusExpr1.addClickListener(e -> {
-            pressed++;
-            if (pressed == 1) {
-                newTemplate1.remove(saveButton1);
-                newTemplate1.add(additionalExpr);
-                newTemplate1.add(saveButton1);
-                saveButton1.setId("save-button-1");
-            } else if (pressed == 2) {
-                newTemplate1.remove(saveButton1);
-                newTemplate1.add(additionalExprBis);
-                newTemplate1.add(saveButton1);
-                saveButton1.setId("save-button-1");
-            }
-        });
-
         saveButton1.addClickListener(e -> {
-            if(!error1()){
-                System.out.println(error1());
+            if(CFG.isVariable(variable1.getValue())){
                 Rule rule = new Rule();
 
-                List<String> expressions = new ArrayList<>();
-                expressions.add(expression1.getValue());
-                expressions.add(additionalExpr.getValue());
-                expressions.add(additionalExprBis.getValue());
+                List<String> expressions = expressionToArray(expression1.getValue());
 
                 rule.setVariable(variable1.getValue());
-                rule.setId(rules.size() + 1);
+                rule.setId(rules.size());
                 rule.setExpressions(expressions);
 
                 CFG.addRule(rule);
@@ -256,6 +225,7 @@ public class SkillsView2 extends Div {
                     fileNotFoundException.printStackTrace();
                 }
                 CFG.loadRules();
+                rules = CFG.getRules();
                 rulesGrid.setItems(rules);
 
                 if (editPressed1) {
@@ -280,13 +250,21 @@ public class SkillsView2 extends Div {
         });
 
         saveButton2.addClickListener(e -> {
-            if (!error2()) {
-                Action action = new Action();
+            Action action = new Action();
 
-                action.setId(actions.size() + 1);
+            action.setId(actions.size());
+            if(variable2.getValue().length()==0){
+                action.setVariable("<ACTION>");
+                Map<String, String> map = new HashMap<>();
+                action.setNonTerminals(map);
+                action.setExpression("I have no idea.");
+            }else{
                 action.setVariable(variable2.getValue());
+                action.setNonTerminals(Action.stringToHashMap(nonterminals2.getValue()));
                 action.setExpression(expression2.getValue());
+            }
 
+            if (Skills.isValidAction(action)) {
                 Skills.addAction(action);
                 try {
                     Skills.writeActions();
@@ -308,37 +286,36 @@ public class SkillsView2 extends Div {
                 }
 
                 editPressed2 = false;
-                selection2 = "";
+                selection2 = null;
 
                 template2Empty();
                 newTemplate2.close();
 
             } else {
-                variable2.setId("variable2-error");
+                System.out.println("ERROR: no valid action");
+                //TODO handle every type of error
             }
         });
     }
 
     private void template2Empty() {
         variable2.setValue("");
+        nonterminals2.setValue("");
         expression2.setValue("");
         newTemplate2.removeAll();
         newTemplate2.add(variable2);
+        newTemplate2.add(nonterminals2);
         newTemplate2.add(expression2);
         newTemplate2.add(saveButton2);
         variable2.setId("variable2");
     }
 
     private void template1Empty() {
-        pressed = 0;
         variable1.setValue("");
         expression1.setValue("");
-        additionalExpr.setValue("");
-        additionalExprBis.setValue("");
         newTemplate1.removeAll();
         newTemplate1.add(variable1);
         newTemplate1.add(expression1);
-        newTemplate1.add(plusExpr1);
         newTemplate1.add(saveButton1);
         variable1.setId("variable1");
     }
@@ -363,33 +340,19 @@ public class SkillsView2 extends Div {
         }
     }
 
-    private boolean error1(){
-        int len = variable1.getValue().length();
-
-        if (variable1.getValue().charAt(0)=='<'){
-            if(variable1.getValue().charAt(len-1)=='>'){
-                variable1.getValue().toUpperCase();
-                return false;
-            }else{
-                return true;
-            }
-        }else{
-            return true;
-        }
+    private String expressionToString(List<String> expressions) {
+        String expr = expressions.toString();
+        expr = expr.substring(1, expr.length() - 1);
+        return expr;
     }
 
-    private boolean error2(){
-        int len = variable2.getValue().length();
+    private List<String> expressionToArray(String value) {
+        List<String> expressions = new ArrayList<>();
 
-        if (variable2.getValue().charAt(0)=='<'){
-            if(variable2.getValue().charAt(len-1)=='>'){
-                variable2.getValue().toUpperCase();
-                return false;
-            }else{
-                return true;
-            }
-        }else{
-            return true;
+        String[] array = value.split(",", 20);
+        for(String word : array){
+            expressions.add(word);
         }
+        return expressions;
     }
 }

@@ -43,23 +43,11 @@ configurations2-view,
 }
 
 configurations2-view,
-#variable2-error {
-    outline: 1px solid;
-    outline-color: red;
-    background-color: rgb(500, 200, 200);
-}
-
-configurations2-view,
 #variable1 {
 }
 
 configurations2-view,
 #variable2 {
-}
-
-configurations2-view,
-#plus-expr-button {
-    margin: 5px;
 }
 
 configurations2-view,

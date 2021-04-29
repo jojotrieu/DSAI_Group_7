@@ -61,12 +61,15 @@ public class Skills {
     }
 
     public static boolean isValidAction(Action action){
+        // variable must be a correct variable
         if(!CFG.isVariable(action.variable)){
             return false;
         }
+        // keys of nonTerminals must be variables
         if(!action.nonTerminals.keySet().stream().allMatch(CFG::isVariable) && !action.nonTerminals.isEmpty()){
             return false;
         }
+        // value cannot be a variable
         for(String value : action.nonTerminals.values()){
             String[] symbols = value.split(" ");
             for(String s : symbols){
@@ -75,10 +78,12 @@ public class Skills {
                 }
             }
         }
+        // expression must not contain variables
         String[] symbols = action.expression.split(" ");
         if(Arrays.stream(symbols).anyMatch(CFG::isVariable)){
             return false;
         }
+        // expression must not be empty
         if(action.expression.length()==0){
             return false;
         }
