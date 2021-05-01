@@ -46,15 +46,17 @@ public class ChatBot {
             List<Action> skills = Skills.getActionsCopy();
             Map<String, String> placeHolders = CYK.getPlaceHolders();
 //            System.out.println("yooo: "+actionVariable);
+            for(Map.Entry entry:CYK.getPlaceHolders().entrySet()) System.out.println(entry.getKey()+" "+entry.getValue());
             for (Action a : skills) {
                 if (a.getVariable().equals(actionVariable)) {
                     Map<String,String> nonTerminals = a.getNonTerminals();
+                    boolean found = true;
                     for(Map.Entry<String,String> e : nonTerminals.entrySet()){
                         if(placeHolders.containsKey(e.getKey())
-                                && placeHolders.get(e.getKey()).equals(e.getValue())){
-                            return a.getExpression();
+                                && !placeHolders.get(e.getKey()).equals(e.getValue())){
+                            found = false;
                         }
-                    }
+                    }if(found) return a.getExpression();
                 }
             }
         } return "I don't know";

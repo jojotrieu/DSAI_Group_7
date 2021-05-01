@@ -30,15 +30,17 @@ public class CYK {
             }
         }
         action = "";
+        String actionVariable=null;
+        for(Rule r:CFG.getRules()) if(r.variable.equals("<S>")) actionVariable=r.getExpressions().get(0);
         for (int i = 1; i < S.length; i++) {
             for (int j = 0; j < S.length - i ; j++) {
                 for (int k = 0; k < i ; k++) {
                     for (int[] abc: ruleYield()) {
                         if(P[j][k][abc[1]] && P[j+k+1][i-k-1][abc[2]]) {
                             P[j][i][abc[0]] = true;
-                            if(rules[abc[0]].contains("ACTION")) {
+                            if(rules[abc[0]].equals(actionVariable)) {
                                 // retrieve the appropriate action
-                                action+= rules[abc[1]]+" "+rules[abc[2]]; //TODO: change the hardcoded "ACTION"?
+                                action+= rules[abc[1]]+" "+rules[abc[2]];
                             }
                             if(isStringUpperCase(rules[abc[0]].substring(1,rules[abc[0]].length()-1 ))) {
                                 placeHolders.put(rules[abc[0]], rules[abc[1]] + " " + rules[abc[2]]);

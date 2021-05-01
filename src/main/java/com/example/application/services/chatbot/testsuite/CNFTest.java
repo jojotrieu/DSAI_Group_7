@@ -1,6 +1,7 @@
 package com.example.application.services.chatbot.testsuite;
 
 import com.example.application.services.ChatBot;
+import com.example.application.services.chatbot.CFG;
 import com.example.application.services.chatbot.CNF;
 import com.example.application.services.chatbot.CYK;
 import com.example.application.services.chatbot.Rule;
@@ -10,16 +11,21 @@ import java.util.*;
 
 public class CNFTest {
 
-    public static void main(String[] args) throws InterruptedException {
-        ChatBot.init();
-//        for(Map.Entry<String, List<String>> entry: cnf.getCnf().entrySet()){
-//            System.out.println(entry.getKey());
-//            for(String symbol: entry.getValue()) System.out.print(symbol + " | ");
-//            System.out.println();
-//        }
-//        System.out.println(cnf.yields("Monday")[0]);
-        String query = "Which lectures are there on Monday at 9 ";
-        System.out.println(CYK.isValidLanguage(query));
-        System.out.println(ChatBot.respondTo(query));
+    @Test
+    public void isCNF(){
+        CNF.initialize();
+        for(Map.Entry<String, List<String>> entry: CNF.getCnf().entrySet()){
+            for(String rule: entry.getValue()){
+                if(rule.split(" ").length == 2){
+                    assert CFG.isVariable(rule.split(" ")[0]);
+                    assert CFG.isVariable(rule.split(" ")[1]);
+                }else{
+                    assert !CFG.isVariable(rule);
+                }
+            }
+        }
     }
+
+
+
 }
