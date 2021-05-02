@@ -1,5 +1,6 @@
 package com.example.application;
 
+import com.example.application.services.ChatBot;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.server.PWA;
 
@@ -19,6 +20,7 @@ import org.vaadin.artur.helpers.LaunchUtil;
 public class Application extends SpringBootServletInitializer implements AppShellConfigurator {
 
     public static void main(String[] args) {
+        ChatBot.init();
         LaunchUtil.launchBrowserInDevelopmentMode(SpringApplication.run(Application.class, args));
     }
 
