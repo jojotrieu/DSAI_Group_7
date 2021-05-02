@@ -18,7 +18,7 @@ public class ChatBotTEST {
     @Test
     public void notGivesAnswer(){
         ChatBot.init();
-        System.out.println(ChatBot.respondTo("Which lectures are there on Wednesday at 9"));
+//        System.out.println(ChatBot.respondTo("Which lectures are there on Wednesday at 9"));
         assert ChatBot.respondTo("Which lectures are there on Wednesday at 9").equals("I don't know");
     }
 }

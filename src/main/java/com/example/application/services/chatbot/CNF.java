@@ -1,12 +1,12 @@
 package com.example.application.services.chatbot;
 
 import java.util.*;
-//TODO: rename this class? or restructure the code accordingly
+
 public class CNF {
     private static Map<String, List<String>> cnf;
     private static Map<String, Integer> indexMap;
     private static String[] rules;
-    private static final String PREFIX="plhld";
+    private static final String PREFIX="zzzplhld";
 
     /**
      * create the cnf HashMap in order to use the CYK algorithm
@@ -16,7 +16,7 @@ public class CNF {
     public static void initialize(){
         cnf = new HashMap<>();
         for(Rule rule : CFG.getRulesCopy()){
-            cnf.put(rule.getVariable(), rule.getExpressions()); //TODO: find a way to clone those string string list
+            cnf.put(rule.getVariable(), rule.getExpressions());
         }
         // eliminate unit rule
         for(Map.Entry<String, List<String>> entry: cnf.entrySet()){
@@ -30,8 +30,8 @@ public class CNF {
         HashMap<String, List<String>> newVariables = new HashMap<>();
         for(Map.Entry<String, List<String>> entry: cnf.entrySet()){
             for(int i=0; i<entry.getValue().size();i++) {
-                 if(entry.getValue().get(i).split(" ").length>1){ // if RHS has more than a symbol (else it should be a terminal)
-                     String[] line = entry.getValue().get(i).split(" ");
+                String[] line = splitRules(entry.getValue().get(i));
+                 if(line.length>1){ // if RHS has more than a symbol (else it should be a terminal)
                      if(line.length == 2 && line[0].contains("<") && line[1].contains("<")) continue; //nothing to do it is already in the good form: 2 non terminal symbols
                      else {
                          String newWord = "";
@@ -56,7 +56,7 @@ public class CNF {
         int counter = 1; // counter to have a different name for each new variable
         for(Map.Entry<String, List<String>> entry: cnf.entrySet()){
             for(int i=0; i<entry.getValue().size();i++) {
-                while(entry.getValue().get(i).split(" ").length>2){
+                while(splitRules(entry.getValue().get(i)).length>2){
                     String newline="<"+PREFIX+"Y"+counter+"> ";
                     String firstTwo = firstTwo(entry.getValue().get(i)); // get the 2 first words
                     newline+=entry.getValue().get(i).substring(firstTwo.length()+1); // copy the rest of the string into newline
@@ -81,24 +81,29 @@ public class CNF {
         for(Map.Entry<String, List<String>> entry:cnf.entrySet()){
             rules[i]=entry.getKey();
             indexMap.put(entry.getKey(), i++);
-
-//            System.out.println(entry.getKey());
         }
-
-
     }
 
     /**
      * method that takes a string and return the first 2 words
-     * @param s string that should be words separated by spaces
-     * @return the 2 first words
+     * @param s string that can have multiple words between brackets (variable) that counts as a word
+     * @return the 2 first words as a single string
      */
     private static String firstTwo(String s) {
-        boolean encountered = false;
+        int last=0;
         for (int i = 0; i < s.length(); i++) {
-            if(s.charAt(i) == ' '){
-                if(!encountered) encountered = true;
-                else return s.substring(0,i);
+            if(s.charAt(i)=='<'){ // we found the beginning of a variable
+                for (int j = i; j < s.length(); j++) { //look for the closing braquet if it exists
+                    if(s.charAt(j)=='>'){
+                        if(last==0) last = i+1; // first word -> continue
+                        else return s.substring(0,j+1); // second word -> return
+                        i=j+1;
+                        j+=s.length();
+                    }
+                }
+            }else if(s.charAt(i)==' '){
+                if(last == 0) last=i+1; //first word -> continue
+                else return s.substring(0,i); //second word -> return
             }
         }
         return null;
@@ -114,7 +119,7 @@ public class CNF {
 
     // check if Symbol is unary aka alone
     public static boolean unary(String tag){
-        String[] split = tag.strip().split(" ");
+        String[] split = splitRules(tag.strip());
         if(split.length>1) return false;
         return tag.contains("<");
     }
@@ -139,5 +144,28 @@ public class CNF {
 
     public static String getPREFIX() {
         return PREFIX;
+    }
+
+    public static String[] splitRules(String sentence){
+        ArrayList<String> result = new ArrayList<>();
+        int last=0;
+        for (int i = 0; i < sentence.length(); i++) {
+            if(sentence.charAt(i)=='<'){
+                for (int j = i; j < sentence.length(); j++) {
+                    if(sentence.charAt(j)=='>'){
+                        result.add(sentence.substring(i,j+1));
+                        i=j+1;
+                        j+=sentence.length();
+                        last = i+1;
+                    }
+                }
+            }else if(sentence.charAt(i)==' '){
+                result.add(sentence.substring(last, i));
+                last=i+1;
+            }
+        }
+        if(last<sentence.length()) result.add(sentence.substring(last)); // if last thing added was not a variable
+        String[] ret = new String[result.size()];
+        return result.toArray(ret);
     }
 }

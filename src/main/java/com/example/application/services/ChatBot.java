@@ -46,7 +46,7 @@ public class ChatBot {
             List<Action> skills = Skills.getActionsCopy();
             Map<String, String> placeHolders = CYK.getPlaceHolders();
 //            System.out.println("yooo: "+actionVariable);
-            for(Map.Entry entry:CYK.getPlaceHolders().entrySet()) System.out.println(entry.getKey()+" "+entry.getValue());
+//            for(Map.Entry entry:CYK.getPlaceHolders().entrySet()) System.out.println(entry.getKey()+" "+entry.getValue());
             for (Action a : skills) {
                 if (a.getVariable().equals(actionVariable)) {
                     Map<String,String> nonTerminals = a.getNonTerminals();

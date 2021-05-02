@@ -26,6 +26,11 @@ public class CNFTest {
         }
     }
 
+    @Test
+    public void splitRulesMethod(){
+        String var = "<var 1> has no >_< idea what's going on";
+        assert CNF.splitRules(var).length == 8;
+    }
 
 
 }
