@@ -13,6 +13,7 @@ public class ChatBotTEST {
     public void givesAnswer(){
         ChatBot.init();
         assert ChatBot.respondTo("Which lectures are there on Monday at 9").equals("We start the week with math ");
+        assert ChatBot.respondTo("Who teaches Discrete Mathematics").equals("Steven Kelk ");
     }
 
     @Test

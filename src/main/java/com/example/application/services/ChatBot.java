@@ -47,6 +47,22 @@ public class ChatBot {
             Map<String, String> placeHolders = CYK.getPlaceHolders();
 //            System.out.println("yooo: "+actionVariable);
 //            for(Map.Entry entry:CYK.getPlaceHolders().entrySet()) System.out.println(entry.getKey()+" "+entry.getValue());
+            // this part retranscribe multiples words into the placeholders
+            for(Map.Entry<String, String> plhld: placeHolders.entrySet()){
+                while(plhld.getValue().contains(CNF.getPREFIX())){
+                    String[] var = CNF.splitRules(plhld.getValue());
+                    String newValue= "";
+                    for(String s : var){
+                        if(s.contains(CNF.getPREFIX())){
+                            newValue+= CNF.getCnf().get(s).get(0)+" ";
+                        }else{
+                            newValue+=s+" ";
+                        }
+                    }
+                    plhld.setValue(newValue.strip());
+                }
+            }
+
             for (Action a : skills) {
                 if (a.getVariable().equals(actionVariable)) {
                     Map<String,String> nonTerminals = a.getNonTerminals();

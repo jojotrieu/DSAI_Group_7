@@ -1,5 +1,5 @@
 <S> <ACTION>
-<ACTION> <LOCATION> | <SCHEDULE>
+<ACTION> <LOCATION> | <SCHEDULE> | <TEACHERS>
 <SCHEDULE> Which lectures are there <TIMEEXPRESSION> | <TIMEEXPRESSION> which lectures are there
 <TIMEEXPRESSION> on <DAY> at <TIME> | at <TIME> on <DAY>
 <TIME> 9 | 12
@@ -7,3 +7,5 @@
 <PRO> I | you | he | she
 <ROOM> DeepSpace | SpaceBox
 <DAY> Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday
+<TEACHERS> Who teaches <COURSE> | Who gives <COURSE> | Who is the teacher of <COURSE>
+<COURSE> Discrete Mathematics | Linear Programing | Computer Science 1

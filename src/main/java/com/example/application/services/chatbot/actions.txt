@@ -3,4 +3,7 @@
 <SCHEDULE> * <TIME> 12 <DAY> Monday * On Monday noon we have Theoretical Computer Science 
 <LOCATION> * <ROOM> DeepSpace * DeepSpace is the first room after the entrance 
 <LOCATION> * <ROOM>  * is on the first floor 
+<TEACHERS> * <COURSE> Discrete Mathematics * Steven Kelk
+<TEACHERS> * <COURSE> Linear Programing * Pietro Bonizzi
+<TEACHERS> * <COURSE> Computer Science 1 * Jerry Spanakis and Enrique Hortal
 <ACTION> I have no idea 
