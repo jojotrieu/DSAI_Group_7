@@ -89,13 +89,9 @@ public class Action {
 
             for(int i = 0; i < array.length; i +=2){
                 if(i+1<array.length && i<array.length){
-                    if(CFG.isVariable(array[i+1])){
-                        map.put(array[i], "default value");
-                    }else{
-                        map.put(array[i], array[i+1]);
-                    }
-                }else{
-                    map.put(array[i], "default value");
+                    map.put(array[i], array[i+1]);
+                }else if (i<array.length && i+1>=array.length){
+                    map.put(array[i], "NULL");
                 }
             }
             return map;

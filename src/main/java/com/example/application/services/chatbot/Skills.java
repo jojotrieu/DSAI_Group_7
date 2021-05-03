@@ -69,6 +69,12 @@ public class Skills {
         if(!action.nonTerminals.keySet().stream().allMatch(CFG::isVariable) && !action.nonTerminals.isEmpty()){
             return false;
         }
+        // nonTerminals
+        for(String val : action.nonTerminals.values()){
+            if(val.equals("NULL")){
+                return false;
+            }
+        }
         // value cannot be a variable
         for(String value : action.nonTerminals.values()){
             String[] symbols = value.split(" ");
