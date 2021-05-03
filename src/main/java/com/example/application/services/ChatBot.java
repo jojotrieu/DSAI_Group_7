@@ -18,7 +18,7 @@ public class ChatBot {
         if (CYK.isValidLanguage(question)) {
             String action = CYK.getAction();
             while (action.contains(PREFIX)) { // while some of the placeholder are made up by CNF new variables
-                String[] arguments = action.split(" ");
+                String[] arguments = CNF.splitRules(action);
                 String nAction = "";
                 for (int i = 0; i < arguments.length; i++) {
                     if (arguments[i].contains(PREFIX)) {
