@@ -1,7 +1,6 @@
 package com.example.application.views.skillsview3;
 
 import com.example.application.views.main.MainView;
-import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -47,11 +46,13 @@ public class SkillsView3 extends Div {
     }
 
     private void setUpTemplate() {
-        newTemplate.setWidth("750px");
+        newTemplate.setWidth("700px");
 
         currentTemplate = "questionTemplate";
 
         title.setId("title");
+        Button removeQ = new Button("-");
+        removeQ.setWidth("50px");
         TextField question = new TextField("Question(s):");
         question.setId("question");
         questions.add(question);
@@ -69,6 +70,7 @@ public class SkillsView3 extends Div {
     }
 
     private void templateEmpty() {
+        newTemplate.removeAll();
         title.setValue("");
         for(TextField q : questions){
             q.setValue("");
@@ -111,10 +113,7 @@ public class SkillsView3 extends Div {
                 for(TextField question : questions){
                     arrayQuestions.add(question.getValue());
                 }
-                Label error = new Label("error");
-                error.setId("error-message");
-                newTemplate.add(error);
-                /*if(SyntaxHandler.checkQuestions(arrayQuestions)){
+                if(SyntaxHandler.checkQuestions(arrayQuestions)){
                     newTemplate.removeAll();
                     // add elements of next template
                 }else{
@@ -122,7 +121,7 @@ public class SkillsView3 extends Div {
                     Label error = new Label(SyntaxHandler.getErrorMessage());
                     error.setId("error-message");
                     newTemplate.add(error);
-                }*/
+                }
 
             }else if(currentTemplate.equals("variableTemplate")){
                 newTemplate.removeAll();
