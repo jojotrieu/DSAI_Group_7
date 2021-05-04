@@ -1,0 +1,17 @@
+configurations2-view,
+#configurations2-view {
+    display: block;
+    padding: 1em;
+}
+
+configurations3-view,
+#addSkill-button {
+    background-color: #67c104;
+    color: white;
+}
+
+configurations3-view,
+#addSkill-button:hover {
+    background-color: #478800;
+    color: white;
+}

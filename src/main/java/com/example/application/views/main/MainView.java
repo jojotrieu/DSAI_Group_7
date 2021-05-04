@@ -6,6 +6,7 @@ import com.example.application.views.aboutview.AboutView;
 import com.example.application.views.contactView.ContactView;
 import com.example.application.views.settingsview.SettingsView;
 import com.example.application.views.skillsview2.SkillsView2;
+import com.example.application.views.skillsview3.SkillsView3;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -82,8 +83,9 @@ public class MainView extends AppLayout {
 
     private Component[] createMenuItems() {
         return new Tab[]{createTab("ChatBot", ChatBotView.class), createTab("Skills Editor", SkillsView.class),
-                createTab("Skills Editor 2", SkillsView2.class), createTab("Settings", SettingsView.class),
-                createTab("About", AboutView.class), createTab("Contact", ContactView.class)};
+                createTab("Skills Editor 2", SkillsView2.class), createTab("User Friendly Skills Editor", SkillsView3.class),
+                createTab("Settings", SettingsView.class), createTab("About", AboutView.class),
+                createTab("Contact", ContactView.class)};
     }
 
     private static Tab createTab(String text, Class<? extends Component> navigationTarget) {
