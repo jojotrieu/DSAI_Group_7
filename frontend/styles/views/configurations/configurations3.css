@@ -6,6 +6,7 @@ configurations2-view,
 
 configurations3-view,
 #addSkill-button {
+    margin: 5px;
     background-color: #67c104;
     color: white;
 }
@@ -14,4 +15,36 @@ configurations3-view,
 #addSkill-button:hover {
     background-color: #478800;
     color: white;
+}
+
+configurations3-view,
+#error-message {
+    color: red;
+}
+
+configurations3-view,
+#title {
+    margin: 5px;
+    width: 550px;
+}
+
+configurations3-view,
+#question {
+    margin: 5px;
+    width: 550px;
+}
+
+configurations3-view,
+#variable-button {
+}
+
+configurations3-view,
+#next-button{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+configurations3-view,
+#alternative-button {
+    margin-right: 5px;
 }
