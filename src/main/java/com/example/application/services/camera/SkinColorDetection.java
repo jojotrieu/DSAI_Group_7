@@ -19,7 +19,8 @@ public class SkinColorDetection {
     private Mat originalImage;
 
     public SkinColorDetection(BufferedImage orig) {
-        this.originalImage = BufferedImageToMat(orig);
+        System.loadLibrary( Core.NATIVE_LIBRARY_NAME );
+        this.originalImage = Imgcodecs.imread("img3.jpg");
     }
 
     public Mat BufferedImageToMat(BufferedImage original) {
@@ -40,35 +41,32 @@ public class SkinColorDetection {
         Imgproc.cvtColor(this.originalImage, HSV, Imgproc.COLOR_RGB2HSV);
         Mat YCrCb = new Mat();
         Imgproc.cvtColor(this.originalImage, YCrCb, Imgproc.COLOR_RGB2YCrCb);
-        List<Mat> rgbSplit = new ArrayList<>(3);
-        Core.split(this.originalImage, rgbSplit);
-        List<Mat> hsvSplit = new ArrayList<>(3);
-        Core.split(HSV, hsvSplit);
-        List<Mat> yCrCbSplit = new ArrayList<>(3);
-        Core.split(YCrCb, yCrCbSplit);
         Mat outputMask = new Mat(this.originalImage.rows(), this.originalImage.cols(), CvType.CV_8UC1);
 
         for (int i = 0; i < originalImage.rows(); i++) {
             for (int j = 0; j < originalImage.cols(); j++) {
-                double rValue = rgbSplit.get(2).get(i, j)[0];
-                double gValue = rgbSplit.get(1).get(i, j)[0];
-                double bValue = rgbSplit.get(0).get(i, j)[0];
+                double[] rgbValues = this.originalImage.get(i,j);
+                double rValue = rgbValues[2];
+                double gValue = rgbValues[1];
+                double bValue = rgbValues[0];
 
-                double hValue = hsvSplit.get(0).get(i, j)[0];
+                double hValue = HSV.get(i,j)[0];
 
-                double crValue = yCrCbSplit.get(1).get(i, j)[0];
-                double cbValue = yCrCbSplit.get(2).get(i, j)[0];
+                double crValue = YCrCb.get(i,j)[1];
+                double cbValue = YCrCb.get(i,j)[2];
 
-                if (RGBRule(rValue, gValue, bValue) && HSVRule(hValue) && YCrCbRule(crValue, cbValue)) {
+                if (RGBRule(rValue,gValue,bValue) && HSVRule(hValue) && YCrCbRule(cbValue,crValue)) {
                     outputMask.put(i, j, 255);
                 } else {
                     outputMask.put(i, j, 0);
+                    byte[] black = {0,0,0};
+                    this.originalImage.put(i,j,black);
                 }
             }
         }
 
 
-        return new Mat();
+        return outputMask;
     }
 
     public boolean RGBRule(double r, double g, double b) {
@@ -98,7 +96,7 @@ public class SkinColorDetection {
         boolean rule = false;
         double lineOne = 1.5862 * cb + 20;
         double lineTwo = 0.3448 * cb + 76.2069;
-        double lineThree = -1.005 * cb + 234.5652;
+        double lineThree = -4.5652 * cb + 234.5652;
         double lineFour = -1.15 * cb + 301.75;
         double lineFive = -2.2857 * cb + 432.85;
 
@@ -108,4 +106,9 @@ public class SkinColorDetection {
 
         return rule;
     }
+
+    public Mat getOriginalImage(){
+        return originalImage;
+    }
+
 }
