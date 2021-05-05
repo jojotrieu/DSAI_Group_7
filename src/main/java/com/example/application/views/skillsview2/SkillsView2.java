@@ -135,7 +135,7 @@ public class SkillsView2 extends Div {
                 }
 
                 variable1.setValue(selectedRule.getVariable());
-                expression1.setValue(expressionToString(selectedRule.getExpressions()));
+                expression1.setValue(Rule.expressionToString(selectedRule.getExpressions()));
             }
         });
 
@@ -212,7 +212,7 @@ public class SkillsView2 extends Div {
             if(CFG.isVariable(variable1.getValue())){
                 Rule rule = new Rule();
 
-                List<String> expressions = expressionToArray(expression1.getValue());
+                List<String> expressions = Rule.expressionToArray(expression1.getValue());
 
                 rule.setVariable(variable1.getValue());
                 rule.setId(rules.size());
@@ -338,21 +338,5 @@ public class SkillsView2 extends Div {
                 break;
             }
         }
-    }
-
-    private String expressionToString(List<String> expressions) {
-        String expr = expressions.toString();
-        expr = expr.substring(1, expr.length() - 1);
-        return expr;
-    }
-
-    private List<String> expressionToArray(String value) {
-        List<String> expressions = new ArrayList<>();
-
-        String[] array = value.split(",", 20);
-        for(String word : array){
-            expressions.add(word);
-        }
-        return expressions;
     }
 }

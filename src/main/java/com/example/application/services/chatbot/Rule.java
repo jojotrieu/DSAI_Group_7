@@ -44,4 +44,20 @@ public class Rule {
         copy.setExpressions(new ArrayList<>(expressions));
         return copy;
     }
+
+    public static String expressionToString(List<String> expressions) {
+        String expr = expressions.toString();
+        expr = expr.substring(1, expr.length() - 1);
+        return expr;
+    }
+
+    public static List<String> expressionToArray(String value) {
+        List<String> expressions = new ArrayList<>();
+
+        String[] array = value.split(",", 20);
+        for(String word : array){
+            expressions.add(word);
+        }
+        return expressions;
+    }
 }
