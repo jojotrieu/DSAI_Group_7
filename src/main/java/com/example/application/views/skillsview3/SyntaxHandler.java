@@ -14,31 +14,36 @@ public class SyntaxHandler {
         errorMessage = "";
         int lineCounter = 1;
         for(String line: texts){
-            boolean open = false;
-            for(int i=0;i<line.length();i++){
-                if(line.charAt(i) == '<'){
-                    if(!open) open = true;
-                    else{
-                        errorMessage += "Double opened angle brackets at question " + lineCounter +"\n";
-                    }
-                }else if(line.charAt(i) == '>'){
-                    if(open) open = false;
-                    else{
-                        errorMessage += "Double closed angle brackets at question " + lineCounter +"\n";
+            if(line.equals("")) {
+                errorMessage += "Empty question\n";
+            }
+            if(line!=null) {
+                boolean open = false;
+                for (int i = 0; i < line.length(); i++) {
+                    if (line.charAt(i) == '<') {
+                        if (!open) open = true;
+                        else {
+                            errorMessage += "Double opened angle brackets at question " + lineCounter + "\n";
+                        }
+                    } else if (line.charAt(i) == '>') {
+                        if (open) open = false;
+                        else {
+                            errorMessage += "Unopened angle brackets at question " + lineCounter + "\n";
+                        }
                     }
                 }
-            }
-            if(open){
-                errorMessage += "Unclosed angle bracket at question " + lineCounter +"\n";
+                if (open) {
+                    errorMessage += "Unclosed angle bracket at question " + lineCounter + "\n";
 
-            }
-            String[] atomicArray = CNF.splitRules(line);
-            for(String atomic : atomicArray){
-                if(atomic.charAt(0)=='<' && atomic.charAt(atomic.length()-1)=='>'){
-                    variables.add(atomic);
                 }
+                String[] atomicArray = CNF.splitRules(line);
+                for (String atomic : atomicArray) {
+                    if (atomic.charAt(0) == '<' && atomic.charAt(atomic.length() - 1) == '>') {
+                        variables.add(atomic);
+                    }
+                }
+                lineCounter++;
             }
-            lineCounter++;
         }
         for(String s: variables){
             for(Rule r : CFG.getRules()){
