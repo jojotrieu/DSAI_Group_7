@@ -15,49 +15,14 @@ public class SyntaxHandler {
         variables = new HashSet<>();
         errorMessage = "";
         int lineCounter = 1;
-        HashSet<String> firstVar = new HashSet<>();
         for(String line: texts){
             if(line.equals("")) {
                 errorMessage += "Empty question n"+lineCounter+" \n";
             }
             if(line!=null) {
-                boolean open = false;
-                for (int i = 0; i < line.length(); i++) {
-                    if (line.charAt(i) == '<') {
-                        if (!open) open = true;
-                        else {
-                            errorMessage += "Double opened angle brackets at question " + lineCounter + "\n";
-                        }
-                    } else if (line.charAt(i) == '>') {
-                        if (open) open = false;
-                        else {
-                            errorMessage += "Unopened angle brackets at question " + lineCounter + "\n";
-                        }
-                    }
-                }
-                if (open) {
-                    errorMessage += "Unclosed angle bracket at question " + lineCounter + "\n";
-                }
+                checkVarSyntax(line, lineCounter, "question");
                 String[] atomicArray = CNF.splitRules(line);
-                boolean common = false;
-                for (String atomic : atomicArray) {
-                    if (atomic.charAt(0) == '<' && atomic.charAt(atomic.length() - 1) == '>') {
-                        variables.add(atomic);
-                        if(lineCounter==1) {
-                            firstVar.add(atomic);
-                            common =true;
-                        }else{
-                            for(String fv:firstVar){
-                                if(atomic.equals(fv)) common = true;
-                            }
-                        }
-                    }else if(lineCounter==1){
-                        common = true;
-                    }
-                }
-                if(!common && !errorMessage.contains("Missing") && !(lineCounter == 1 && errorMessage.contains("Empty"))){
-                    errorMessage += "Missing at least one common variable for each question\n";
-                }
+                checkCommon(atomicArray,lineCounter);
                 lineCounter++;
             }
         }
@@ -87,6 +52,33 @@ public class SyntaxHandler {
         return false;
     }
 
+    public static boolean checkVariables(String variable, List<String> values){
+        errorMessage = "";
+        int lineCounter = 1;
+        boolean hasV=false;
+        for(String value:values){
+            if(value!=null){
+                hasV = checkVarSyntax(value, lineCounter, "value");
+
+                lineCounter++;
+            }
+        }
+        if(hasV){
+            if(commonV.contains(variable)){
+                int counter=1;
+                for(String value:values){
+                    if(value!=null) {
+                        String[] splitV = CNF.splitRules(value);
+                        checkCommon(splitV, counter);
+                        counter++;
+                    }
+                }
+            }
+        }
+        if(errorMessage.equals("")) return true;
+        return false;
+    }
+
     public static Set<String> getVariables(){
         return variables;
     }
@@ -96,4 +88,51 @@ public class SyntaxHandler {
         return errorMessage;
     }
 
+    private static boolean checkVarSyntax(String line, int lineCounter, String varOrQ){
+        boolean open = false;
+        boolean ret = false;
+        for (int i = 0; i < line.length(); i++) {
+            if (line.charAt(i) == '<') {
+                if (!open) open = true;
+                else {
+                    errorMessage += "Double opened angle brackets at " +varOrQ + lineCounter + "\n";
+                }
+            } else if (line.charAt(i) == '>') {
+                if (open){
+                    open = false;
+                    ret = true;
+                }
+                else {
+                    errorMessage += "Unopened angle brackets at " +varOrQ + lineCounter + "\n";
+                }
+            }
+        }
+        if (open) {
+            errorMessage += "Unclosed angle bracket at " +varOrQ + lineCounter + "\n";
+        }
+        return ret;
+    }
+
+    private static void checkCommon(String[] splitLine, int lineCounter){
+        HashSet<String> firstVar = new HashSet<>();
+        boolean common = false;
+        for (String atomic : splitLine) {
+            if (atomic.charAt(0) == '<' && atomic.charAt(atomic.length() - 1) == '>') {
+                variables.add(atomic);
+                if(lineCounter==1) {
+                    firstVar.add(atomic);
+                    common =true;
+                }else{
+                    for(String fv:firstVar){
+                        if(atomic.equals(fv)) common = true;
+                    }
+                }
+            }else if(firstVar.size() == 0){
+                common = true;
+            }
+        }
+        if(!common && !errorMessage.contains("Missing") && !(lineCounter == 1 && errorMessage.contains("Empty"))){
+            errorMessage += "Missing at least one common variable for each question\n";
+        }
+    }
 }
