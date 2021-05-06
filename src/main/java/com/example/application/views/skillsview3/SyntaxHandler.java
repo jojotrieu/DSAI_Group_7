@@ -34,18 +34,7 @@ public class SyntaxHandler {
             }
         }
         if(!errorMessage.contains("Missing")){
-            commonV = new HashSet<>();
-            for (int i = 1; i < texts.size(); i++) {
-                for(String atomic1:CNF.splitRules(texts.get(0))){
-                    boolean found = false;
-                    for(String atomici: CNF.splitRules(texts.get(i))){
-                        if(atomici.equals(atomic1)){
-                            found = true;
-                        }
-                    }
-                    if(found) commonV.add(atomic1);
-                }
-            }
+            findCommon(texts, true);
         }
         if(errorMessage.length()==0 || errorMessage.startsWith("Rule name"))
             return true;
@@ -59,7 +48,6 @@ public class SyntaxHandler {
         for(String value:values){
             if(value!=null){
                 hasV = checkVarSyntax(value, lineCounter, "value");
-
                 lineCounter++;
             }
         }
@@ -133,6 +121,21 @@ public class SyntaxHandler {
         }
         if(!common && !errorMessage.contains("Missing") && !(lineCounter == 1 && errorMessage.contains("Empty"))){
             errorMessage += "Missing at least one common variable for each question\n";
+        }
+    }
+
+    private static void findCommon(List<String> texts, boolean first){
+        if(first) commonV = new HashSet<>();
+        for (int i = 1; i < texts.size(); i++) {
+            for(String atomic1:CNF.splitRules(texts.get(0))){
+                boolean found = false;
+                for(String atomici: CNF.splitRules(texts.get(i))){
+                    if(atomici.equals(atomic1)){
+                        found = true;
+                    }
+                }
+                if(found) commonV.add(atomic1);
+            }
         }
     }
 }
