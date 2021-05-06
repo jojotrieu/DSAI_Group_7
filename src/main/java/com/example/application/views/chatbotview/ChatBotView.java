@@ -92,7 +92,9 @@ public class ChatBotView extends HorizontalLayout {
 
         snapshot.addClickListener(e -> {
             cameraPopUp.removeAll();
+            camera.turnOnCamera();
             BufferedImage cameraSnapshot = camera.captureImage();
+            camera.closeCamera();
             StreamResource streamResource = camera.generateUiImage(cameraSnapshot);
             Image cameraPic = new Image(streamResource, "capture");
             cameraPic.setId("camera-frame");

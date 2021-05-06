@@ -1,9 +1,6 @@
 package com.example.application.services.camera;
 
-import org.opencv.core.Core;
-import org.opencv.core.CvType;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfByte;
+import org.opencv.core.*;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
@@ -17,13 +14,17 @@ import java.util.List;
 
 public class SkinColorDetection {
     private Mat originalImage;
+    private int detectedFaces;
 
-    public SkinColorDetection(BufferedImage orig) {
-        System.loadLibrary( Core.NATIVE_LIBRARY_NAME );
-        this.originalImage = Imgcodecs.imread("img3.jpg");
+    public SkinColorDetection(BufferedImage camPicture) {
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        this.originalImage = BufferedImageToMat(camPicture);
     }
 
-    public Mat BufferedImageToMat(BufferedImage original) {
+    public Mat BufferedImageToMat(BufferedImage orig) {
+        // Convert webcam image to BGR because OpenCV reads images as BGR instead of RGB
+        BufferedImage original = new BufferedImage(orig.getWidth(), orig.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
+        original.getGraphics().drawImage(orig, 0, 0, null);
         Mat converted = new Mat(original.getHeight(), original.getWidth(), CvType.CV_8UC3);
         byte[] imageInfo = ((DataBufferByte) original.getRaster().getDataBuffer()).getData();
         converted.put(0, 0, imageInfo);
@@ -45,22 +46,22 @@ public class SkinColorDetection {
 
         for (int i = 0; i < originalImage.rows(); i++) {
             for (int j = 0; j < originalImage.cols(); j++) {
-                double[] rgbValues = this.originalImage.get(i,j);
+                double[] rgbValues = this.originalImage.get(i, j);
                 double rValue = rgbValues[2];
                 double gValue = rgbValues[1];
                 double bValue = rgbValues[0];
 
-                double hValue = HSV.get(i,j)[0];
+                double hValue = HSV.get(i, j)[0];
 
-                double crValue = YCrCb.get(i,j)[1];
-                double cbValue = YCrCb.get(i,j)[2];
+                double crValue = YCrCb.get(i, j)[1];
+                double cbValue = YCrCb.get(i, j)[2];
 
-                if (RGBRule(rValue,gValue,bValue) && HSVRule(hValue) && YCrCbRule(crValue,cbValue)) {
+                if (RGBRule(rValue, gValue, bValue) && HSVRule(hValue) && YCrCbRule(crValue, cbValue)) {
                     outputMask.put(i, j, 255);
                 } else {
                     outputMask.put(i, j, 0);
-                    byte[] black = {0,0,0};
-                    this.originalImage.put(i,j,black);
+                    /* byte[] black = {0,0,0};
+                    this.originalImage.put(i,j,black); */
                 }
             }
         }
@@ -69,8 +70,20 @@ public class SkinColorDetection {
         return outputMask;
     }
 
-    public void detectFaces(){
-
+    public void detectFaces(Mat skinMask, int minHeight, int minWidth, int maxHeight, int maxWidth) {
+        List<MatOfPoint> contours = new ArrayList<>();
+        Mat hierarchy = new Mat();
+        Imgproc.findContours(skinMask, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
+        for (MatOfPoint contour : contours) {
+            Rect faceRectangle = Imgproc.boundingRect(contour);
+            if (faceRectangle.width > minWidth && faceRectangle.height > minHeight &&
+                    faceRectangle.width < maxWidth && faceRectangle.height < maxHeight) {
+                Rect newBounds = new Rect(faceRectangle.x, faceRectangle.y,
+                        faceRectangle.width, (int) (faceRectangle.width * 1.25));
+                Imgproc.rectangle(this.originalImage, newBounds, new Scalar(128, 0, 128), 2);
+                detectedFaces++;
+            }
+        }
     }
 
     public boolean RGBRule(double r, double g, double b) {
@@ -111,8 +124,15 @@ public class SkinColorDetection {
         return rule;
     }
 
-    public Mat getOriginalImage(){
+    public Mat getOriginalImage() {
         return originalImage;
     }
 
+    public void setOriginalImage(BufferedImage capture) {
+        this.originalImage = BufferedImageToMat(capture);
+    }
+
+    public int getDetectedFaces() {
+        return detectedFaces;
+    }
 }

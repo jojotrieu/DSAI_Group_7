@@ -29,17 +29,23 @@ public class Camera {
     private final HaarCascadeDetector haarCascadeDetector = new HaarCascadeDetector();
     private List<DetectedFace> faces = new ArrayList<>();
     private int facesCount;
+    private Webcam webcam;
 
-    public BufferedImage captureImage() {
-        Webcam webcam = Webcam.getWebcams().get(0);
+
+    public void turnOnCamera(){
+        webcam = Webcam.getWebcams().get(0);
         Dimension viewSize = new Dimension(WebcamResolution.VGA.getSize().width / 2,
                 WebcamResolution.VGA.getSize().height / 2);
         webcam.setViewSize(viewSize);
         webcam.open();
-        BufferedImage snapshot = webcam.getImage();
+    }
+
+    public BufferedImage captureImage() {
+        return webcam.getImage();
+    }
+
+    public void closeCamera(){
         webcam.close();
-        this.imageToAnalyze = snapshot;
-        return snapshot;
     }
 
     public StreamResource generateUiImage(BufferedImage image) {
@@ -53,7 +59,7 @@ public class Camera {
         }
     }
 
-    public BufferedImage detectFaces(){
+    public BufferedImage detectFaces() {
         this.faces = haarCascadeDetector.detectFaces(ImageUtilities.createFImage(imageToAnalyze));
         this.facesCount = faces.size();
         BufferedImage newImage = imageToAnalyze;
@@ -62,31 +68,30 @@ public class Camera {
         for (DetectedFace face : faces) {
             Rectangle faceBounds = face.getBounds();
 
-            int dx = (int) (0.05 * faceBounds.width);
-            int dy = (int) (0.1 * faceBounds.height);
-            int x = (int) faceBounds.x - dx;
-            int y = (int) faceBounds.y - dy;
-            int w = (int) faceBounds.width + dx;
-            int h = (int) faceBounds.height + 2 * dy;
+            double dx = 0.05 * faceBounds.width;
+            double dy = 0.1 * faceBounds.height;
+            double x = faceBounds.x - dx;
+            double y = faceBounds.y - dy;
+            double w = faceBounds.width + dx;
+            double h = faceBounds.height + 2 * dy;
 
             g2.setStroke(STROKE);
             g2.setColor(Color.YELLOW);
-            g2.drawRect(x, y, w, h);
+            g2.drawRect((int) x, (int) y, (int) w, (int) h);
         }
         return newImage;
     }
 
 
-
-    public int getFacesCount(){
+    public int getFacesCount() {
         return facesCount;
     }
 
-    public BufferedImage getImageToAnalyze(){
+    public BufferedImage getImageToAnalyze() {
         return imageToAnalyze;
     }
 
-    public void setImageToAnalyze(BufferedImage newImage){
+    public void setImageToAnalyze(BufferedImage newImage) {
         this.imageToAnalyze = newImage;
     }
 
