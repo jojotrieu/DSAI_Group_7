@@ -11,6 +11,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 @Route(value = "skills3", layout = MainView.class)
 @CssImport("./styles/views/configurations/configurations3.css")
@@ -29,6 +30,11 @@ public class SkillsView3 extends Div {
     private Button removeLastQuestion = new Button("Remove last question");
 
     private String currentTemplate = new String();
+
+    private ArrayList<Label> varLabels = new ArrayList<>();
+    private ArrayList<ArrayList<TextField>> valuesOfVar = new ArrayList<>();
+    private ArrayList<Button> valuesButton = new ArrayList<>();
+    private Button backButton = new Button("Back");
 
     public SkillsView3() {
         setId("configurations3-view");
@@ -55,8 +61,6 @@ public class SkillsView3 extends Div {
         currentTemplate = "questionTemplate";
 
         title.setId("title");
-        Button removeQ = new Button("-");
-        removeQ.setWidth("50px");
         TextField question = new TextField("Question(s):");
         question.setId("question");
         questions.add(question);
@@ -64,10 +68,6 @@ public class SkillsView3 extends Div {
         variable.setId("variable");
         variables.add(variable);
         varClickListener.add(false);
-
-        System.out.println(questions.size());
-        System.out.println(variables.size());
-        System.out.println(varClickListener.size());
 
         newTemplate.add(removeLastQuestion);
         newTemplate.add(alternativeButton);
@@ -86,6 +86,11 @@ public class SkillsView3 extends Div {
         for(TextField q : questions){
             q.setValue("");
         }
+        currentTemplate = "questionTemplate";
+        varLabels.clear();
+        valuesOfVar.clear();
+        valuesButton.clear();
+
         newTemplate.add(removeLastQuestion);
         newTemplate.add(alternativeButton);
         newTemplate.add(nextButton);
@@ -96,9 +101,6 @@ public class SkillsView3 extends Div {
 
     private void initRemoveLQ(){
         removeLastQuestion.addClickListener(e -> {
-            System.out.println(questions.size());
-            System.out.println(variables.size());
-            System.out.println(varClickListener.size());
             if(questions.size()>1){
                 newTemplate.remove(questions.get(questions.size()-1),variables.get(variables.size()-1));
                 questions.remove(questions.get(questions.size()-1));
@@ -123,10 +125,6 @@ public class SkillsView3 extends Div {
                 newTemplate.add(questions.get(questions.size()-1));
                 newTemplate.add(variables.get(variables.size()-1));
 
-                System.out.println(questions.size());
-                System.out.println(variables.size());
-                System.out.println(varClickListener.size());
-
             }else if(currentTemplate.equals("variableTemplate")){
 
 
@@ -145,12 +143,17 @@ public class SkillsView3 extends Div {
                 for(TextField question : questions){
                     arrayQuestions.add(question.getValue());
                 }
-                if(SyntaxHandler.checkQuestions(arrayQuestions)){
-                    newTemplate.removeAll();
-                    // add elements of next template
-                }else{
+                if(SyntaxHandler.checkQuestions(arrayQuestions) && !title.getValue().isEmpty()){
+                    goToVarTemplate();
+
+                }else if (!SyntaxHandler.checkQuestions(arrayQuestions) && !title.getValue().isEmpty()){
                     //display error message
                     Label error = new Label(SyntaxHandler.getErrorMessage());
+                    error.setId("error-message");
+                    newTemplate.add(error);
+                }else{
+                    //display error message
+                    Label error = new Label("Title must not be empty");
                     error.setId("error-message");
                     newTemplate.add(error);
                 }
@@ -160,7 +163,68 @@ public class SkillsView3 extends Div {
 
             }else if(currentTemplate.equals("answerTemplate")){
                 newTemplate.removeAll();
+            }
+        });
+    }
 
+    private void goToVarTemplate(){
+        currentTemplate = "variableTemplate";
+        newTemplate.removeAll();
+        backButton.setId("back-button");
+        newTemplate.add(backButton);
+        newTemplate.add(nextButton);
+        initNextButton();
+        initBackButton();
+
+        Set<String> var = SyntaxHandler.getVariables();
+
+        for(String v : var){
+            Label label = new Label(v);
+            varLabels.add(label);
+            newTemplate.add(label);
+            ArrayList<TextField> arrayOfValues = new ArrayList<>();
+            TextField value = new TextField();
+            value.setId("value-txtfield");
+            newTemplate.add(value);
+            arrayOfValues.add(value);
+            valuesOfVar.add(arrayOfValues);
+            Button addValue = new Button("Add value");
+            addValue.setId("addVal-button");
+            newTemplate.add(addValue);
+            valuesButton.add(addValue);
+
+            addValue.addClickListener(ev ->{
+                TextField val = new TextField();
+                //TODO
+            });
+        }
+
+    }
+
+    private void initBackButton() {
+        backButton.addClickListener(e -> {
+
+            if(currentTemplate.equals("variableTemplate")){
+                newTemplate.removeAll();
+                currentTemplate = "questionTemplate";
+
+                title.setValue(title.getValue());
+                for(TextField q : questions){
+                    q.setValue(q.getValue());
+                }
+
+                newTemplate.add(removeLastQuestion);
+                newTemplate.add(alternativeButton);
+                newTemplate.add(nextButton);
+                newTemplate.add(title);
+                for(int i=0; i<questions.size(); i++){
+                    newTemplate.add(questions.get(i));
+                    newTemplate.add(variables.get(i));
+                }
+
+            }else if(currentTemplate.equals("answerTemplate")){
+                currentTemplate = "variableTemplate";
+                newTemplate.removeAll();
             }
         });
     }

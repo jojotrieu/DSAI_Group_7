@@ -41,16 +41,30 @@ configurations3-view,
 configurations3-view,
 #removeLQ-button{
     margin-left: 5px;
-    margin-right: 5px;
 }
 
 configurations3-view,
 #next-button{
     margin-left: 5px;
-    margin-right: 5px;
 }
 
 configurations3-view,
 #alternative-button {
-    margin-right: 5px;
+    margin-left: 5px;
+}
+
+configurations3-view,
+#back-button {
+    margin-left: 5px;
+}
+
+configurations3-view,
+#value-txtfield {
+    margin-left: 5px;
+    width: 400 px;
+}
+
+configurations3-view,
+#addVal-button {
+    margin-left: 5px;
 }
