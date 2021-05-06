@@ -25,6 +25,7 @@ public class SkillsView3 extends Div {
     private ArrayList<Button> variables = new ArrayList<>();
     private Button alternativeButton = new Button("Alternative question");
     private Button nextButton = new Button("Next");
+    private ArrayList<Boolean> varClickListener = new ArrayList<>();
 
     private String currentTemplate = new String();
 
@@ -35,6 +36,7 @@ public class SkillsView3 extends Div {
         initAddButton();
         initAlternativeButton();
         initNextButton();
+        initVarButton();
     }
 
     private void initAddButton() {
@@ -59,6 +61,7 @@ public class SkillsView3 extends Div {
         Button variable = new Button("Variable");
         variable.setId("variable");
         variables.add(variable);
+        varClickListener.add(false);
 
         newTemplate.add(alternativeButton);
         newTemplate.add(nextButton);
@@ -92,6 +95,8 @@ public class SkillsView3 extends Div {
                 Button variable = new Button("Variable");
                 variable.setId("variable-button");
                 variables.add(variable);
+                varClickListener.add(false);
+                initVarButton();
                 newTemplate.add(questions.get(questions.size()-1));
                 newTemplate.add(variables.get(variables.size()-1));
 
@@ -133,4 +138,15 @@ public class SkillsView3 extends Div {
         });
     }
 
+    private void initVarButton() {
+        for(Button varButt : variables){
+            int index = variables.indexOf(varButt);
+            if(!varClickListener.get(index)){
+                varClickListener.set(index, true);
+                varButt.addClickListener(e ->{
+                    questions.get(index).setValue(questions.get(index).getValue() + "<...>");
+                });
+            }
+        }
+    }
 }
