@@ -8,14 +8,16 @@ import java.util.*;
 
 public class SyntaxHandler {
     private static String errorMessage;
+    private static Set<String> variables;
 
     public static boolean checkQuestions(List<String> texts){
-        Set<String> variables = new HashSet<>();
+        variables = new HashSet<>();
         errorMessage = "";
         int lineCounter = 1;
+        HashSet<String> firstVar = new HashSet<>();
         for(String line: texts){
             if(line.equals("")) {
-                errorMessage += "Empty question\n";
+                errorMessage += "Empty question n"+lineCounter+" \n";
             }
             if(line!=null) {
                 boolean open = false;
@@ -34,13 +36,24 @@ public class SyntaxHandler {
                 }
                 if (open) {
                     errorMessage += "Unclosed angle bracket at question " + lineCounter + "\n";
-
                 }
                 String[] atomicArray = CNF.splitRules(line);
+                boolean common = false;
                 for (String atomic : atomicArray) {
                     if (atomic.charAt(0) == '<' && atomic.charAt(atomic.length() - 1) == '>') {
                         variables.add(atomic);
+                        if(lineCounter==1) {
+                            firstVar.add(atomic);
+                            common =true;
+                        }else{
+                            for(String fv:firstVar){
+                                if(atomic.equals(fv)) common = true;
+                            }
+                        }
                     }
+                }
+                if(!common && !errorMessage.contains("Missing")){
+                    errorMessage += "Missing at least one common variable for each question\n";
                 }
                 lineCounter++;
             }
@@ -57,6 +70,9 @@ public class SyntaxHandler {
         return false;
     }
 
+    public static Set<String> getVariables(){
+        return variables;
+    }
 
 
     public static String getErrorMessage(){
