@@ -26,6 +26,7 @@ public class SkillsView3 extends Div {
     private Button alternativeButton = new Button("Alternative question");
     private Button nextButton = new Button("Next");
     private ArrayList<Boolean> varClickListener = new ArrayList<>();
+    private Button removeLastQuestion = new Button("Remove last question");
 
     private String currentTemplate = new String();
 
@@ -37,6 +38,7 @@ public class SkillsView3 extends Div {
         initAlternativeButton();
         initNextButton();
         initVarButton();
+        initRemoveLQ();
     }
 
     private void initAddButton() {
@@ -63,11 +65,17 @@ public class SkillsView3 extends Div {
         variables.add(variable);
         varClickListener.add(false);
 
+        System.out.println(questions.size());
+        System.out.println(variables.size());
+        System.out.println(varClickListener.size());
+
+        newTemplate.add(removeLastQuestion);
         newTemplate.add(alternativeButton);
         newTemplate.add(nextButton);
         newTemplate.add(title);
         newTemplate.add(questions.get(0));
         newTemplate.add(variables.get(0));
+        removeLastQuestion.setId("removeLQ-button");
         alternativeButton.setId("alternative-button");
         nextButton.setId("next-button");
     }
@@ -78,11 +86,26 @@ public class SkillsView3 extends Div {
         for(TextField q : questions){
             q.setValue("");
         }
+        newTemplate.add(removeLastQuestion);
         newTemplate.add(alternativeButton);
         newTemplate.add(nextButton);
         newTemplate.add(title);
         newTemplate.add(questions.get(0));
         newTemplate.add(variables.get(0));
+    }
+
+    private void initRemoveLQ(){
+        removeLastQuestion.addClickListener(e -> {
+            System.out.println(questions.size());
+            System.out.println(variables.size());
+            System.out.println(varClickListener.size());
+            if(questions.size()>1){
+                newTemplate.remove(questions.get(questions.size()-1),variables.get(variables.size()-1));
+                questions.remove(questions.get(questions.size()-1));
+                variables.remove(variables.get(variables.size()-1));
+                varClickListener.remove(varClickListener.get(varClickListener.size()-1));
+            }
+        });
     }
 
     private void initAlternativeButton() {
@@ -99,6 +122,10 @@ public class SkillsView3 extends Div {
                 initVarButton();
                 newTemplate.add(questions.get(questions.size()-1));
                 newTemplate.add(variables.get(variables.size()-1));
+
+                System.out.println(questions.size());
+                System.out.println(variables.size());
+                System.out.println(varClickListener.size());
 
             }else if(currentTemplate.equals("variableTemplate")){
 

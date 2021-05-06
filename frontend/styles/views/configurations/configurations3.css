@@ -39,6 +39,12 @@ configurations3-view,
 }
 
 configurations3-view,
+#removeLQ-button{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+configurations3-view,
 #next-button{
     margin-left: 5px;
     margin-right: 5px;
