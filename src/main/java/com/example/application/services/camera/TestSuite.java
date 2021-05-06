@@ -7,11 +7,10 @@ import java.awt.image.BufferedImage;
 
 public class TestSuite {
     public static void main(String[] args) {
-        Camera camera = new Camera();
-        BufferedImage snapshot = camera.captureImage();
-        SkinColorDetection detector = new SkinColorDetection(snapshot);
+
+        SkinColorDetection detector = new SkinColorDetection(new BufferedImage(1,1,BufferedImage.TYPE_INT_RGB));
         Mat output = detector.detectSkinColor();
-        Imgcodecs.imwrite("output.jpeg",output);
+        Imgcodecs.imwrite("output.jpg",detector.getOriginalImage());
 
     }
 }

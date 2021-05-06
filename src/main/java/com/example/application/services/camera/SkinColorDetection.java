@@ -38,9 +38,9 @@ public class SkinColorDetection {
 
     public Mat detectSkinColor() {
         Mat HSV = new Mat();
-        Imgproc.cvtColor(this.originalImage, HSV, Imgproc.COLOR_RGB2HSV);
+        Imgproc.cvtColor(this.originalImage, HSV, Imgproc.COLOR_BGR2HSV);
         Mat YCrCb = new Mat();
-        Imgproc.cvtColor(this.originalImage, YCrCb, Imgproc.COLOR_RGB2YCrCb);
+        Imgproc.cvtColor(this.originalImage, YCrCb, Imgproc.COLOR_BGR2YCrCb);
         Mat outputMask = new Mat(this.originalImage.rows(), this.originalImage.cols(), CvType.CV_8UC1);
 
         for (int i = 0; i < originalImage.rows(); i++) {
@@ -55,7 +55,7 @@ public class SkinColorDetection {
                 double crValue = YCrCb.get(i,j)[1];
                 double cbValue = YCrCb.get(i,j)[2];
 
-                if (RGBRule(rValue,gValue,bValue) && HSVRule(hValue) && YCrCbRule(cbValue,crValue)) {
+                if (RGBRule(rValue,gValue,bValue) && HSVRule(hValue) && YCrCbRule(crValue,cbValue)) {
                     outputMask.put(i, j, 255);
                 } else {
                     outputMask.put(i, j, 0);
@@ -67,6 +67,10 @@ public class SkinColorDetection {
 
 
         return outputMask;
+    }
+
+    public void detectFaces(){
+
     }
 
     public boolean RGBRule(double r, double g, double b) {
@@ -89,14 +93,14 @@ public class SkinColorDetection {
     }
 
     public boolean HSVRule(double h) {
-        return h > 50 && h < 150;
+        return h < 50 || h > 150;
     }
 
     public boolean YCrCbRule(double cr, double cb) {
         boolean rule = false;
         double lineOne = 1.5862 * cb + 20;
         double lineTwo = 0.3448 * cb + 76.2069;
-        double lineThree = -4.5652 * cb + 234.5652;
+        double lineThree = -1.005 * cb + 234.5652;
         double lineFour = -1.15 * cb + 301.75;
         double lineFive = -2.2857 * cb + 432.85;
 
