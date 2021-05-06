@@ -9,6 +9,7 @@ import java.util.*;
 public class SyntaxHandler {
     private static String errorMessage;
     private static Set<String> variables;
+    private static Set<String> commonV;
 
     public static boolean checkQuestions(List<String> texts){
         variables = new HashSet<>();
@@ -50,9 +51,11 @@ public class SyntaxHandler {
                                 if(atomic.equals(fv)) common = true;
                             }
                         }
+                    }else if(lineCounter==1){
+                        common = true;
                     }
                 }
-                if(!common && !errorMessage.contains("Missing")){
+                if(!common && !errorMessage.contains("Missing") && !(lineCounter == 1 && errorMessage.contains("Empty"))){
                     errorMessage += "Missing at least one common variable for each question\n";
                 }
                 lineCounter++;
@@ -60,8 +63,22 @@ public class SyntaxHandler {
         }
         for(String s: variables){
             for(Rule r : CFG.getRules()){
-                if(s.equals(r.getVariable())){
+                if(s.equals(r.getVariable())){//TODO find them
                     errorMessage += "Rule name already used for " + s +"\n";
+                }
+            }
+        }
+        if(!errorMessage.contains("Missing")){
+            commonV = new HashSet<>();
+            for (int i = 1; i < texts.size(); i++) {
+                for(String atomic1:CNF.splitRules(texts.get(0))){
+                    boolean found = false;
+                    for(String atomici: CNF.splitRules(texts.get(i))){
+                        if(atomici.equals(atomic1)){
+                            found = true;
+                        }
+                    }
+                    if(found) commonV.add(atomic1);
                 }
             }
         }
