@@ -32,6 +32,7 @@ import java.io.IOException;
 @CssImport("./styles/views/chatbot/chatbot.css")
 @RouteAlias(value = "", layout = MainView.class)
 public class ChatBotView extends HorizontalLayout {
+    private static int reloadCounter = 0;
     private TextField questionTextField;
     private Dialog cameraPopUp = new Dialog();
     private Button clearButton = new Button("Clear Chat");
@@ -57,7 +58,6 @@ public class ChatBotView extends HorizontalLayout {
         cameraPopUp.setWidth("500px");
         cameraPopUp.setHeight("500px");
         questionTextField.setEnabled(false);
-        cameraCheck.setEnabled(false);
         questionTextField.addKeyPressListener(Key.ENTER, e -> {
             //disable Text Field while ChatBot is thinking
             questionTextField.setEnabled(false);
@@ -93,6 +93,7 @@ public class ChatBotView extends HorizontalLayout {
             cameraCheck.setEnabled(true);
             setUpLoginCheck();
         } else {
+
             backgroundCheck();
         }
 
@@ -173,32 +174,35 @@ public class ChatBotView extends HorizontalLayout {
     }
 
     public void backgroundCheck() {
-        int count = 0;
-        camera.turnOnCamera();
-        while (count < 1) {
+        cameraCheck.addClickListener(e -> {
+            int count = 0;
+            camera.turnOnCamera();
+            while (count < 1) {
 
-            if (SettingsView.selectedAlgorithm.equalsIgnoreCase("Haar Cascade")) {
-                camera.captureImage();
-                camera.detectFaces();
-                count = camera.getFacesCount();
+                if (SettingsView.selectedAlgorithm.equalsIgnoreCase("Haar Cascade")) {
+                    camera.captureImage();
+                    camera.detectFaces();
+                    count = camera.getFacesCount();
 
-            } else {
-                camera.captureImage();
-                SkinColorDetection skinColorDetector = new SkinColorDetection();
-                skinColorDetector.setOriginalImage(camera.getImageToAnalyze());
-                Mat mask = skinColorDetector.detectSkinColor();
-                skinColorDetector.detectFaces(mask, 50, 50, 150, 150);
-                count = skinColorDetector.getDetectedFaces();
+                } else {
+                    camera.captureImage();
+                    SkinColorDetection skinColorDetector = new SkinColorDetection();
+                    skinColorDetector.setOriginalImage(camera.getImageToAnalyze());
+                    Mat mask = skinColorDetector.detectSkinColor();
+                    skinColorDetector.detectFaces(mask, 50, 50, 150, 150);
+                    count = skinColorDetector.getDetectedFaces();
+                }
+
             }
-            String responseH4 = "ChatBot: " + "Looks like nobody is there!";
+            camera.closeCamera();
+            String responseH4 = "ChatBot: " + "I can see you now! Let's chat!";
             conversation = responseH4 + "\n";
             area.setValue(conversation);
-        }
-        camera.closeCamera();
-        String responseH4 = "ChatBot: " + "I can see you now! Let's chat!";
-        conversation = responseH4 + "\n";
-        area.setValue(conversation);
-        questionTextField.setEnabled(true);
+            questionTextField.setEnabled(true);
+
+        });
+
+
     }
 
 
