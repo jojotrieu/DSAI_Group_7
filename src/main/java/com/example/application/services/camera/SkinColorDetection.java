@@ -1,8 +1,11 @@
 package com.example.application.services.camera;
 
+
+import nu.pattern.OpenCV;
 import org.opencv.core.*;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
+import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -12,17 +15,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class SkinColorDetection {
     private Mat originalImage;
     private int detectedFaces;
 
-    public SkinColorDetection(BufferedImage camPicture) {
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        this.originalImage = BufferedImageToMat(camPicture);
-    }
-
     public Mat BufferedImageToMat(BufferedImage orig) {
         // Convert webcam image to BGR because OpenCV reads images as BGR instead of RGB
+        OpenCV.loadLocally();
         BufferedImage original = new BufferedImage(orig.getWidth(), orig.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
         original.getGraphics().drawImage(orig, 0, 0, null);
         Mat converted = new Mat(original.getHeight(), original.getWidth(), CvType.CV_8UC3);

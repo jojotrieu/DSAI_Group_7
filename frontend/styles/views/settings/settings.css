@@ -6,6 +6,20 @@ settings-view,
 
 settings-view,
 #theme-button {
-    left: 44%;
+    position: absolute;
+    left: 50%;
+    top: 15%;
+}
+
+settings-view,
+#algorithm-select {
+    position: absolute;
+    right: 13%;
+}
+
+settings-view,
+#type-select {
+    position: absolute;
+    left: 25%;
 }
 

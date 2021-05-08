@@ -25,14 +25,14 @@ import javax.imageio.ImageIO;
 
 @Service
 public class Camera {
-    private BufferedImage imageToAnalyze;
     private final HaarCascadeDetector haarCascadeDetector = new HaarCascadeDetector();
+    private BufferedImage imageToAnalyze;
     private List<DetectedFace> faces = new ArrayList<>();
     private int facesCount;
     private Webcam webcam;
 
 
-    public void turnOnCamera(){
+    public void turnOnCamera() {
         webcam = Webcam.getWebcams().get(0);
         Dimension viewSize = new Dimension(WebcamResolution.VGA.getSize().width / 2,
                 WebcamResolution.VGA.getSize().height / 2);
@@ -41,10 +41,12 @@ public class Camera {
     }
 
     public BufferedImage captureImage() {
-        return webcam.getImage();
+        imageToAnalyze = webcam.getImage();
+        this.facesCount = 0;
+        return imageToAnalyze;
     }
 
-    public void closeCamera(){
+    public void closeCamera() {
         webcam.close();
     }
 
@@ -87,13 +89,8 @@ public class Camera {
         return facesCount;
     }
 
-    public BufferedImage getImageToAnalyze() {
-        return imageToAnalyze;
+    public BufferedImage getImageToAnalyze(){
+        return this.imageToAnalyze;
     }
-
-    public void setImageToAnalyze(BufferedImage newImage) {
-        this.imageToAnalyze = newImage;
-    }
-
 
 }

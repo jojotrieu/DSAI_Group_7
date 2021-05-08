@@ -24,6 +24,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
 import com.example.application.views.chatbotview.ChatBotView;
 import com.example.application.views.skillsview.SkillsView;
+import org.opencv.core.Core;
 
 /**
  * The main view is a top-level placeholder for other views.

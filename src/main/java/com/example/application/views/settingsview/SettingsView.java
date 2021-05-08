@@ -4,9 +4,11 @@ import com.example.application.views.main.MainView;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.dom.ThemeList;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -16,11 +18,23 @@ import com.vaadin.flow.theme.lumo.Lumo;
 @CssImport("./styles/views/settings/settings.css")
 @PageTitle("Settings")
 public class SettingsView extends VerticalLayout {
+    public static String selectedAlgorithm = "Haar Cascade";
+    public static String selectedType = "Background";
+    private Select<String> algorithms = new Select<>();
+    private Select<String> typeOfCheck = new Select<>();
 
     public SettingsView() {
         setId("settings-view");
         Button themeButton = new Button("Enable dark theme");
         themeButton.setId("theme-button");
+        algorithms.setId("algorithm-select");
+        typeOfCheck.setId("type-select");
+        algorithms.setItems("Haar Cascade", "Skin Color");
+        algorithms.setLabel("Face detection");
+        algorithms.setPlaceholder("Haar Cascade");
+        typeOfCheck.setItems("Background", "Login check");
+        typeOfCheck.setLabel("Type of check");
+        typeOfCheck.setPlaceholder("Background");
         themeButton.addClickListener(e -> {
             ThemeList themeList = UI.getCurrent().getElement().getThemeList();
 
@@ -32,7 +46,13 @@ public class SettingsView extends VerticalLayout {
                 themeButton.setText("Enable light theme");
             }
         });
+        algorithms.addValueChangeListener(event ->
+                selectedAlgorithm = event.getValue());
+        typeOfCheck.addValueChangeListener(event ->
+                selectedType = event.getValue());
 
+        add(algorithms);
+        add(typeOfCheck);
         add(themeButton);
     }
 

@@ -172,11 +172,6 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.bytedeco</groupId>
-            <artifactId>javacv-platform</artifactId>
-            <version>1.5.5</version>
-        </dependency>
-        <dependency>
             <groupId>com.github.sarxos</groupId>
             <artifactId>webcam-capture-driver-openimaj</artifactId>
             <version>0.3.13-SNAPSHOT</version>
@@ -191,6 +186,11 @@
             <groupId>com.nativelibs4java</groupId>
             <artifactId>bridj</artifactId>
             <version>0.7-20140918-2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openpnp</groupId>
+            <artifactId>opencv</artifactId>
+            <version>4.5.1-2</version>
         </dependency>
         <dependency>
             <groupId>org.openimaj</groupId>

@@ -2,7 +2,10 @@ package com.example.application.views.chatbotview;
 
 import com.example.application.services.ChatBot;
 import com.example.application.services.camera.Camera;
+import com.example.application.services.camera.SkinColorDetection;
 import com.example.application.views.main.MainView;
+import com.example.application.views.settingsview.SettingsView;
+import com.sun.scenario.Settings;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -17,8 +20,11 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.component.html.Image;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 
 @Route(value = "chatbot", layout = MainView.class)
@@ -26,7 +32,6 @@ import java.awt.image.BufferedImage;
 @CssImport("./styles/views/chatbot/chatbot.css")
 @RouteAlias(value = "", layout = MainView.class)
 public class ChatBotView extends HorizontalLayout {
-
     private TextField questionTextField;
     private Dialog cameraPopUp = new Dialog();
     private Button clearButton = new Button("Clear Chat");
@@ -52,6 +57,7 @@ public class ChatBotView extends HorizontalLayout {
         cameraPopUp.setWidth("500px");
         cameraPopUp.setHeight("500px");
         questionTextField.setEnabled(false);
+        cameraCheck.setEnabled(false);
         questionTextField.addKeyPressListener(Key.ENTER, e -> {
             //disable Text Field while ChatBot is thinking
             questionTextField.setEnabled(false);
@@ -83,6 +89,17 @@ public class ChatBotView extends HorizontalLayout {
         });
         clearButton.setEnabled(false);
 
+        if (SettingsView.selectedType.equalsIgnoreCase("Login check")) {
+            cameraCheck.setEnabled(true);
+            setUpLoginCheck();
+        } else {
+            backgroundCheck();
+        }
+
+
+    }
+
+    public void setUpLoginCheck() {
         cameraCheck.addClickListener(e -> {
             cameraPopUp.removeAll();
             snapshot.setId("snapshot-button");
@@ -90,7 +107,58 @@ public class ChatBotView extends HorizontalLayout {
             cameraPopUp.open();
         });
 
-        snapshot.addClickListener(e -> {
+        snapshotButton(snapshot);
+
+        snapshotButton(retakeImage);
+
+        analyzeButton.addClickListener(e -> {
+            cameraPopUp.removeAll();
+            BufferedImage detectedFaces = null;
+            int count;
+            if (SettingsView.selectedAlgorithm.equalsIgnoreCase("Haar Cascade")) {
+                detectedFaces = camera.detectFaces();
+                count = camera.getFacesCount();
+            } else {
+                SkinColorDetection skinColorDetector = new SkinColorDetection();
+                skinColorDetector.setOriginalImage(camera.getImageToAnalyze());
+                Mat mask = skinColorDetector.detectSkinColor();
+                skinColorDetector.detectFaces(mask, 50, 50, 150, 150);
+                Mat orig = skinColorDetector.getOriginalImage();
+                try {
+                    detectedFaces = skinColorDetector.Mat2BufferedImage(orig);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                count = skinColorDetector.getDetectedFaces();
+            }
+
+            if (count > 0) {
+                questionTextField.setEnabled(true);
+                Span faceFound = new Span("I found a face!");
+                faceFound.setId("facefound-text");
+                cameraPopUp.add(faceFound);
+                String responseH4 = "ChatBot: " + "Let's chat beautiful human!";
+                conversation = responseH4 + "\n";
+            } else {
+                questionTextField.setEnabled(false);
+                Span notFound = new Span("I couldn't find anyone!");
+                notFound.setId("notfound-text");
+                cameraPopUp.add(notFound);
+                String responseH4 = "ChatBot: " + "Looks like nobody is there!";
+                conversation = responseH4 + "\n";
+            }
+            area.setValue(conversation);
+            StreamResource streamResource = camera.generateUiImage(detectedFaces);
+            Image cameraPic = new Image(streamResource, "capture");
+            cameraPic.setId("camera-frame");
+            cameraPopUp.add(cameraPic);
+            cameraPopUp.add(retakeImage);
+            cameraPopUp.add(analyzeButton);
+        });
+    }
+
+    private void snapshotButton(Button button) {
+        button.addClickListener(e -> {
             cameraPopUp.removeAll();
             camera.turnOnCamera();
             BufferedImage cameraSnapshot = camera.captureImage();
@@ -102,48 +170,35 @@ public class ChatBotView extends HorizontalLayout {
             cameraPopUp.add(retakeImage);
             cameraPopUp.add(analyzeButton);
         });
+    }
 
-        retakeImage.addClickListener(e -> {
-            cameraPopUp.removeAll();
-            BufferedImage cameraSnapshot = camera.captureImage();
-            StreamResource streamResource = camera.generateUiImage(cameraSnapshot);
-            Image cameraPic = new Image(streamResource, "capture");
-            cameraPic.setId("camera-frame");
-            cameraPopUp.add(cameraPic);
-            cameraPopUp.add(retakeImage);
-            cameraPopUp.add(analyzeButton);
-        });
+    public void backgroundCheck() {
+        int count = 0;
+        camera.turnOnCamera();
+        while (count < 1) {
 
-        analyzeButton.addClickListener(e -> {
-            cameraPopUp.removeAll();
-            BufferedImage detectedFaces = camera.detectFaces();
-            int count = camera.getFacesCount();
-            if (count > 0) {
-                questionTextField.setEnabled(true);
-                Span faceFound = new Span("I found a face!");
-                faceFound.setId("facefound-text");
-                cameraPopUp.add(faceFound);
-                String responseH4 = "ChatBot: " + "Let's chat beautiful human!";
-                conversation = responseH4 + "\n";
-                area.setValue(conversation);
+            if (SettingsView.selectedAlgorithm.equalsIgnoreCase("Haar Cascade")) {
+                camera.captureImage();
+                camera.detectFaces();
+                count = camera.getFacesCount();
+
             } else {
-                questionTextField.setEnabled(false);
-                Span notFound = new Span("I couldn't find anyone!");
-                notFound.setId("notfound-text");
-                cameraPopUp.add(notFound);
-                String responseH4 = "ChatBot: " + "Looks like nobody is there!";
-                conversation = responseH4 + "\n";
-                area.setValue(conversation);
+                camera.captureImage();
+                SkinColorDetection skinColorDetector = new SkinColorDetection();
+                skinColorDetector.setOriginalImage(camera.getImageToAnalyze());
+                Mat mask = skinColorDetector.detectSkinColor();
+                skinColorDetector.detectFaces(mask, 50, 50, 150, 150);
+                count = skinColorDetector.getDetectedFaces();
             }
-            StreamResource streamResource = camera.generateUiImage(detectedFaces);
-            Image cameraPic = new Image(streamResource, "capture");
-            cameraPic.setId("camera-frame");
-            cameraPopUp.add(cameraPic);
-            cameraPopUp.add(retakeImage);
-            cameraPopUp.add(analyzeButton);
-        });
-
-
+            String responseH4 = "ChatBot: " + "Looks like nobody is there!";
+            conversation = responseH4 + "\n";
+            area.setValue(conversation);
+        }
+        camera.closeCamera();
+        String responseH4 = "ChatBot: " + "I can see you now! Let's chat!";
+        conversation = responseH4 + "\n";
+        area.setValue(conversation);
+        questionTextField.setEnabled(true);
     }
 
 

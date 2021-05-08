@@ -11,14 +11,15 @@ public class TestSuite {
         Camera camera = new Camera();
         camera.turnOnCamera();
         boolean faceFound = false;
+        SkinColorDetection detector = new SkinColorDetection();
         while (!faceFound) {
-            SkinColorDetection detector = new SkinColorDetection(camera.captureImage());
             Mat output = detector.detectSkinColor();
             detector.detectFaces(output, 50, 50, 200, 200);
             if (detector.getDetectedFaces() > 0) {
                 Imgcodecs.imwrite("output.jpg", detector.getOriginalImage());
                 faceFound = true;
             }
+            detector.setOriginalImage(camera.captureImage());
         }
 
     }
