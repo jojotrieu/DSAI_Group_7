@@ -72,15 +72,6 @@ public class CFG {
 
     public static boolean isVariable(String string){
         if(string.length()>2 && string.charAt(0)=='<' && string.charAt(string.length()-1)=='>'){
-          for (int i = 1; i < string.length()-1; i++) {
-            if(Character.isLetterOrDigit(string.charAt(i))){
-                if(Character.isLowerCase(string.charAt(i))){
-                    return false;
-                }
-            } else {
-                return false;
-            }
-          }
           return true;
         }
         return false;

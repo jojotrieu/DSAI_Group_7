@@ -8,11 +8,19 @@ import java.util.*;
 
 public class SyntaxHandler {
     private static String errorMessage;
-    private static Set<String> variables;
+    private static ArrayList<Set<String>> variables;
     private static Set<String> commonV;
 
+    /**
+     * check the list of question handed from the UI
+     * Check empty quesitons, variables syntax (<var>)
+     * at least one common variable if any avirable at all
+     * @param texts list of questions related to the skill
+     * @return true if everythin is written correctly
+     */
     public static boolean checkQuestions(List<String> texts){
-        variables = new HashSet<>();
+        variables = new ArrayList<>();
+        variables.add(new HashSet<>());
         errorMessage = "";
         int lineCounter = 1;
         HashSet<String> firstVar=null;
@@ -24,27 +32,33 @@ public class SyntaxHandler {
                 checkVarSyntax(line, lineCounter, "question");
                 String[] atomicArray = CNF.splitRules(line);
 
-                firstVar = checkCommon(atomicArray,firstVar,lineCounter);
+//                firstVar = checkCommon(atomicArray,firstVar,lineCounter);
                 lineCounter++;
             }
         }
-        for(String s: variables){
+        checkIfAnyCommon(texts, true,0);
+        for(String s: variables.get(0)){
             for(Rule r : CFG.getRules()){
-                if(s.equals(r.getVariable())){//TODO find them
-                    errorMessage += "Rule name already used for " + s +"\n";
+                if(s.equals(r.getVariable())){ // TODO find them to propose?
+                    errorMessage += "Rule name already used for " + s +", please change the name?\n";
                 }
             }
         }
-        if(!errorMessage.contains("Missing")){
-            findCommon(texts, true);
-        }
+
         if(errorMessage.length()==0 || errorMessage.startsWith("Rule name"))
             return true;
         return false;
     }
 
-    public static boolean checkVariables(String variable, List<String> values){
+    /**
+     * check variable syntax (same as questions)
+     * @param variable variable that takes the values of "values"
+     * @param values possible replacement of the variable in CFG
+     * @return true if everything is correct
+     */
+    public static boolean checkVariables(String variable, List<String> values, int page){
         errorMessage = "";
+        if(page>=variables.size()) variables.add(new HashSet<>());
         int lineCounter = 1;
         boolean hasV=false;
         HashSet<String> firstVar=null;
@@ -56,37 +70,39 @@ public class SyntaxHandler {
         }
         if(hasV){
             if(commonV.contains(variable)){
-                int counter=1;
-                for(String value:values){
-                    if(value!=null) {
-                        String[] splitV = CNF.splitRules(value);
-                        firstVar = checkCommon(splitV, firstVar, counter);
-                        counter++;
-                    }
-                }
+                checkIfAnyCommon(values, false, page);
             }
         }
-        if(errorMessage.equals("")) return true;
+        if(errorMessage.equals("")) {
+            return true;
+        }
         return false;
     }
 
-    public static Set<String> getVariables(){
-        return variables;
-    }
 
+    public static Set<String> getVariables(int page){
+        return variables.get(page);
+    }
 
     public static String getErrorMessage(){
         return errorMessage;
     }
 
-    private static boolean checkVarSyntax(String line, int lineCounter, String varOrQ){
+    /**
+     * checking the syntax of the variable with angle brackets
+     * @param line the line to verify
+     * @param lineCounter if it is the 1st line or no -> also used for error message
+     * @param valOrQ if we are verifying for question or value
+     * @return
+     */
+    private static boolean checkVarSyntax(String line, int lineCounter, String valOrQ){
         boolean open = false;
         boolean ret = false;
         for (int i = 0; i < line.length(); i++) {
             if (line.charAt(i) == '<') {
                 if (!open) open = true;
                 else {
-                    errorMessage += "Double opened angle brackets at " +varOrQ + lineCounter + "\n";
+                    errorMessage += "Double opened angle brackets at " +valOrQ + lineCounter + "\n";
                 }
             } else if (line.charAt(i) == '>') {
                 if (open){
@@ -94,58 +110,36 @@ public class SyntaxHandler {
                     ret = true;
                 }
                 else {
-                    errorMessage += "Unopened angle brackets at " +varOrQ + lineCounter + "\n";
+                    errorMessage += "Unopened angle brackets at " +valOrQ + lineCounter + "\n";
                 }
             }
         }
         if (open) {
-            errorMessage += "Unclosed angle bracket at " +varOrQ + lineCounter + "\n";
+            errorMessage += "Unclosed angle bracket at " +valOrQ + lineCounter + "\n";
         }
         return ret;
     }
 
-    private static HashSet<String> checkCommon(String[] splitLine,HashSet<String> firstVar, int lineCounter){
-        if(lineCounter==1) firstVar = new HashSet<>();
-        boolean common = false;
-        for (String atomic : splitLine) {
-            if (atomic.charAt(0) == '<' && atomic.charAt(atomic.length() - 1) == '>') {
-                variables.add(atomic);
-                if(lineCounter==1) {
-                    firstVar.add(atomic);
-                    common =true;
-                }else{
-                    for(String fv:firstVar){
-                        if(atomic.equals(fv)) common = true;
-                    }
+    private static void checkIfAnyCommon(List<String> lines, boolean question, int page){
+        int i=1;
+        HashSet<String> var = new HashSet<>();
+        boolean hasAtLeastone = false;
+        for(String line:lines){
+            String[] splitLine=CNF.splitRules(line);
+            HashSet<String> linevar = new HashSet<>();
+            for(String w:splitLine){
+                if(CFG.isVariable(w)){
+                    hasAtLeastone=true;
+                    variables.get(page).add(w);
+                    if(i==1) var.add(w);
+                    else linevar.add(w);
                 }
-            }else if(firstVar.size() == 0){
-                common = true;
             }
+            if(i!=1) for(String w: var) if(!linevar.contains(w)) var.remove(w);
+            i++;
         }
-        if(!common && !errorMessage.contains("Missing") && !(lineCounter == 1 && errorMessage.contains("Empty"))){
-            errorMessage += "Missing at least one common variable for each question\n";
-        }
-        return firstVar;
+        if(var.size()==0 && hasAtLeastone) errorMessage+="No common variable";
+        if(question) commonV = var;
     }
 
-    private static void findCommon(List<String> texts, boolean first){
-        if(first) commonV = new HashSet<>();
-        String[] firstLine = CNF.splitRules(texts.get(0));
-        boolean[] founds = new boolean[firstLine.length];
-        for (int i = 1; i < texts.size(); i++) {
-            for(int j=0; j<firstLine.length;j++){
-                boolean found = false;
-                for(String atomici: CNF.splitRules(texts.get(i))){
-                    if(atomici.equals(firstLine[j])){
-                        found = true;
-                    }
-                }
-                if(found && (i==1||founds[j]) ) founds[j]=true;
-                else founds[j]=false;
-            }
-        }
-        for (int i = 0; i < founds.length; i++) {
-            if(founds[i]) commonV.add(firstLine[i]);
-        }
-    }
 }
