@@ -15,6 +15,7 @@ public class SyntaxHandler {
         variables = new HashSet<>();
         errorMessage = "";
         int lineCounter = 1;
+        HashSet<String> firstVar=null;
         for(String line: texts){
             if(line.equals("")) {
                 errorMessage += "Empty question n"+lineCounter+" \n";
@@ -22,7 +23,8 @@ public class SyntaxHandler {
             if(line!=null) {
                 checkVarSyntax(line, lineCounter, "question");
                 String[] atomicArray = CNF.splitRules(line);
-                checkCommon(atomicArray,lineCounter);
+
+                firstVar = checkCommon(atomicArray,firstVar,lineCounter);
                 lineCounter++;
             }
         }
@@ -45,6 +47,7 @@ public class SyntaxHandler {
         errorMessage = "";
         int lineCounter = 1;
         boolean hasV=false;
+        HashSet<String> firstVar=null;
         for(String value:values){
             if(value!=null){
                 hasV = checkVarSyntax(value, lineCounter, "value");
@@ -57,7 +60,7 @@ public class SyntaxHandler {
                 for(String value:values){
                     if(value!=null) {
                         String[] splitV = CNF.splitRules(value);
-                        checkCommon(splitV, counter);
+                        firstVar = checkCommon(splitV, firstVar, counter);
                         counter++;
                     }
                 }
@@ -101,8 +104,8 @@ public class SyntaxHandler {
         return ret;
     }
 
-    private static void checkCommon(String[] splitLine, int lineCounter){
-        HashSet<String> firstVar = new HashSet<>();
+    private static HashSet<String> checkCommon(String[] splitLine,HashSet<String> firstVar, int lineCounter){
+        if(lineCounter==1) firstVar = new HashSet<>();
         boolean common = false;
         for (String atomic : splitLine) {
             if (atomic.charAt(0) == '<' && atomic.charAt(atomic.length() - 1) == '>') {
@@ -122,20 +125,27 @@ public class SyntaxHandler {
         if(!common && !errorMessage.contains("Missing") && !(lineCounter == 1 && errorMessage.contains("Empty"))){
             errorMessage += "Missing at least one common variable for each question\n";
         }
+        return firstVar;
     }
 
     private static void findCommon(List<String> texts, boolean first){
         if(first) commonV = new HashSet<>();
+        String[] firstLine = CNF.splitRules(texts.get(0));
+        boolean[] founds = new boolean[firstLine.length];
         for (int i = 1; i < texts.size(); i++) {
-            for(String atomic1:CNF.splitRules(texts.get(0))){
+            for(int j=0; j<firstLine.length;j++){
                 boolean found = false;
                 for(String atomici: CNF.splitRules(texts.get(i))){
-                    if(atomici.equals(atomic1)){
+                    if(atomici.equals(firstLine[j])){
                         found = true;
                     }
                 }
-                if(found) commonV.add(atomic1);
+                if(found && (i==1||founds[j]) ) founds[j]=true;
+                else founds[j]=false;
             }
+        }
+        for (int i = 0; i < founds.length; i++) {
+            if(founds[i]) commonV.add(firstLine[i]);
         }
     }
 }
