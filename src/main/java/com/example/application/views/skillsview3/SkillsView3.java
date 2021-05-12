@@ -202,7 +202,7 @@ public class SkillsView3 extends Div {
         initNextButton();
         initBackButton();
 
-        Set<String> var = SyntaxHandler.getVariables();
+        Set<String> var = SyntaxHandler.getVariables(0);
 
         for(String v : var){
             currentComponents.add(new HtmlComponent("br"));
