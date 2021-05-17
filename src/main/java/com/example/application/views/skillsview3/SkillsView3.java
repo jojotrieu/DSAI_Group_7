@@ -42,6 +42,8 @@ public class SkillsView3 extends Div {
     ArrayList<TextField> values = new ArrayList<>();
     private ArrayList<Button> valuesButton = new ArrayList<>();
     private Button backButton = new Button("Back");
+    private ArrayList<Button> variables2 = new ArrayList<>();
+    private ArrayList<Boolean> varClickListener2 = new ArrayList<>();
 
     public SkillsView3() {
         setId("configurations3-view");
@@ -250,6 +252,12 @@ public class SkillsView3 extends Div {
             values.add(value);
             value.setId("value-txtfield");
             currentComponents.add(value);
+            Button varButt = new Button("Variable");
+            varButt.setId("variable-button");
+            variables2.add(varButt);
+            varClickListener2.add(false);
+            currentComponents.add(varButt);
+            initVarButton2();
             Button addValue = new Button("Add value");
             addValue.setId("addVal-button");
             currentComponents.add(addValue);
@@ -315,7 +323,7 @@ public class SkillsView3 extends Div {
     }
 
     /**
-     * Initialize the button "var"
+     * Initialize the button "var" (for questionTemplate)
      * When the button is pressed it inserts a variable into the question textfield
      */
     private void initVarButton() {
@@ -325,6 +333,22 @@ public class SkillsView3 extends Div {
                 varClickListener.set(index, true);
                 varButt.addClickListener(e ->{
                     questions.get(index).setValue(questions.get(index).getValue() + "<...>");
+                });
+            }
+        }
+    }
+
+    /**
+     * Initialize the button "var" (for variableTemplate)
+     * When the button is pressed it inserts a variable into the value textfield
+     */
+    private void initVarButton2() {
+        for(Button varButt : variables2){
+            int index = variables2.indexOf(varButt);
+            if(!varClickListener2.get(index)){
+                varClickListener2.set(index, true);
+                varButt.addClickListener(e ->{
+                    values.get(index).setValue(values.get(index).getValue() + "<...>");
                 });
             }
         }
