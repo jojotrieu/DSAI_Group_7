@@ -34,7 +34,6 @@ public class SkillsView3 extends Div {
     private Button removeLastQuestion = new Button("Remove last question");
 
     private String currentTemplate = new String();
-    private ArrayList<Object> currentComponents = new ArrayList<>();
     private Label error;
 
     // elements of dialog box when currentTemplate = variablesTemplate
@@ -83,16 +82,13 @@ public class SkillsView3 extends Div {
         variables.add(variable);
         varClickListener.add(false);
 
-        // add components to the list of currentComponents on the template
-        currentComponents.add(removeLastQuestion);
-        currentComponents.add(alternativeButton);
-        currentComponents.add(nextButton);
-        currentComponents.add(title);
-        currentComponents.add(questions.get(0));
-        currentComponents.add(variables.get(0));
-
         // add components to the template
-        addComponentsToTemplate();
+        newTemplate.add(removeLastQuestion);
+        newTemplate.add(alternativeButton);
+        newTemplate.add(nextButton);
+        newTemplate.add(title);
+        newTemplate.add(questions.get(0));
+        newTemplate.add(variables.get(0));
 
         // set ids
         variable.setId("variable");
@@ -101,15 +97,6 @@ public class SkillsView3 extends Div {
         removeLastQuestion.setId("removeLQ-button");
         alternativeButton.setId("alternative-button");
         nextButton.setId("next-button");
-    }
-
-    /**
-     * Adding components from the list of currentComponents to the current template
-     */
-    private void addComponentsToTemplate(){
-        for (Object obj : currentComponents){
-            newTemplate.add((Component) obj);
-        }
     }
 
     /**
@@ -126,14 +113,13 @@ public class SkillsView3 extends Div {
         values.clear();
         valuesButton.clear();
 
-        currentComponents.clear();
-        currentComponents.add(removeLastQuestion);
-        currentComponents.add(alternativeButton);
-        currentComponents.add(nextButton);
-        currentComponents.add(title);
-        currentComponents.add(questions.get(0));
-        currentComponents.add(variables.get(0));
-        addComponentsToTemplate();
+        newTemplate.removeAll();
+        newTemplate.add(removeLastQuestion);
+        newTemplate.add(alternativeButton);
+        newTemplate.add(nextButton);
+        newTemplate.add(title);
+        newTemplate.add(questions.get(0));
+        newTemplate.add(variables.get(0));
     }
 
     /**
@@ -145,8 +131,6 @@ public class SkillsView3 extends Div {
         removeLastQuestion.addClickListener(e -> {
             if(questions.size()>1){
 
-                currentComponents.remove(questions.get(questions.size()-1));
-                currentComponents.remove(variables.get(variables.size()-1));
                 newTemplate.remove(questions.get(questions.size()-1),variables.get(variables.size()-1));
                 questions.remove(questions.get(questions.size()-1));
                 variables.remove(variables.get(variables.size()-1));
@@ -172,8 +156,6 @@ public class SkillsView3 extends Div {
                 variables.add(variable);
                 varClickListener.add(false);
                 initVarButton();
-                currentComponents.add(questions.get(questions.size()-1));
-                currentComponents.add(variables.get(variables.size()-1));
                 newTemplate.add(questions.get(questions.size()-1));
                 newTemplate.add(variables.get(variables.size()-1));
 
@@ -205,7 +187,6 @@ public class SkillsView3 extends Div {
                     //display error message
                     error = new Label(SyntaxHandler.getErrorMessage());
                     error.setId("error-message");
-                    currentComponents.add(error);
                     newTemplate.add(error);
                 }else{
                     //display error message
@@ -216,7 +197,39 @@ public class SkillsView3 extends Div {
 
             // when currentTemplate = variableTemplate: go to answerTemplate
             }else if(currentTemplate.equals("variableTemplate")){
-                currentComponents.clear();
+                // Set<String> variablesInValues = SyntaxHandler.getVariablesInValues(1);
+
+                for(TextField v : values){
+                    v.setReadOnly(true);
+                }
+
+                /*for(String v : variablesInValues){
+                    newTemplate.add(new HtmlComponent("br"));
+                    Label label = new Label(v);
+                    varLabels.add(label);
+                    newTemplate.add(label);
+                    TextField value = new TextField();
+                    values.add(value);
+                    value.setId("value-txtfield");
+                    newTemplate.add(value);
+                    Button varButt = new Button("Variable");
+                    varButt.setId("variable-button");
+                    variables2.add(varButt);
+                    varClickListener2.add(false);
+                    newTemplate.add(varButt);
+                    initVarButton2();
+                    Button addValue = new Button("Add value");
+                    addValue.setId("addVal-button");
+                    newTemplate.add(addValue);
+                    valuesButton.add(addValue);
+
+                    // add "," between every value of the variable
+                    addValue.addClickListener(ev ->{
+                        int indexOfvar = getIndex(var, v);
+                        values.get(indexOfvar).setValue(values.get(indexOfvar).getValue() + ",");
+                    });
+                }*/
+
                 newTemplate.removeAll();
 
             // when currentTemplate = answerTemplate: save skill
@@ -232,11 +245,10 @@ public class SkillsView3 extends Div {
      */
     private void goToVarTemplate(){
         currentTemplate = "variableTemplate";
-        currentComponents.clear();
         newTemplate.removeAll();
         backButton.setId("back-button");
-        currentComponents.add(backButton);
-        currentComponents.add(nextButton);
+        newTemplate.add(backButton);
+        newTemplate.add(nextButton);
 
         initNextButton();
         initBackButton();
@@ -244,26 +256,24 @@ public class SkillsView3 extends Div {
         Set<String> var = SyntaxHandler.getVariables(0);
 
         for(String v : var){
-            currentComponents.add(new HtmlComponent("br"));
+            newTemplate.add(new HtmlComponent("br"));
             Label label = new Label(v);
             varLabels.add(label);
-            currentComponents.add(label);
+            newTemplate.add(label);
             TextField value = new TextField();
             values.add(value);
             value.setId("value-txtfield");
-            currentComponents.add(value);
+            newTemplate.add(value);
             Button varButt = new Button("Variable");
             varButt.setId("variable-button");
             variables2.add(varButt);
             varClickListener2.add(false);
-            currentComponents.add(varButt);
+            newTemplate.add(varButt);
             initVarButton2();
             Button addValue = new Button("Add value");
             addValue.setId("addVal-button");
-            currentComponents.add(addValue);
+            newTemplate.add(addValue);
             valuesButton.add(addValue);
-
-            addComponentsToTemplate();
 
             // add "," between every value of the variable
             addValue.addClickListener(ev ->{
