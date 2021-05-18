@@ -39,11 +39,15 @@ public class SkillsView3 extends Div {
 
     // elements of dialog box when currentTemplate = variablesTemplate
     private ArrayList<Label> varLabels = new ArrayList<>();
-    ArrayList<TextField> values = new ArrayList<>();
+    private ArrayList<TextField> values = new ArrayList<>();
     private ArrayList<Button> valuesButton = new ArrayList<>();
     private Button backButton = new Button("Back");
     private ArrayList<Button> variables2 = new ArrayList<>();
     private ArrayList<Boolean> varClickListener2 = new ArrayList<>();
+
+    private int selim = 0;
+
+    private ArrayList<TextField> answers = new ArrayList<>();
 
     public SkillsView3() {
         setId("configurations3-view");
@@ -198,46 +202,52 @@ public class SkillsView3 extends Div {
 
             // when currentTemplate = variableTemplate: go to answerTemplate
             }else if(currentTemplate.equals("variableTemplate")){
-
-                int sizeOfVarNonEditable = values.size();
-                int i = 0;
-                for(TextField v : values){
-                    System.out.println(v.getValue());
-                    valuesButton.get(i).setEnabled(false);
-                    variables2.get(i).setEnabled(false);
-                    v.setReadOnly(true);
-                    i++;
-                }
+                selim++;
 
                 // Set<String> variablesInValues = SyntaxHandler.getVariablesInValues(1);
                 Set<String> variablesInValues = new HashSet<>();
                 variablesInValues.add("<A>");variablesInValues.add("<BC>");variablesInValues.add("<DEF>");
+//!variablesInValues.isEmpty()
+                if( selim<2) {
+                    System.out.println(selim);
 
-                for(String v : variablesInValues){
-                    newTemplate.add(new HtmlComponent("br"));
-                    Label label = new Label(v);
-                    varLabels.add(label);
-                    newTemplate.add(label);
-                    TextField value = new TextField();
-                    values.add(value);
-                    value.setId("value-txtfield");
-                    newTemplate.add(value);
-                    Button varButt = new Button("Variable");
-                    varButt.setId("variable-button");
-                    variables2.add(varButt);
-                    varClickListener2.add(false);
-                    newTemplate.add(varButt);
-                    initVarButton2();
-                    Button addValue = new Button("Add value");
-                    addValue.setId("addVal-button");
-                    newTemplate.add(addValue);
-                    valuesButton.add(addValue);
+                    int sizeOfVarNonEditable = values.size();
+                    int i = 0;
+                    for (TextField v : values) {
+                        valuesButton.get(i).setEnabled(false);
+                        variables2.get(i).setEnabled(false);
+                        v.setReadOnly(true);
+                        i++;
+                    }
 
-                    // add "," between every value of the variable
-                    addValue.addClickListener(ev ->{
-                        int indexOfvar = getIndex(variablesInValues, v);
-                        values.get(indexOfvar+sizeOfVarNonEditable).setValue(values.get(indexOfvar+sizeOfVarNonEditable).getValue() + ",");
-                    });
+                    for (String v : variablesInValues) {
+                        newTemplate.add(new HtmlComponent("br"));
+                        Label label = new Label(v);
+                        varLabels.add(label);
+                        newTemplate.add(label);
+                        TextField value = new TextField();
+                        values.add(value);
+                        value.setId("value-txtfield");
+                        newTemplate.add(value);
+                        Button varButt = new Button("Variable");
+                        varButt.setId("variable-button");
+                        variables2.add(varButt);
+                        varClickListener2.add(false);
+                        newTemplate.add(varButt);
+                        initVarButton2();
+                        Button addValue = new Button("Add value");
+                        addValue.setId("addVal-button");
+                        newTemplate.add(addValue);
+                        valuesButton.add(addValue);
+
+                        // add "," between every value of the variable
+                        addValue.addClickListener(ev -> {
+                            int indexOfvar = getIndex(variablesInValues, v);
+                            values.get(indexOfvar + sizeOfVarNonEditable).setValue(values.get(indexOfvar + sizeOfVarNonEditable).getValue() + ",");
+                        });
+                    }
+                }else{
+                    goToAnswerTemplate();
                 }
 
             // when currentTemplate = answerTemplate: save skill
@@ -246,6 +256,36 @@ public class SkillsView3 extends Div {
                 newTemplate.close();
             }
         });
+    }
+
+    private void goToAnswerTemplate() {
+        currentTemplate = "answerTemplate";
+        newTemplate.removeAll();
+
+        /*
+        int index = 0;
+        for (Label v : varLabels){
+            //Set<String> valuesOfv = SyntaxHandler.getValuesOfv();
+            Set<String> valuesOfv = new HashSet<>();
+            valuesOfv.add("<1>");valuesOfv.add("<2>");valuesOfv.add("<3>");
+
+            for (String str : valuesOfv){
+                newTemplate.add(v);
+                newTemplate.add(new Label(str));
+                TextField ans = new TextField();
+                answers.add(ans);
+                newTemplate.add(ans);
+                Button altAns = new Button("Add alternative answer");
+                newTemplate.add(altAns);
+
+                // add "," between every answer value
+                altAns.addClickListener(ev -> {
+                    int i = getIndex(valuesOfv, v);
+                    answers.get(i).setValue(answers.get(i).getValue() + ",");
+                });
+            }
+            index++;
+        }*/
     }
 
     /**
