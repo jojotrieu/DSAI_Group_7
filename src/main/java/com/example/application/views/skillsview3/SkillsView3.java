@@ -13,6 +13,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 @Route(value = "skills3", layout = MainView.class)
@@ -197,13 +198,22 @@ public class SkillsView3 extends Div {
 
             // when currentTemplate = variableTemplate: go to answerTemplate
             }else if(currentTemplate.equals("variableTemplate")){
-                // Set<String> variablesInValues = SyntaxHandler.getVariablesInValues(1);
 
+                int sizeOfVarNonEditable = values.size();
+                int i = 0;
                 for(TextField v : values){
+                    System.out.println(v.getValue());
+                    valuesButton.get(i).setEnabled(false);
+                    variables2.get(i).setEnabled(false);
                     v.setReadOnly(true);
+                    i++;
                 }
 
-                /*for(String v : variablesInValues){
+                // Set<String> variablesInValues = SyntaxHandler.getVariablesInValues(1);
+                Set<String> variablesInValues = new HashSet<>();
+                variablesInValues.add("<A>");variablesInValues.add("<BC>");variablesInValues.add("<DEF>");
+
+                for(String v : variablesInValues){
                     newTemplate.add(new HtmlComponent("br"));
                     Label label = new Label(v);
                     varLabels.add(label);
@@ -225,12 +235,10 @@ public class SkillsView3 extends Div {
 
                     // add "," between every value of the variable
                     addValue.addClickListener(ev ->{
-                        int indexOfvar = getIndex(var, v);
-                        values.get(indexOfvar).setValue(values.get(indexOfvar).getValue() + ",");
+                        int indexOfvar = getIndex(variablesInValues, v);
+                        values.get(indexOfvar+sizeOfVarNonEditable).setValue(values.get(indexOfvar+sizeOfVarNonEditable).getValue() + ",");
                     });
-                }*/
-
-                newTemplate.removeAll();
+                }
 
             // when currentTemplate = answerTemplate: save skill
             }else if(currentTemplate.equals("answerTemplate")){
@@ -249,9 +257,6 @@ public class SkillsView3 extends Div {
         backButton.setId("back-button");
         newTemplate.add(backButton);
         newTemplate.add(nextButton);
-
-        initNextButton();
-        initBackButton();
 
         Set<String> var = SyntaxHandler.getVariables(0);
 
