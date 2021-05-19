@@ -131,7 +131,7 @@ public class SyntaxHandler {
         int i=1; //counter for lines
         HashSet<String> var = new HashSet<>(); // set of vars for the lines
         for(String line:lines){
-            String[] splitLine=CNF.splitRules(line);
+            String[] splitLine = CNF.splitRules(line);
             HashSet<String> linevar = new HashSet<>();
             for(String w:splitLine){
                 if(CFG.isVariable(w)){
@@ -141,7 +141,7 @@ public class SyntaxHandler {
                     else linevar.add(w);
                 }
             }
-            if(i!=1) for(String w: var) if(!linevar.contains(w)) var.remove(w);
+            //if(i!=1) for(String w: var) if(!linevar.contains(w)) var.remove(w);
             i++;
         }
 //        if(var.size()==0 && hasAtLeastone) errorMessage+="No common variable"; //TODO: ok no common variable ?

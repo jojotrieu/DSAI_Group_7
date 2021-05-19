@@ -12,9 +12,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Route(value = "skills3", layout = MainView.class)
 @CssImport("./styles/views/configurations/configurations3.css")
@@ -44,8 +42,6 @@ public class SkillsView3 extends Div {
     private Button backButton = new Button("Back");
     private ArrayList<Button> variables2 = new ArrayList<>();
     private ArrayList<Boolean> varClickListener2 = new ArrayList<>();
-
-    private int selim = 0;
 
     private ArrayList<TextField> answers = new ArrayList<>();
 
@@ -202,21 +198,21 @@ public class SkillsView3 extends Div {
 
             // when currentTemplate = variableTemplate: go to answerTemplate
             }else if(currentTemplate.equals("variableTemplate")){
-                selim++;
+                ArrayList<String> allValues = getAllValues();
+                SyntaxHandler.checkVariables(allValues, 1);
+                Set<String> variablesInValues = SyntaxHandler.getVariables(1);
 
-                // Set<String> variablesInValues = SyntaxHandler.getVariablesInValues(1);
-                Set<String> variablesInValues = new HashSet<>();
-                variablesInValues.add("<A>");variablesInValues.add("<BC>");variablesInValues.add("<DEF>");
-//!variablesInValues.isEmpty()
-                if( selim<2) {
-                    System.out.println(selim);
+                if(!variablesInValues.isEmpty()) {
 
                     int sizeOfVarNonEditable = values.size();
                     int i = 0;
                     for (TextField v : values) {
-                        valuesButton.get(i).setEnabled(false);
-                        variables2.get(i).setEnabled(false);
-                        v.setReadOnly(true);
+                        if(valuesButton.get(i).isEnabled()) {
+                            valuesButton.get(i).setEnabled(false);
+                            variables2.get(i).setEnabled(false);
+                            v.setReadOnly(true);
+                            variablesInValues.remove(varLabels.get(i).getText());
+                        }
                         i++;
                     }
 
@@ -256,6 +252,20 @@ public class SkillsView3 extends Div {
                 newTemplate.close();
             }
         });
+    }
+
+    private ArrayList<String> getAllValues() {
+        ArrayList<String> allValues = new ArrayList<>();
+
+        for(TextField tf : values){
+            if(!tf.isReadOnly()){
+                String[] array = tf.getValue().split(",", 1000);
+                List<String> newList = Arrays.asList(array);
+                allValues.addAll(newList);
+            }
+        }
+
+        return allValues;
     }
 
     private void goToAnswerTemplate() {
