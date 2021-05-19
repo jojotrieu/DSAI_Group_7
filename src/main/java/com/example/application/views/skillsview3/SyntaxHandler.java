@@ -9,12 +9,11 @@ import java.util.*;
 public class SyntaxHandler {
     private static String errorMessage;
     private static ArrayList<Set<String>> variables;
-    private static Set<String> commonV;
+    private static Set<String> commonV; //TODO this needs to be updated no matter what
 
     /**
      * check the list of question handed from the UI
      * Check empty quesitons, variables syntax (<var>)
-     * at least one common variable if any avirable at all
      * @param texts list of questions related to the skill
      * @return true if everythin is written correctly
      */
@@ -36,7 +35,7 @@ public class SyntaxHandler {
                 lineCounter++;
             }
         }
-        checkIfAnyCommon(texts, true,0);
+        checkForVariables(texts, true,0);
         for(String s: variables.get(0)){
             for(Rule r : CFG.getRules()){
                 if(s.equals(r.getVariable())){ // TODO find them to propose?
@@ -45,34 +44,39 @@ public class SyntaxHandler {
             }
         }
 
-        if(errorMessage.length()==0 || errorMessage.startsWith("Rule name"))
+        if(errorMessage.length()==0 || errorMessage.startsWith("Rule name")){
+            variables.add(new HashSet<>());
             return true;
+        }
+
         return false;
     }
 
     /**
      * check variable syntax (same as questions)
-     * @param variable variable that takes the values of "values"
+     * @param variable_s variable that takes the values of "values"
      * @param values possible replacement of the variable in CFG
      * @return true if everything is correct
      */
-    public static boolean checkVariables(String variable, List<String> values, int page){
+    public static boolean checkVariables(List<String> variable_s, List<String> values, int page){
         errorMessage = "";
-        if(page>=variables.size()) variables.add(new HashSet<>());
+        if(variables.size()<page){
+            variables.add(new HashSet<>());
+        }else if(page == variables.size()){
+            variables.set(page, new HashSet<>());
+        }
         int lineCounter = 1;
-        boolean hasV=false;
         HashSet<String> firstVar=null;
         for(String value:values){
             if(value!=null){
-                hasV = checkVarSyntax(value, lineCounter, "value");
+                checkVarSyntax(value, lineCounter, "value");
                 lineCounter++;
             }
-        }
-        if(hasV){
-            if(commonV.contains(variable)){
-                checkIfAnyCommon(values, false, page);
+            if(value.equals("")) {
+                errorMessage += "Empty value line n"+lineCounter+" \n";
             }
         }
+        checkForVariables(values, false, page);
         if(errorMessage.equals("")) {
             return true;
         }
@@ -95,9 +99,8 @@ public class SyntaxHandler {
      * @param valOrQ if we are verifying for question or value
      * @return
      */
-    private static boolean checkVarSyntax(String line, int lineCounter, String valOrQ){
+    private static void checkVarSyntax(String line, int lineCounter, String valOrQ){
         boolean open = false;
-        boolean ret = false;
         for (int i = 0; i < line.length(); i++) {
             if (line.charAt(i) == '<') {
                 if (!open) open = true;
@@ -107,7 +110,6 @@ public class SyntaxHandler {
             } else if (line.charAt(i) == '>') {
                 if (open){
                     open = false;
-                    ret = true;
                 }
                 else {
                     errorMessage += "Unopened angle brackets at " +valOrQ + lineCounter + "\n";
@@ -117,13 +119,19 @@ public class SyntaxHandler {
         if (open) {
             errorMessage += "Unclosed angle bracket at " +valOrQ + lineCounter + "\n";
         }
-        return ret;
     }
 
-    private static void checkIfAnyCommon(List<String> lines, boolean question, int page){
-        int i=1;
-        HashSet<String> var = new HashSet<>();
-        boolean hasAtLeastone = false;
+    /**
+     * check if there are any common variable in lines
+     * also add variable to static variables at appropriate page
+     * @param lines
+     * @param question
+     * @param page
+     */
+    private static void checkForVariables(List<String> lines, boolean question, int page){
+        int i=1; //counter for lines
+        HashSet<String> var = new HashSet<>(); // set of vars for the lines
+        boolean hasAtLeastone = false; //at least one var
         for(String line:lines){
             String[] splitLine=CNF.splitRules(line);
             HashSet<String> linevar = new HashSet<>();
@@ -138,8 +146,47 @@ public class SyntaxHandler {
             if(i!=1) for(String w: var) if(!linevar.contains(w)) var.remove(w);
             i++;
         }
-        if(var.size()==0 && hasAtLeastone) errorMessage+="No common variable";
+//        if(var.size()==0 && hasAtLeastone) errorMessage+="No common variable"; //TODO: ok no common variable ?
         if(question) commonV = var;
-    }
+    } //TODO checkifanycommon for variabla : you need to check if an old common is replaced with new variables
 
+    /**
+     * find the common var from all input
+     * @param allLines every input
+     * @return list of common variable to make answers
+     */
+    public Set<String> findCommonV(List<List<String>> allLines){
+        int i=0, j=0;
+        Set<String> common = new HashSet<>();
+
+        for(List<String> lines:allLines){
+            Set<String> firstLineV = new HashSet<>();
+            Set<String> currentV = new HashSet<>();
+            Set<String> commonCurrent = new HashSet<>();
+            for(String line: lines){
+                String[] split = CNF.splitRules(line);
+                for(String w: split){
+                    if(CFG.isVariable(w)){
+                        if(j==0) {
+                            firstLineV.add(w);
+                        }else if(j==1) {
+                            if(firstLineV.contains(w));
+                            commonCurrent.add(w);
+                        }else{
+                            currentV.add(w);
+                        }
+                    }
+                }
+                if(j>1){
+                    commonCurrent.retainAll(currentV);
+                }
+                j++;
+            }
+            if(j==1) commonCurrent=firstLineV;
+            if(i==0) common = commonCurrent;
+            common.addAll(commonCurrent);
+            i++;
+        }
+        return common;
+    }
 }
