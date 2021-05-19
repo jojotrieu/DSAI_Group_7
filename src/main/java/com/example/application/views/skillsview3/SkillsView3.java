@@ -269,11 +269,19 @@ public class SkillsView3 extends Div {
     }
 
     private void goToAnswerTemplate() {
+        HashMap<String,String> hashmap = createHashMap();
+
+        /*if(SyntaxHandler.verify(hashset){
+
+        }else{
+            error
+        }*/
+
+        // TODO put this in the if when its working
         currentTemplate = "answerTemplate";
         newTemplate.removeAll();
 
-        /*
-        int index = 0;
+        /*int index = 0;
         for (Label v : varLabels){
             //Set<String> valuesOfv = SyntaxHandler.getValuesOfv();
             Set<String> valuesOfv = new HashSet<>();
@@ -296,6 +304,29 @@ public class SkillsView3 extends Div {
             }
             index++;
         }*/
+    }
+
+    private HashMap<String,String> createHashMap() {
+
+        HashMap<String,String> hashmap = new HashMap<String, String>();
+
+        String[] arr = new String[questions.size()];
+
+        int j = 0;
+        for (TextField q : questions)  {
+            arr[j] = q.getValue();
+            j++;
+        }
+        String str = Arrays.toString(arr);
+
+        hashmap.put("<"+title.getValue()+">", str);
+        int i = 0;
+        for(Label v : varLabels){
+            hashmap.put(v.getText(), values.get(i).getValue());
+            i++;
+        }
+
+        return hashmap;
     }
 
     /**
