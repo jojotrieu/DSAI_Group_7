@@ -54,11 +54,10 @@ public class SyntaxHandler {
 
     /**
      * check variable syntax (same as questions)
-     * @param variable_s variable that takes the values of "values"
-     * @param values possible replacement of the variable in CFG
+     * @param values possible replacement of the variable in CFG (one list per variable)
      * @return true if everything is correct
      */
-    public static boolean checkVariables(List<String> variable_s, List<String> values, int page){
+    public static boolean checkVariables(List<String> values, int page){
         errorMessage = "";
         if(variables.size()<page){
             variables.add(new HashSet<>());
@@ -67,16 +66,16 @@ public class SyntaxHandler {
         }
         int lineCounter = 1;
         HashSet<String> firstVar=null;
-        for(String value:values){
-            if(value!=null){
-                checkVarSyntax(value, lineCounter, "value");
-                lineCounter++;
+            for (String value : values) {
+                if (value != null) {
+                    checkVarSyntax(value, lineCounter, "value");
+                    lineCounter++;
+                }
+                if (value.equals("")) {
+                    errorMessage += "Empty value line n" + lineCounter + " \n";
+                }
             }
-            if(value.equals("")) {
-                errorMessage += "Empty value line n"+lineCounter+" \n";
-            }
-        }
-        checkForVariables(values, false, page);
+            checkForVariables(values, false, page);
         if(errorMessage.equals("")) {
             return true;
         }
@@ -131,13 +130,12 @@ public class SyntaxHandler {
     private static void checkForVariables(List<String> lines, boolean question, int page){
         int i=1; //counter for lines
         HashSet<String> var = new HashSet<>(); // set of vars for the lines
-        boolean hasAtLeastone = false; //at least one var
         for(String line:lines){
             String[] splitLine=CNF.splitRules(line);
             HashSet<String> linevar = new HashSet<>();
             for(String w:splitLine){
                 if(CFG.isVariable(w)){
-                    hasAtLeastone=true;
+//                    hasAtLeastone=true;
                     variables.get(page).add(w);
                     if(i==1) var.add(w);
                     else linevar.add(w);
@@ -155,15 +153,17 @@ public class SyntaxHandler {
      * @param allLines every input
      * @return list of common variable to make answers
      */
-    public Set<String> findCommonV(List<List<String>> allLines){
-        int i=0, j=0;
+    public Set<String> findCommonV(Map<String, List<String>> allLines){
+        int i=0;
         Set<String> common = new HashSet<>();
 
-        for(List<String> lines:allLines){
+        for(String keyVariable:allLines.keySet()){
+            int j=0;
             Set<String> firstLineV = new HashSet<>();
             Set<String> currentV = new HashSet<>();
             Set<String> commonCurrent = new HashSet<>();
-            for(String line: lines){
+            if(i==0 || common.contains(keyVariable))
+            for(String line: allLines.get(keyVariable)){
                 String[] split = CNF.splitRules(line);
                 for(String w: split){
                     if(CFG.isVariable(w)){
@@ -184,9 +184,15 @@ public class SyntaxHandler {
             }
             if(j==1) commonCurrent=firstLineV;
             if(i==0) common = commonCurrent;
-            common.addAll(commonCurrent);
+            else{
+                if(commonCurrent.size()!=0){
+                    common.remove(keyVariable);
+                    common.addAll(commonCurrent);
+                }
+            }
             i++;
         }
         return common;
     }
+
 }
