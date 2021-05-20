@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 public class CFG {
-    private static final ArrayList<Rule> rules = new ArrayList<>();
+    public static final ArrayList<Rule> rules = new ArrayList<>();
     private static final String PATH = "src/main/java/com/example/application/services/chatbot/rules.txt";
 
     public static boolean loadRules(){

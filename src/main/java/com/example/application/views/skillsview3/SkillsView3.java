@@ -1,6 +1,7 @@
 package com.example.application.views.skillsview3;
 
 import com.example.application.services.chatbot.CFG;
+import com.example.application.services.chatbot.Rule;
 import com.example.application.views.main.MainView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HtmlComponent;
@@ -13,6 +14,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 
 @Route(value = "skills3", layout = MainView.class)
@@ -153,7 +155,7 @@ public class SkillsView3 extends Div {
         alternativeButton.addClickListener(e -> {
 
             // when currentTemplate = questionTemplate: add an alternative question
-            if(currentTemplate.equals("questionTemplate")){
+            if(currentTemplate.equals("questionTemplate")) {
                 TextField question = new TextField();
                 question.setId("question");
                 questions.add(question);
@@ -162,12 +164,8 @@ public class SkillsView3 extends Div {
                 variables.add(variable);
                 varClickListener.add(false);
                 initVarButton();
-                newTemplate.add(questions.get(questions.size()-1));
-                //newTemplate.add(variables.get(variables.size()-1));
-
-            // when currentTemplate = answerTemplate: add an alternative answer
-            }else if(currentTemplate.equals("answerTemplate")){
-
+                newTemplate.add(questions.get(questions.size() - 1));
+                newTemplate.add(variables.get(variables.size()-1));
             }
         });
     }
@@ -187,17 +185,24 @@ public class SkillsView3 extends Div {
                     arrayQuestions.add(question.getValue());
                 }
 
-                if(SyntaxHandler.checkQuestions(arrayQuestions) && !title.getValue().isEmpty()){
+                if(SyntaxHandler.checkQuestions(arrayQuestions) && !title.getValue().isEmpty() && isUnique(title.getValue())){
                     goToVarTemplate();
                 }else if (!SyntaxHandler.checkQuestions(arrayQuestions) && !title.getValue().isEmpty()){
                     //display error message
                     error = new Label(SyntaxHandler.getErrorMessage());
                     error.setId("error-message");
+                    newTemplate.add(new HtmlComponent("br"));
                     newTemplate.add(error);
-                }else{
+                }else if(title.getValue().isEmpty()){
                     //display error message
                     error = new Label("Title must not be empty");
                     error.setId("error-message");
+                    newTemplate.add(new HtmlComponent("br"));
+                    newTemplate.add(error);
+                }else{
+                    error = new Label("Title must be unique");
+                    error.setId("error-message");
+                    newTemplate.add(new HtmlComponent("br"));
                     newTemplate.add(error);
                 }
 
@@ -254,6 +259,28 @@ public class SkillsView3 extends Div {
         });
     }
 
+    /**
+     * Checks whether the title of the skill is unique
+     * @param value the title
+     * @return whether it is unique
+     */
+    private boolean isUnique(String value) {
+        boolean res = false;
+
+        for (Rule rule : CFG.rules){
+            if(rule.getVariable() == "ACTION"){
+                for(String expr : rule.getExpressions()){
+                    if (expr == value){
+                        res = false;
+                    }
+                }
+                res = true;
+                break;
+            }
+        }
+        return res;
+    }
+
     private ArrayList<String> getAllValues() {
         ArrayList<String> allValues = new ArrayList<>();
 
@@ -278,6 +305,8 @@ public class SkillsView3 extends Div {
         newTemplate.removeAll();
 
         newTemplate.add(saveSkill);
+
+        initSaveSkillButton();
 
         for (String s : set){
 
@@ -310,6 +339,12 @@ public class SkillsView3 extends Div {
                 }
             }
         }
+    }
+
+    private void initSaveSkillButton() {
+        // TODO
+        // encode Rules and actions
+        // add title of skill to Rule N2
     }
 
     /**
