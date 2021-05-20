@@ -1,5 +1,6 @@
 package com.example.application.views.skillsview3;
 
+import com.example.application.services.chatbot.CFG;
 import com.example.application.views.main.MainView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HtmlComponent;
@@ -44,6 +45,10 @@ public class SkillsView3 extends Div {
     private ArrayList<Boolean> varClickListener2 = new ArrayList<>();
 
     private ArrayList<TextField> answers = new ArrayList<>();
+    private ArrayList<Label> labelsVar = new ArrayList<>();
+    private ArrayList<Label> labelsVal = new ArrayList<>();
+    private Button saveSkill = new Button("SAVE SKILL");
+    private ArrayList<Button> addAnswer = new ArrayList<>();
 
     public SkillsView3() {
         setId("configurations3-view");
@@ -245,11 +250,6 @@ public class SkillsView3 extends Div {
                 }else{
                     goToAnswerTemplate();
                 }
-
-            // when currentTemplate = answerTemplate: save skill
-            }else if(currentTemplate.equals("answerTemplate")){
-                nextButton.setText("SAVE SKILL");
-                newTemplate.close();
             }
         });
     }
@@ -264,65 +264,73 @@ public class SkillsView3 extends Div {
                 allValues.addAll(newList);
             }
         }
-
         return allValues;
     }
 
     private void goToAnswerTemplate() {
-        HashMap<String,String> hashmap = createHashMap();
+        HashMap<String,List<String>> hashmap = createHashMap();
+        System.out.println(hashmap.toString());
 
-        /*if(SyntaxHandler.verify(hashset){
+        Set<String> set = SyntaxHandler.findCommonV(hashmap); // return common variables to put in answerTemplate
+        System.out.println(set.toString());
 
-        }else{
-            error
-        }*/
-
-        // TODO put this in the if when its working
         currentTemplate = "answerTemplate";
         newTemplate.removeAll();
 
-        /*int index = 0;
-        for (Label v : varLabels){
-            //Set<String> valuesOfv = SyntaxHandler.getValuesOfv();
-            Set<String> valuesOfv = new HashSet<>();
-            valuesOfv.add("<1>");valuesOfv.add("<2>");valuesOfv.add("<3>");
+        newTemplate.add(saveSkill);
 
-            for (String str : valuesOfv){
-                newTemplate.add(v);
-                newTemplate.add(new Label(str));
-                TextField ans = new TextField();
-                answers.add(ans);
-                newTemplate.add(ans);
-                Button altAns = new Button("Add alternative answer");
-                newTemplate.add(altAns);
+        for (String s : set){
 
-                // add "," between every answer value
-                altAns.addClickListener(ev -> {
-                    int i = getIndex(valuesOfv, v);
-                    answers.get(i).setValue(answers.get(i).getValue() + ",");
-                });
+            List<String> values = hashmap.get(s);
+
+            for (String str : values){
+                if(!CFG.isVariable(str)){ //TODO si y a une var dedans
+                    newTemplate.add(new HtmlComponent("br"));
+                    Label labVar = new Label(s);
+                    labVar.setId("variable-label-answer");
+                    labelsVar.add(labVar);
+                    Label labVal = new Label(str);
+                    labVar.setId("value-label-answer");
+                    labelsVal.add(labVal);
+                    newTemplate.add(labVar);
+                    newTemplate.add(labVal);
+                    TextField ans = new TextField();
+                    ans.setId("answer-textfield");
+                    answers.add(ans);
+                    newTemplate.add(ans);
+                    Button addAns = new Button("Add answer");
+                    addAnswer.add(addAns);
+                    newTemplate.add(addAns);
+
+                    // add "," between every answer value
+                    addAns.addClickListener(ev -> {
+                        int i = addAnswer.indexOf(addAns);
+                        answers.get(i).setValue(answers.get(i).getValue() + ",");
+                    });
+                }
             }
-            index++;
-        }*/
+        }
     }
 
-    private HashMap<String,String> createHashMap() {
+    private HashMap<String,List<String>> createHashMap() {
 
-        HashMap<String,String> hashmap = new HashMap<String, String>();
+        HashMap<String,List<String>> hashmap = new HashMap<>();
 
-        String[] arr = new String[questions.size()];
+        List<String> arr = new ArrayList<>();
 
-        int j = 0;
         for (TextField q : questions)  {
-            arr[j] = q.getValue();
-            j++;
+            arr.add(q.getValue());
         }
-        String str = Arrays.toString(arr);
 
-        hashmap.put("<"+title.getValue()+">", str);
+        hashmap.put("<"+title.getValue()+">", arr);
         int i = 0;
         for(Label v : varLabels){
-            hashmap.put(v.getText(), values.get(i).getValue());
+            String[] array = values.get(i).getValue().split(",", 1000);
+            List<String> list = new ArrayList<>();
+            for(int j=0; j<array.length; j++){
+                list.add(array[j]);
+            }
+            hashmap.put(v.getText(), list);
             i++;
         }
 

@@ -69,3 +69,19 @@ configurations3-view,
 #addVal-button {
     margin-left: 5px;
 }
+
+configurations3-view,
+#answer-textfield {
+    width: 600 px;
+    margin-left: 5px;
+}
+
+configurations3-view,
+#value-label-answer {
+    margin-left: 5px;
+}
+
+configurations3-view,
+#variable-label-answer {
+    margin-left: 5px;
+}
