@@ -78,7 +78,7 @@ public class SkillsView3 extends Div {
      * currentTemplate = questionTemplate
      */
     private void setUpTemplate() {
-        newTemplate.setWidth("700px");
+        newTemplate.setWidth("800px");
 
         currentTemplate = "questionTemplate";
 
@@ -163,7 +163,7 @@ public class SkillsView3 extends Div {
                 varClickListener.add(false);
                 initVarButton();
                 newTemplate.add(questions.get(questions.size()-1));
-                newTemplate.add(variables.get(variables.size()-1));
+                //newTemplate.add(variables.get(variables.size()-1));
 
             // when currentTemplate = answerTemplate: add an alternative answer
             }else if(currentTemplate.equals("answerTemplate")){
@@ -259,7 +259,7 @@ public class SkillsView3 extends Div {
 
         for(TextField tf : values){
             if(!tf.isReadOnly()){
-                String[] array = tf.getValue().split(",", 1000);
+                String[] array = tf.getValue().split(",");
                 List<String> newList = Arrays.asList(array);
                 allValues.addAll(newList);
             }
@@ -284,7 +284,7 @@ public class SkillsView3 extends Div {
             List<String> values = hashmap.get(s);
 
             for (String str : values){
-                if(!CFG.isVariable(str)){ //TODO si y a une var dedans
+                if(!containsVar(str)){
                     newTemplate.add(new HtmlComponent("br"));
                     Label labVar = new Label(s);
                     labVar.setId("variable-label-answer");
@@ -312,9 +312,29 @@ public class SkillsView3 extends Div {
         }
     }
 
+    /**
+     * Checks whether there is a variable in the string
+     * @param str
+     * @return true if there is a variable in the string, else false
+     */
+    private boolean containsVar(String str) {
+        boolean returnval = false;
+
+        String[] words = str.split(" ");
+        for(int i = 0; i<words.length; i++){
+            if(CFG.isVariable(words[i])){
+                returnval = true;
+            } else {
+                returnval = false;
+            }
+        }
+        return returnval;
+
+    }
+
     private HashMap<String,List<String>> createHashMap() {
 
-        HashMap<String,List<String>> hashmap = new HashMap<>();
+        HashMap<String,List<String>> hashmap = new LinkedHashMap<>();
 
         List<String> arr = new ArrayList<>();
 
@@ -325,7 +345,7 @@ public class SkillsView3 extends Div {
         hashmap.put("<"+title.getValue()+">", arr);
         int i = 0;
         for(Label v : varLabels){
-            String[] array = values.get(i).getValue().split(",", 1000);
+            String[] array = values.get(i).getValue().split(",");
             List<String> list = new ArrayList<>();
             for(int j=0; j<array.length; j++){
                 list.add(array[j]);
@@ -393,11 +413,12 @@ public class SkillsView3 extends Div {
     }
 
     /**
+     * TODO make it work
      * Initialize the button "back" to go back from one template to another
      * The button works differently depending on the currentTemplate
      */
     private void initBackButton() {
-        backButton.addClickListener(e -> {
+        /*backButton.addClickListener(e -> {
 
             // when currentTemplate = variableTemplate, go to questionTemplate
             if(currentTemplate.equals("variableTemplate")){
@@ -423,7 +444,7 @@ public class SkillsView3 extends Div {
                 currentTemplate = "variableTemplate";
                 newTemplate.removeAll();
             }
-        });
+        });*/
     }
 
     /**
