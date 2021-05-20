@@ -153,7 +153,7 @@ public class SyntaxHandler {
      * @param allLines every input
      * @return list of common variable to make answers
      */
-    public Set<String> findCommonV(Map<String, List<String>> allLines){
+    public static Set<String> findCommonV(Map<String, List<String>> allLines){
         int i=0;
         Set<String> common = new HashSet<>();
 
@@ -162,37 +162,58 @@ public class SyntaxHandler {
             Set<String> firstLineV = new HashSet<>();
             Set<String> currentV = new HashSet<>();
             Set<String> commonCurrent = new HashSet<>();
-            if(i==0 || common.contains(keyVariable))
-            for(String line: allLines.get(keyVariable)){
-                String[] split = CNF.splitRules(line);
-                for(String w: split){
-                    if(CFG.isVariable(w)){
-                        if(j==0) {
-                            firstLineV.add(w);
-                        }else if(j==1) {
-                            if(firstLineV.contains(w));
-                            commonCurrent.add(w);
-                        }else{
-                            currentV.add(w);
+            if(i==0 || common.contains(keyVariable)){
+                for(String line: allLines.get(keyVariable)){
+                    String[] split = CNF.splitRules(line);
+                    for(String w: split){ // check the line
+                        if(CFG.isVariable(w)){
+                            if(j==0) { // add to variables from first line
+                                firstLineV.add(w);
+                            }else if(j==1) { // second line compare to 1st
+                                if(firstLineV.contains(w));
+                                commonCurrent.add(w);
+                            }else{
+                                currentV.add(w);
+                            }
                         }
                     }
+                    if(j>1){ // third line comparison
+                        commonCurrent.retainAll(currentV);
+                    }
+                    j++;
                 }
-                if(j>1){
-                    commonCurrent.retainAll(currentV);
-                }
-                j++;
+
             }
-            if(j==1) commonCurrent=firstLineV;
+            if(j==1) commonCurrent=firstLineV; // if only 1 line
             if(i==0) common = commonCurrent;
             else{
                 if(commonCurrent.size()!=0){
                     common.remove(keyVariable);
-                    common.addAll(commonCurrent);
                 }
+                common.addAll(commonCurrent);
+                common.addAll(currentV);
             }
             i++;
         }
         return common;
     }
-
+/*
+    public static void main(String[] args){
+        Map<String, List<String>> test= new HashMap<>();
+        List<String> firstLine = new ArrayList<>();
+        firstLine.add("<var 1> hello");
+        firstLine.add(" hello <var 1>");
+        test.put("<Skill test>", firstLine);
+        List<String> secondLine = new ArrayList<>();
+        secondLine.add("dany");
+        secondLine.add("jony");
+        secondLine.add("<var 3 >");
+        test.put("<var 1>",secondLine);
+        List<String> thirdLine = new ArrayList<>();
+        thirdLine.add("wtv");
+        thirdLine.add("jo");
+        test.put("<var 3 >", thirdLine);
+        Set ans = findCommonV(test);
+        for(Object s : ans) System.out.println(s);
+    }*/
 }
