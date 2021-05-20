@@ -178,12 +178,13 @@ public class SyntaxHandler {
                         }
                     }
                     if(j>1){ // third line comparison
-                        commonCurrent.retainAll(currentV);
+                        currentV.retainAll(commonCurrent);
                     }
                     j++;
                 }
 
             }
+            if(currentV.size()==0) currentV = firstLineV;
             if(j==1) commonCurrent=firstLineV; // if only 1 line
             if(i==0) common = commonCurrent;
             else{
@@ -201,19 +202,24 @@ public class SyntaxHandler {
     public static void main(String[] args){
         Map<String, List<String>> test= new HashMap<>();
         List<String> firstLine = new ArrayList<>();
-        firstLine.add("<var 1> hello");
-        firstLine.add(" hello <var 1>");
+        firstLine.add("<LIEU> hello");
+        firstLine.add(" hello <LIEU>");
         test.put("<Skill test>", firstLine);
         List<String> secondLine = new ArrayList<>();
         secondLine.add("dany");
-        secondLine.add("jony");
-        secondLine.add("<var 3 >");
-        test.put("<var 1>",secondLine);
+        secondLine.add("<ILE>");
+        test.put("<LIEU>",secondLine);
         List<String> thirdLine = new ArrayList<>();
-        thirdLine.add("wtv");
+        thirdLine.add("<CANARIE>");
         thirdLine.add("jo");
-        test.put("<var 3 >", thirdLine);
+        test.put("<ILE>", thirdLine);
+        List<String> fourthLine = new ArrayList<>();
+        fourthLine.add("blah");
+        fourthLine.add("jo");
+        test.put("<CANARIE>", fourthLine);
         Set ans = findCommonV(test);
         for(Object s : ans) System.out.println(s);
-    }*/
+    }
+    
+ */
 }
