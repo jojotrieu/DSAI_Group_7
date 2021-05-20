@@ -178,7 +178,10 @@ public class SyntaxHandler {
                         }
                     }
                     if(j>1){ // third line comparison
-                        currentV.retainAll(commonCurrent);
+                        for(Object s: currentV ) System.out.print("a"+s);
+
+                        commonCurrent.retainAll(currentV);
+                        for(Object s: currentV ) System.out.print("p"+s);
                     }
                     j++;
                 }
@@ -207,6 +210,7 @@ public class SyntaxHandler {
         test.put("<Skill test>", firstLine);
         List<String> secondLine = new ArrayList<>();
         secondLine.add("dany");
+        secondLine.add("da");
         secondLine.add("<ILE>");
         test.put("<LIEU>",secondLine);
         List<String> thirdLine = new ArrayList<>();
