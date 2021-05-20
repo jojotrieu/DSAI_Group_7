@@ -1,9 +1,7 @@
 package com.example.application.views.skillsview3;
 
-import com.example.application.services.chatbot.CFG;
-import com.example.application.services.chatbot.CNF;
-import com.example.application.services.chatbot.Rule;
-
+import com.example.application.services.chatbot.*;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class SyntaxHandler {
@@ -24,13 +22,10 @@ public class SyntaxHandler {
         int lineCounter = 1;
         HashSet<String> firstVar=null;
         for(String line: texts){
-            if(line.equals("")) {
-                errorMessage += "Empty question n"+lineCounter+" \n";
-            }
+            if(line.equals("")) errorMessage += "Empty question n"+lineCounter+" \n";
             if(line!=null) {
                 checkVarSyntax(line, lineCounter, "question");
                 String[] atomicArray = CNF.splitRules(line);
-
 //                firstVar = checkCommon(atomicArray,firstVar,lineCounter);
                 lineCounter++;
             }
@@ -38,17 +33,13 @@ public class SyntaxHandler {
         checkForVariables(texts, true,0);
         for(String s: variables.get(0)){
             for(Rule r : CFG.getRules()){
-                if(s.equals(r.getVariable())){ // TODO find them to propose?
-                    errorMessage += "Rule name already used for " + s +", please change the name?\n";
-                }
+                if(s.equals(r.getVariable())) errorMessage += "Rule name already used for " + s +", please change the name?\n";
             }
         }
-
         if(errorMessage.length()==0 || errorMessage.startsWith("Rule name")){
             variables.add(new HashSet<>());
             return true;
         }
-
         return false;
     }
 
@@ -71,14 +62,10 @@ public class SyntaxHandler {
                     checkVarSyntax(value, lineCounter, "value");
                     lineCounter++;
                 }
-                if (value.equals("")) {
-                    errorMessage += "Empty value line n" + lineCounter + " \n";
-                }
+                if (value.equals("")) errorMessage += "Empty value line n" + lineCounter + " \n";
             }
             checkForVariables(values, false, page);
-        if(errorMessage.equals("")) {
-            return true;
-        }
+        if(errorMessage.equals("")) return true;
         return false;
     }
 
@@ -103,21 +90,13 @@ public class SyntaxHandler {
         for (int i = 0; i < line.length(); i++) {
             if (line.charAt(i) == '<') {
                 if (!open) open = true;
-                else {
-                    errorMessage += "Double opened angle brackets at " +valOrQ + lineCounter + "\n";
-                }
+                else  errorMessage += "Double opened angle brackets at " +valOrQ + lineCounter + "\n";
             } else if (line.charAt(i) == '>') {
-                if (open){
-                    open = false;
-                }
-                else {
-                    errorMessage += "Unopened angle brackets at " +valOrQ + lineCounter + "\n";
-                }
+                if (open) open = false;
+                else errorMessage += "Unopened angle brackets at " +valOrQ + lineCounter + "\n";
             }
         }
-        if (open) {
-            errorMessage += "Unclosed angle bracket at " +valOrQ + lineCounter + "\n";
-        }
+        if (open) errorMessage += "Unclosed angle bracket at " +valOrQ + lineCounter + "\n";
     }
 
     /**
@@ -135,16 +114,13 @@ public class SyntaxHandler {
             HashSet<String> linevar = new HashSet<>();
             for(String w:splitLine){
                 if(CFG.isVariable(w)){
-//                    hasAtLeastone=true;
                     variables.get(page).add(w);
                     if(i==1) var.add(w);
                     else linevar.add(w);
                 }
             }
-            //if(i!=1) for(String w: var) if(!linevar.contains(w)) var.remove(w);
             i++;
         }
-//        if(var.size()==0 && hasAtLeastone) errorMessage+="No common variable"; //TODO: ok no common variable ?
         if(question) commonV = var;
     } //TODO checkifanycommon for variabla : you need to check if an old common is replaced with new variables
 
@@ -178,10 +154,7 @@ public class SyntaxHandler {
                         }
                     }
                     if(j>1){ // third line comparison
-                        for(Object s: currentV ) System.out.print("a"+s);
-
                         commonCurrent.retainAll(currentV);
-                        for(Object s: currentV ) System.out.print("p"+s);
                     }
                     j++;
                 }
@@ -202,6 +175,44 @@ public class SyntaxHandler {
         return common;
     }
 
+    public static void saveRules(Map<String, List<String>> allLines){
+        List<Rule> allRules = CFG.getRules();
+        String actionVariable = null;
+        for(Rule r: allRules) {
+            if(r.getVariable().equals("<S>")) {
+                actionVariable = r.getExpressions().get(0);
+            }
+        }
+        boolean titleAdd = false;
+        for(String key:allLines.keySet()) {
+            boolean added = false;
+            for (Rule rule : allRules) {
+                if(!titleAdd && rule.getVariable().equals(actionVariable)){
+                    rule.getExpressions().add(key);
+                    titleAdd=true;
+                }else if(rule.getVariable().equals(key)){
+                    for(String s: allLines.get(key)){
+                        if(!rule.getExpressions().contains(s)) rule.getExpressions().add(s);
+                    }
+                    added=true;
+                }
+
+            }
+            if(!added){
+                Rule newRule = new Rule();
+                newRule.setVariable(key);
+                newRule.setExpressions(allLines.get(key));
+                allRules.add(newRule);
+            }
+        }
+        try{
+        CFG.writeRules();
+        }catch (FileNotFoundException exception){
+            exception.printStackTrace();
+        }
+
+    }
+
     public static void main(String[] args){
         Map<String, List<String>> test= new LinkedHashMap<>();
         List<String> firstLine = new ArrayList<>();
@@ -209,8 +220,8 @@ public class SyntaxHandler {
         firstLine.add(" hello <LIEU>");
         test.put("<Skill test>", firstLine);
         List<String> secondLine = new ArrayList<>();
-        secondLine.add("dany");
-        secondLine.add("da");
+        secondLine.add("dany <ILE>");
+        secondLine.add("da <ILE>");
         secondLine.add("<ILE>");
         test.put("<LIEU>",secondLine);
         List<String> thirdLine = new ArrayList<>();
