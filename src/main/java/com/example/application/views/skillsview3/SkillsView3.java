@@ -94,6 +94,7 @@ public class SkillsView3 extends Div {
         newTemplate.add(removeLastQuestion);
         newTemplate.add(alternativeButton);
         newTemplate.add(nextButton);
+        title.setValue("<...>");
         newTemplate.add(title);
         newTemplate.add(questions.get(0));
         newTemplate.add(variables.get(0));
@@ -112,7 +113,7 @@ public class SkillsView3 extends Div {
      */
     private void templateEmpty() {
         newTemplate.removeAll();
-        title.setValue("");
+        title.setValue("<...>");
         for(TextField q : questions){
             q.setValue("");
         }
@@ -268,10 +269,10 @@ public class SkillsView3 extends Div {
         boolean res = false;
 
         for (Rule rule : CFG.rules){
-            if(rule.getVariable() == "ACTION"){
+            if(rule.getVariable().equals("<ACTION>")){
                 for(String expr : rule.getExpressions()){
-                    if (expr == value){
-                        res = false;
+                    if (expr.equals(value)){
+                        return false;
                     }
                 }
                 res = true;
@@ -377,7 +378,7 @@ public class SkillsView3 extends Div {
             arr.add(q.getValue());
         }
 
-        hashmap.put("<"+title.getValue()+">", arr);
+        hashmap.put(title.getValue(), arr);
         int i = 0;
         for(Label v : varLabels){
             String[] array = values.get(i).getValue().split(",");
