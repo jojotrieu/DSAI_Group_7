@@ -170,11 +170,11 @@ public class SyntaxHandler {
                             if(j==0) { // add to variables from first line
                                 firstLineV.add(w);
                             }else if(j==1) { // second line compare to 1st
-                                if(firstLineV.contains(w));
-                                commonCurrent.add(w);
+                                if(firstLineV.contains(w)) commonCurrent.add(w);
                             }else{
                                 currentV.add(w);
                             }
+                            if(common.contains(keyVariable)) currentV.add(w);
                         }
                     }
                     if(j>1){ // third line comparison
@@ -198,9 +198,9 @@ public class SyntaxHandler {
         }
         return common;
     }
-/*
+
     public static void main(String[] args){
-        Map<String, List<String>> test= new HashMap<>();
+        Map<String, List<String>> test= new LinkedHashMap<>();
         List<String> firstLine = new ArrayList<>();
         firstLine.add("<LIEU> hello");
         firstLine.add(" hello <LIEU>");
@@ -220,6 +220,4 @@ public class SyntaxHandler {
         Set ans = findCommonV(test);
         for(Object s : ans) System.out.println(s);
     }
-    
- */
 }
