@@ -297,17 +297,15 @@ public class SkillsView3 extends Div {
 
     private void goToAnswerTemplate() {
         HashMap<String,List<String>> hashmap = createHashMap();
-        System.out.println(hashmap.toString());
 
         Set<String> set = SyntaxHandler.findCommonV(hashmap); // return common variables to put in answerTemplate
-        System.out.println(set.toString());
 
         currentTemplate = "answerTemplate";
         newTemplate.removeAll();
 
         newTemplate.add(saveSkill);
 
-        initSaveSkillButton();
+        initSaveSkillButton(hashmap);
 
         for (String s : set){
 
@@ -329,6 +327,7 @@ public class SkillsView3 extends Div {
                     answers.add(ans);
                     newTemplate.add(ans);
                     Button addAns = new Button("Add answer");
+                    addAns.setId("addVal-button");
                     addAnswer.add(addAns);
                     newTemplate.add(addAns);
 
@@ -342,10 +341,54 @@ public class SkillsView3 extends Div {
         }
     }
 
-    private void initSaveSkillButton() {
-        // TODO
-        // encode Rules and actions
-        // add title of skill to Rule N2
+    private void initSaveSkillButton(HashMap<String, List<String>> hashmap) {
+        saveSkill.addClickListener(e->{
+            if(answersFilled()){
+                SyntaxHandler.saveRules(hashmap);
+
+                String t = title.getValue();
+                List<String> a = txtfieldToString(answers);
+                List<String> lvr = labelToString(labelsVar);
+                List<String> lvl = labelToString(labelsVal);
+                SyntaxHandler.saveActions(t, a, lvr, lvl);
+
+                newTemplate.close();
+            }else{
+                error = new Label("Answers' textfields must be filled in.");
+                error.setId("error-message");
+                newTemplate.add(new HtmlComponent("br"));
+                newTemplate.add(error);
+            }
+
+        });
+    }
+
+    private List<String> labelToString(ArrayList<Label> labelsVar) {
+        List<String> list = new ArrayList<>();
+        for(Label l : labelsVar){
+            String str = l.getText();
+            list.add(str);
+        }
+        return list;
+    }
+
+    private List<String> txtfieldToString(ArrayList<TextField> answers) {
+        List<String> list = new ArrayList<>();
+        for(TextField a : answers){
+            String str = a.getValue();
+            list.add(str);
+        }
+
+        return list;
+    }
+
+    private boolean answersFilled() {
+        for(TextField ans: answers){
+            if(ans.getValue().equals("")){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

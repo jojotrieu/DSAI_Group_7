@@ -206,11 +206,30 @@ public class SyntaxHandler {
             }
         }
         try{
-        CFG.writeRules();
+            CFG.writeRules();
         }catch (FileNotFoundException exception){
             exception.printStackTrace();
         }
+    }
 
+    public static void saveActions(String title, List<String> answers, List<String> variables, List<String> values) {
+
+        for(int i=0; i<answers.size(); i++){
+            Action newAction = new Action();
+            newAction.setId(Skills.getActions().size()-1);
+            newAction.setVariable(title);
+            Map<String, String> nt = new HashMap<>();
+            nt.put(variables.get(i), values.get(i));
+            newAction.setNonTerminals(nt);
+            newAction.setExpression(answers.get(i));
+
+            Skills.getActions().add(newAction);
+        }
+        try{
+            Skills.writeActions();
+        }catch (FileNotFoundException exception){
+            exception.printStackTrace();
+        }
     }
 
     public static void main(String[] args){
@@ -235,4 +254,5 @@ public class SyntaxHandler {
         Set ans = findCommonV(test);
         for(Object s : ans) System.out.println(s);
     }
+
 }
