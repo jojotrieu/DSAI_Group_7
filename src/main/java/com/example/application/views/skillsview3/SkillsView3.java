@@ -314,42 +314,35 @@ public class SkillsView3 extends Div {
 
         initSaveSkillButton(hashmap);
 
-        if(set.isEmpty()){
-            error = new Label("No common variable found.");
-            error.setId("error-message");
-            newTemplate.add(new HtmlComponent("br"));
-            newTemplate.add(error);
-        }else{
-            for (String s : set){
+        for (String s : set){
 
-                List<String> values = hashmap.get(s);
+            List<String> values = hashmap.get(s);
 
-                for (String str : values){
-                    if(!containsVar(str)){
-                        newTemplate.add(new HtmlComponent("br"));
-                        Label labVar = new Label(s);
-                        labVar.setId("variable-label-answer");
-                        labelsVar.add(labVar);
-                        Label labVal = new Label(str);
-                        labVar.setId("value-label-answer");
-                        labelsVal.add(labVal);
-                        newTemplate.add(labVar);
-                        newTemplate.add(labVal);
-                        TextField ans = new TextField();
-                        ans.setId("answer-textfield");
-                        answers.add(ans);
-                        newTemplate.add(ans);
-                        Button addAns = new Button("Add answer");
-                        addAns.setId("addVal-button");
-                        addAnswer.add(addAns);
-                        newTemplate.add(addAns);
+            for (String str : values){
+                if(!containsVar(str)){
+                    newTemplate.add(new HtmlComponent("br"));
+                    Label labVar = new Label(s);
+                    labVar.setId("variable-label-answer");
+                    labelsVar.add(labVar);
+                    Label labVal = new Label(str);
+                    labVar.setId("value-label-answer");
+                    labelsVal.add(labVal);
+                    newTemplate.add(labVar);
+                    newTemplate.add(labVal);
+                    TextField ans = new TextField();
+                    ans.setId("answer-textfield");
+                    answers.add(ans);
+                    newTemplate.add(ans);
+                    Button addAns = new Button("Add answer");
+                    addAns.setId("addVal-button");
+                    addAnswer.add(addAns);
+                    newTemplate.add(addAns);
 
-                        // add "," between every answer value
-                        addAns.addClickListener(ev -> {
-                            int i = addAnswer.indexOf(addAns);
-                            answers.get(i).setValue(answers.get(i).getValue() + ",");
-                        });
-                    }
+                    // add "," between every answer value
+                    addAns.addClickListener(ev -> {
+                        int i = addAnswer.indexOf(addAns);
+                        answers.get(i).setValue(answers.get(i).getValue() + ",");
+                    });
                 }
             }
         }
