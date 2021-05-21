@@ -231,6 +231,22 @@ public class SyntaxHandler {
             exception.printStackTrace();
         }
     }
+    
+    public static Set<String> checkIfAnyCommonInLines(List<String> lines){
+        Set<String> res = new HashSet<>();
+        Set<String> current = null;
+        for(String line:lines){
+            for(String w : CNF.splitRules(line)){
+                if(CFG.isVariable(w)){
+                    if(current == null) res.add(w);
+                    else current.add(w);
+                }
+            }
+            if(current == null) current = new HashSet<>();
+            else res.retainAll(current);
+        }
+        return res;
+    }
 
     public static void main(String[] args){
         Map<String, List<String>> test= new LinkedHashMap<>();
