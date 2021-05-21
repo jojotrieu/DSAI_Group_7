@@ -254,7 +254,14 @@ public class SkillsView3 extends Div {
                         });
                     }
                 }else{
-                    goToAnswerTemplate();
+                    if(valuesFilled()){
+                        goToAnswerTemplate();
+                    }else{
+                        error = new Label("All values must be filled");
+                        error.setId("error-message");
+                        newTemplate.add(new HtmlComponent("br"));
+                        newTemplate.add(error);
+                    }
                 }
             }
         });
@@ -392,6 +399,15 @@ public class SkillsView3 extends Div {
     private boolean answersFilled() {
         for(TextField ans: answers){
             if(ans.getValue().equals("")){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean valuesFilled() {
+        for(TextField v: values){
+            if(v.getValue().equals("")){
                 return false;
             }
         }

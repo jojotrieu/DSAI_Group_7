@@ -176,6 +176,7 @@ public class SyntaxHandler {
     }
 
     public static void saveRules(Map<String, List<String>> allLines){
+        CFG.loadRules();
         List<Rule> allRules = CFG.getRules();
         String actionVariable = null;
         for(Rule r: allRules) {
@@ -213,7 +214,7 @@ public class SyntaxHandler {
     }
 
     public static void saveActions(String title, List<String> answers, List<String> variables, List<String> values) {
-
+        Skills.loadActions();
         for(int i=0; i<answers.size(); i++){
             Action newAction = new Action();
             newAction.setId(Skills.getActions().size()-1);
