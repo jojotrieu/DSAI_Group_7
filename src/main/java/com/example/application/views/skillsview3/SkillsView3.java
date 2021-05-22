@@ -3,7 +3,6 @@ package com.example.application.views.skillsview3;
 import com.example.application.services.chatbot.CFG;
 import com.example.application.services.chatbot.Rule;
 import com.example.application.views.main.MainView;
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HtmlComponent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -26,6 +25,11 @@ public class SkillsView3 extends Div {
     private Button addButton = new Button("Add skill");
     private Dialog newTemplate = new Dialog();
 
+    // common elements
+    private String currentTemplate = new String();
+    private Label error;
+    public static boolean noVar;
+
     // elements of dialog box when currentTemplate = questionTemplate
     private TextField title = new TextField("Name:");
     private ArrayList<TextField> questions = new ArrayList<>();
@@ -34,9 +38,6 @@ public class SkillsView3 extends Div {
     private Button nextButton = new Button("Next");
     private ArrayList<Boolean> varClickListener = new ArrayList<>();
     private Button removeLastQuestion = new Button("Remove last question");
-
-    private String currentTemplate = new String();
-    private Label error;
 
     // elements of dialog box when currentTemplate = variableTemplate
     private ArrayList<Label> varLabels = new ArrayList<>();
@@ -121,6 +122,7 @@ public class SkillsView3 extends Div {
         varLabels.clear();
         values.clear();
         valuesButton.clear();
+        noVar = false;
 
         newTemplate.removeAll();
         newTemplate.add(removeLastQuestion);
@@ -279,6 +281,10 @@ public class SkillsView3 extends Div {
 
         Set<String> var = SyntaxHandler.getVariables(0);
 
+        if(var.isEmpty()){ // when no variable in the question
+            noVar = true;
+        }
+
         for(String v : var){
             newTemplate.add(new HtmlComponent("br"));
             Label label = new Label(v);
@@ -345,6 +351,14 @@ public class SkillsView3 extends Div {
                     newTemplate.add(ans);
                 }
             }
+        }
+
+        // even if there is no variable in the question, possibility to give an answer
+        if(noVar){
+            TextField ans = new TextField();
+            ans.setId("answer-textfield");
+            answers.add(ans);
+            newTemplate.add(ans);
         }
     }
 

@@ -215,16 +215,30 @@ public class SyntaxHandler {
 
     public static void saveActions(String title, List<String> answers, List<String> variables, List<String> values) {
         Skills.loadActions();
-        for(int i=0; i<answers.size(); i++){
+
+        if(SkillsView3.noVar){
+
             Action newAction = new Action();
-            newAction.setId(Skills.getActions().size()-1);
+            newAction.setId(Skills.getActions().size() - 1);
             newAction.setVariable(title);
             Map<String, String> nt = new HashMap<>();
-            nt.put(variables.get(i), values.get(i));
             newAction.setNonTerminals(nt);
-            newAction.setExpression(answers.get(i));
-
+            newAction.setExpression(answers.get(0));
             Skills.getActions().add(newAction);
+
+        }else {
+
+            for (int i = 0; i < answers.size(); i++) {
+                Action newAction = new Action();
+                newAction.setId(Skills.getActions().size() - 1);
+                newAction.setVariable(title);
+                Map<String, String> nt = new HashMap<>();
+                nt.put(variables.get(i), values.get(i));
+                newAction.setNonTerminals(nt);
+                newAction.setExpression(answers.get(i));
+
+                Skills.getActions().add(newAction);
+            }
         }
         try{
             Skills.writeActions();
