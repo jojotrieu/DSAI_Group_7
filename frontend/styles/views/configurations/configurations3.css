@@ -1,0 +1,87 @@
+configurations2-view,
+#configurations2-view {
+    display: block;
+    padding: 1em;
+}
+
+configurations3-view,
+#addSkill-button {
+    margin: 5px;
+    background-color: #67c104;
+    color: white;
+}
+
+configurations3-view,
+#addSkill-button:hover {
+    background-color: #478800;
+    color: white;
+}
+
+configurations3-view,
+#error-message {
+    color: red;
+}
+
+configurations3-view,
+#title {
+    margin: 5px;
+    width: 550px;
+}
+
+configurations3-view,
+#question {
+    margin: 5px;
+    width: 550px;
+}
+
+configurations3-view,
+#variable-button {
+    margin-left: 5px;
+}
+
+configurations3-view,
+#removeLQ-button{
+    margin-left: 5px;
+}
+
+configurations3-view,
+#next-button{
+    margin-left: 5px;
+}
+
+configurations3-view,
+#alternative-button {
+    margin-left: 5px;
+}
+
+configurations3-view,
+#back-button {
+    margin-left: 5px;
+}
+
+configurations3-view,
+#value-txtfield {
+    margin-left: 5px;
+    width: 350px;
+}
+
+configurations3-view,
+#addVal-button {
+    margin-left: 5px;
+}
+
+configurations3-view,
+#answer-textfield {
+    width: 350px;
+    margin-left: 5px;
+}
+
+configurations3-view,
+#value-label-answer {
+    margin-left: 5px;
+}
+
+configurations3-view,
+#variable-label-answer {
+    margin-left: 5px;
+}

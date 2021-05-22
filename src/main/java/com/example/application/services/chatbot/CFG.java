@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 public class CFG {
-    private static final ArrayList<Rule> rules = new ArrayList<>();
+    public static final ArrayList<Rule> rules = new ArrayList<>();
     private static final String PATH = "src/main/java/com/example/application/services/chatbot/rules.txt";
 
     public static boolean loadRules(){
@@ -72,15 +72,6 @@ public class CFG {
 
     public static boolean isVariable(String string){
         if(string.length()>2 && string.charAt(0)=='<' && string.charAt(string.length()-1)=='>'){
-          for (int i = 1; i < string.length()-1; i++) {
-            if(Character.isLetterOrDigit(string.charAt(i))){
-                if(Character.isLowerCase(string.charAt(i))){
-                    return false;
-                }
-            } else {
-                return false;
-            }
-          }
           return true;
         }
         return false;
