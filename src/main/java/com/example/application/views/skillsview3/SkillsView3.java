@@ -1,7 +1,9 @@
 package com.example.application.views.skillsview3;
 
 import com.example.application.services.chatbot.CFG;
+import com.example.application.services.chatbot.CNF;
 import com.example.application.services.chatbot.Rule;
+import com.example.application.services.chatbot.Skills;
 import com.example.application.views.main.MainView;
 import com.vaadin.flow.component.HtmlComponent;
 import com.vaadin.flow.component.button.Button;
@@ -28,7 +30,8 @@ public class SkillsView3 extends Div {
     // common elements
     private String currentTemplate = new String();
     private Label error;
-    public static boolean noVar;
+    public static boolean noVar; // indicates whether the questions contains no variables or not
+    public static int limit = 2;
 
     // elements of dialog box when currentTemplate = questionTemplate
     private TextField title = new TextField("Name:");
@@ -253,11 +256,22 @@ public class SkillsView3 extends Div {
                         });
                     }
                 }else{
-                    if(valuesFilled()){ // if all value textfields are filled
+                    if(valuesFilled() && !limitInValues()){ // if all value textfields are filled
                         goToAnswerTemplate();
-                    }else{
+                    }else if(!valuesFilled()){
                         // display error if not all values of variables are filled
                         error = new Label("All values must be filled");
+                        error.setId("error-message");
+                        newTemplate.add(new HtmlComponent("br"));
+                        newTemplate.add(error);
+                    }else if(limitInValues()){
+                        // display error if too many variables per value
+                        error = new Label("Maximum " + limit + " variables per value");
+                        error.setId("error-message");
+                        newTemplate.add(new HtmlComponent("br"));
+                        newTemplate.add(error);
+                    }else{
+                        error = new Label("All values must be filled & Maximum " + limit + " variables per value");
                         error.setId("error-message");
                         newTemplate.add(new HtmlComponent("br"));
                         newTemplate.add(error);
@@ -320,14 +334,12 @@ public class SkillsView3 extends Div {
      */
     private void goToAnswerTemplate() {
         HashMap<String,List<String>> hashmap = createHashMap();
-
         Set<String> set = SyntaxHandler.findCommonV(hashmap); // return common variables to put in answerTemplate
 
         currentTemplate = "answerTemplate";
         newTemplate.removeAll();
 
         newTemplate.add(saveSkill);
-
         initSaveSkillButton(hashmap);
 
         for (String s : set){
@@ -446,6 +458,10 @@ public class SkillsView3 extends Div {
                 List<String> lvl = labelToString(labelsVal);
                 SyntaxHandler.saveActions(t, a, lvr, lvl);
 
+                CFG.loadRules();
+                Skills.loadActions();
+                CNF.initialize();
+
                 newTemplate.close();
             }else{
                 error = new Label("Answers' textfields must be filled in.");
@@ -539,6 +555,19 @@ public class SkillsView3 extends Div {
             }
         }
         return true;
+    }
+
+    /**
+     * Checks whether all values of variables do not exceed the variable limit
+     * @return boolean: true if it exceeds
+     */
+    private boolean limitInValues() {
+        for(TextField v: values){
+            if(SyntaxHandler.countVariables(v.getValue()) > limit){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

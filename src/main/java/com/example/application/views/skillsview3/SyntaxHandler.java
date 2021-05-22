@@ -11,9 +11,9 @@ public class SyntaxHandler {
 
     /**
      * check the list of question handed from the UI
-     * Check empty quesitons, variables syntax (<var>)
+     * Check empty questions, variables syntax (<var>)
      * @param texts list of questions related to the skill
-     * @return true if everythin is written correctly
+     * @return true if everything is written correctly
      */
     public static boolean checkQuestions(List<String> texts){
         variables = new ArrayList<>();
@@ -28,6 +28,9 @@ public class SyntaxHandler {
                 String[] atomicArray = CNF.splitRules(line);
 //                firstVar = checkCommon(atomicArray,firstVar,lineCounter);
                 lineCounter++;
+            }
+            if(countVariables(line) > SkillsView3.limit){
+                errorMessage += "Too many variables per question \n";
             }
         }
         checkForVariables(texts, true,0);
@@ -122,7 +125,18 @@ public class SyntaxHandler {
             i++;
         }
         if(question) commonV = var;
-    } //TODO checkifanycommon for variabla : you need to check if an old common is replaced with new variables
+    } //TODO checkifanycommon for variable : you need to check if an old common is replaced with new variables
+
+    public static int countVariables(String line) {
+        String[] splitLine = CNF.splitRules(line);
+        int count = 0;
+        for (String w : splitLine) {
+            if (CFG.isVariable(w)) {
+                count++;
+            }
+        }
+        return count;
+    }
 
     /**
      * find the common var from all input
