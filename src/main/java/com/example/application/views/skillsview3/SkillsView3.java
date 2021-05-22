@@ -50,7 +50,6 @@ public class SkillsView3 extends Div {
     private ArrayList<Label> labelsVar = new ArrayList<>();
     private ArrayList<Label> labelsVal = new ArrayList<>();
     private Button saveSkill = new Button("SAVE SKILL");
-    private ArrayList<Button> addAnswer = new ArrayList<>();
 
     public SkillsView3() {
         setId("configurations3-view");
@@ -333,16 +332,6 @@ public class SkillsView3 extends Div {
                     ans.setId("answer-textfield");
                     answers.add(ans);
                     newTemplate.add(ans);
-                    Button addAns = new Button("Add answer");
-                    addAns.setId("addVal-button");
-                    addAnswer.add(addAns);
-                    newTemplate.add(addAns);
-
-                    // add "," between every answer value
-                    addAns.addClickListener(ev -> {
-                        int i = addAnswer.indexOf(addAns);
-                        answers.get(i).setValue(answers.get(i).getValue() + ",");
-                    });
                 }
             }
         }
