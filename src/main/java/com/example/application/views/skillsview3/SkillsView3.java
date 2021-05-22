@@ -38,7 +38,7 @@ public class SkillsView3 extends Div {
     private String currentTemplate = new String();
     private Label error;
 
-    // elements of dialog box when currentTemplate = variablesTemplate
+    // elements of dialog box when currentTemplate = variableTemplate
     private ArrayList<Label> varLabels = new ArrayList<>();
     private ArrayList<TextField> values = new ArrayList<>();
     private ArrayList<Button> valuesButton = new ArrayList<>();
@@ -46,6 +46,7 @@ public class SkillsView3 extends Div {
     private ArrayList<Button> variables2 = new ArrayList<>();
     private ArrayList<Boolean> varClickListener2 = new ArrayList<>();
 
+    // elements of dialog box when currentTemplate = answerTemplate
     private ArrayList<TextField> answers = new ArrayList<>();
     private ArrayList<Label> labelsVar = new ArrayList<>();
     private ArrayList<Label> labelsVal = new ArrayList<>();
@@ -133,7 +134,7 @@ public class SkillsView3 extends Div {
     /**
      * Initialize the button "remove last question"
      * When the button is pressed, the last question textfield is removed
-     * as well as the last "var" button
+     * as well as the last variable button
      */
     private void initRemoveLQ(){
         removeLastQuestion.addClickListener(e -> {
@@ -149,24 +150,21 @@ public class SkillsView3 extends Div {
 
     /**
      * Initialize the button "alternative"
-     * The button is used differently depending on the currentTemplate value
+     * Once clicked, a new question textfield can be filled
+     * Enables the user to ask a question in several ways
      */
     private void initAlternativeButton() {
         alternativeButton.addClickListener(e -> {
-
-            // when currentTemplate = questionTemplate: add an alternative question
-            if(currentTemplate.equals("questionTemplate")) {
-                TextField question = new TextField();
-                question.setId("question");
-                questions.add(question);
-                Button variable = new Button("Variable");
-                variable.setId("variable-button");
-                variables.add(variable);
-                varClickListener.add(false);
-                initVarButton();
-                newTemplate.add(questions.get(questions.size() - 1));
-                newTemplate.add(variables.get(variables.size()-1));
-            }
+            TextField question = new TextField();
+            question.setId("question");
+            questions.add(question);
+            Button variable = new Button("Variable");
+            variable.setId("variable-button");
+            variables.add(variable);
+            varClickListener.add(false);
+            initVarButton();
+            newTemplate.add(questions.get(questions.size() - 1));
+            newTemplate.add(variables.get(variables.size()-1));
         });
     }
 
@@ -253,9 +251,10 @@ public class SkillsView3 extends Div {
                         });
                     }
                 }else{
-                    if(valuesFilled()){
+                    if(valuesFilled()){ // if all value textfields are filled
                         goToAnswerTemplate();
                     }else{
+                        // display error if not all values of variables are filled
                         error = new Label("All values must be filled");
                         error.setId("error-message");
                         newTemplate.add(new HtmlComponent("br"));
@@ -267,182 +266,9 @@ public class SkillsView3 extends Div {
     }
 
     /**
-     * Checks whether the title of the skill is unique
-     * @param value the title
-     * @return whether it is unique
-     */
-    private boolean isUnique(String value) {
-        boolean res = false;
-
-        for (Rule rule : CFG.rules){
-            if(rule.getVariable().equals("<ACTION>")){
-                for(String expr : rule.getExpressions()){
-                    if (expr.equals(value)){
-                        return false;
-                    }
-                }
-                res = true;
-                break;
-            }
-        }
-        return res;
-    }
-
-    private ArrayList<String> getAllValues() {
-        ArrayList<String> allValues = new ArrayList<>();
-
-        for(TextField tf : values){
-            if(!tf.isReadOnly()){
-                String[] array = tf.getValue().split(",");
-                List<String> newList = Arrays.asList(array);
-                allValues.addAll(newList);
-            }
-        }
-        return allValues;
-    }
-
-    private void goToAnswerTemplate() {
-        HashMap<String,List<String>> hashmap = createHashMap();
-
-        Set<String> set = SyntaxHandler.findCommonV(hashmap); // return common variables to put in answerTemplate
-
-        currentTemplate = "answerTemplate";
-        newTemplate.removeAll();
-
-        newTemplate.add(saveSkill);
-
-        initSaveSkillButton(hashmap);
-
-        for (String s : set){
-
-            List<String> values = hashmap.get(s);
-
-            for (String str : values){
-                if(!containsVar(str)){
-                    newTemplate.add(new HtmlComponent("br"));
-                    Label labVar = new Label(s);
-                    labVar.setId("variable-label-answer");
-                    labelsVar.add(labVar);
-                    Label labVal = new Label(str);
-                    labVar.setId("value-label-answer");
-                    labelsVal.add(labVal);
-                    newTemplate.add(labVar);
-                    newTemplate.add(labVal);
-                    TextField ans = new TextField();
-                    ans.setId("answer-textfield");
-                    answers.add(ans);
-                    newTemplate.add(ans);
-                }
-            }
-        }
-    }
-
-    private void initSaveSkillButton(HashMap<String, List<String>> hashmap) {
-        saveSkill.addClickListener(e->{
-            if(answersFilled()){
-                SyntaxHandler.saveRules(hashmap);
-
-                String t = title.getValue();
-                List<String> a = txtfieldToString(answers);
-                List<String> lvr = labelToString(labelsVar);
-                List<String> lvl = labelToString(labelsVal);
-                SyntaxHandler.saveActions(t, a, lvr, lvl);
-
-                newTemplate.close();
-            }else{
-                error = new Label("Answers' textfields must be filled in.");
-                error.setId("error-message");
-                newTemplate.add(new HtmlComponent("br"));
-                newTemplate.add(error);
-            }
-
-        });
-    }
-
-    private List<String> labelToString(ArrayList<Label> labelsVar) {
-        List<String> list = new ArrayList<>();
-        for(Label l : labelsVar){
-            String str = l.getText();
-            list.add(str);
-        }
-        return list;
-    }
-
-    private List<String> txtfieldToString(ArrayList<TextField> answers) {
-        List<String> list = new ArrayList<>();
-        for(TextField a : answers){
-            String str = a.getValue();
-            list.add(str);
-        }
-
-        return list;
-    }
-
-    private boolean answersFilled() {
-        for(TextField ans: answers){
-            if(ans.getValue().equals("")){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean valuesFilled() {
-        for(TextField v: values){
-            if(v.getValue().equals("")){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Checks whether there is a variable in the string
-     * @param str
-     * @return true if there is a variable in the string, else false
-     */
-    private boolean containsVar(String str) {
-        boolean returnval = false;
-
-        String[] words = str.split(" ");
-        for(int i = 0; i<words.length; i++){
-            if(CFG.isVariable(words[i])){
-                returnval = true;
-            } else {
-                returnval = false;
-            }
-        }
-        return returnval;
-
-    }
-
-    private HashMap<String,List<String>> createHashMap() {
-
-        HashMap<String,List<String>> hashmap = new LinkedHashMap<>();
-
-        List<String> arr = new ArrayList<>();
-
-        for (TextField q : questions)  {
-            arr.add(q.getValue());
-        }
-
-        hashmap.put(title.getValue(), arr);
-        int i = 0;
-        for(Label v : varLabels){
-            String[] array = values.get(i).getValue().split(",");
-            List<String> list = new ArrayList<>();
-            for(int j=0; j<array.length; j++){
-                list.add(array[j]);
-            }
-            hashmap.put(v.getText(), list);
-            i++;
-        }
-
-        return hashmap;
-    }
-
-    /**
      * Go to the template variableTemplate
+     * currentTemplate = variableTemplate
+     * Displays elements of the variable template
      */
     private void goToVarTemplate(){
         currentTemplate = "variableTemplate";
@@ -482,19 +308,46 @@ public class SkillsView3 extends Div {
     }
 
     /**
-     * returns index of an element of a Set
-     * @param set : the set
-     * @param value : a value of the set
-     * @return the index of the value in the Set
+     * Go to the template of answers
+     * currentTemplate = answerTemplate
+     * Displays elements of the answer template
      */
-    private static int getIndex(Set set, Object value) {
-        int index = 0;
-        for (Object entry:set) {
-            if (entry.equals(value)) return index;
-            index++;
+    private void goToAnswerTemplate() {
+        HashMap<String,List<String>> hashmap = createHashMap();
+
+        Set<String> set = SyntaxHandler.findCommonV(hashmap); // return common variables to put in answerTemplate
+
+        currentTemplate = "answerTemplate";
+        newTemplate.removeAll();
+
+        newTemplate.add(saveSkill);
+
+        initSaveSkillButton(hashmap);
+
+        for (String s : set){
+
+            List<String> values = hashmap.get(s);
+
+            for (String str : values){
+                if(!containsVar(str)){
+                    newTemplate.add(new HtmlComponent("br"));
+                    Label labVar = new Label(s);
+                    labVar.setId("variable-label-answer");
+                    labelsVar.add(labVar);
+                    Label labVal = new Label(str);
+                    labVar.setId("value-label-answer");
+                    labelsVal.add(labVal);
+                    newTemplate.add(labVar);
+                    newTemplate.add(labVal);
+                    TextField ans = new TextField();
+                    ans.setId("answer-textfield");
+                    answers.add(ans);
+                    newTemplate.add(ans);
+                }
+            }
         }
-        return -1;
     }
+
 
     /**
      * TODO make it work
@@ -561,5 +414,189 @@ public class SkillsView3 extends Div {
                 });
             }
         }
+    }
+
+    /**
+     * Initialize "SAVE SKILL3 button
+     * Once pressed, close the template and save the skill into rules and actions
+     * @param hashmap : the hashmap containing all needed strings to create the rules
+     */
+    private void initSaveSkillButton(HashMap<String, List<String>> hashmap) {
+        saveSkill.addClickListener(e->{
+            if(answersFilled()){
+                SyntaxHandler.saveRules(hashmap);
+
+                String t = title.getValue();
+                List<String> a = txtfieldToString(answers);
+                List<String> lvr = labelToString(labelsVar);
+                List<String> lvl = labelToString(labelsVal);
+                SyntaxHandler.saveActions(t, a, lvr, lvl);
+
+                newTemplate.close();
+            }else{
+                error = new Label("Answers' textfields must be filled in.");
+                error.setId("error-message");
+                newTemplate.add(new HtmlComponent("br"));
+                newTemplate.add(error);
+            }
+
+        });
+    }
+
+    /**
+     * Creates a hashmap containing the title of the skill, the questions, the variables and their values
+     * @return hashmap
+     */
+    private HashMap<String,List<String>> createHashMap() {
+
+        HashMap<String,List<String>> hashmap = new LinkedHashMap<>();
+
+        List<String> arr = new ArrayList<>();
+
+        for (TextField q : questions)  {
+            arr.add(q.getValue());
+        }
+
+        hashmap.put(title.getValue(), arr);
+        int i = 0;
+        for(Label v : varLabels){
+            String[] array = values.get(i).getValue().split(",");
+            List<String> list = new ArrayList<>();
+            for(int j=0; j<array.length; j++){
+                list.add(array[j]);
+            }
+            hashmap.put(v.getText(), list);
+            i++;
+        }
+
+        return hashmap;
+    }
+
+    /**
+     * Transforms an ArrayList of labels into a list of Strings
+     * @param labels : The ArrayList of labels
+     * @return list: the List of Strings
+     */
+    private List<String> labelToString(ArrayList<Label> labels) {
+        List<String> list = new ArrayList<>();
+        for(Label l : labels){
+            String str = l.getText();
+            list.add(str);
+        }
+        return list;
+    }
+
+    /**
+     * Transforms an ArrayList of textfields into a List of Strings
+     * @param tf : the array of textfields
+     * @return list: the List of Strings
+     */
+    private List<String> txtfieldToString(ArrayList<TextField> tf) {
+        List<String> list = new ArrayList<>();
+        for(TextField t : tf){
+            String str = t.getValue();
+            list.add(str);
+        }
+
+        return list;
+    }
+
+    /**
+     * Checks whether all answer textfields are filled
+     * @return boolean: true if filled, else false
+     */
+    private boolean answersFilled() {
+        for(TextField ans: answers){
+            if(ans.getValue().equals("")){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks whether all value textfields are filled
+     * @return boolean: true if filled, else false
+     */
+    private boolean valuesFilled() {
+        for(TextField v: values){
+            if(v.getValue().equals("")){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks whether there is a variable in the string
+     * @param str
+     * @return true if there is a variable in the string, else false
+     */
+    private boolean containsVar(String str) {
+        boolean returnval = false;
+
+        String[] words = str.split(" ");
+        for(int i = 0; i<words.length; i++){
+            if(CFG.isVariable(words[i])){
+                returnval = true;
+            } else {
+                returnval = false;
+            }
+        }
+        return returnval;
+
+    }
+
+    /**
+     * returns index of an element of a Set
+     * @param set : the set
+     * @param value : a value of the set
+     * @return the index of the value in the Set
+     */
+    private static int getIndex(Set set, Object value) {
+        int index = 0;
+        for (Object entry:set) {
+            if (entry.equals(value)) return index;
+            index++;
+        }
+        return -1;
+    }
+
+    /**
+     * Checks whether the title of the skill is unique
+     * @param value the title
+     * @return whether it is unique
+     */
+    private boolean isUnique(String value) {
+        boolean res = false;
+
+        for (Rule rule : CFG.rules){
+            if(rule.getVariable().equals("<ACTION>")){
+                for(String expr : rule.getExpressions()){
+                    if (expr.equals(value)){
+                        return false;
+                    }
+                }
+                res = true;
+                break;
+            }
+        }
+        return res;
+    }
+
+    /**
+     * Returns an array of string containing all values given to the variables
+     */
+    private ArrayList<String> getAllValues() {
+        ArrayList<String> allValues = new ArrayList<>();
+
+        for(TextField tf : values){
+            if(!tf.isReadOnly()){
+                String[] array = tf.getValue().split(",");
+                List<String> newList = Arrays.asList(array);
+                allValues.addAll(newList);
+            }
+        }
+        return allValues;
     }
 }

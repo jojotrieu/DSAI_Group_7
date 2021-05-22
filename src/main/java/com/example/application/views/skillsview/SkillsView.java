@@ -180,6 +180,7 @@ public class SkillsView extends Div {
 
         editEntry.addClickListener(e -> {
             if (grid.getSelectedItems().toArray().length != 0){ // if item is selected
+                skillTemplateEmpty();
                 newTemplate.open();
                 Object [] tempSet = grid.getSelectedItems().toArray();
                 String requestString = tempSet[0].toString();
