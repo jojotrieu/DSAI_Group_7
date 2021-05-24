@@ -7,6 +7,7 @@ import com.example.application.services.chatbot.Skills;
 import com.example.application.views.main.MainView;
 import com.vaadin.flow.component.HtmlComponent;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
@@ -52,8 +53,8 @@ public class SkillsView3 extends Div {
 
     // elements of dialog box when currentTemplate = answerTemplate
     private ArrayList<TextField> answers = new ArrayList<>();
-    private ArrayList<Label> labelsVar = new ArrayList<>();
-    private ArrayList<Label> labelsVal = new ArrayList<>();
+    private ArrayList<ArrayList<Object>> varVal = new ArrayList<>();
+    private ArrayList<Button> plusButt = new ArrayList<>();
     private Button saveSkill = new Button("SAVE SKILL");
 
     public SkillsView3() {
@@ -215,7 +216,7 @@ public class SkillsView3 extends Div {
                 SyntaxHandler.checkVariables(allValues, 1);
                 Set<String> variablesInValues = SyntaxHandler.getVariables(1);
 
-                if(!variablesInValues.isEmpty()) {
+                if(!variablesInValues.isEmpty() && !limitInValues() && valuesFilled()) {
 
                     int sizeOfVarNonEditable = values.size();
                     int i = 0;
@@ -333,8 +334,11 @@ public class SkillsView3 extends Div {
      * Displays elements of the answer template
      */
     private void goToAnswerTemplate() {
+        newTemplate.setWidth("1200px");
         HashMap<String,List<String>> hashmap = createHashMap();
-        Set<String> set = SyntaxHandler.findCommonV(hashmap); // return common variables to put in answerTemplate
+        System.out.println(hashmap);
+        List<Set<String>> set = SyntaxHandler.findCommonV(hashmap); // return common variables to put in answerTemplate
+        System.out.println(set);
 
         currentTemplate = "answerTemplate";
         newTemplate.removeAll();
@@ -342,26 +346,34 @@ public class SkillsView3 extends Div {
         newTemplate.add(saveSkill);
         initSaveSkillButton(hashmap);
 
-        for (String s : set){
+        for (Set<String> se : set){
+            List<String> list = new ArrayList<>(se);
 
-            List<String> values = hashmap.get(s);
+            if(list.size()==1) {
+                String s = list.get(0);
+                List<String> values = hashmap.get(s);
 
-            for (String str : values){
-                if(!containsVar(str)){
-                    newTemplate.add(new HtmlComponent("br"));
-                    Label labVar = new Label(s);
-                    labVar.setId("variable-label-answer");
-                    labelsVar.add(labVar);
-                    Label labVal = new Label(str);
-                    labVar.setId("value-label-answer");
-                    labelsVal.add(labVal);
-                    newTemplate.add(labVar);
-                    newTemplate.add(labVal);
-                    TextField ans = new TextField();
-                    ans.setId("answer-textfield");
-                    answers.add(ans);
-                    newTemplate.add(ans);
+                for (String str : values) {
+                    if (!containsVar(str)) {
+                        ArrayList<Object> vv = new ArrayList<>();
+                        newTemplate.add(new HtmlComponent("br"));
+                        Label labVar = new Label(s);
+                        labVar.setId("variable-label-answer");
+                        vv.add(labVar);
+                        Label labVal = new Label(str);
+                        labVar.setId("value-label-answer");
+                        vv.add(labVal);
+                        newTemplate.add(labVar);
+                        newTemplate.add(labVal);
+                        TextField ans = new TextField();
+                        ans.setId("answer-textfield");
+                        answers.add(ans);
+                        newTemplate.add(ans);
+                        varVal.add(vv);
+                    }
                 }
+            }else { // combination of variables
+                addCombination(list, hashmap);
             }
         }
 
@@ -374,6 +386,37 @@ public class SkillsView3 extends Div {
         }
     }
 
+    private void addCombination(List<String> list, HashMap<String,List<String>> hashmap){
+        newTemplate.add(new HtmlComponent("br"));
+        ArrayList<Object> vv = new ArrayList<>();
+
+        for (String element : list) {
+            Label labVar = new Label(element);
+            labVar.setId("variable-label-answer");
+            vv.add(labVar);
+            newTemplate.add(labVar);
+
+            List<String> values = hashmap.get(element);
+            ComboBox comboBox = new ComboBox("Select");
+            comboBox.setItems(values);
+            comboBox.setWidth("120px");
+            vv.add(comboBox);
+            newTemplate.add(comboBox);
+        }
+        varVal.add(vv);
+
+        TextField ans = new TextField();
+        ans.setId("answer-textfield");
+        answers.add(ans);
+        newTemplate.add(ans);
+
+        Button plus = new Button("+");
+        plus.setId("button-plus");
+        plusButt.add(plus);
+        newTemplate.add(plus);
+
+        initPlusButton(plus, list, hashmap);
+    }
 
     /**
      * TODO make it work
@@ -442,6 +485,10 @@ public class SkillsView3 extends Div {
         }
     }
 
+    private void initPlusButton(Button plus, List<String> list, HashMap<String,List<String>> hashmap){
+        plus.addClickListener(e-> addCombination(list, hashmap));
+    }
+
     /**
      * Initialize "SAVE SKILL3 button
      * Once pressed, close the template and save the skill into rules and actions
@@ -454,9 +501,7 @@ public class SkillsView3 extends Div {
 
                 String t = title.getValue();
                 List<String> a = txtfieldToString(answers);
-                List<String> lvr = labelToString(labelsVar);
-                List<String> lvl = labelToString(labelsVal);
-                SyntaxHandler.saveActions(t, a, lvr, lvl);
+                SyntaxHandler.saveActions(t, a, varVal);
 
                 CFG.loadRules();
                 Skills.loadActions();
@@ -563,8 +608,12 @@ public class SkillsView3 extends Div {
      */
     private boolean limitInValues() {
         for(TextField v: values){
-            if(SyntaxHandler.countVariables(v.getValue()) > limit){
-                return true;
+            String txtf = v.getValue();
+            String[] val = txtf.split(",");
+            for(int i=0; i<val.length;i++){
+                if(SyntaxHandler.countVariables(val[i]) > limit){
+                    return true;
+                }
             }
         }
         return false;
@@ -572,7 +621,7 @@ public class SkillsView3 extends Div {
 
     /**
      * Checks whether there is a variable in the string
-     * @param str
+     * @param str the string which may contain a variable
      * @return true if there is a variable in the string, else false
      */
     private boolean containsVar(String str) {
@@ -582,8 +631,6 @@ public class SkillsView3 extends Div {
         for(int i = 0; i<words.length; i++){
             if(CFG.isVariable(words[i])){
                 returnval = true;
-            } else {
-                returnval = false;
             }
         }
         return returnval;

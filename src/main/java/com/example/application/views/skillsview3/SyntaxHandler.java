@@ -1,6 +1,9 @@
 package com.example.application.views.skillsview3;
 
 import com.example.application.services.chatbot.*;
+import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.html.Label;
+
 import java.io.FileNotFoundException;
 import java.util.*;
 
@@ -230,7 +233,7 @@ public class SyntaxHandler {
         }
     }
 
-    public static void saveActions(String title, List<String> answers, List<String> variables, List<String> values) {
+    public static void saveActions(String title, List<String> answers, ArrayList<ArrayList<Object>> varVal) {
         Skills.loadActions();
 
         if(SkillsView3.noVar){
@@ -243,14 +246,24 @@ public class SyntaxHandler {
             newAction.setExpression(answers.get(0));
             Skills.getActions().add(newAction);
 
-        }else {
+        }else{
 
             for (int i = 0; i < answers.size(); i++) {
                 Action newAction = new Action();
                 newAction.setId(Skills.getActions().size() - 1);
                 newAction.setVariable(title);
                 Map<String, String> nt = new HashMap<>();
-                nt.put(variables.get(i), values.get(i));
+                if(varVal.get(i).size()==2){
+                    Label l0 = (Label) varVal.get(i).get(0);
+                    Label l1 = (Label) varVal.get(i).get(1);
+                    nt.put(l0.getText(), l1.getText());
+                }else{
+                    for(int j = 0; j<varVal.get(i).size() ; j+=2){
+                        Label l = (Label) varVal.get(i).get(j);
+                        ComboBox cb = (ComboBox) varVal.get(i).get(j+1);
+                        nt.put(l.getText(), cb.getValue().toString());
+                    }
+                }
                 newAction.setNonTerminals(nt);
                 newAction.setExpression(answers.get(i));
 
