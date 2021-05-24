@@ -259,12 +259,12 @@ public class SyntaxHandler {
                 if(varVal.get(i).size()==2){
                     Label l0 = (Label) varVal.get(i).get(0);
                     Label l1 = (Label) varVal.get(i).get(1);
-                    nt.put(l0.getText(), l1.getText());
+                    nt.put(l0.getText().trim(), l1.getText().trim());
                 }else{
                     for(int j = 0; j<varVal.get(i).size() ; j+=2){
                         Label l = (Label) varVal.get(i).get(j);
                         ComboBox cb = (ComboBox) varVal.get(i).get(j+1);
-                        nt.put(l.getText(), cb.getValue().toString());
+                        nt.put(l.getText().trim(), cb.getValue().toString().trim());
                     }
                 }
                 newAction.setNonTerminals(nt);

@@ -94,6 +94,8 @@ public class SkillsView2 extends Div {
             rulesGrid.setItems(rules);
             try {
                 CFG.writeRules();
+                CFG.loadRules();
+                CNF.initialize();
             } catch (FileNotFoundException fileNotFoundException) {
                 fileNotFoundException.printStackTrace();
             }
@@ -110,6 +112,8 @@ public class SkillsView2 extends Div {
             actionsGrid.setItems(actions);
             try {
                 Skills.writeActions();
+                Skills.loadActions();
+                CNF.initialize();
             } catch (FileNotFoundException fileNotFoundException) {
                 fileNotFoundException.printStackTrace();
             }
@@ -222,6 +226,8 @@ public class SkillsView2 extends Div {
                 CFG.addRule(rule);
                 try {
                     CFG.writeRules();
+                    CFG.loadRules();
+                    CNF.initialize();
                 } catch (FileNotFoundException fileNotFoundException) {
                     fileNotFoundException.printStackTrace();
                 }
@@ -236,6 +242,8 @@ public class SkillsView2 extends Div {
                     rulesGrid.setItems(rules);
                     try {
                         CFG.writeRules();
+                        CFG.loadRules();
+                        CNF.initialize();
                     } catch (FileNotFoundException fileNotFoundException) {
                         fileNotFoundException.printStackTrace();
                     }
@@ -270,6 +278,8 @@ public class SkillsView2 extends Div {
                 Skills.addAction(action);
                 try {
                     Skills.writeActions();
+                    Skills.loadActions();
+                    CNF.initialize();
                 } catch (FileNotFoundException fileNotFoundException) {
                     fileNotFoundException.printStackTrace();
                 }
@@ -283,6 +293,8 @@ public class SkillsView2 extends Div {
                     actionsGrid.setItems(actions);
                     try {
                         Skills.writeActions();
+                        Skills.loadActions();
+                        CNF.initialize();
                     } catch (FileNotFoundException fileNotFoundException) {
                         fileNotFoundException.printStackTrace();
                     }
