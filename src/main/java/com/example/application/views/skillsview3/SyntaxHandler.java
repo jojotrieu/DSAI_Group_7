@@ -188,7 +188,10 @@ public class SyntaxHandler {
                     result.get(0).remove(keyVariable);
                 }
                 result.get(0).addAll(commonCurrent);
-                result.get(1).addAll(currentV);
+                for(String s: currentV) {
+                    if(!result.get(0).contains(s))
+                        result.get(1).add(s);
+                }
             }
             i++;
         }
