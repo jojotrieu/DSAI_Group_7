@@ -143,16 +143,19 @@ public class SyntaxHandler {
      * @param allLines every input
      * @return list of common variable to make answers
      */
-    public static Set<String> findCommonV(Map<String, List<String>> allLines){
+    public static List<Set<String>> findCommonV(Map<String, List<String>> allLines){
         int i=0;
-        Set<String> common = new HashSet<>();
+        List<Set<String>> result = new ArrayList<>();
+        result.add(new HashSet<>());
+        result.add(new HashSet<>());
+//        Set<String> common = new HashSet<>();
 
         for(String keyVariable:allLines.keySet()){
             int j=0;
             Set<String> firstLineV = new HashSet<>();
             Set<String> currentV = new HashSet<>();
             Set<String> commonCurrent = new HashSet<>();
-            if(i==0 || common.contains(keyVariable)){
+            if(i==0 || result.get(0).contains(keyVariable) || result.get(1).contains(keyVariable)){
                 for(String line: allLines.get(keyVariable)){
                     String[] split = CNF.splitRules(line);
                     for(String w: split){ // check the line
@@ -164,7 +167,7 @@ public class SyntaxHandler {
                             }else{
                                 currentV.add(w);
                             }
-                            if(common.contains(keyVariable)) currentV.add(w);
+                            if(result.get(0).contains(keyVariable) ||result.get(1).contains(keyVariable)) currentV.add(w);
                         }
                     }
                     if(j>1){ // third line comparison
@@ -176,17 +179,17 @@ public class SyntaxHandler {
             }
             if(currentV.size()==0) currentV = firstLineV;
             if(j==1) commonCurrent=firstLineV; // if only 1 line
-            if(i==0) common = commonCurrent;
+            if(i==0) result.set(0,commonCurrent);
             else{
                 if(commonCurrent.size()!=0){
-                    common.remove(keyVariable);
+                    result.get(0).remove(keyVariable);
                 }
-                common.addAll(commonCurrent);
-                common.addAll(currentV);
+                result.get(0).addAll(commonCurrent);
+                result.get(1).addAll(currentV);
             }
             i++;
         }
-        return common;
+        return result;
     }
 
     public static void saveRules(Map<String, List<String>> allLines){
@@ -285,7 +288,7 @@ public class SyntaxHandler {
         test.put("<Skill test>", firstLine);
         List<String> secondLine = new ArrayList<>();
         secondLine.add("dany <ILE>");
-        secondLine.add("da <ILE>");
+        secondLine.add("da ");
         secondLine.add("<ILE>");
         test.put("<LIEU>",secondLine);
         List<String> thirdLine = new ArrayList<>();
@@ -296,8 +299,8 @@ public class SyntaxHandler {
         fourthLine.add("blah");
         fourthLine.add("jo");
         test.put("<CANARIE>", fourthLine);
-        Set ans = findCommonV(test);
-        for(Object s : ans) System.out.println(s);
+        List<Set<String>> ans = findCommonV(test);
+        for(Set<String> a:ans) System.out.println(a);
     }
 
 }
