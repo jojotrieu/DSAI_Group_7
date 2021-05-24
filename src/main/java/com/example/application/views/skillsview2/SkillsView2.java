@@ -56,6 +56,7 @@ public class SkillsView2 extends Div {
         setId("configurations2-view");
         CFG.loadRules();
         Skills.loadActions();
+        CNF.initialize();
         initGrid1();
         initGrid2();
         setUpTemplates();
@@ -225,6 +226,7 @@ public class SkillsView2 extends Div {
                     fileNotFoundException.printStackTrace();
                 }
                 CFG.loadRules();
+                CNF.initialize();
                 rules = CFG.getRules();
                 rulesGrid.setItems(rules);
 
@@ -272,6 +274,7 @@ public class SkillsView2 extends Div {
                     fileNotFoundException.printStackTrace();
                 }
                 Skills.loadActions();
+                CNF.initialize();
                 actionsGrid.setItems(actions);
 
                 if (editPressed2) {

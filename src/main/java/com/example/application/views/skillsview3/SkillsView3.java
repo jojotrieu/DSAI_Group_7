@@ -346,35 +346,33 @@ public class SkillsView3 extends Div {
         newTemplate.add(saveSkill);
         initSaveSkillButton(hashmap);
 
-        for (Set<String> se : set){
-            List<String> list = new ArrayList<>(se);
+        List<String> list = new ArrayList<>(set.get(0));
 
-            if(list.size()==1) {
-                String s = list.get(0);
-                List<String> values = hashmap.get(s);
+        if(list.size()==1) {
+            String s = list.get(0);
+            List<String> values = hashmap.get(s);
 
-                for (String str : values) {
-                    if (!containsVar(str)) {
-                        ArrayList<Object> vv = new ArrayList<>();
-                        newTemplate.add(new HtmlComponent("br"));
-                        Label labVar = new Label(s);
-                        labVar.setId("variable-label-answer");
-                        vv.add(labVar);
-                        Label labVal = new Label(str);
-                        labVar.setId("value-label-answer");
-                        vv.add(labVal);
-                        newTemplate.add(labVar);
-                        newTemplate.add(labVal);
-                        TextField ans = new TextField();
-                        ans.setId("answer-textfield");
-                        answers.add(ans);
-                        newTemplate.add(ans);
-                        varVal.add(vv);
-                    }
+            for (String str : values) {
+                if (!containsVar(str)) {
+                    ArrayList<Object> vv = new ArrayList<>();
+                    newTemplate.add(new HtmlComponent("br"));
+                    Label labVar = new Label(s);
+                    labVar.setId("variable-label-answer");
+                    vv.add(labVar);
+                    Label labVal = new Label(str);
+                    labVar.setId("value-label-answer");
+                    vv.add(labVal);
+                    newTemplate.add(labVar);
+                    newTemplate.add(labVal);
+                    TextField ans = new TextField();
+                    ans.setId("answer-textfield");
+                    answers.add(ans);
+                    newTemplate.add(ans);
+                    varVal.add(vv);
                 }
-            }else { // combination of variables
-                addCombination(list, hashmap);
             }
+        }else { // combination of variables
+            addCombination(list, hashmap);
         }
 
         // even if there is no variable in the question, possibility to give an answer
