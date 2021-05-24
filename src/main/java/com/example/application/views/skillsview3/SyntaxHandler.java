@@ -62,7 +62,7 @@ public class SyntaxHandler {
             variables.set(page, new HashSet<>());
         }
         int lineCounter = 1;
-        HashSet<String> firstVar=null;
+        HashSet<String> firstVar = null;
             for (String value : values) {
                 if (value != null) {
                     checkVarSyntax(value, lineCounter, "value");
@@ -117,12 +117,12 @@ public class SyntaxHandler {
         HashSet<String> var = new HashSet<>(); // set of vars for the lines
         for(String line:lines){
             String[] splitLine = CNF.splitRules(line);
-            HashSet<String> linevar = new HashSet<>();
+            HashSet<String> lineVar = new HashSet<>();
             for(String w:splitLine){
                 if(CFG.isVariable(w)){
                     variables.get(page).add(w);
                     if(i==1) var.add(w);
-                    else linevar.add(w);
+                    else lineVar.add(w);
                 }
             }
             i++;

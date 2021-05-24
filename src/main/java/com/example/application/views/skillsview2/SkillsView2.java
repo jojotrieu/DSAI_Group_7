@@ -23,32 +23,32 @@ import java.util.Map;
 @PageTitle("Skills Editor 2")
 public class SkillsView2 extends Div {
 
-    private Grid<Rule> rulesGrid = new Grid<>(Rule.class);
+    private final Grid<Rule> rulesGrid = new Grid<>(Rule.class);
     private List<Rule> rules = CFG.getRules();
-    private Dialog newTemplate1 = new Dialog();
+    private final Dialog newTemplate1 = new Dialog();
 
-    private Button createButton1 = new Button("New");
-    private Button deleteButton1 = new Button("Delete");
-    private Button editButton1 = new Button("Edit");
+    private final Button createButton1 = new Button("New");
+    private final Button deleteButton1 = new Button("Delete");
+    private final Button editButton1 = new Button("Edit");
 
-    private TextField variable1 = new TextField("Variable");
-    private TextField expression1 = new TextField("Expression");
-    private Button saveButton1 = new Button("Save");
+    private final TextField variable1 = new TextField("Variable");
+    private final TextField expression1 = new TextField("Expression");
+    private final Button saveButton1 = new Button("Save");
     private boolean editPressed1 = false;
     private String selection1;
 
-    private Grid<Action> actionsGrid = new Grid<>(Action.class);
-    private ArrayList<Action> actions = Skills.actions;
-    private Dialog newTemplate2 = new Dialog();
+    private final Grid<Action> actionsGrid = new Grid<>(Action.class);
+    private final ArrayList<Action> actions = Skills.actions;
+    private final Dialog newTemplate2 = new Dialog();
 
-    private Button createButton2 = new Button("New");
-    private Button deleteButton2 = new Button("Delete");
-    private Button editButton2 = new Button("Edit");
+    private final Button createButton2 = new Button("New");
+    private final Button deleteButton2 = new Button("Delete");
+    private final Button editButton2 = new Button("Edit");
 
-    private TextField variable2 = new TextField("Variable");
-    private TextField nonterminals2 = new TextField("Keys");
-    private TextField expression2 = new TextField("Expression");
-    private Button saveButton2 = new Button("Save");
+    private final TextField variable2 = new TextField("Variable");
+    private final TextField nonterminals2 = new TextField("Keys");
+    private final TextField expression2 = new TextField("Expression");
+    private final Button saveButton2 = new Button("Save");
     private boolean editPressed2 = false;
     private String selection2;
 

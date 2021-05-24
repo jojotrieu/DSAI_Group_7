@@ -416,11 +416,7 @@ public class SkillsView3 extends Div {
         initPlusButton(plus, list, hashmap);
     }
 
-    /**
-     * TODO make it work
-     * Initialize the button "back" to go back from one template to another
-     * The button works differently depending on the currentTemplate
-     */
+    //TODO make it work
     /*private void initBackButton() {
         backButton.addClickListener(e -> {
 
