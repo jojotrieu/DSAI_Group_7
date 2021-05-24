@@ -16,8 +16,8 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Route(value = "skills3", layout = MainView.class)
 @CssImport("./styles/views/configurations/configurations3.css")
@@ -25,37 +25,37 @@ import java.util.*;
 public class SkillsView3 extends Div {
 
     // elements of main page
-    private Button addButton = new Button("Add skill");
-    private Dialog newTemplate = new Dialog();
+    private final Button addButton = new Button("Add skill");
+    private final Dialog newTemplate = new Dialog();
 
     // common elements
-    private String currentTemplate = new String();
+    private String currentTemplate = "";
     private Label error;
     public static boolean noVar; // indicates whether the questions contains no variables or not
     public static int limit = 2;
 
     // elements of dialog box when currentTemplate = questionTemplate
-    private TextField title = new TextField("Name:");
-    private ArrayList<TextField> questions = new ArrayList<>();
-    private ArrayList<Button> variables = new ArrayList<>();
-    private Button alternativeButton = new Button("Alternative question");
-    private Button nextButton = new Button("Next");
-    private ArrayList<Boolean> varClickListener = new ArrayList<>();
-    private Button removeLastQuestion = new Button("Remove last question");
+    private final TextField title = new TextField("Name:");
+    private final ArrayList<TextField> questions = new ArrayList<>();
+    private final ArrayList<Button> variables = new ArrayList<>();
+    private final Button alternativeButton = new Button("Alternative question");
+    private final Button nextButton = new Button("Next");
+    private final ArrayList<Boolean> varClickListener = new ArrayList<>();
+    private final Button removeLastQuestion = new Button("Remove last question");
 
     // elements of dialog box when currentTemplate = variableTemplate
-    private ArrayList<Label> varLabels = new ArrayList<>();
-    private ArrayList<TextField> values = new ArrayList<>();
-    private ArrayList<Button> valuesButton = new ArrayList<>();
-    private Button backButton = new Button("Back");
-    private ArrayList<Button> variables2 = new ArrayList<>();
-    private ArrayList<Boolean> varClickListener2 = new ArrayList<>();
+    private final ArrayList<Label> varLabels = new ArrayList<>();
+    private final ArrayList<TextField> values = new ArrayList<>();
+    private final ArrayList<Button> valuesButton = new ArrayList<>();
+    private final Button backButton = new Button("Back");
+    private final ArrayList<Button> variables2 = new ArrayList<>();
+    private final ArrayList<Boolean> varClickListener2 = new ArrayList<>();
 
     // elements of dialog box when currentTemplate = answerTemplate
-    private ArrayList<TextField> answers = new ArrayList<>();
-    private ArrayList<ArrayList<Object>> varVal = new ArrayList<>();
-    private ArrayList<Button> plusButt = new ArrayList<>();
-    private Button saveSkill = new Button("SAVE SKILL");
+    private final ArrayList<TextField> answers = new ArrayList<>();
+    private final ArrayList<ArrayList<Object>> varVal = new ArrayList<>();
+    private final ArrayList<Button> plusButt = new ArrayList<>();
+    private final Button saveSkill = new Button("SAVE SKILL");
 
     public SkillsView3() {
         setId("configurations3-view");
@@ -397,7 +397,7 @@ public class SkillsView3 extends Div {
             newTemplate.add(labVar);
 
             List<String> values = hashmap.get(element);
-            ComboBox comboBox = new ComboBox("Select");
+            ComboBox<String> comboBox = new ComboBox<String>("Select");
             comboBox.setItems(values);
             comboBox.setWidth("120px");
             vv.add(comboBox);
@@ -423,8 +423,8 @@ public class SkillsView3 extends Div {
      * Initialize the button "back" to go back from one template to another
      * The button works differently depending on the currentTemplate
      */
-    private void initBackButton() {
-        /*backButton.addClickListener(e -> {
+    /*private void initBackButton() {
+        backButton.addClickListener(e -> {
 
             // when currentTemplate = variableTemplate, go to questionTemplate
             if(currentTemplate.equals("variableTemplate")){
@@ -450,8 +450,8 @@ public class SkillsView3 extends Div {
                 currentTemplate = "variableTemplate";
                 newTemplate.removeAll();
             }
-        });*/
-    }
+        });
+    }*/
 
     /**
      * Initialize the button "var" (for questionTemplate)
@@ -462,9 +462,9 @@ public class SkillsView3 extends Div {
             int index = variables.indexOf(varButt);
             if(!varClickListener.get(index)){
                 varClickListener.set(index, true);
-                varButt.addClickListener(e ->{
-                    questions.get(index).setValue(questions.get(index).getValue() + "<...>");
-                });
+                varButt.addClickListener(e ->
+                        questions.get(index).setValue(questions.get(index).getValue() + "<...>")
+                );
             }
         }
     }
@@ -478,9 +478,9 @@ public class SkillsView3 extends Div {
             int index = variables2.indexOf(varButt);
             if(!varClickListener2.get(index)){
                 varClickListener2.set(index, true);
-                varButt.addClickListener(e ->{
-                    values.get(index).setValue(values.get(index).getValue() + "<...>");
-                });
+                varButt.addClickListener(e ->
+                        values.get(index).setValue(values.get(index).getValue() + "<...>")
+                );
             }
         }
     }
@@ -500,7 +500,7 @@ public class SkillsView3 extends Div {
                 SyntaxHandler.saveRules(hashmap);
 
                 String t = title.getValue();
-                List<String> a = txtfieldToString(answers);
+                List<String> a = textfieldToString(answers);
                 SyntaxHandler.saveActions(t, a, varVal);
 
                 CFG.loadRules();
@@ -536,10 +536,7 @@ public class SkillsView3 extends Div {
         int i = 0;
         for(Label v : varLabels){
             String[] array = values.get(i).getValue().split(",");
-            List<String> list = new ArrayList<>();
-            for(int j=0; j<array.length; j++){
-                list.add(array[j]);
-            }
+            List<String> list = new ArrayList<>(Arrays.asList(array));
             hashmap.put(v.getText(), list);
             i++;
         }
@@ -548,32 +545,12 @@ public class SkillsView3 extends Div {
     }
 
     /**
-     * Transforms an ArrayList of labels into a list of Strings
-     * @param labels : The ArrayList of labels
-     * @return list: the List of Strings
-     */
-    private List<String> labelToString(ArrayList<Label> labels) {
-        List<String> list = new ArrayList<>();
-        for(Label l : labels){
-            String str = l.getText();
-            list.add(str);
-        }
-        return list;
-    }
-
-    /**
      * Transforms an ArrayList of textfields into a List of Strings
      * @param tf : the array of textfields
      * @return list: the List of Strings
      */
-    private List<String> txtfieldToString(ArrayList<TextField> tf) {
-        List<String> list = new ArrayList<>();
-        for(TextField t : tf){
-            String str = t.getValue();
-            list.add(str);
-        }
-
-        return list;
+    private List<String> textfieldToString(ArrayList<TextField> tf) {
+        return tf.stream().map(TextField::getValue).collect(Collectors.toList());
     }
 
     /**
@@ -581,12 +558,7 @@ public class SkillsView3 extends Div {
      * @return boolean: true if filled, else false
      */
     private boolean answersFilled() {
-        for(TextField ans: answers){
-            if(ans.getValue().equals("")){
-                return false;
-            }
-        }
-        return true;
+        return answers.stream().noneMatch(ans -> ans.getValue().equals(""));
     }
 
     /**
@@ -594,12 +566,7 @@ public class SkillsView3 extends Div {
      * @return boolean: true if filled, else false
      */
     private boolean valuesFilled() {
-        for(TextField v: values){
-            if(v.getValue().equals("")){
-                return false;
-            }
-        }
-        return true;
+        return values.stream().noneMatch(v -> v.getValue().equals(""));
     }
 
     /**
@@ -608,10 +575,10 @@ public class SkillsView3 extends Div {
      */
     private boolean limitInValues() {
         for(TextField v: values){
-            String txtf = v.getValue();
-            String[] val = txtf.split(",");
-            for(int i=0; i<val.length;i++){
-                if(SyntaxHandler.countVariables(val[i]) > limit){
+            String textfield = v.getValue();
+            String[] val = textfield.split(",");
+            for (String s : val) {
+                if (SyntaxHandler.countVariables(s) > limit) {
                     return true;
                 }
             }
@@ -628,8 +595,8 @@ public class SkillsView3 extends Div {
         boolean returnval = false;
 
         String[] words = str.split(" ");
-        for(int i = 0; i<words.length; i++){
-            if(CFG.isVariable(words[i])){
+        for (String word : words) {
+            if (CFG.isVariable(word)) {
                 returnval = true;
             }
         }
@@ -643,9 +610,9 @@ public class SkillsView3 extends Div {
      * @param value : a value of the set
      * @return the index of the value in the Set
      */
-    private static int getIndex(Set set, Object value) {
+    private static int getIndex(Set<String> set, Object value) {
         int index = 0;
-        for (Object entry:set) {
+        for (Object entry : set) {
             if (entry.equals(value)) return index;
             index++;
         }
@@ -660,10 +627,10 @@ public class SkillsView3 extends Div {
     private boolean isUnique(String value) {
         boolean res = false;
 
-        for (Rule rule : CFG.rules){
-            if(rule.getVariable().equals("<ACTION>")){
-                for(String expr : rule.getExpressions()){
-                    if (expr.equals(value)){
+        for (Rule rule : CFG.rules) {
+            if (rule.getVariable().equals("<ACTION>")) {
+                for (String expr : rule.getExpressions()) {
+                    if (expr.equals(value)) {
                         return false;
                     }
                 }
@@ -679,14 +646,7 @@ public class SkillsView3 extends Div {
      */
     private ArrayList<String> getAllValues() {
         ArrayList<String> allValues = new ArrayList<>();
-
-        for(TextField tf : values){
-            if(!tf.isReadOnly()){
-                String[] array = tf.getValue().split(",");
-                List<String> newList = Arrays.asList(array);
-                allValues.addAll(newList);
-            }
-        }
+        values.stream().filter(tf -> !tf.isReadOnly()).map(tf -> tf.getValue().split(",")).map(Arrays::asList).forEach(allValues::addAll);
         return allValues;
     }
 }
