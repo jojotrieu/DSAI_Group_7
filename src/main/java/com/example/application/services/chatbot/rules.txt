@@ -1,7 +1,7 @@
 <S> <ACTION>
-<ACTION> <LOCATION> | <SCHEDULE> | <TEACHERS>
+<ACTION> <LOCATION> | <SCHEDULE> | <TEACHERS> | <LOCATIONCOURSE> | <DESCRIPTIONCLASS> | <RESOURCE> | <BOOKS> | <CLASS> | <ADMIN> | <BSA> | <RESPONSIBLE> | <QUALIFICATION> | <PREREQ> | <APPLICATION> | <COVID> | <EXAMONLINE>
 <SCHEDULE> Which lectures are there <TIMEEXPRESSION> | <TIMEEXPRESSION> which lectures are there
-<TIMEEXPRESSION> on <DAY> at <TIME> | at <TIME> on <DAY>
+<TIMEEXPRESSION> on <DAY> at <TIME> | at <TIME> on <DAY> | on Sunday
 <TIME> 9 | 12
 <LOCATION> Where is <ROOM> | How do <PRO> get to <ROOM> | Where is <ROOM> located
 <PRO> I | you | he | she
@@ -9,3 +9,24 @@
 <DAY> Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday
 <TEACHERS> Who teaches <COURSE> | Who gives <COURSE> | Who is the teacher of <COURSE>
 <COURSE> Discrete Mathematics | Linear Programing | Computer Science 1
+<LOCATIONCOURSE> Where is <COURSE> taking place | Where do we have <COURSE>
+<DESCRIPTIONCLASS> What is <COURSE> | What is <COURSE> about
+<RESOURCE> Who can I talk to if <SITUATION> | Who should I contact if <SITUATION> | <SITUATION>
+<SITUATION> I have <TYPE> problems | I have difficulty with <TYPE> matters | I have <TYPE> issues
+<TYPE> personal | academic | administrative
+<BOOKS> Which books do <PRO> have to get for my classes <TIMEFRAME> | What book do <PRO> have to acquire for <TIMEFRAME> | Which books do <PRO> have to acquire for my classes <TIMEFRAME>
+<TIMEFRAME> next year | this period | this semester
+<CLASS> What class do I have <TIMEFRAME> | For <TIMEFRAME> what class do <PRO> have
+<ADMIN> Do <PRO> need a <PAPER> to study in the Netherlands | To study in the Netherlands, do <PRO> need a <PAPER>
+<PAPER> passport | visa
+<BSA> How many credits do <PRO> need to get the BSA | How many credits do <PRO> require to obtain the BSA
+<RESPONSIBLE> Who can I talk to about <RESPADMIN> | Who is in charge for <RESPADMIN>
+<RESPADMIN> the Honors program | the exchange program | the masters program
+<QUALIFICATION> Do I still qualify for <RESPADMIN>
+<PREREQ> How can <PRO> get <TITLE>
+<TITLE> honors | cum laude grade | abroad
+<APPLICATION> How can <PRO> apply to <PROGRAM>
+<PROGRAM> KE@work | Marble | the exchange program
+<COVID> What are the COVID measures | What kind of COVID measure are there in DKE
+<EXAMONLINE> <QUESTIONEXON> exams online
+<QUESTIONEXON> Do I have to take the | How can I take the

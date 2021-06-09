@@ -127,4 +127,14 @@ public class CFG {
         rules.forEach(r -> copy.add(r.copy()));
         return copy;
     }
+
+    public static List<String> getAllActionRules() {
+        List<String> result=null;
+        String param = null;
+        for(Rule r : rules){
+            if(r.getVariable().equals("<S>")) param = r.getExpressions().get(0);
+        }
+        if (param!=null) for(Rule r:rules) if (r.getVariable().equals(param)) result = r.getExpressions();
+        return result;
+    }
 }

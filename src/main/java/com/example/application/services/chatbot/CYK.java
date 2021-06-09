@@ -40,7 +40,7 @@ public class CYK {
                             P[j][i][abc[0]] = true;
                             if(rules[abc[0]].equals(actionVariable)) {
                                 // retrieve the appropriate action
-                                action+= rules[abc[1]]+" "+rules[abc[2]];
+                                action+= rules[abc[1]]+" "+rules[abc[2]]+" ";
                             }
                             if(notContainsPreffix(rules[abc[0]])) {
                                 placeHolders.put(rules[abc[0]], rules[abc[1]] + " " + rules[abc[2]]);
@@ -121,7 +121,7 @@ public class CYK {
     }
 
     public static String getAction() {
-        return action;
+        return action.strip();
     }
 
     public static void setAction(String action) {

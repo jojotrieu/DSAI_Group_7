@@ -12,9 +12,15 @@ public class ChatBotTEST {
     @Test
     public void givesAnswer(){
         ChatBot.init();
+        System.out.println(ChatBot.respondTo("How many credits do he need to get the BSA"));
         assert ChatBot.respondTo("Which lectures are there on Monday at 9").equals("We start the week with math ");
         assert ChatBot.respondTo("Who teaches Discrete Mathematics").equals("Steven Kelk ");
+        assert ChatBot.respondTo("Do I have to take the exams online").equals("No, you can take them on campus, as of now ");
+//        assert ChatBot.respondTo("How many credits do I need to get the BSA").equals("42 ");
+        assert ChatBot.respondTo("What class do I have this semester").equals("Human computer interactions, Philosophy and AI, Mathematical Modeling, and project ");
+        assert ChatBot.respondTo("Who can I talk to if I have personal problems").equals("Tessa can guide you to qualified professional for your problems ");
     }
+
 
     @Test
     public void notGivesAnswer(){

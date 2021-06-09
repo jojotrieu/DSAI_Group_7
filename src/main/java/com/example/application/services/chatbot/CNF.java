@@ -30,7 +30,9 @@ public class CNF {
         HashMap<String, List<String>> newVariables = new HashMap<>();
         for(Map.Entry<String, List<String>> entry: cnf.entrySet()){
             for(int i=0; i<entry.getValue().size();i++) {
+//                if(entry.getValue().get(i).contains("><")) System.out.println("rhs variable or terminal");
                 String[] line = splitRules(entry.getValue().get(i));
+//                for(String h : line) if(h.contains("problem")) System.out.println(entry.getValue().get(i));
                  if(line.length>1){ // if RHS has more than a symbol (else it should be a terminal)
                      if(line.length == 2 && line[0].contains("<") && line[1].contains("<")) continue; //nothing to do it is already in the good form: 2 non terminal symbols
                      else {
@@ -39,7 +41,9 @@ public class CNF {
                              if(!w.contains("<")) {
                                  String key = "<"+PREFIX + w + ">"; // -> new non terminal symbol
                                  newWord += key +" ";
-                                 if (!newVariables.containsKey(key)) newVariables.put(key, toArrayList(w));
+                                 if (!newVariables.containsKey(key)) {
+                                     newVariables.put(key, toArrayList(w));
+                                 }
                              }else{
                                  newWord += w+" ";
                              }
@@ -56,9 +60,11 @@ public class CNF {
         int counter = 1; // counter to have a different name for each new variable
         for(Map.Entry<String, List<String>> entry: cnf.entrySet()){
             for(int i=0; i<entry.getValue().size();i++) {
+//                if(entry.getValue().get(i).contains("><")) System.out.println("last step");
                 while(splitRules(entry.getValue().get(i)).length>2){
                     String newline="<"+PREFIX+"Y"+counter+"> ";
                     String firstTwo = firstTwo(entry.getValue().get(i)); // get the 2 first words
+                    if(firstTwo.contains("><")) System.out.println("founded");
                     newline+=entry.getValue().get(i).substring(firstTwo.length()+1); // copy the rest of the string into newline
                     newVariables.put("<"+PREFIX+"Y"+counter+">", toArrayList(firstTwo)); // put this new rule in the new hashmap
                     counter++;
@@ -153,6 +159,7 @@ public class CNF {
             if(sentence.charAt(i)=='<'){
                 for (int j = i; j < sentence.length(); j++) {
                     if(sentence.charAt(j)=='>'){
+//                        if(sentence.substring(i,j+1).contains(">") && !sentence.substring(i,j+1).contains("<")) System.out.println("in "+sentence.substring(i,j+1));
                         result.add(sentence.substring(i,j+1));
                         i=j+1;
                         j+=sentence.length();
@@ -161,11 +168,23 @@ public class CNF {
                 }
             }else if(sentence.charAt(i)==' '){
                 result.add(sentence.substring(last, i));
+//                if(sentence.substring(last, i).contains(">") && !sentence.substring(last, i).contains("<")) {
+//                    System.out.println("out "+sentence.substring(last, i)+" "+ last+ " " + i);
+//                    System.out.println(sentence);
+//                }
                 last=i+1;
             }
         }
         if(last<sentence.length()) result.add(sentence.substring(last)); // if last thing added was not a variable
         String[] ret = new String[result.size()];
         return result.toArray(ret);
+    }
+
+    private static int next(String sentence, int index){
+        for (int i = index; i < sentence.length(); i++) {
+            if(sentence.charAt(i)==' ') return i+1;
+            else if(sentence.charAt(i)=='<') return i;
+        }
+        return index+1;
     }
 }

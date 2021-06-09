@@ -6,4 +6,29 @@
 <TEACHERS> * <COURSE> Discrete Mathematics * Steven Kelk
 <TEACHERS> * <COURSE> Linear Programing * Pietro Bonizzi
 <TEACHERS> * <COURSE> Computer Science 1 * Jerry Spanakis and Enrique Hortal
-<ACTION> I have no idea 
+<LOCATIONCOURSE> * <COURSE> Discrete Mathematics * Somewhere in the DKE building, probably first floor
+<LOCATIONCOURSE> * <COURSE> Computer Science 1 * Definitely online
+<DESCRIPTIONCLASS> * <COURSE> Discrete Mathematics * Prepare to be mind blown by the red balls
+<DESCRIPTIONCLASS> * <COURSE> Linear Programing * Enter the Matrix
+<RESOURCE> * <TYPE> personal * Tessa can guide you to qualified professional for your problems
+<RESOURCE> * <TYPE> academic * Try reach out for a personal tutor, or Incognito classes
+<RESOURCE> * <TYPE> administrative * Wendy, she can be found at the 2nd floor
+<BOOKS> * <TIMEFRAME> this period * I think it's a bit too late for that
+<BOOKS> * <TIMEFRAME> next year * It depends on your elective, but probably some 'how to code for dummies'
+<CLASS> * <TIMEFRAME> this semester * Human computer interactions, Philosophy and AI, Mathematical Modeling, and project
+<ADMIN> * <PAPER> visa * Yes, if you're not from the EU
+<ADMIN> * <PAPER> passport * No, it is not necessary
+<BSA> * * 42
+<RESPONSIBLE> * <RESPADMIN> the Honors program * Mathias
+<RESPONSIBLE> * <RESPADMIN> the exchange program * Wendy
+<QUALIFICATION> * * No, sorry
+<PREREQ> * <TITLE> honors * About 7.5 GPA, and some interviews
+<PREREQ> * <TITLE> cum laude grade * 9.5 GPA, and get published in a scientific journal
+<PREREQ> * <TITLE> abroad * Enroll in the exchange program
+<APPLICATION> * <PROGRAM> Marble * Contact Mathias S via email
+<APPLICATION> * <PROGRAM> KE@work * Contact the UM Press Office
+<APPLICATION> * <PROGRAM> the exchange program * Contact Wendy
+<COVID> * * You have to keep your distances while you are indoor, and put your mask on when moving. You are able to use self diagnosing kit for free as a student !
+<EXAMONLINE> * <QUESTIONEXON> Do I have to take the * No, you can take them on campus, as of now
+<EXAMONLINE> * <QUESTIONEXON> How can I take the * You will receive an email beforehand to register
+<ACTION> I have no idea

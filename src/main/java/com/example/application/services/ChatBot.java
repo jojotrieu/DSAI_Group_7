@@ -17,27 +17,46 @@ public class ChatBot {
     public static String respondTo(String question) {
         if (CYK.isValidLanguage(question)) {
             String action = CYK.getAction();
-            while (action.contains(PREFIX)) { // while some of the placeholder are made up by CNF new variables
-                String[] arguments = CNF.splitRules(action);
-                String nAction = "";
-                for (int i = 0; i < arguments.length; i++) {
-                    if (arguments[i].contains(PREFIX)) {
-                        nAction += CNF.getCnf().get(arguments[i]).get(0); // replace those with
-                    } else {
-                        nAction += arguments[i];
-                    }
-                    if (i < arguments.length - 1) nAction += " ";
-                }
-                action = nAction;
-                CYK.setAction(action);
-            }
-//            System.out.println(action);
+            String actionTemp;
             String actionVariable = null;
+            List<String> allActionRules = CFG.getAllActionRules();
+            if(CNF.splitRules(action).length>2) {
+                do {
+                    actionTemp = null;
+                    String[] allActions = CNF.splitRules(action);
+                    action = "";
+                    for (int i = 0; i < allActions.length; i++) {
+                        if (i < 2) action += allActions[i] + " ";
+                        else actionTemp += allActions[i] + " ";
+                    }
+                    action = transformBack(action);
 
-            CFG.loadRules();
+                    for(Rule r:CFG.getRules()){
+                        for(String s : r.getExpressions()){
+                            if(s.equals(action)){
+                                CYK.setAction(action);
+//                                actionVariable=;
+                                if(allActionRules.contains(r.getVariable()))
+                                    actionVariable= r.getVariable();
+                                break;
+                            }
+                        }
+                    }
+                    action = actionTemp;
+                }while(actionTemp!=null);
+            }else {
+                action = transformBack(action);
+            }
+            if(actionVariable==null)
+            CYK.setAction(action);
+//            System.out.println(action);
+
+
+//            CFG.loadRules();
             for (Rule r : CFG.getRules()) {
                 for (String s : r.getExpressions()) {
-                    if (s.equals(action)) actionVariable = r.getVariable();
+                    if (s.equals(action))
+                        actionVariable = r.getVariable();
                 }
             }
             /**
@@ -76,5 +95,24 @@ public class ChatBot {
                 }
             }
         } return "I don't know";
+    }
+
+    private static String transformBack(String action) {
+        while (action.contains(PREFIX)) { // while some of the placeholder are made up by CNF new variables
+            String[] arguments = CNF.splitRules(action);
+            String nAction = "";
+            for (int i = 0; i < arguments.length; i++) {
+//                    System.out.println("WTF" + CNF.getCnf().get("<zzzplhldY206>").get(0));
+                if (arguments[i].contains(PREFIX)) {
+//                        System.out.println("WTF" + CNF.getCnf().get("<zzzplhldY206>").get(0) + "   "+ arguments[i]);
+                    nAction += CNF.getCnf().get(arguments[i]).get(0); // replace those with
+                } else {
+                    nAction += arguments[i];
+                }
+                if (i < arguments.length - 1) nAction += " ";
+            }
+            action = nAction;
+        }
+        return action;
     }
 }
