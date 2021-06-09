@@ -1,11 +1,10 @@
 package com.example.application.views.chatbotview;
 
 import com.example.application.services.ChatBot;
-import com.example.application.services.camera.Camera;
-import com.example.application.services.camera.SkinColorDetection;
+import com.example.application.services.facedetection.Camera;
+import com.example.application.services.facedetection.SkinColorDetection;
 import com.example.application.views.main.MainView;
 import com.example.application.views.settingsview.SettingsView;
-import com.sun.scenario.Settings;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -20,7 +19,6 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.component.html.Image;
-import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
 import java.awt.image.BufferedImage;

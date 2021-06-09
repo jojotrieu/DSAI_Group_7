@@ -1,4 +1,4 @@
-package com.example.application.services.camera;
+package com.example.application.services.facedetection;
 
 
 import nu.pattern.OpenCV;

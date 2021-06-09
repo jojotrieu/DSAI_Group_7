@@ -1,4 +1,4 @@
-package com.example.application.services.camera;
+package com.example.application.services.facedetection;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamResolution;
@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.vaadin.flow.server.StreamResource;
-import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
 import org.openimaj.image.ImageUtilities;
 import org.openimaj.image.processing.face.detection.DetectedFace;
 import org.openimaj.image.processing.face.detection.HaarCascadeDetector;

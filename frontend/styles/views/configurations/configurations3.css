@@ -6,7 +6,9 @@ configurations2-view,
 
 configurations3-view,
 #addSkill-button {
-    margin: 5px;
+    position: absolute;
+    top: 10%;
+    left: 50%;
     background-color: #67c104;
     color: white;
 }
