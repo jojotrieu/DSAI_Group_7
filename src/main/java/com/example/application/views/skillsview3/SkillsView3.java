@@ -47,7 +47,7 @@ public class SkillsView3 extends Div {
     private final ArrayList<Label> varLabels = new ArrayList<>();
     private final ArrayList<TextField> values = new ArrayList<>();
     private final ArrayList<Button> valuesButton = new ArrayList<>();
-    private final Button backButton = new Button("Back");
+    //private final Button backButton = new Button("Back");
     private final ArrayList<Button> variables2 = new ArrayList<>();
     private final ArrayList<Boolean> varClickListener2 = new ArrayList<>();
 
@@ -290,8 +290,8 @@ public class SkillsView3 extends Div {
     private void goToVarTemplate(){
         currentTemplate = "variableTemplate";
         newTemplate.removeAll();
-        backButton.setId("back-button");
-        newTemplate.add(backButton);
+        //backButton.setId("back-button");
+        //newTemplate.add(backButton);
         newTemplate.add(nextButton);
 
         Set<String> var = SyntaxHandler.getVariables(0);
@@ -371,7 +371,7 @@ public class SkillsView3 extends Div {
                     varVal.add(vv);
                 }
             }
-        }else { // combination of variables
+        }else if(list.size()>1){ // combination of variables
             addCombination(list, hashmap);
         }
 
@@ -380,6 +380,8 @@ public class SkillsView3 extends Div {
             TextField ans = new TextField();
             ans.setId("answer-textfield");
             answers.add(ans);
+            newTemplate.setWidth("500px");
+            newTemplate.add(new HtmlComponent("br"));
             newTemplate.add(ans);
         }
     }
