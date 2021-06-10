@@ -13,6 +13,7 @@
 <RESOURCE> * <TYPE> personal * Tessa can guide you to qualified professional for your problems
 <RESOURCE> * <TYPE> academic * Try reach out for a personal tutor, or Incognito classes
 <RESOURCE> * <TYPE> administrative * Wendy, she can be found at the 2nd floor
+<RESOURCE> * <SITUATION> I want to change studies * You should talk to the BOE
 <BOOKS> * <TIMEFRAME> this period * I think it's a bit too late for that
 <BOOKS> * <TIMEFRAME> next year * It depends on your elective, but probably some 'how to code for dummies'
 <CLASS> * <TIMEFRAME> this semester * Human computer interactions, Philosophy and AI, Mathematical Modeling, and project
@@ -23,7 +24,7 @@
 <RESPONSIBLE> * <RESPADMIN> the exchange program * Wendy
 <QUALIFICATION> * * No, sorry
 <PREREQ> * <TITLE> honors * About 7.5 GPA, and some interviews
-<PREREQ> * <TITLE> cum laude grade * 9.5 GPA, and get published in a scientific journal
+<PREREQ> * <TITLE> summa cum laude grade * 9.5 GPA, and get published in a scientific journal
 <PREREQ> * <TITLE> abroad * Enroll in the exchange program
 <APPLICATION> * <PROGRAM> Marble * Contact Mathias S via email
 <APPLICATION> * <PROGRAM> KE@work * Contact the UM Press Office
@@ -31,4 +32,17 @@
 <COVID> * * You have to keep your distances while you are indoor, and put your mask on when moving. You are able to use self diagnosing kit for free as a student !
 <EXAMONLINE> * <QUESTIONEXON> Do I have to take the * No, you can take them on campus, as of now
 <EXAMONLINE> * <QUESTIONEXON> How can I take the * You will receive an email beforehand to register
+<PERIOD> * <EVENT> exam * For the 1st period: from the 19th to the 23rd of October. For the second period: from the 14th to the 18th of December. For the 4th period: 29th of March to the 2nd of April and finally the last period: from the 31st of May to the 4th of June.
+<PERIOD> * <EVENT> resits * The resits take place from the 25th to 29 of January and from the 28th of June to the  2nd of July.
+<PERIOD> * <EVENT> holidays * After the resits or the exam depending on your performances
+<RESITS> * <COURSE> Discrete Mathematics * Somewhere between the 25th to the 29th of January, the schedules hasn't been released yet
+<RESITS> * <COURSE> Linear Algebra * Somewhere between the 28th of June to the 2nd of July, the schedules hasn't been released yet
+<REPORTDEADLINE> * <COURSE> Human Computer Interaction * For the 23rd of May
+<REPORTDEADLINE> * <COURSE> Project * For the 22nd of June
+<REPORTDEADLINE> * <COURSE> Computer Science 1 * There is no report for CS1
+<REPORTDEADLINE> * <COURSE> Linear Algebra * You don't need to hand in anything for that course
+<DEADLINE> * <WORK> the project code * the 22nd of June
+<DEADLINE> * <WORK> the project presentation * the 22nd of June
+<CREDIT> * <COURSE> the Project * 12 credits
+<CREDIT> * * 4
 <ACTION> I have no idea
