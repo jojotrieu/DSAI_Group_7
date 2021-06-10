@@ -13,6 +13,7 @@ public class CFG {
     public static final ArrayList<Rule> rules = new ArrayList<>();
     private static final String PATH = "src/main/java/com/example/application/services/chatbot/rules.txt";
     private static Rule actionRule = null;
+    private static final List<List<String>> allPhrases = new ArrayList<>();
 
     public static boolean loadRules(){
         rules.clear();
@@ -46,9 +47,6 @@ public class CFG {
                     }
                     expression.append(symbol);
                     splitExpression.add(symbol);
-                    if(isVariable(symbol)){
-                        rule.children.add(symbol);
-                    }
                 }
             }
             if(!expression.toString().equals("")){
@@ -56,11 +54,11 @@ public class CFG {
                 rule.splitExpressions.add(splitExpression);
             }
             if(rule.variable.equals("<ACTION>")){
-                actionRule = rule;
+                actionRule=rule;
             }
-
             rules.add(rule);
         }
+        combos();
         return true;
     }
 
@@ -150,19 +148,53 @@ public class CFG {
     }
 
     /**
-     * Builds all possible sentences from CFG
+     * Builds all possible phrases from CFG
      * starting point is the <ACTION> rule
-     * @return list of strings
      */
-    public static List<String> express() {
-        List<Rule> hierarchy = down(actionRule);
-        List<String> possibleSentences = new ArrayList<>();
-        for(Rule rule : hierarchy){
-            List<String> expression = rule.getExpressions();
-
-
+    public static void combos() {
+        List<List<String>> unExpressed = new ArrayList<>();
+        for(List<String> list : actionRule.splitExpressions){
+            List<String> copy = new ArrayList<>(list);
+            unExpressed.add(copy);
         }
-        return possibleSentences;
+        while(!unExpressed.isEmpty()){
+            List<String> phrase = unExpressed.remove(0);
+            boolean fullyExpressed = true;
+            for (int i = 0; i < phrase.size(); i++) {
+                String word = phrase.get(i);
+                if(isVariable(word)){
+                    Rule child = findRule(word);
+                    for(List<String> expression : child.splitExpressions){
+                        unExpressed.add(replace(phrase,expression,i));
+                    }
+                    fullyExpressed=false;
+                }
+            }
+            if(fullyExpressed){
+                allPhrases.add(phrase);
+            }
+        }
     }
 
+    private static Rule findRule (String s){
+        return rules.stream().filter(r-> r.variable.equals(s)).findFirst().orElse(null);
+    }
+
+    private static List<String> replace (List<String> phrase, List<String> expression, int position){
+        List<String> str = new ArrayList<>(phrase);
+        str.remove(position);
+        for(String word : expression){
+            if(position>=str.size()){
+                str.add(word);
+            } else {
+                str.add(position,word);
+            }
+            position++;
+        }
+        return str;
+    }
+
+    public static List<List<String>> getAllPhrases() {
+        return allPhrases;
+    }
 }

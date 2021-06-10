@@ -1,5 +1,6 @@
 package com.example.application.services.chatbot;
 
+import com.jpattern.jobexecutor.console.ExecutorWrappedList;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,8 +14,6 @@ public class Rule {
     List<String> expressions = new ArrayList<>();
     @EqualsAndHashCode.Exclude
     List<List<String>> splitExpressions = new ArrayList<>();
-    @EqualsAndHashCode.Exclude
-    Set<String> children = new HashSet<>();
 
     public Rule copy(){
         Rule copy = new Rule();
