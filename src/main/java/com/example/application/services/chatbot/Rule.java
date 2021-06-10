@@ -15,6 +15,7 @@ public class Rule {
     List<List<String>> splitExpressions = new ArrayList<>();
     @EqualsAndHashCode.Exclude
     Set<String> children = new HashSet<>();
+
     public Rule copy(){
         Rule copy = new Rule();
         copy.setId(id);
