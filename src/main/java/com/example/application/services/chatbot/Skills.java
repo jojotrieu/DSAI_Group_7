@@ -90,10 +90,7 @@ public class Skills {
             return false;
         }
         // expression must not be empty
-        if(action.expression.length()==0){
-            return false;
-        }
-        return true;
+        return action.expression.length() != 0;
     }
 
     public static void writeActions() throws FileNotFoundException {

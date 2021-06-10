@@ -37,6 +37,31 @@ class CFGTest {
         }
     }
 
+    @Test
+    void splitExpressions(){
+        CFG.loadRules();
+        for(Rule rule : CFG.getRules()){
+            System.out.println("---------------------------------------------");
+            System.out.println(rule.getVariable() + " - id#: " + rule.getId());
+            for(List<String> list : rule.getSplitExpressions()){
+                for(String str : list){
+                    System.out.print(str+" ");
+                }
+                System.out.println();
+            }
+        }
+    }
 
+    @Test
+    void childrenOfRule(){
+        CFG.loadRules();
+        for(Rule rule : CFG.getRules()) {
+            System.out.println("---------------------------------------------");
+            System.out.println(rule.getVariable() + " - id#: " + rule.getId());
+            for(String str : rule.getChildren()){
+                System.out.println(str);
+            }
+        }
+    }
 
 }

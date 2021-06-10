@@ -12,6 +12,7 @@ import java.util.Set;
 public class CFG {
     public static final ArrayList<Rule> rules = new ArrayList<>();
     private static final String PATH = "src/main/java/com/example/application/services/chatbot/rules.txt";
+    private static Rule actionRule = null;
 
     public static boolean loadRules(){
         rules.clear();
@@ -29,22 +30,35 @@ public class CFG {
                 return false;
             }
             StringBuilder expression = new StringBuilder();
+            List<String> splitExpression = new ArrayList<>();
             for(int i=1; i<symbols.length; i++){
-                if(symbols[i].equals("|")){
+                String symbol = symbols[i];
+                if(symbol.equals("|")){
                     if(!expression.toString().equals("")){
                         rule.expressions.add(expression.toString());
+                        rule.splitExpressions.add(splitExpression);
                     }
                     expression = new StringBuilder();
+                    splitExpression = new ArrayList<>();
                 } else {
                     if(!expression.toString().equals("")){
                         expression.append(" ");
                     }
-                    expression.append(symbols[i]);
+                    expression.append(symbol);
+                    splitExpression.add(symbol);
+                    if(isVariable(symbol)){
+                        rule.children.add(symbol);
+                    }
                 }
             }
             if(!expression.toString().equals("")){
                 rule.expressions.add(expression.toString());
+                rule.splitExpressions.add(splitExpression);
             }
+            if(rule.variable.equals("<ACTION>")){
+                actionRule = rule;
+            }
+
             rules.add(rule);
         }
         return true;
@@ -71,10 +85,7 @@ public class CFG {
     }
 
     public static boolean isVariable(String string){
-        if(string.length()>2 && string.charAt(0)=='<' && string.charAt(string.length()-1)=='>'){
-          return true;
-        }
-        return false;
+        return string.length() > 2 && string.charAt(0) == '<' && string.charAt(string.length() - 1) == '>';
     }
 
     public static List<Rule> down (Rule rule){
@@ -137,4 +148,21 @@ public class CFG {
         if (param!=null) for(Rule r:rules) if (r.getVariable().equals(param)) result = r.getExpressions();
         return result;
     }
+
+    /**
+     * Builds all possible sentences from CFG
+     * starting point is the <ACTION> rule
+     * @return list of strings
+     */
+    public static List<String> express() {
+        List<Rule> hierarchy = down(actionRule);
+        List<String> possibleSentences = new ArrayList<>();
+        for(Rule rule : hierarchy){
+            List<String> expression = rule.getExpressions();
+
+
+        }
+        return possibleSentences;
+    }
+
 }

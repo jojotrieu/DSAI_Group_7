@@ -3,8 +3,7 @@ package com.example.application.services.chatbot;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Data
 public class Rule {
@@ -12,31 +11,10 @@ public class Rule {
     String variable;
     @EqualsAndHashCode.Exclude
     List<String> expressions = new ArrayList<>();
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getVariable() {
-        return variable;
-    }
-
-    public void setVariable(String var) {
-        this.variable = var;
-    }
-
-    public List<String> getExpressions() {
-        return expressions;
-    }
-
-    public void setExpressions(List<String> expr) {
-        this.expressions = expr;
-    }
-
+    @EqualsAndHashCode.Exclude
+    List<List<String>> splitExpressions = new ArrayList<>();
+    @EqualsAndHashCode.Exclude
+    Set<String> children = new HashSet<>();
     public Rule copy(){
         Rule copy = new Rule();
         copy.setId(id);
@@ -52,12 +30,7 @@ public class Rule {
     }
 
     public static List<String> expressionToArray(String value) {
-        List<String> expressions = new ArrayList<>();
-
         String[] array = value.split(",", 20);
-        for(String word : array){
-            expressions.add(word);
-        }
-        return expressions;
+        return new ArrayList<>(Arrays.asList(array));
     }
 }

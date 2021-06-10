@@ -54,6 +54,7 @@ public class Corpus2Vec {
         List<String> suffixes = new ArrayList<>();
         suffixes.add("en");
         suffixes.add("s");
+        suffixes.add("es");
         suffixes.add("ize");
         suffixes.add("ise");
         suffixes.add("ish");
@@ -76,7 +77,7 @@ public class Corpus2Vec {
             }
         }
         System.out.println("Word variations removed: " + toRemove.size());
-        vocab.removeAll(toRemove);
+        toRemove.forEach(vocab::remove);
         //replace all variants of words in corpus with their primitives
         for (int i = 0; i < corpus.size(); i++) {
             String word = corpus.get(i);
