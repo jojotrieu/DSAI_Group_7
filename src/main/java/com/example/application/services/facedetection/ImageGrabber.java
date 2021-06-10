@@ -19,6 +19,6 @@ public class ImageGrabber {
         OpenCV.loadLocally();
         Mat converted = det.BufferedImageToMat(img);
         // Change the folder to your name and keep the file name in image1-10 format
-        Imgcodecs.imwrite("RecognizerDB/Alex/image1.jpg", converted);
+        Imgcodecs.imwrite("RecognizerDB/corina6.jpg", converted);
     }
 }
