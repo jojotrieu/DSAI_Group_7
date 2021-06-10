@@ -12,7 +12,7 @@ public class ChatBotTEST {
     @Test
     public void givesAnswer(){
         ChatBot.init();
-        System.out.println(ChatBot.respondTo("How do you sign up for exams online"));
+        System.out.println(ChatBot.respondTo("Where do I sign up for exams online"));
         System.out.println(ChatBot.respondTo("Who can I talk to about the exchange program"));
 
         System.out.println(ChatBot.respondTo("How many credits has the Project"));

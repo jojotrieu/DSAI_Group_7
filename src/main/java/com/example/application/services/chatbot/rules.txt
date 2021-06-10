@@ -29,7 +29,7 @@
 <PROGRAM> KE@work | Marble | the exchange program
 <COVID> What are the COVID measures | What kind of COVID measure are there in DKE
 <EXAMONLINE> <QUESTIONEXON> exams online
-<QUESTIONEXON> Do I have to take the | How can I take the | Where do I sign up for online exams
+<QUESTIONEXON> Do I have to take the | How can I take the | Where do I sign up for
 <PERIOD> When are the <EVENT> | Tell me when are the <EVENT>
 <EVENT> exam | resits | holidays
 <RESITS> When are the resits for <COURSE> | For <COURSE> when are the resits

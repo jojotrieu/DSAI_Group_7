@@ -33,7 +33,7 @@
 <COVID> * * You have to keep your distances while you are indoor, and put your mask on when moving. You are able to use self diagnosing kit for free as a student !
 <EXAMONLINE> * <QUESTIONEXON> Do I have to take the * No, you can take them on campus, as of now
 <EXAMONLINE> * <QUESTIONEXON> How can I take the * You will receive an email beforehand to register
-<EXAMONLINE> * <QUESTIONEXON> Where do I sign up for online exams * You can do that via email to the BOE
+<EXAMONLINE> * <QUESTIONEXON> Where do I sign up for * You can do that via email to the BOE
 <PERIOD> * <EVENT> exam * For the 1st period: from the 19th to the 23rd of October. For the second period: from the 14th to the 18th of December. For the 4th period: 29th of March to the 2nd of April and finally the last period: from the 31st of May to the 4th of June.
 <PERIOD> * <EVENT> resits * The resits take place from the 25th to 29 of January and from the 28th of June to the  2nd of July.
 <PERIOD> * <EVENT> holidays * After the resits or the exam depending on your performances
