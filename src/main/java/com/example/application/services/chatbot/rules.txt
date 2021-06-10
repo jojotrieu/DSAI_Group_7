@@ -1,5 +1,5 @@
 <S> <ACTION>
-<ACTION> <LOCATION> | <SCHEDULE> | <TEACHERS> | <LOCATIONCOURSE> | <DESCRIPTIONCLASS> | <RESOURCE> | <BOOKS> | <CLASS> | <ADMIN> | <BSA> | <RESPONSIBLE> | <QUALIFICATION> | <PREREQ> | <APPLICATION> | <COVID> | <EXAMONLINE> | <PERIOD> | <RESITS> | <REPORTDEADLINE> | <DEADLINE> | <CREDIT> | <LIMITCOURSE> | <ELECTIVE> | <TASKHELPER> | <TUTORIAL> | <BONUS>
+<ACTION> <LOCATION> | <SCHEDULE> | <TEACHERS> | <LOCATIONCOURSE> | <DESCRIPTIONCLASS> | <RESOURCE> | <BOOKS> | <CLASS> | <ADMIN> | <BSA> | <RESPONSIBLE> | <QUALIFICATION> | <PREREQ> | <APPLICATION> | <COVID> | <EXAMONLINE> | <PERIOD> | <RESITS> | <REPORTDEADLINE> | <DEADLINE> | <CREDIT> | <LIMITCOURSE> | <ELECTIVE> | <TASKHELPER> | <TUTORIAL> | <BONUS> |<COURSETIME1> | <MAIL> | <WORKPERWEEK> | <OPENBOOK> | <MISSMEET> | <DIFF>
 <SCHEDULE> Which lectures are there <TIMEEXPRESSION> | <TIMEEXPRESSION> which lectures are there
 <TIMEEXPRESSION> on <DAY> at <TIME> | at <TIME> on <DAY> | on Sunday
 <TIME> 9 | 12
@@ -8,7 +8,7 @@
 <ROOM> DeepSpace | SpaceBox | student office
 <DAY> Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday
 <TEACHERS> Who teaches <COURSE> | Who gives <COURSE> | Who is the teacher of <COURSE>
-<COURSE> Discrete Mathematics | Linear Programing | Computer Science 1 | Human Computer Interaction | the Project
+<COURSE> Discrete Mathematics | Linear Programing | Computer Science 1 | Human Computer Interaction | the Project | Logic | Probability and Statistics | Machine Learning
 <LOCATIONCOURSE> Where is <COURSE> taking place | Where do we have <COURSE>
 <DESCRIPTIONCLASS> What is <COURSE> | What is <COURSE> about
 <RESOURCE> Who can I talk to if <SITUATION> | Who should I contact if <SITUATION> | <SITUATION>
@@ -44,3 +44,10 @@
 <TASK> change password | change email address | check my grades
 <TUTORIAL> Are there any tutorial for <COURSE> | Is there a tutorial for <COURSE> | <PRO> need help for <COURSE>
 <BONUS> Are there bonus point for <COURSE> | For <COURSE> are there any bonus | Can <PRO> get any bonus for <COURSE>
+<COURSETIME1> How many times can <PRO> take a course | How many times can <PRO> retake a course | Can <PRO> retake course
+<MAIL> Can you give me the email address of <ENTITY> | What is the email of <ENTITY> | How can <PRO> contact <ENTITY>
+<ENTITY> the board of examiners | Pietro | Steven | the guy teaching <COURSE> | the person teaching <COURSE>
+<WORKPERWEEK> How much should <PRO> study | How much should <PRO> study for <COURSE>
+<OPENBOOK> Is <COURSE> exam open book | Is the examination of <COURSE> open book
+<MISSMEET> How many meetings can <PRO> miss without lowering the grade
+<DIFF> What is the difference

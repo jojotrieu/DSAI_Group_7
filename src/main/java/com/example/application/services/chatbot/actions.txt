@@ -57,4 +57,15 @@
 <BONUS> * <COURSE> Discrete Mathematics * Yes, Steven makes sure you are able to pass if you put in the effort
 <BONUS> * <COURSE> the Project * No, they want you to participate as much as possible in cooperation with the other members
 <BONUS> * <COURSE> Computer Science 1 * No, I'm afraid not
+<COURSETIME1> * * You can retake courses as many time as you want
+<MAIL> * <ENTITY> Pietro * His email is pietro.bonizzi@maastrichtuniversity.nl
+<MAIL> * <ENTITY> Steven * His mail address is steven.kelk@maastrichtuniversity.nl
+<MAIL> * <ENTITY> the board of examiners * dke-exams@maastrichtuniversity.nl
+<MAIL> * <COURSE> Discrete Mathematics * Steven's address is steven.kelk@maastrichtuniversity.nl
+<MAIL> * <COURSE> Linear Algebra * Pietro's address is pietro.bonizzi@maastrichtuniversity.nl
+<WORKPERWEEK> * * It depends on the person, but roughly 4 hours per course per week is a good rule of thumbs
+<OPENBOOK> * <COURSE> Machine Learning * Yes it is one of the few open book exams
+<OPENBOOK> * * No, probably not
+<MISSMEET> * * More than one unjustified missing meeting could already lower the grade
+
 <ACTION> I have no idea
