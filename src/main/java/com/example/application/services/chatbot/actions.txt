@@ -3,6 +3,7 @@
 <SCHEDULE> * <TIME> 12 <DAY> Monday * On Monday noon we have Theoretical Computer Science 
 <LOCATION> * <ROOM> DeepSpace * DeepSpace is the first room after the entrance 
 <LOCATION> * <ROOM>  SpaceBox * SpaceBox is on the first floor
+<LOCATION> * <ROOM> student office * It's in downtown, you'll have to go near Tapijn
 <TEACHERS> * <COURSE> Discrete Mathematics * Steven Kelk
 <TEACHERS> * <COURSE> Linear Programing * Pietro Bonizzi
 <TEACHERS> * <COURSE> Computer Science 1 * Jerry Spanakis and Enrique Hortal
@@ -32,6 +33,7 @@
 <COVID> * * You have to keep your distances while you are indoor, and put your mask on when moving. You are able to use self diagnosing kit for free as a student !
 <EXAMONLINE> * <QUESTIONEXON> Do I have to take the * No, you can take them on campus, as of now
 <EXAMONLINE> * <QUESTIONEXON> How can I take the * You will receive an email beforehand to register
+<EXAMONLINE> * <QUESTIONEXON> Where do I sign up for online exams * You can do that via email to the BOE
 <PERIOD> * <EVENT> exam * For the 1st period: from the 19th to the 23rd of October. For the second period: from the 14th to the 18th of December. For the 4th period: 29th of March to the 2nd of April and finally the last period: from the 31st of May to the 4th of June.
 <PERIOD> * <EVENT> resits * The resits take place from the 25th to 29 of January and from the 28th of June to the  2nd of July.
 <PERIOD> * <EVENT> holidays * After the resits or the exam depending on your performances
@@ -45,4 +47,14 @@
 <DEADLINE> * <WORK> the project presentation * the 22nd of June
 <CREDIT> * <COURSE> the Project * 12 credits
 <CREDIT> * * 4
+<LIMITCOURSE> * * You can take up to 4 course during the same period
+<ELECTIVE> * <QELCTIVE> How many electives can <PRO> get * 1 in year 2 and 6 in year 3
+<ELECTIVE> * <QELCTIVE> What are the electives for year 3 * There are 15 electives available
+<TASKHELPER> * <TASK> change password * The password can be changed in the student portal, via the setting once you're connected
+<TASKHELPER> * <TASK> change email address * I'm afraid that is something you can't do
+<TASKHELPER> * <TASK> check my grades * In the student portal, go to courses, and simply click on 'show result'
+<TUTORIAL> * * There are various tutorial hosted by incognito, keep an eye out for those. They tend to appear near the exams
+<BONUS> * <COURSE> Discrete Mathematics * Yes, Steven makes sure you are able to pass if you put in the effort
+<BONUS> * <COURSE> the Project * No, they want you to participate as much as possible in cooperation with the other members
+<BONUS> * <COURSE> Computer Science 1 * No, I'm afraid not
 <ACTION> I have no idea

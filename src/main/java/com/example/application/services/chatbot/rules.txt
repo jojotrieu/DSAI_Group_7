@@ -1,11 +1,11 @@
 <S> <ACTION>
-<ACTION> <LOCATION> | <SCHEDULE> | <TEACHERS> | <LOCATIONCOURSE> | <DESCRIPTIONCLASS> | <RESOURCE> | <BOOKS> | <CLASS> | <ADMIN> | <BSA> | <RESPONSIBLE> | <QUALIFICATION> | <PREREQ> | <APPLICATION> | <COVID> | <EXAMONLINE> | <PERIOD> | <RESITS> | <REPORTDEADLINE> | <DEADLINE> | <CREDIT>
+<ACTION> <LOCATION> | <SCHEDULE> | <TEACHERS> | <LOCATIONCOURSE> | <DESCRIPTIONCLASS> | <RESOURCE> | <BOOKS> | <CLASS> | <ADMIN> | <BSA> | <RESPONSIBLE> | <QUALIFICATION> | <PREREQ> | <APPLICATION> | <COVID> | <EXAMONLINE> | <PERIOD> | <RESITS> | <REPORTDEADLINE> | <DEADLINE> | <CREDIT> | <LIMITCOURSE> | <ELECTIVE> | <TASKHELPER> | <TUTORIAL> | <BONUS>
 <SCHEDULE> Which lectures are there <TIMEEXPRESSION> | <TIMEEXPRESSION> which lectures are there
 <TIMEEXPRESSION> on <DAY> at <TIME> | at <TIME> on <DAY> | on Sunday
 <TIME> 9 | 12
 <LOCATION> Where is <ROOM> | How do <PRO> get to <ROOM> | Where is <ROOM> located
 <PRO> I | you | he | she
-<ROOM> DeepSpace | SpaceBox
+<ROOM> DeepSpace | SpaceBox | student office
 <DAY> Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday
 <TEACHERS> Who teaches <COURSE> | Who gives <COURSE> | Who is the teacher of <COURSE>
 <COURSE> Discrete Mathematics | Linear Programing | Computer Science 1 | Human Computer Interaction | the Project
@@ -29,7 +29,7 @@
 <PROGRAM> KE@work | Marble | the exchange program
 <COVID> What are the COVID measures | What kind of COVID measure are there in DKE
 <EXAMONLINE> <QUESTIONEXON> exams online
-<QUESTIONEXON> Do I have to take the | How can I take the
+<QUESTIONEXON> Do I have to take the | How can I take the | Where do I sign up for online exams
 <PERIOD> When are the <EVENT> | Tell me when are the <EVENT>
 <EVENT> exam | resits | holidays
 <RESITS> When are the resits for <COURSE> | For <COURSE> when are the resits
@@ -37,3 +37,10 @@
 <DEADLINE> When is the deadline for <WORK> submission | For <WORK> submission, when is the deadline | When do <PRO> have to hand in <WORK>
 <WORK> the project code | the project presentation
 <CREDIT> How many credits is <COURSE> worth | How many credits has <COURSE>
+<LIMITCOURSE> Can <PRO> take more than 3 courses during period 1 | Can <PRO> take more than 3 courses during a period
+<ELECTIVE> <QELCTIVE>
+<QELCTIVE> How many electives can <PRO> get | What are the electives for year 3
+<TASKHELPER> How do <PRO> <TASK> | How can <PRO> <TASK> | Tell me how to <TASK>
+<TASK> change password | change email address | check my grades
+<TUTORIAL> Are there any tutorial for <COURSE> | Is there a tutorial for <COURSE> | <PRO> need help for <COURSE>
+<BONUS> Are there bonus point for <COURSE> | For <COURSE> are there any bonus | Can <PRO> get any bonus for <COURSE>
