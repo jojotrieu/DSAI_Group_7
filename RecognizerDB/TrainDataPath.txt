@@ -10,3 +10,9 @@ RecognizerDB\corina3.jpg;2
 RecognizerDB\corina4.jpg;2
 RecognizerDB\corina5.jpg;2
 RecognizerDB\corina6.jpg;2
+RecognizerDB\adele1.jpg;3
+RecognizerDB\adele2.jpg;3
+RecognizerDB\adele3.jpg;3
+RecognizerDB\adele4.jpg;3
+RecognizerDB\adele5.jpg;3
+RecognizerDB\adele6.jpg;3
