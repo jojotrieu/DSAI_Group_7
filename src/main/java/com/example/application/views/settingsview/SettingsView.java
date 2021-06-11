@@ -27,7 +27,7 @@ public class SettingsView extends VerticalLayout {
         themeButton.setId("theme-button");
         algorithms.setId("algorithm-select");
         typeOfCheck.setId("type-select");
-        algorithms.setItems("Haar Cascade", "Skin Color");
+        algorithms.setItems("Haar Cascade", "Skin Color", "PCA");
         algorithms.setLabel("Face detection");
         algorithms.setPlaceholder("Haar Cascade");
         typeOfCheck.setItems("Background", "Login check");
