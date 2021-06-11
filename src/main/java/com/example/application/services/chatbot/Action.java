@@ -28,40 +28,8 @@ public class Action {
     Map<String,String> nonTerminals = new HashMap<>();
     String expression;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getVariable() {
-        return variable;
-    }
-
-    public void setVariable(String var) {
-        this.variable = var;
-    }
-
-    public String getExpression() {
-        return expression;
-    }
-
-    public void setExpression(String expr) {
-        this.expression = expr;
-    }
-
-    public Map<String, String> getNonTerminals() {
-        return nonTerminals;
-    }
-
     public void addElement2NonTerminals(String key, String value) {
         this.nonTerminals.put(key, value);
-    }
-
-    public void setNonTerminals(Map<String, String> nt) {
-        this.nonTerminals = nt;
     }
 
     public String getNonTerminalsToString(){
