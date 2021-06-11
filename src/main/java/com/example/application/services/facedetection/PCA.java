@@ -19,6 +19,7 @@ import static org.opencv.core.CvType.CV_32SC1;
 public class PCA {
     private final List<Mat> trainingImages = new ArrayList<>();
     private final List<Integer> labelList = new ArrayList<>();
+    private final List<String> labelNames = new ArrayList<>();
     private BasicFaceRecognizer faceRecognizer;
 
     public void trainRecognizer() {
@@ -35,15 +36,19 @@ public class PCA {
         Imgproc.cvtColor(currentImage, currentImage, Imgproc.COLOR_BGR2GRAY);
         int label = faceRecognizer.predict_label(currentImage);
         System.out.println(label);
-        if (label == 1) {
-            return "Alex";
-        } else if (label == 2) {
-            return "Corina";
-        } else if (label == 3) {
-            return "Adele";
+
+        if(label < labelNames.size()){
+            return labelNames.get(label-1);
+        }else{
+            return "Cannot find a face";
         }
-        else{
-            return "I can't recognize you!";
+    }
+
+    public boolean faceRecognized(Mat currentImage){
+        if (recognizeFace(currentImage).equals("Cannot find a face")){
+            return false;
+        }else{
+            return true;
         }
     }
 
@@ -65,6 +70,7 @@ public class PCA {
                 Imgcodecs.imwrite("adele.jpg",readImage);
                 // Collect actual labels
                 this.labelList.add(Integer.parseInt(data[1]));
+                this.labelNames.add(retrieveName(data[0]));
                 line = br.readLine();
             }
 
@@ -72,5 +78,22 @@ public class PCA {
             e.printStackTrace();
         }
 
+    }
+
+    private String retrieveName(String imagePath) {
+        int startIndex = 13;
+        int endIndex = imagePath.length()-1;
+
+        for (int i = 0; i < imagePath.length(); i++) {
+            if(Character.isDigit(imagePath.charAt(i))){
+                endIndex = i;
+                break;
+            }
+        }
+
+        // assign uppercase of ch1, ch2 to ch3, ch4
+        char firstLetter = Character.toUpperCase(imagePath.charAt(startIndex));
+
+        return firstLetter + imagePath.substring(startIndex+1, endIndex);
     }
 }

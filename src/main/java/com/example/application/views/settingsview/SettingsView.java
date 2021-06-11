@@ -18,8 +18,8 @@ import com.vaadin.flow.theme.lumo.Lumo;
 public class SettingsView extends VerticalLayout {
     public static String selectedAlgorithm = "Haar Cascade";
     public static String selectedType = "Background";
-    private Select<String> algorithms = new Select<>();
-    private Select<String> typeOfCheck = new Select<>();
+    private final Select<String> algorithms = new Select<>();
+    private final Select<String> typeOfCheck = new Select<>();
 
     public SettingsView() {
         setId("settings-view");

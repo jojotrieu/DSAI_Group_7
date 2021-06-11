@@ -2,6 +2,7 @@ package com.example.application.views.chatbotview;
 
 import com.example.application.services.ChatBot;
 import com.example.application.services.facedetection.Camera;
+import com.example.application.services.facedetection.PCA;
 import com.example.application.services.facedetection.SkinColorDetection;
 import com.example.application.views.main.MainView;
 import com.example.application.views.settingsview.SettingsView;
@@ -19,6 +20,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.component.html.Image;
+import nu.pattern.OpenCV;
 import org.opencv.core.Mat;
 
 import java.awt.image.BufferedImage;
@@ -42,6 +44,7 @@ public class ChatBotView extends HorizontalLayout {
     private TextArea area = new TextArea();
     private String conversation = "";
     private Camera camera = new Camera();
+    private String personRecognized;
 
     public ChatBotView() {
         setId("chatbot-view");
@@ -117,7 +120,8 @@ public class ChatBotView extends HorizontalLayout {
             if (SettingsView.selectedAlgorithm.equalsIgnoreCase("Haar Cascade")) {
                 detectedFaces = camera.detectFaces();
                 count = camera.getFacesCount();
-            } else {
+            }
+            else if (SettingsView.selectedAlgorithm.equalsIgnoreCase("Skin Color")) {
                 SkinColorDetection skinColorDetector = new SkinColorDetection();
                 skinColorDetector.setOriginalImage(camera.getImageToAnalyze());
                 Mat mask = skinColorDetector.detectSkinColor();
@@ -130,15 +134,40 @@ public class ChatBotView extends HorizontalLayout {
                 }
                 count = skinColorDetector.getDetectedFaces();
             }
+            else { //PCA selected
+                // TODO: testing
+                BufferedImage img = camera.getImageToAnalyze();
+                SkinColorDetection det = new SkinColorDetection();
+                OpenCV.loadLocally();
+                Mat converted = det.BufferedImageToMat(img);
+                PCA pca = new PCA();
+                pca.trainRecognizer();
+                personRecognized = pca.recognizeFace(converted);
 
-            if (count > 0) {
+                if(pca.faceRecognized(converted)){
+                    count = 1;
+                }else{
+                    count = 0;
+                }
+            }
+
+            if (count > 0 && !SettingsView.selectedAlgorithm.equalsIgnoreCase("PCA")) {
                 questionTextField.setEnabled(true);
                 Span faceFound = new Span("I found a face!");
                 faceFound.setId("facefound-text");
                 cameraPopUp.add(faceFound);
                 String responseH4 = "ChatBot: " + "Let's chat beautiful human!";
                 conversation = responseH4 + "\n";
-            } else {
+            }
+            else if (count > 0 && SettingsView.selectedAlgorithm.equalsIgnoreCase("PCA")){
+                questionTextField.setEnabled(true);
+                Span faceFound = new Span("I recognized "+ personRecognized +" 's face!");
+                faceFound.setId("facefound-text");
+                cameraPopUp.add(faceFound);
+                String responseH4 = "ChatBot: " + "Hi " + personRecognized + ", let's chat!";
+                conversation = responseH4 + "\n";
+            }
+            else {
                 questionTextField.setEnabled(false);
                 Span notFound = new Span("I couldn't find anyone!");
                 notFound.setId("notfound-text");
@@ -181,14 +210,31 @@ public class ChatBotView extends HorizontalLayout {
                     camera.captureImage();
                     camera.detectFaces();
                     count = camera.getFacesCount();
-
-                } else {
+                }
+                else if (SettingsView.selectedAlgorithm.equalsIgnoreCase("Skin Color")){
                     camera.captureImage();
                     SkinColorDetection skinColorDetector = new SkinColorDetection();
                     skinColorDetector.setOriginalImage(camera.getImageToAnalyze());
                     Mat mask = skinColorDetector.detectSkinColor();
                     skinColorDetector.detectFaces(mask, 50, 50, 150, 150);
                     count = skinColorDetector.getDetectedFaces();
+                }
+                else { // PCA
+                    // TODO: testing
+                    camera.captureImage();
+                    BufferedImage img = camera.getImageToAnalyze();
+                    SkinColorDetection det = new SkinColorDetection();
+                    OpenCV.loadLocally();
+                    Mat converted = det.BufferedImageToMat(img);
+                    PCA pca = new PCA();
+                    pca.trainRecognizer();
+                    personRecognized = pca.recognizeFace(converted);
+
+                    if(pca.faceRecognized(converted)){
+                        count = 1;
+                    }else{
+                        count = 0;
+                    }
                 }
 
             }
