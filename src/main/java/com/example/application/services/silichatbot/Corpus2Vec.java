@@ -18,11 +18,18 @@ import java.util.*;
 public class Corpus2Vec {
 
     private Word2Vec word2Vec;
-    private String ROOT_PATH = "src/main/java/com/example/application/services/silichatbot/";
-    private String modelFileName = ROOT_PATH + "word2vecmodel.gz";
+    private final String ROOT_PATH = "src/main/java/com/example/application/services/silichatbot/";
+    private final String modelFileName = ROOT_PATH + "word2vecmodel.gz";
+    private final String cleanCorpus;
+    private final String rawCorpus;
+
+    public Corpus2Vec(String rawCorpus) {
+        this.rawCorpus = rawCorpus;
+        this.cleanCorpus = "clean" + rawCorpus;
+    }
 
     public void init() {
-        String corpusFileName = ROOT_PATH + "cleancorpus.txt";
+        String corpusFileName = ROOT_PATH + cleanCorpus;
         SentenceIterator iter = new LineSentenceIterator(new File(corpusFileName));
         TokenizerFactory t = new DefaultTokenizerFactory();
         t.setTokenPreProcessor(new CommonPreprocessor());
@@ -96,7 +103,7 @@ public class Corpus2Vec {
     public void cleanCorpus() {
         List<String> corpus = new ArrayList<>();
         Set<String> vocab = new HashSet<>();
-        List<String> textFromFile = TextFileIO.read(ROOT_PATH+"rawcorpus.txt");
+        List<String> textFromFile = TextFileIO.read(ROOT_PATH+rawCorpus);
         for(String data : textFromFile) {
             String[] arr = data.split(",?\\ ");
             for (String s : arr) {
@@ -142,7 +149,7 @@ public class Corpus2Vec {
 
         corpus = trimVocab(corpus, vocab);
         try {
-            String cleanFileName = ROOT_PATH + "cleancorpus.txt";
+            String cleanFileName = ROOT_PATH + cleanCorpus;
             FileWriter myWriter =
                     new FileWriter(cleanFileName, false);
             for (String str : corpus) {
