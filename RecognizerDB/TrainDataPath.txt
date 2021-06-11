@@ -1,0 +1,12 @@
+RecognizerDB\alex1.jpg;1
+RecognizerDB\alex2.jpg;1
+RecognizerDB\alex3.jpg;1
+RecognizerDB\alex4.jpg;1
+RecognizerDB\alex5.jpg;1
+RecognizerDB\alex6.jpg;1
+RecognizerDB\corina1.jpg;2
+RecognizerDB\corina2.jpg;2
+RecognizerDB\corina3.jpg;2
+RecognizerDB\corina4.jpg;2
+RecognizerDB\corina5.jpg;2
+RecognizerDB\corina6.jpg;2

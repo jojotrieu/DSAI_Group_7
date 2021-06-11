@@ -52,16 +52,21 @@ public class ChatBot {
             else if(actionVariable==null) CYK.setAction(action);
 //            System.out.println(action);
 
+            List<String> allaction = CFG.getAllActionRules();
+            for (int i = 0; i < 5 && !allaction.contains(actionVariable); i++) {
+                for (Rule r : CFG.getRules()) {
+                    for (String s : r.getExpressions()) {
+                        if (s.equals(action)) {
 
-//            CFG.loadRules();
-            for (Rule r : CFG.getRules()) {
-                for (String s : r.getExpressions()) {
-                    if (s.equals(action))
-                        actionVariable = r.getVariable();
-                    if(actionVariable!=null) break;
+                            actionVariable = r.getVariable();
+                            action = r.getVariable();
+                        }
+//                        if(actionVariable!=null) break;
+                    }
+//                    if(actionVariable!=null) break;
                 }
-                if(actionVariable!=null) break;
             }
+
             /**
              * this piece of code retrieve the answer
              */
@@ -84,17 +89,17 @@ public class ChatBot {
                     plhld.setValue(newValue.strip());
                 }
             }
-
             for (Action a : skills) {
                 if (a.getVariable().equals(actionVariable)) {
                     Map<String,String> nonTerminals = a.getNonTerminals();
+                    String mapToString = a.getNonTerminalsToString();
                     boolean found = true;
                     for(Map.Entry<String,String> e : nonTerminals.entrySet()){
                         if(placeHolders.containsKey(e.getKey())
                                 && !placeHolders.get(e.getKey()).equals(e.getValue())){
                             found = false;
                         }
-                    }if(found) return a.getExpression();
+                    }if(found||(mapToString.indexOf(' ')+1<mapToString.length() && placeHolders.containsValue(mapToString.substring(mapToString.indexOf(' ')+1)))) return a.getExpression();
                 }
             }
         } return "I don't know";

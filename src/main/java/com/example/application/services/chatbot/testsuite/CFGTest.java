@@ -1,9 +1,12 @@
 package com.example.application.services.chatbot.testsuite;
 
+import com.example.application.services.ChatBot;
 import com.example.application.services.chatbot.*;
 
+import com.example.application.services.utils.TextFileIO;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class CFGTest {
@@ -62,6 +65,21 @@ class CFGTest {
             }
             System.out.println();
         }
+    }
+    @Test
+    void allPhrasesAsQuery(){
+        ChatBot.init();
+        ArrayList<String> result = new ArrayList<>();
+        for(List<String> phrase : CFG.getAllPhrases()){
+            String query = "";
+            for(String word : phrase ){
+                query += word + " ";
+            }
+            result.add(query);
+            result.add(ChatBot.respondTo(query));
+            result.add(" ");
+        }
+        TextFileIO.write("testAll.txt", result);
     }
 
 }
