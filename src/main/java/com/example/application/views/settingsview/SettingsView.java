@@ -1,12 +1,10 @@
 package com.example.application.views.settingsview;
 
 import com.example.application.views.main.MainView;
-import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 
 import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.dom.ThemeList;

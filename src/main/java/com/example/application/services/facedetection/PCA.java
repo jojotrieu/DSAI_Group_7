@@ -1,8 +1,6 @@
 package com.example.application.services.facedetection;
 
 import aist.science.aistcv.AistCVLoader;
-import com.lowagie.text.html.simpleparser.Img;
-import nu.pattern.OpenCV;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.face.BasicFaceRecognizer;
@@ -11,19 +9,16 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.opencv.core.CvType.CV_32SC1;
-import static org.opencv.core.CvType.channels;
 
 public class PCA {
-    private List<Mat> trainingImages = new ArrayList<>();
-    private List<Integer> labelList = new ArrayList<>();
+    private final List<Mat> trainingImages = new ArrayList<>();
+    private final List<Integer> labelList = new ArrayList<>();
     private BasicFaceRecognizer faceRecognizer;
 
     public void trainRecognizer() {

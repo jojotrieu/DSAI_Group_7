@@ -397,7 +397,7 @@ public class SkillsView3 extends Div {
             newTemplate.add(labVar);
 
             List<String> values = hashmap.get(element);
-            ComboBox<String> comboBox = new ComboBox<String>("Select");
+            ComboBox<String> comboBox = new ComboBox<>("Select");
             comboBox.setItems(values);
             comboBox.setWidth("120px");
             vv.add(comboBox);

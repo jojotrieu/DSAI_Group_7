@@ -7,19 +7,21 @@ settings-view,
 settings-view,
 #theme-button {
     position: absolute;
-    left: 50%;
+    left: 22%;
     top: 12%;
 }
 
 settings-view,
 #algorithm-select {
     position: absolute;
-    right: 13%;
+    left: 22%;
+    top: 35%;
 }
 
 settings-view,
 #type-select {
     position: absolute;
-    left: 25%;
+    left: 22%;
+    top: 21%;
 }
 
