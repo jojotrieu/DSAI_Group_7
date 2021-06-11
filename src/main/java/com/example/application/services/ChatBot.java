@@ -47,8 +47,9 @@ public class ChatBot {
             }else {
                 action = transformBack(action);
             }
-            if(actionVariable==null)
-            CYK.setAction(action);
+
+            if( action != null && CNF.splitRules(action).length==1) actionVariable = action;
+            else if(actionVariable==null) CYK.setAction(action);
 //            System.out.println(action);
 
 
@@ -57,7 +58,9 @@ public class ChatBot {
                 for (String s : r.getExpressions()) {
                     if (s.equals(action))
                         actionVariable = r.getVariable();
+                    if(actionVariable!=null) break;
                 }
+                if(actionVariable!=null) break;
             }
             /**
              * this piece of code retrieve the answer

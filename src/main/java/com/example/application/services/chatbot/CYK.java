@@ -50,8 +50,10 @@ public class CYK {
                 }
             }
         }
-
-
+        if(action.equals("")) for (int x = 0; x < CNF.getCnf().size(); x++) if(P[0][S.length-1][x]){
+            action = rules[x];
+            return true;
+        }
         for (int x = 0; x < CNF.getCnf().size(); x++) {
             if(P[0][S.length-1][x]) return true;
         }

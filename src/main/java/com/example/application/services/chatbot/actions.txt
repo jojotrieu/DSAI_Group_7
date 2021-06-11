@@ -67,5 +67,56 @@
 <OPENBOOK> * <COURSE> Machine Learning * Yes it is one of the few open book exams
 <OPENBOOK> * * No, probably not
 <MISSMEET> * * More than one unjustified missing meeting could already lower the grade
-
+<DIFF> * <PAIR> KE@work and Marble * KE@work lets you work for a company with financial compensation, whereas Marble is more research oriented
+<DIFF> * <PAIR> the two master programs at dke * Decision making is more math focused whereas AI is more coding oriented
+<DIFF> * <PAIR> on campus and online exams * Essentially, the procedure online is more heavy, but you get to stay home.
+<PRORESIT> * * You need to have a personal grade of 5.5 or below
+<CSQCS> * <BAD> caught with plagiarism * The exam/assignment needs to be redone, and in some case people are banned from doing the exams. Don't cheat
+<CSQCS> * <BAD> caught with an electronic device during exam * The exam may be declared invalid, in which case the resit is the only option. Don't cheat
+<LONG> * <COURSE> Human Computer Interaction * Between 4 and 5 pages
+<LONG> * <COURSE> the Project * No more than 8 pages
+<LONG> * <COURSE> Philosophy * At least 1500 words
+<LONG> * * I am not aware that there is a report for that course
+<MANDATORY> * <THING> classes * No, it used to be that way before Corona times
+<MANDATORY> * <THING> skill classes for the project * Yes, plus they are very helpful for your scientific writing skills
+<MANDATORY> * * Hmmm, I don't know, I'm tempted to say no
+<PROJECTSUBJECT> * <PPER> 2-1 * It's a game project: you choose your game and you try to solve it
+<PROJECTSUBJECT> * <PPER> 1-2 * Either the sexy rocket project, or the lame golf project. Unfortunately you can't choose
+<PASSRATE> * <COURSE> Discrete Mathematics * Around 70% of the student pass this course
+<PASSRATE> * <COURSE> Computer Science 1 * Almost 60% of the student pass this course
+<PASSRATE> * <COURSE> the Project * Almost no one fails the project
+<PASSRATE> * <COURSE> Philosophy * 90% succeed but nobody got a 10
+<PASSRATE> * <COURSE> Machine Learning * Around 75% do well in that course
+<MASTERCOURSE> * <AIM> do research * you'll need a lot of theoretical knowledge, and a solid math background, therefore you should choose RL, advanced ML, Advanced statistical techniques
+<MASTERCOURSE> * <AIM> work at a company * Try to take some business class
+<MASTERCOURSE> * <AIM> stack more layers * Advanced ML, deep learning, NLP, computer vision etc
+<RANKING> * * DKE is amongst the 80 top university world wide
+<LEARN> * <SKILLS> handstand push-ups * There are some good tutorial on YouTube
+<LEARN> * <SKILLS> dutch * Incognito organizes online classes on Wednesday and Friday evening
+<LEARN> * <SKILLS> yoga * UM Sport proposes cheap yoga classes. You can always go in the city, there are hippies giving classes for free
+<BIKESIT> * <BSIT> has a flat tire * You can repair it at a bike shop
+<BIKESIT> * <BSIT> was stolen * You can make a statement at the police station, then go buy a new bike
+<SOCIAL> * * Incognito organizes event based on interest, keep an eye out for this
+<ACTIVITYPLACE> * <A> go for a walk * Mount St Pieter has a really nice view, I'd definitely recommend it
+<ACTIVITYPLACE> * <A> eat near DKE * The building next to DKE at the 5th floor has a good restaurant
+<ACTIVITYPLACE> * <A> go jogging * Near Tapijn there is a nice park and it's good spot for running
+<BLOCK> * * Probably not, if you have some trouble with people, you should reach out to your mentor
+<BEST> * <P> cafe * Anything but Starbucks
+<BEST> * <P> restaurant * That local eco-friendly food shop that looks like it's selling antiques
+<BEST> * <P> bachelor program * DKE of course !
+<WHOIST> * <TEACHER> Pietro * Some really important person, kinda like a president of some sort, also the teacher of LA
+<WHOIST> * <TEACHER> Pietro Bonizzi * Some really important person, kinda like a president of some sort, also the teacher of LA
+<WHOIST> * <TEACHER> Alexia Briassouli * Teacher of Calculus and expert in computer vision
+<WHOIST> * <TEACHER> Jan Niehues * Teacher of Data structure as well as an expert in NLP
+<AVGTEMP> * <PLACE> Maastricht * -15 or so, I have to double check my sources
+<AVGTEMP> * <PLACE> the Netherlands * Hard to compute, below freezing for sure !
+<LINK> * <ORG> Incognito * https://msvincognito.nl/
+<LINK> * <ORG> UM sports * https://umsa.mendixcloud.com/
+<BOOKPDF> * * They are available on incognito's website
+<TUTOR> * * Private tutors can be found on discord groups, or whatsapp group chat, just send a message to X or Y
+<COUNTRYEXCH> * * Canada, Italy, Hong Kong, Spain, Switzerland and many more !
+<WEED> * * Yes it is perfectly legal to buy Mary Juana in the Netherlands, however it is costly and not recommended
+<COST> * <GOOD> a private tutor * Depends on the tutor, ranging from 12 to 30 euro an hour !
+<COST> * <GOOD> weed * 30 euro the gram
+<COST> * <GOOD> Mary Juana * 30 euro the gram
 <ACTION> I have no idea

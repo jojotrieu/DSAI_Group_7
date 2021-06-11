@@ -12,11 +12,11 @@ public class ChatBotTEST {
     @Test
     public void givesAnswer(){
         ChatBot.init();
-        System.out.println(ChatBot.respondTo("Where do I sign up for exams online"));
-        System.out.println(ChatBot.respondTo("Who can I talk to about the exchange program"));
+        System.out.println(ChatBot.respondTo("How many credits is Discrete Mathematics worth"));
+        System.out.println(ChatBot.respondTo("How many credits is the Project worth"));
 
-        System.out.println(ChatBot.respondTo("How many credits has the Project"));
-        System.out.println(ChatBot.respondTo("How many credits has Discrete Mathematics"));
+        System.out.println(ChatBot.respondTo("When is the deadline for the project code submission"));
+        System.out.println(ChatBot.respondTo("What is the website of Incognito"));
 
         assert ChatBot.respondTo("Which lectures are there on Monday at 9").equals("We start the week with math ");
         assert ChatBot.respondTo("Who teaches Discrete Mathematics").equals("Steven Kelk ");

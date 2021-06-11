@@ -1,14 +1,14 @@
 <S> <ACTION>
-<ACTION> <LOCATION> | <SCHEDULE> | <TEACHERS> | <LOCATIONCOURSE> | <DESCRIPTIONCLASS> | <RESOURCE> | <BOOKS> | <CLASS> | <ADMIN> | <BSA> | <RESPONSIBLE> | <QUALIFICATION> | <PREREQ> | <APPLICATION> | <COVID> | <EXAMONLINE> | <PERIOD> | <RESITS> | <REPORTDEADLINE> | <DEADLINE> | <CREDIT> | <LIMITCOURSE> | <ELECTIVE> | <TASKHELPER> | <TUTORIAL> | <BONUS> |<COURSETIME1> | <MAIL> | <WORKPERWEEK> | <OPENBOOK> | <MISSMEET> | <DIFF>
+<ACTION> <LOCATION> | <SCHEDULE> | <TEACHERS> | <LOCATIONCOURSE> | <DESCRIPTIONCLASS> | <RESOURCE> | <BOOKS> | <CLASS> | <ADMIN> | <BSA> | <RESPONSIBLE> | <QUALIFICATION> | <PREREQ> | <APPLICATION> | <COVID> | <EXAMONLINE> | <PERIOD> | <RESITS> | <REPORTDEADLINE> | <DEADLINE> | <CREDIT> | <LIMITCOURSE> | <ELECTIVE> | <TASKHELPER> | <TUTORIAL> | <BONUS> |<COURSETIME1> | <MAIL> | <WORKPERWEEK> | <OPENBOOK> | <MISSMEET> | <DIFF> | <PRORESIT> | <CSQCS> | <LONG> | <MANDATORY> |<PROJECTSUBJECT> | <PASSRATE> | <MASTERCOURSE> | <RANKING> | <LEARN> | <BIKESIT> | <SOCIAL> | <ACTIVITYPLACE> | <BLOCK> | <BEST> | <WHOIST> | <AVGTEMP> | <LINK> |<TUTOR> | <COUNTRYEXCH> | <WEED>
 <SCHEDULE> Which lectures are there <TIMEEXPRESSION> | <TIMEEXPRESSION> which lectures are there
 <TIMEEXPRESSION> on <DAY> at <TIME> | at <TIME> on <DAY> | on Sunday
 <TIME> 9 | 12
 <LOCATION> Where is <ROOM> | How do <PRO> get to <ROOM> | Where is <ROOM> located
-<PRO> I | you | he | she
+<PRO> I | you | we | they
 <ROOM> DeepSpace | SpaceBox | student office
 <DAY> Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday
 <TEACHERS> Who teaches <COURSE> | Who gives <COURSE> | Who is the teacher of <COURSE>
-<COURSE> Discrete Mathematics | Linear Programing | Computer Science 1 | Human Computer Interaction | the Project | Logic | Probability and Statistics | Machine Learning
+<COURSE> Discrete Mathematics | Linear Programing | Computer Science 1 | Human Computer Interaction | the Project | Logic | Probability and Statistics | Machine Learning | Philosophy
 <LOCATIONCOURSE> Where is <COURSE> taking place | Where do we have <COURSE>
 <DESCRIPTIONCLASS> What is <COURSE> | What is <COURSE> about
 <RESOURCE> Who can I talk to if <SITUATION> | Who should I contact if <SITUATION> | <SITUATION>
@@ -50,4 +50,39 @@
 <WORKPERWEEK> How much should <PRO> study | How much should <PRO> study for <COURSE>
 <OPENBOOK> Is <COURSE> exam open book | Is the examination of <COURSE> open book
 <MISSMEET> How many meetings can <PRO> miss without lowering the grade
-<DIFF> What is the difference
+<DIFF> What is the difference between <PAIR> | Between <PAIR> what is the difference
+<PAIR> KE@work and Marble | the two master programs at dke | on campus and online exams
+<PRORESIT> What are the requirements for a project resit | How can <PRO> get a project resit
+<CSQCS> What are the consequences of being <BAD> | What happens if you're <BAD> | If you are <BAD> what are the consequences | What happens if I'm <BAD>
+<BAD> caught with plagiarism | caught with an electronic device during exam
+<LONG> How long should the <COURSE> report be | What do the teachers expect in term of length for <COURSE> report
+<MANDATORY> Is <THING> attendance mandatory | Is attending <THING> mandatory
+<THING> classes | skill classes for the project | labs for <COURSE>
+<PROJECTSUBJECT> What are the possible subject for project <PPER> | For project <PPER> which subject is possible | What can <PRO> have as subject for poject <PPER>
+<PPER> 1-2 | 2-1
+<PASSRATE> What is the pass rate for <COURSE> | For <COURSE> what is the pass rate | How many people fail <COURSE> | How many people pass <COURSE>
+<MASTERCOURSE> Which master courses are better if <PRO> want to <AIM> | My aim is to <AIM> which master class is the best for me
+<AIM> work at a company | do research | stack more layers
+<RANKING> How high is DKE ranking in the world | Is DKE any good world wide | How good is DKE
+<LEARN> Where can <PRO> learn <SKILLS> for free | I want to learn <SKILLS> but I'm broke | Where to learn <SKILLS> for free
+<SKILLS> handstand push-ups | dutch | yoga
+<BIKESIT> My bike <BSIT> what can I do about it | What should I do if my bike <BSIT>
+<BSIT> has a flat tire | was stolen
+<SOCIAL> Where can <PRO> find like-minded people | Where to meet new people that have same interest as me
+<ACTIVITYPLACE> Where can <PRO> <A> | What is a good place to <A>
+<A> eat near DKE | go jogging | go for a walk
+<BLOCK> Can <PRO> block someone on collaborate ultra
+<BEST> What is the best <P> in Maastricht | In Maastricht, what is the bast <P>
+<P> cafe | restaurant | bachelor program
+<WHOIST> Who is <TEACHER> | Tell me about <TEACHER>
+<TEACHER> Pietro Bonizzi | Pietro | Alexia Briasouli | Jan Niehues
+<AVGTEMP> What is the average temperature in <PLACE> | How is the weather in <PLACE>
+<PLACE> Maastricht | the Netherlands
+<LINK> What is the website of <ORG> | Give me the link for <ORG> | Do you have the web address for <ORG>
+<ORG> Incognito | UM sports
+<BOOKPDF> Where can <PRO> find DKE books' pdf | I need digital version of the book for DKE
+<TUTOR> Where can <PRO> get a private tutor | I need a private tutor | Where can <PRO> get study help | I am struggling with my courses, what should I do
+<COUNTRYEXCH> What countries are participating in the exchange program | Which countries do the exchange program
+<WEED> Is weed legal | Is Mary Juana legal | Can <PRO> buy weed
+<COST> How much is <GOOD> | How much should I expect to pay for <GOOD> | Is <GOOD> expensive
+<GOOD> Mary Juana | weed | a private tutor
