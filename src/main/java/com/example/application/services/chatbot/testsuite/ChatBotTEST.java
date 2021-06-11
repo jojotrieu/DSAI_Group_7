@@ -12,8 +12,8 @@ public class ChatBotTEST {
     @Test
     public void givesAnswer(){
         ChatBot.init();
-        System.out.println(ChatBot.respondTo("How many credits is Discrete Mathematics worth"));
-        System.out.println(ChatBot.respondTo("How many credits is the Project worth"));
+//        System.out.println(ChatBot.respondTo("When do I have to hand in the report for Discrete Mathematics "));
+        System.out.println(ChatBot.respondTo("How many electives can I get "));
 
         System.out.println(ChatBot.respondTo("When is the deadline for the project code submission"));
         System.out.println(ChatBot.respondTo("What is the website of Incognito"));

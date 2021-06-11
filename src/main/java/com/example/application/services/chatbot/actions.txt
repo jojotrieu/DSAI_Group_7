@@ -2,7 +2,7 @@
 <SCHEDULE> * <TIME> 9 <DAY> Monday * We start the week with math 
 <SCHEDULE> * <TIME> 12 <DAY> Monday * On Monday noon we have Theoretical Computer Science 
 <LOCATION> * <ROOM> DeepSpace * DeepSpace is the first room after the entrance 
-<LOCATION> * <ROOM>  SpaceBox * SpaceBox is on the first floor
+<LOCATION> * <ROOM> SpaceBox * SpaceBox is on the first floor
 <LOCATION> * <ROOM> student office * It's in downtown, you'll have to go near Tapijn
 <TEACHERS> * <COURSE> Discrete Mathematics * Steven Kelk
 <TEACHERS> * <COURSE> Linear Programing * Pietro Bonizzi
@@ -17,6 +17,7 @@
 <RESOURCE> * <SITUATION> I want to change studies * You should talk to the BOE
 <BOOKS> * <TIMEFRAME> this period * I think it's a bit too late for that
 <BOOKS> * <TIMEFRAME> next year * It depends on your elective, but probably some 'how to code for dummies'
+<BOOKS> * <TIMEFRAME> this semester * One book per class, the teachers will tell you what to get
 <CLASS> * <TIMEFRAME> this semester * Human computer interactions, Philosophy and AI, Mathematical Modeling, and project
 <ADMIN> * <PAPER> visa * Yes, if you're not from the EU
 <ADMIN> * <PAPER> passport * No, it is not necessary
@@ -39,10 +40,12 @@
 <PERIOD> * <EVENT> holidays * After the resits or the exam depending on your performances
 <RESITS> * <COURSE> Discrete Mathematics * Somewhere between the 25th to the 29th of January, the schedules hasn't been released yet
 <RESITS> * <COURSE> Linear Algebra * Somewhere between the 28th of June to the 2nd of July, the schedules hasn't been released yet
+<RESITS> * * At the end of the semester
 <REPORTDEADLINE> * <COURSE> Human Computer Interaction * For the 23rd of May
-<REPORTDEADLINE> * <COURSE> Project * For the 22nd of June
+<REPORTDEADLINE> * <COURSE> the Project * For the 22nd of June
 <REPORTDEADLINE> * <COURSE> Computer Science 1 * There is no report for CS1
 <REPORTDEADLINE> * <COURSE> Linear Algebra * You don't need to hand in anything for that course
+<REPORTDEADLINE> * * There is no report as far as I know
 <DEADLINE> * <WORK> the project code * the 22nd of June
 <DEADLINE> * <WORK> the project presentation * the 22nd of June
 <CREDIT> * <COURSE> the Project * 12 credits
@@ -106,7 +109,7 @@
 <BEST> * <P> bachelor program * DKE of course !
 <WHOIST> * <TEACHER> Pietro * Some really important person, kinda like a president of some sort, also the teacher of LA
 <WHOIST> * <TEACHER> Pietro Bonizzi * Some really important person, kinda like a president of some sort, also the teacher of LA
-<WHOIST> * <TEACHER> Alexia Briassouli * Teacher of Calculus and expert in computer vision
+<WHOIST> * <TEACHER> Alexia Briasouli * Teacher of Calculus and expert in computer vision
 <WHOIST> * <TEACHER> Jan Niehues * Teacher of Data structure as well as an expert in NLP
 <AVGTEMP> * <PLACE> Maastricht * -15 or so, I have to double check my sources
 <AVGTEMP> * <PLACE> the Netherlands * Hard to compute, below freezing for sure !
