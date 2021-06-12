@@ -1,15 +1,11 @@
 package com.example.application.services.chatbot.spellcheck;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
 
 public class SpellCheck {
 
     private static Trie trie = new Trie();
     private static Map<String, Integer> dict = new HashMap<>();
-    private final static List<String> invalid = Collections.singletonList("abcdefghijklmnopqrstuvwxyz");
 
     public static void init(List<String> dictionary){
         for(String line: dictionary){
@@ -27,10 +23,7 @@ public class SpellCheck {
         }
     }
     
-    public static String suggestSimilarWord(String inputWord) {
-        if (inputWord.length() == 0 || invalid.contains(inputWord.toLowerCase())) {
-            return null;
-        }
+    public static String bestMatch(String inputWord) {
         String s = inputWord.toLowerCase();
         String res;
         TreeMap<Integer, TreeMap<Integer, TreeSet<String>>> map = new TreeMap<>();
@@ -45,7 +38,7 @@ public class SpellCheck {
                 similarWords.put(freq, set);
                 map.put(dist, similarWords);
             }
-            res= map.firstEntry().getValue().lastEntry().getValue().first();
+            res = map.firstEntry().getValue().lastEntry().getValue().first();
         } else {
             res = s;
         }

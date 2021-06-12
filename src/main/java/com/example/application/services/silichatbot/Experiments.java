@@ -10,11 +10,9 @@ import java.util.List;
 
 public class Experiments {
   public static void main(String[] args) throws IOException {
-    ChatBot.init();
-    for(Rule r : CFG.getRules()){
-      System.out.println("----");
-      r.getExpressions().forEach(System.out::println);
-    }
+    CFG.loadRules();
+    Classifier.init();
+
 
   /*
     Corpus2Vec corpus2Vec = new Corpus2Vec();

@@ -30,7 +30,12 @@ public class Classifier {
                 String[] data = myReader.nextLine().split("\\W+");
                 String word = data[0];
                 if(allWords.contains(word)){
-                    List<String> synonyms = new ArrayList<>(Arrays.asList(data).subList(2, data.length));
+                    List<String> synonyms = new ArrayList<>();
+                    for (String synonym : data) {
+                        if(!synonym.equals("satellite")){
+                            synonyms.add(synonym);
+                        }
+                    }
                     if(synonymsMap.containsKey(word)){
                         synonyms.addAll(synonymsMap.get(word));
                     }
@@ -55,7 +60,7 @@ public class Classifier {
         String[] words = query.toLowerCase().split("\\W+");
         //spellcheck each word
         for (int i = 0; i < words.length; i++) {
-            words[i] = SpellCheck.suggestSimilarWord(words[i]);
+            words[i] = SpellCheck.bestMatch(words[i]);
             //converts any synonyms to a main entry
             if(!synonymsMap.containsKey(words[i])){
                 for(Map.Entry<String,List<String>> entry : synonymsMap.entrySet()){

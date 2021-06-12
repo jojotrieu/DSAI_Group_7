@@ -1,15 +1,19 @@
 package com.example.application.services.chatbot.spellcheck;
 
+import java.util.List;
+
 public class Trie {
-    TrieNode root = new TrieNode();
-    int myHashCode = 0;
+    private TrieNode root = new TrieNode();
+    private int myHashCode = 0;
     
     public void add(String word) {
         TrieNode p = root;
         for (char c : word.toCharArray()) {
-            if (p.nodes[c-'a'] == null)
-                p.nodes[c-'a'] = new TrieNode();
-            p = p.nodes[c-'a'];
+            if(Character.isLetter(c)){
+                if (p.nodes[c-'a'] == null)
+                    p.nodes[c-'a'] = new TrieNode();
+                p = p.nodes[c-'a'];
+            }
         }
         myHashCode +=word.hashCode();
         p.incrementValue();
