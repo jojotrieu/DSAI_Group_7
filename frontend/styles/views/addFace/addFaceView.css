@@ -1,0 +1,50 @@
+addFace-view,
+#addFace-view {
+    display: block;
+    padding: 1em;
+}
+
+#message {
+    position: absolute;
+    left: 18%;
+    top: 10%;
+}
+
+#name {
+    position: absolute;
+    left: 50%;
+    top: 20%;
+}
+
+#counter {
+    position: absolute;
+    left: 55%;
+    top: 63%;
+}
+
+#snapshot-button {
+    width: 110px;
+    position: absolute;
+    left: 47%;
+    top: 70%;
+}
+
+#save-button {
+    position: absolute;
+    left: 58%;
+    top: 70%;
+}
+
+#camera-frame {
+    position: absolute;
+    left: 47%;
+    top: 32%;
+}
+
+#success-message {
+    color: green;
+    position: absolute;
+    left: 50%;
+    top: 76%;
+
+}

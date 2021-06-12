@@ -3,6 +3,7 @@ package com.example.application.views.main;
 import java.util.Optional;
 
 import com.example.application.views.aboutview.AboutView;
+import com.example.application.views.addFaceView.AddFaceView;
 import com.example.application.views.contactView.ContactView;
 import com.example.application.views.settingsview.SettingsView;
 import com.example.application.views.skillsview2.SkillsView2;
@@ -25,7 +26,6 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
 import com.example.application.views.chatbotview.ChatBotView;
 import com.example.application.views.skillsview.SkillsView;
-import org.opencv.core.Core;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -85,8 +85,8 @@ public class MainView extends AppLayout {
     private Component[] createMenuItems() {
         return new Tab[]{createTab("ChatBot", ChatBotView.class), createTab("Skills Editor", SkillsView.class),
                 createTab("Skills Editor 2", SkillsView2.class), createTab("User Friendly Skills Editor", SkillsView3.class),
-                createTab("Settings", SettingsView.class), createTab("About", AboutView.class),
-                createTab("Contact", ContactView.class)};
+                createTab("Add Face", AddFaceView.class), createTab("Settings", SettingsView.class),
+                createTab("About", AboutView.class), createTab("Contact", ContactView.class)};
     }
 
     private static Tab createTab(String text, Class<? extends Component> navigationTarget) {
