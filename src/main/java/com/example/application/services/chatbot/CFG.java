@@ -4,10 +4,7 @@ import com.example.application.services.utils.TextFileIO;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class CFG {
     public static final ArrayList<Rule> rules = new ArrayList<>();
@@ -196,5 +193,37 @@ public class CFG {
 
     public static List<List<String>> getAllPhrases() {
         return allPhrases;
+    }
+
+    /**
+     * Builds all possible phrases from CFG
+     * starting point is the startingVar rule
+     */
+    public static List<String> combos(String startingVar) {
+        List<List<String>> unExpressed = new ArrayList<>();
+        unExpressed.add(List.of(startingVar));
+        List<String> result = new ArrayList<>();
+        while(!unExpressed.isEmpty()){
+            List<String> phrase = unExpressed.remove(0);
+            boolean fullyExpressed = true;
+            for (int i = 0; i < phrase.size(); i++) {
+                String word = phrase.get(i);
+                if(isVariable(word)){
+                    Rule child = findRule(word);
+                    for(List<String> expression : child.splitExpressions){
+                        unExpressed.add(replace(phrase,expression,i));
+                    }
+                    fullyExpressed=false;
+                }
+            }
+            if(fullyExpressed){
+                String s = "";
+                for(String w : phrase){
+                    s+= w+" ";
+                }
+                result.add(s.strip());
+            }
+        }
+        return result;
     }
 }
