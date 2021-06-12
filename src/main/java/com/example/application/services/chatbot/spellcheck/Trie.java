@@ -23,9 +23,11 @@ public class Trie {
     public TrieNode find(String word) {
         TrieNode p = root;
         for (char c : word.toCharArray()) {
-            if (p.nodes[c-'a'] == null)
-                return null;
-            p = p.nodes[c-'a'];
+            if(Character.isLetter(c)){
+                if (p.nodes[c-'a'] == null)
+                    return null;
+                p = p.nodes[c-'a'];
+            }
         }
         if( p != null && p.isEnd)
             return p;

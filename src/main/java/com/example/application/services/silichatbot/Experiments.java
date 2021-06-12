@@ -10,19 +10,14 @@ import java.util.List;
 
 public class Experiments {
   public static void main(String[] args) throws IOException {
-    CFG.loadRules();
-    Classifier.init();
 
-
-  /*
-    Corpus2Vec corpus2Vec = new Corpus2Vec();
-    //corpus2Vec.cleanCorpus();
+    Corpus2Vec corpus2Vec = new Corpus2Vec("corpus.txt");
+    corpus2Vec.cleanCorpus();
     corpus2Vec.init();
     Word2Vec word2Vec = corpus2Vec.getWord2Vec();
+    word2Vec.getWordVector("class");
     Collection<String> lst = word2Vec.wordsNearest("class", 10);
     lst.forEach(System.out::println);
 
-
-   */
   }
 }

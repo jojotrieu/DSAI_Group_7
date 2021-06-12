@@ -86,7 +86,7 @@ public class Classifier {
             }
             StringBuilder stringBuilder = new StringBuilder();
             for(String s : phrase){
-                stringBuilder.append(s);
+                stringBuilder.append(s).append(" ");
             }
             scores.put(stringBuilder.toString(),score/phrase.size());
         }
@@ -100,6 +100,7 @@ public class Classifier {
                 bestMatch=entry.getKey();
             }
         }
+        System.out.println("Classifier bestMatch score: " + bestScore + " | " + bestMatch);
         if(bestScore>THRESHOLD){
             return bestMatch;
         } else {
@@ -107,4 +108,7 @@ public class Classifier {
         }
     }
 
+    public static HashMap<String, List<String>> getSynonymsMap() {
+        return synonymsMap;
+    }
 }
