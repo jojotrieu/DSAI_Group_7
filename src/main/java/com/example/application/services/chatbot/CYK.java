@@ -129,4 +129,33 @@ public class CYK {
     public static void setAction(String action) {
         CYK.action = action;
     }
+
+    public static String whichSkill(String query){
+        String[] rules = CNF.getRules();
+        String[] S = CNF.splitRules(query);
+        boolean[][][] P = new boolean[S.length][S.length][CNF.getCnf().size()];
+
+        for (int i = 0; i < S.length; i++) {
+            for(int j: yields(S[i])){
+                P[i][0][j]=true;
+            }
+        }
+        for (int i = 1; i < S.length; i++) {
+            for (int j = 0; j < S.length - i ; j++) {
+                for (int k = 0; k < i ; k++) {
+                    for (int[] abc: ruleYield()) {
+                        if(P[j][k][abc[1]] && P[j+k+1][i-k-1][abc[2]]) {
+                            P[j][i][abc[0]] = true;
+                        }
+                    }
+                }
+            }
+        }
+        String result = "";
+        List allActionRules = CFG.getAllActionRules();
+        for (int x = 0; x < CNF.getCnf().size(); x++) if(P[0][S.length-1][x] && allActionRules.contains(rules[x])){
+            result += rules[x]+" ";
+        }
+        return result.strip();
+    }
 }

@@ -12,7 +12,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.opencv.core.CvType.CV_32SC1;
 
@@ -37,19 +39,19 @@ public class PCA {
         int label = faceRecognizer.predict_label(currentImage);
         System.out.println(label);
 
+        Set<String> set = new HashSet<>(labelNames);
+        labelNames.clear();
+        labelNames.addAll(set);
+
         if(label < labelNames.size() && label > 0){
             return labelNames.get(label-1);
         }else{
-            return "Cannot find a face";
+            return "Cannot recognize the face";
         }
     }
 
     public boolean faceRecognized(Mat currentImage){
-        if (recognizeFace(currentImage).equals("Cannot find a face")){
-            return false;
-        }else{
-            return true;
-        }
+        return !recognizeFace(currentImage).equals("Cannot recognize the face");
     }
 
     public void readData(String path) {
@@ -91,9 +93,7 @@ public class PCA {
             }
         }
 
-        // assign uppercase of ch1, ch2 to ch3, ch4
         char firstLetter = Character.toUpperCase(imagePath.charAt(startIndex));
-
         return firstLetter + imagePath.substring(startIndex+1, endIndex);
     }
 }
