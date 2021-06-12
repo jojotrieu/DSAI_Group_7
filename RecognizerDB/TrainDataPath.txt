@@ -16,3 +16,11 @@ RecognizerDB\adele3.jpg;3
 RecognizerDB\adele4.jpg;3
 RecognizerDB\adele5.jpg;3
 RecognizerDB\adele6.jpg;3
+RecognizerDB\adele7.jpg;3
+RecognizerDB\adele8.jpg;3
+RecognizerDB\adele9.jpg;3
+RecognizerDB\adele10.jpg;3
+RecognizerDB\adele11.jpg;3
+RecognizerDB\adele12.jpg;3
+RecognizerDB\adele13.jpg;3
+RecognizerDB\adele14.jpg;3

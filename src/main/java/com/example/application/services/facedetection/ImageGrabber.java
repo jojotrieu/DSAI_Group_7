@@ -3,7 +3,6 @@ package com.example.application.services.facedetection;
 import nu.pattern.OpenCV;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
 
 import java.awt.image.BufferedImage;
 
