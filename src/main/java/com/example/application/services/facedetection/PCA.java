@@ -37,7 +37,7 @@ public class PCA {
         int label = faceRecognizer.predict_label(currentImage);
         System.out.println(label);
 
-        if(label < labelNames.size()){
+        if(label < labelNames.size() && label > 0){
             return labelNames.get(label-1);
         }else{
             return "Cannot find a face";
