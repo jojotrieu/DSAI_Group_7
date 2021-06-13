@@ -11,18 +11,9 @@ import java.util.*;
 public class DataMaker {
     private static List<String> allPossibleQ = null;
     private static String PATH = "src/main/java/com/example/application/services/chatbot/MultipleClassifiers/data2/";
+    private static String P = "src/main/java/com/example/application/services/chatbot/MultipleClassifiers/";
     public static void makeData(String skill, double split){
-        if(allPossibleQ==null) {
-            allPossibleQ=new ArrayList<>();
-            List<List<String>> allPhrasesAsList = CFG.getAllPhrases();
-            for(List<String> sentence : allPhrasesAsList){
-                StringBuilder s = new StringBuilder();
-                for(String w : sentence){
-                    s.append(w).append(" ");
-                }
-                allPossibleQ.add(s.toString().strip());
-            }
-        }
+        generateAllQ();
         String currPath = PATH+skill.substring(1, skill.length()-1);
         File dir = new File(currPath);
         if(!dir.exists()){
@@ -71,11 +62,38 @@ public class DataMaker {
 //        TextFileIO.write(currPath+"/n_train.txt", train_n);
 //        TextFileIO.write(currPath+"/n_test.txt", test_n);
     }
+    public static void makeAllQnA(){
+        List<String> result = new ArrayList<>();
+        generateAllQ();
+        for(String q : allPossibleQ){
+            StringBuilder sb = new StringBuilder(q);
+            String ans = ChatBot.respondTo(q);
+            if(!ans.equals("I don't know")) sb.append(ans);
+            result.add(sb.toString());
+            System.out.println(sb);
+        }
+        TextFileIO.write(P+"CFG_corpus.txt", result);
+    }
+
+    private static void generateAllQ() {
+        if(allPossibleQ==null) {
+            allPossibleQ=new ArrayList<>();
+            List<List<String>> allPhrasesAsList = CFG.getAllPhrases();
+            for(List<String> sentence : allPhrasesAsList){
+                StringBuilder s = new StringBuilder();
+                for(String w : sentence){
+                    s.append(w).append(" ");
+                }
+                allPossibleQ.add(s.toString().strip());
+            }
+        }
+    }
 
     public static void main(String[] args){
         ChatBot.init();
-        for(String skill: CFG.getAllActionRules()){
-            makeData(skill, 0.8);
-        }
+//        for(String skill: CFG.getAllActionRules()){
+//            makeData(skill, 0.8);
+//        }
+        makeAllQnA();
     }
 }

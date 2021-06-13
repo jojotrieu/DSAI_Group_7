@@ -2,24 +2,21 @@ package com.example.application.services.chatbot.MultipleClassifiers;
 
 import com.example.application.services.ChatBot;
 import com.example.application.services.chatbot.CFG;
+import com.example.application.services.chatbot.CNF;
 import com.example.application.services.silichatbot.Corpus2Vec;
 import org.apache.commons.io.FileUtils;
 import org.deeplearning4j.models.word2vec.Word2Vec;
 import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.nd4j.linalg.api.ndarray.INDArray;
-import org.nd4j.nativeblas.Nd4jCpu;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MultipleClassifiers {
     private static final String PATH = "src/main/java/com/example/application/services/chatbot/MultipleClassifiers/Models/";
     private static HashMap<String, ComputationGraph> models=null;
-    private static double threshhold = 0.80;
+    private static final double threshold = 0.80;
     private static Word2Vec w2v = null;
 
 
@@ -44,7 +41,7 @@ public class MultipleClassifiers {
         for(Map.Entry<String, ComputationGraph> entry: models.entrySet()){
             INDArray value = w2v.getWordVectors(new ArrayList<>(List.of(query.split(" "))));
             double score = entry.getValue().outputSingle(value.reshape(1,1,value.shape()[0],200)).getDouble(1);
-            if(score>threshhold){
+            if(score> threshold){
                 scores.put(entry.getKey(), score);
                 if(max<score) max = score;
             }
@@ -57,6 +54,7 @@ public class MultipleClassifiers {
         ChatBot.init();
         init();
         String path = "src/main/java/com/example/application/services/chatbot/MultipleClassifiers/data2/";
+
         StringBuilder result = new StringBuilder();
         int good = 0, bad = 0;
         try {
@@ -69,18 +67,18 @@ public class MultipleClassifiers {
                 String pos = FileUtils.readFileToString(new File(filePathPos), "UTF-8");
                 System.out.println(neg);
                 System.out.println(pos);
-                INDArray posVal = w2v.getWordVectors(List.of(pos.split(" ")));
+                INDArray posVal = w2v.getWordVectors(List.of(CNF.splitRules(pos)));
                 System.out.println(posVal);
-                INDArray negVal =w2v.getWordVectors(List.of(neg.split(" ")));
+                INDArray negVal =w2v.getWordVectors(List.of(CNF.splitRules(neg)));
                 INDArray predNeg = entry.getValue().outputSingle(negVal.reshape(1,1,negVal.shape()[0], 200));
                 INDArray predPos = entry.getValue().outputSingle(posVal.reshape(1,1,posVal.shape()[0],200));
-                if(predNeg.getDouble(0)>threshhold) correct +=1;
+                if(predNeg.getDouble(0)> threshold) correct +=1;
                 else wrong+=1;
-                if(predPos.getDouble(1)>threshhold) correct+=1;
+                if(predPos.getDouble(1)> threshold) correct+=1;
                 else wrong+=1;
                 good += correct;
                 bad += wrong;
-                result.append("For skill "+ skill+": "+correct+" correct / "+wrong+" wrong\n" );
+                result.append("For skill ").append(skill).append(": ").append(correct).append(" correct / ").append(wrong).append(" wrong\n");
             }
         }catch (IOException e){
             e.printStackTrace();
