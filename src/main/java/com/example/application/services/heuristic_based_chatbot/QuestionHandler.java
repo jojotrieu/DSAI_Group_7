@@ -28,15 +28,17 @@ public class QuestionHandler {
             while(this.scanner.hasNextLine()) {
                 String line = this.scanner.nextLine();
                 lines.add(line);
-                System.out.println(line);
+                //System.out.println(line);
             }
-            System.out.println("================================");
+            //System.out.println("================================");
             for (String line : lines) {
                 //String[] arr = line.split("\\|");
                 /*
                 for (String str: arr) {
                     System.out.print(str);
                 }*/
+                //System.out.println("Question: " + line.split("\\|")[0]);
+                //System.out.println("Answer: " + line.split("\\|")[1]);
                 QATuple tuple = new QATuple(line.split("\\|")[0], line.split("\\|")[1]);
                 this.tuples.add(tuple);
             }
@@ -65,10 +67,10 @@ public class QuestionHandler {
         QATuple bestEvaluation = this.tuples.get(0);
         bestEvaluation.setEvaluation(evaluate(question, bestEvaluation.getQuestion()));
         this.penalty = penalty;
+        System.out.println("User query: " + question);
         for(QATuple tuple : this.tuples) {
             tuple.setEvaluation(evaluate(question, tuple.getQuestion()));
-            System.out.println("Evaluation:");
-            System.out.println("Question: " + tuple.getQuestion() + " evaluation: " + tuple.getEvaluation());
+            //System.out.println("Evaluation for database question: " + tuple.getQuestion() + tuple.getEvaluation());
             if(tuple.getEvaluation() > bestEvaluation.getEvaluation()) {
                 bestEvaluation = tuple;
             }
@@ -115,17 +117,28 @@ public class QuestionHandler {
         //eg Is Pietro a teacher?
         //   Is Pietro a teacher
         // will be seen as different.
-        String[] userQueryArr = userQuery.substring(0, userQuery.length()-1).split(" ");
-        String[] databaseQueryArr = databaseQuery.substring(0, databaseQuery.length()-1).split(" ");
-        int count = 0;
-        for(int i = 0; i < userQueryArr.length; i++) {
-            for(int j = 0; j < databaseQueryArr.length; j++) {
-                if(databaseQueryArr[j].equals(userQueryArr[i])){
-                    count++;
-                }
+        String[] userQueryTokens = userQuery.substring(0, userQuery.length()).split(" ");
+        String[] databaseQueryTokens = databaseQuery.substring(0, databaseQuery.length()).split(" ");
+
+
+        double count = 0;
+        for (int i = 0; i < databaseQueryTokens.length; i++) {
+            if (contains(userQueryTokens, databaseQueryTokens[i])) {
+                count++;
             }
         }
-        return count/(databaseQueryArr.length-1)*1.0;
+        //double probability = count/databaseQueryTokens.length*1.0; //TODO remove this line
+        //System.out.println("Probability of match given words: " + probability + " and count = " + count);
+        return count/databaseQueryTokens.length*1.0;
+    }
+
+    private boolean contains(String[] array, String str){
+        for (String word: array) {
+            if (word.equals(str)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -134,7 +147,7 @@ public class QuestionHandler {
         KeyboardParser keyboardParser = new KeyboardParser(this.keyboardLayoutPath);
 
         for (int i = 0; i < databaseQuery.length(); i++) {
-            if(!(i > userQuery.length()-1)){
+            if(!(i > userQuery.length()-1)) {
                 if(userQuery.charAt(i) != databaseQuery.charAt(i)) {
                     // If the missmatch is a neighbour of the character at that index in the database's question
                     // we relax our penalty by adding 0.5 (or another value) rather than 1.
@@ -146,12 +159,15 @@ public class QuestionHandler {
                     }
                 }
             }
-            missing++;
+            //missing++;
         }
+        //double probability = 1 - (missing/databaseQuery.length()*1.0); //TODO remove this line
+        //System.out.println("Probability of match given indices: " + probability + " for DB question : " + databaseQuery);
         return 1 - (missing/databaseQuery.length()*1.0);
     }
 
     private double evaluate (String userQuery, String databaseQuery) {
+        //System.out.println((probabilityOfMatchGivenIndices(userQuery, databaseQuery)+probabilityOfMatchGivenWords(userQuery, databaseQuery))/2.0);
         return (probabilityOfMatchGivenIndices(userQuery, databaseQuery) + probabilityOfMatchGivenWords(userQuery, databaseQuery))/2.0;
     }
     private void test(){
