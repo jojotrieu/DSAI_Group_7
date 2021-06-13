@@ -65,14 +65,8 @@ public class DataMaker {
     public static void makeAllQnA(){
         List<String> result = new ArrayList<>();
         generateAllQ();
-        for(String q : allPossibleQ){
-            StringBuilder sb = new StringBuilder(q);
-            String ans = ChatBot.respondTo(q);
-            if(!ans.equals("I don't know")) sb.append(ans);
-            result.add(sb.toString());
-            System.out.println(sb);
-        }
-        TextFileIO.write(P+"CFG_corpus.txt", result);
+        
+        TextFileIO.write(P+"CFG_Q_corpus.txt", allPossibleQ);
     }
 
     private static void generateAllQ() {
