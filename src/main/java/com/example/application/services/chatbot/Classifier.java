@@ -3,12 +3,9 @@ package com.example.application.services.chatbot;
 import com.example.application.services.chatbot.spellcheck.SpellCheck;
 import com.example.application.services.utils.TextFileIO;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Classifier {
-    private static HashMap<String, List<String>> synonymsMap = new HashMap<>();
     private static List<List<String>> allPhrases;
     private static Set<String> allWords = new HashSet<>();
     private static List<String> corpus;
@@ -22,37 +19,6 @@ public class Classifier {
             allWords.addAll(phrase);
             corpus.addAll(phrase);
         }
-        try {
-            File textFile = new File("src/main/java/com/example/application/services/chatbot/synonyms.csv");
-            Scanner myReader = new Scanner(textFile);
-            int iter = 0;
-            while (myReader.hasNextLine() && iter<allWords.size()) {
-                String[] data = myReader.nextLine().split("\\W+");
-                String word = data[0];
-                if(allWords.contains(word)){
-                    List<String> synonyms = new ArrayList<>();
-                    for (String synonym : data) {
-                        if(!synonym.equals("satellite")){
-                            synonyms.add(synonym);
-                        }
-                    }
-                    if(synonymsMap.containsKey(word)){
-                        synonyms.addAll(synonymsMap.get(word));
-                    }
-                    synonymsMap.put(word,synonyms);
-                    iter++;
-                }
-
-            }
-            myReader.close();
-            System.out.println("Synonyms mapped.");
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-        for(List<String> synonyms : synonymsMap.values()){
-            corpus.addAll(synonyms);
-        }
         SpellCheck.init(corpus);
     }
 
@@ -61,25 +27,13 @@ public class Classifier {
         //spellcheck each word
         for (int i = 0; i < words.length; i++) {
             words[i] = SpellCheck.bestMatch(words[i]);
-            //converts any synonyms to a main entry
-            if(!synonymsMap.containsKey(words[i])){
-                for(Map.Entry<String,List<String>> entry : synonymsMap.entrySet()){
-                    for(String target : entry.getValue()){
-                        if(target.equals(words[i])){
-                            words[i]=target;
-                            break;
-                        }
-                    }
-                }
-            }
         }
-
         HashMap<String,Double> scores = new HashMap<>();
         for(List<String> phrase: allPhrases){
             double score = 0;
             for(String word : words){
                 for(String target : phrase){
-                    if(target.equals(word)){
+                    if(target.toLowerCase().equals(word)){
                         score++;
                     }
                 }
@@ -108,7 +62,7 @@ public class Classifier {
         }
     }
 
-    public static HashMap<String, List<String>> getSynonymsMap() {
-        return synonymsMap;
+    public static Set<String> getAllWords() {
+        return allWords;
     }
 }

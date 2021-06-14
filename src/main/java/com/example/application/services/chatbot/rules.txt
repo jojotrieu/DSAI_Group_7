@@ -58,7 +58,7 @@
 <LONG> How long should the <COURSE> report be | What do the teachers expect in term of length for <COURSE> report
 <MANDATORY> Is <THING> attendance mandatory | Is attending <THING> mandatory
 <THING> classes | skill classes for the project | labs for <COURSE>
-<PROJECTSUBJECT> What are the possible subject for project <PPER> | For project <PPER> which subject is possible | What can <PRO> have as subject for poject <PPER>
+<PROJECTSUBJECT> What are the possible subject for project <PPER> | For project <PPER> which subject is possible | What can <PRO> have as subject for project <PPER>
 <PPER> 1-2 | 2-1
 <PASSRATE> What is the pass rate for <COURSE> | For <COURSE> what is the pass rate | How many people fail <COURSE> | How many people pass <COURSE>
 <MASTERCOURSE> Which master courses are better if <PRO> want to <AIM> | My aim is to <AIM> which master class is the best for me
@@ -83,6 +83,6 @@
 <BOOKPDF> Where can <PRO> find DKE books' pdf | I need digital version of the book for DKE
 <TUTOR> Where can <PRO> get a private tutor | I need a private tutor | Where can <PRO> get study help | I am struggling with my courses, what should I do
 <COUNTRYEXCH> What countries are participating in the exchange program | Which countries do the exchange program
-<WEED> Is weed legal | Is Mary Juana legal | Can <PRO> buy weed
+<WEED> Is weed legal | Is marijuana legal | Can <PRO> buy weed
 <COST> How much is <GOOD> | How much should I expect to pay for <GOOD> | Is <GOOD> expensive
-<GOOD> Mary Juana | weed | a private tutor
+<GOOD> marijuana | weed | a private tutor

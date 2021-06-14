@@ -168,7 +168,18 @@ public class CFG {
                 }
             }
             if(fullyExpressed){
-                allPhrases.add(phrase);
+                boolean duplicate = false;
+                for(List<String> list : allPhrases){
+                    String target = String.join(" ", list);
+                    String word = String.join(" ", phrase);
+                    if(target.equals(word)){
+                        duplicate=true;
+                    }
+                }
+                if(!duplicate){
+                    allPhrases.add(phrase);
+                }
+
             }
         }
     }
