@@ -1,0 +1,4 @@
+When is the next class?|At 08:10 AM
+Where is the math class?|In room 015
+Who is Pietro?|A teacher
+What is Pietro?|A human

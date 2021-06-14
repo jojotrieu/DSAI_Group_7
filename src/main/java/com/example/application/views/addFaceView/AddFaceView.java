@@ -13,7 +13,10 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.StreamResource;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +36,7 @@ public class AddFaceView extends Div {
     private final Label message = new Label();
 
     public AddFaceView() {
-        message.setText("Take 15 pictures of yourself. Try to change the light and your facial expression.");
+        message.setText("Start by filling your name. Then, take 15 pictures of yourself. Try to change the light and your facial expression.");
         message.setId("message");
         setId("addFace-view");
         name.setId("name");
@@ -70,6 +73,14 @@ public class AddFaceView extends Div {
             image = new Image(streamResource, "capture");
             image.setId("camera-frame");
             count++;
+
+            String path = "./RecognizerDB/"+name.getValue().toLowerCase()+count+".jpg";
+            File file = new File(path);
+            try {
+                ImageIO.write(cameraSnapshot, "jpg", file);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
 
             Label label = new Label(count+counter);
             if(label.getText().equals(nrOfImages+"/"+nrOfImages)){
