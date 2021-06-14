@@ -133,7 +133,7 @@ public class ClassifierWeights {
 //        INDArray test = w2v.getWordVectors(new ArrayList<>(List.of(contentsFirstNegative.split(" "))));
 //        INDArray predtest = net.outputSingle(test.reshape(1,1,test.shape()[0], 200));
         List<String> labels = testIter.getLabels();
-        ;
+
         System.out.println("\n\nPredictions for first negative review:");
         for( int i=0; i<labels.size(); i++ ){
             System.out.println("P(" + labels.get(i) + ") = " + predictionsFirstNegative.getDouble(i));
