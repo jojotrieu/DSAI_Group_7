@@ -21,10 +21,10 @@
 <CLASS> * <TIMEFRAME> this semester * Human computer interactions, Philosophy and AI, Mathematical Modeling, and project
 <ADMIN> * <PAPER> visa * Yes, if you're not from the EU
 <ADMIN> * <PAPER> passport * No, it is not necessary
-<BSA> * * 42
+<BSA> * * 42 credits are necessary
 <RESPONSIBLE> * <RESPADMIN> the Honors program * Mathias
 <RESPONSIBLE> * <RESPADMIN> the exchange program * Wendy
-<QUALIFICATION> * * No, sorry
+<QUALIFICATION> * * Let me take a look... hmmm I need some time to process that
 <PREREQ> * <TITLE> honors * About 7.5 GPA, and some interviews
 <PREREQ> * <TITLE> summa cum laude grade * 9.5 GPA, and get published in a scientific journal
 <PREREQ> * <TITLE> abroad * Enroll in the exchange program
@@ -52,7 +52,9 @@
 <CREDIT> * * 4
 <LIMITCOURSE> * * You can take up to 4 course during the same period
 <ELECTIVE> * <QELCTIVE> How many electives can <PRO> get * 1 in year 2 and 6 in year 3
-<ELECTIVE> * <QELCTIVE> What are the electives for year 3 * There are 15 electives available
+<ELECTIVE> * <TIMEFRAME> next year * There are 15 electives available
+<ELECTIVE> * <TIMEFRAME> this semester * Only IVP and NLP
+<ELECTIVE> * <TIMEFRAME> this period * Only IVP and NLP
 <TASKHELPER> * <TASK> change password * The password can be changed in the student portal, via the setting once you're connected
 <TASKHELPER> * <TASK> change email address * I'm afraid that is something you can't do
 <TASKHELPER> * <TASK> check my grades * In the student portal, go to courses, and simply click on 'show result'

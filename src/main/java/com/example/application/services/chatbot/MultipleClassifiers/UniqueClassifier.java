@@ -213,23 +213,29 @@ public class UniqueClassifier {
 //        Word2Vec w2v = corpus2Vec.getWord2Vec();
 
         // write the model 5 epochs
-        try {
+     /*   try {
             train();
         }catch(IOException ioe){
             ioe.printStackTrace();
         }
 
         init();
+
+
+      */
         // test the model
         try {
             String pathtest = PATH2DATA;
             int correct = 0, wrong = 0;
             for (String skill : CFG.getAllActionRules()) {
-                String filePath = pathtest + skill.substring(1, skill.length() - 1) + "/test/0.txt";
-                String test = FileUtils.readFileToString(new File(filePath), "UTF-8");
-                String p = predict(test);
-                if(p.equals(skill)) correct+=1;
-                else wrong +=1;
+                String filePath = pathtest + skill.substring(1, skill.length() - 1) + "/test/";
+                List<File> test = Arrays.asList(new File(filePath).listFiles());
+                for(File t : test) {
+                    String query = FileUtils.readFileToString(t);
+                    String p = predict(query);
+                    if (p.equals(skill)) correct += 1;
+                    else wrong += 1;
+                }
             }
             System.out.println("Correct: "+correct+"\nWrong: "+wrong);
             System.out.println();
