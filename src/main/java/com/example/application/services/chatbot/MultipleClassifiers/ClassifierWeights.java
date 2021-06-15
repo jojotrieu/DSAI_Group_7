@@ -40,7 +40,7 @@ public class ClassifierWeights {
     private static final String PATH = "src/main/java/com/example/application/services/chatbot/MultipleClassifiers/data2/";
     private static final String PATH2MOD = "src/main/java/com/example/application/services/chatbot/MultipleClassifiers/Models/";
     private static int batchSize = 32;
-    private static  int vectorSize = 300;               //Size of the word vectors. 300 in the Google News model
+    private static  int vectorSize = 200;               //Size of the word vectors. 300 in the Google News model
     private  static int nEpochs = 20;                    //Number of epochs (full passes of training data) to train on
     private  static int truncateReviewsToLength = 256;  //Truncate reviews with length (# words) greater than this
 

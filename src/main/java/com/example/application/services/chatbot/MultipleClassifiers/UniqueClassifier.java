@@ -41,7 +41,7 @@ public class UniqueClassifier {
     private static final String PATH2DATA = "src/main/java/com/example/application/services/chatbot/MultipleClassifiers/data/";
     private static final String PATH = "src/main/java/com/example/application/services/chatbot/MultipleClassifiers/";
     private static int batchSize = 32;
-    private static  int vectorSize = 300;               //Size of the word vectors. 300 in the Google News model
+    private static  int vectorSize = 200;               //Size of the word vectors. 300 in the Google News model
     private  static int nEpochs = 10;                    //Number of epochs (full passes of training data) to train on
     private  static int truncateReviewsToLength = 256;  //Truncate reviews with length (# words) greater than this
 
@@ -213,7 +213,7 @@ public class UniqueClassifier {
 //        Word2Vec w2v = corpus2Vec.getWord2Vec();
 
         // write the model 5 epochs
-     /*   try {
+ /*       try {
             train();
         }catch(IOException ioe){
             ioe.printStackTrace();
@@ -222,7 +222,7 @@ public class UniqueClassifier {
         init();
 
 
-      */
+
         // test the model
         try {
             String pathtest = PATH2DATA;
@@ -243,5 +243,9 @@ public class UniqueClassifier {
             e.printStackTrace();
         }
 
+  */
+        DataSetIterator iterator = getDataSetIterator(false, w2v, batchSize,truncateReviewsToLength);
+        Evaluation eval = model.evaluate(iterator);
+        System.out.println(eval.stats(false, true));
     }
 }
