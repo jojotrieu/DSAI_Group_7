@@ -1,22 +1,22 @@
 package com.example.application.services.silichatbot;
 
-import com.example.application.services.ChatBot;
 import com.example.application.services.chatbot.*;
-import org.deeplearning4j.models.word2vec.Word2Vec;
+import com.example.application.services.utils.TextFileIO;
 
 import java.io.IOException;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Experiments {
   public static void main(String[] args) throws IOException {
 
     CFG.loadRules();
-    Classifier.init();
-    for(String word : Classifier.getAllWords()){
-      System.out.println(word);
+
+    List<String> rule = CFG.getAllActionRules();
+    for(String phrase: rule){
+      System.out.println(phrase);
     }
-    System.out.println(Classifier.getAllWords().size());
+
 
     /*
     Corpus2Vec corpus2Vec = new Corpus2Vec("corpus.txt");

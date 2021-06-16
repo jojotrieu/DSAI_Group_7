@@ -40,12 +40,10 @@ public class MultipleClassifiers {
         double max = -1;
         for(Map.Entry<String, ComputationGraph> entry: models.entrySet()){
             INDArray value = w2v.getWordVectors(new ArrayList<>(List.of(query.split(" "))));
-            if(value.shape().length>0) {
-                double score = entry.getValue().outputSingle(value.reshape(1, 1, value.shape()[0], 200)).getDouble(1);
-                if (score > threshold) {
-                    scores.put(entry.getKey(), score);
-                    if (max < score) max = score;
-                }
+            double score = entry.getValue().outputSingle(value.reshape(1,1,value.shape()[0],200)).getDouble(1);
+            if(score> threshold){
+                scores.put(entry.getKey(), score);
+                if(max<score) max = score;
             }
         }
         for(Map.Entry<String, Double> entry: scores.entrySet()) if(max == entry.getValue()) return entry.getKey();
@@ -59,7 +57,6 @@ public class MultipleClassifiers {
 
         StringBuilder result = new StringBuilder();
         int good = 0, bad = 0;
-        int unpredicted = 0;
         try {
             for (Map.Entry<String, ComputationGraph> entry : models.entrySet()) {
                 int correct=0, wrong = 0;
@@ -73,21 +70,12 @@ public class MultipleClassifiers {
                 INDArray posVal = w2v.getWordVectors(List.of(CNF.splitRules(pos)));
                 System.out.println(posVal);
                 INDArray negVal =w2v.getWordVectors(List.of(CNF.splitRules(neg)));
-                if(posVal.shape().length==0){
-                    wrong+=1; unpredicted+=1;
-                }else {
-                    INDArray predPos = entry.getValue().outputSingle(posVal.reshape(1, 1, posVal.shape()[0], 200));
-
-                    if (predPos.getDouble(1) > threshold) correct += 1;
-                    else wrong += 1;
-                }
-                if(negVal.shape().length==0){
-                    wrong +=1; unpredicted+=1;
-                }else{
-                    INDArray predNeg = entry.getValue().outputSingle(negVal.reshape(1, 1, negVal.shape()[0], 200));
-                    if (predNeg.getDouble(0) > threshold) correct += 1;
-                    else wrong += 1;
-                }
+                INDArray predNeg = entry.getValue().outputSingle(negVal.reshape(1,1,negVal.shape()[0], 200));
+                INDArray predPos = entry.getValue().outputSingle(posVal.reshape(1,1,posVal.shape()[0],200));
+                if(predNeg.getDouble(0)> threshold) correct +=1;
+                else wrong+=1;
+                if(predPos.getDouble(1)> threshold) correct+=1;
+                else wrong+=1;
                 good += correct;
                 bad += wrong;
                 result.append("For skill ").append(skill).append(": ").append(correct).append(" correct / ").append(wrong).append(" wrong\n");
@@ -97,7 +85,6 @@ public class MultipleClassifiers {
         }
         System.out.println(result);
         System.out.println("total correct: "+good+"\ntotal wrong: "+bad);
-        System.out.println("with "+ unpredicted+" instances not predicted in the wrong");
     }
 
 }

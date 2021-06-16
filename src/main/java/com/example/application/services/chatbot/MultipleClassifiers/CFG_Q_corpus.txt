@@ -1,16 +1,33 @@
-What are the COVID measures
-What kind of COVID measure are there in DKE
+What is the requirement to obtain the BSA
+Is it allowed to miss meeting for the project
 What are the requirements for a project resit
+My friend has a resit for the project, how is that possible
+Is there a resit for the project
 How high is DKE ranking in the world
 Is DKE any good world wide
 How good is DKE
-Where to meet new people that have same interest as me
+Tell me the ranking of DKE
+How high is DKE in the worldwide ranking
+Is DKE a good university
+Give me an idea of the ranking of DKE
+Compared to other university how good is DKE
+Where to meet new people who have the same interests as me
+Where to meet people who have the same interests as you
+I want to meet people with similar interest as me
+Is it possible to block someone on collaborate
+Tell me how to block someone on collaborate
+I need to block someone on collaborate ultra
 I need a private tutor
-I am struggling with my courses, what should I do
+I am struggling with my studies, what should I do
 What countries are participating in the exchange program
 Which countries do the exchange program
+I want to know which counties do the exchange program
+Which countries are concerned in the exchange program
+The exchange program includes which countries
+Give me the countries involved in the exchange program
+Which country is available for the exchange program
 Is weed legal
-Is Mary Juana legal
+Is marijuana legal
 Where is DeepSpace
 Where is SpaceBox
 Where is student office
@@ -82,12 +99,26 @@ What is Logic about
 What is Probability and Statistics about
 What is Machine Learning about
 What is Philosophy about
+What can you tell me about Discrete Mathematics
+What can you tell me about Linear Programing
+What can you tell me about Computer Science 1
+What can you tell me about Human Computer Interaction
+What can you tell me about the Project
+What can you tell me about Logic
+What can you tell me about Probability and Statistics
+What can you tell me about Machine Learning
+What can you tell me about Philosophy
 Who can I talk to if I want to change studies
 Who should I contact if I want to change studies
 I want to change studies
 What class do I have next year
 What class do I have this period
 What class do I have this semester
+During next year which courses do I have
+During this period which courses do I have
+During this semester which courses do I have
+Is a passport necessary to study here
+Is a visa necessary to study here
 How many credits do I need to get the BSA
 How many credits do you need to get the BSA
 How many credits do we need to get the BSA
@@ -99,18 +130,52 @@ How many credits do they require to obtain the BSA
 Who is in charge for the Honors program
 Who is in charge for the exchange program
 Who is in charge for the masters program
-Do I still qualify for the Honors program
-Do I still qualify for the exchange program
-Do I still qualify for the masters program
+Who can I contact for the Honors program
+Who can I contact for the exchange program
+Who can I contact for the masters program
+Am I still eligible for the Honors program
+Am I still eligible for the exchange program
+Am I still eligible for the masters program
+Do you think I qualify for the Honors program
+Do you think I qualify for the exchange program
+Do you think I qualify for the masters program
+What are the requirements for honors
+What are the requirements for summa cum laude grade
+How to qualify for honors
+How to qualify for summa cum laude grade
+I want to do KE@work what should I do
+I want to do Marble what should I do
+I want to do the exchange program what should I do
+What are the COVID measures
+What are the Corona measures
+What are the Corona Virus measures
+What kind of COVID measure are there in DKE
+What kind of Corona measure are there in DKE
+What kind of Corona Virus measure are there in DKE
+I want to know more about the COVID measures
+I want to know more about the Corona measures
+I want to know more about the Corona Virus measures
+I need some information about the COVID measures
+I need some information about the Corona measures
+I need some information about the Corona Virus measures
+Are there any measure for the COVID
+Are there any measure for the Corona
+Are there any measure for the Corona Virus
 Do I have to take the exams online
 How can I take the exams online
 Where do I sign up for exams online
-When are the exam
+When are the exams
 When are the resits
 When are the holidays
-Tell me when are the exam
+Tell me when are the exams
 Tell me when are the resits
 Tell me when are the holidays
+When do the exams take place
+When do the resits take place
+When do the holidays take place
+When do the exams happen
+When do the resits happen
+When do the holidays happen
 When are the resits for Discrete Mathematics
 When are the resits for Linear Programing
 When are the resits for Computer Science 1
@@ -129,6 +194,15 @@ For Logic when are the resits
 For Probability and Statistics when are the resits
 For Machine Learning when are the resits
 For Philosophy when are the resits
+Tell me when are the resits for Discrete Mathematics
+Tell me when are the resits for Linear Programing
+Tell me when are the resits for Computer Science 1
+Tell me when are the resits for Human Computer Interaction
+Tell me when are the resits for the Project
+Tell me when are the resits for Logic
+Tell me when are the resits for Probability and Statistics
+Tell me when are the resits for Machine Learning
+Tell me when are the resits for Philosophy
 When is the deadline for the report of Discrete Mathematics
 When is the deadline for the report of Linear Programing
 When is the deadline for the report of Computer Science 1
@@ -160,6 +234,15 @@ How many credits has Logic
 How many credits has Probability and Statistics
 How many credits has Machine Learning
 How many credits has Philosophy
+Tell me how much credits is Discrete Mathematics worth
+Tell me how much credits is Linear Programing worth
+Tell me how much credits is Computer Science 1 worth
+Tell me how much credits is Human Computer Interaction worth
+Tell me how much credits is the Project worth
+Tell me how much credits is Logic worth
+Tell me how much credits is Probability and Statistics worth
+Tell me how much credits is Machine Learning worth
+Tell me how much credits is Philosophy worth
 Can I take more than 3 courses during period 1
 Can you take more than 3 courses during period 1
 Can we take more than 3 courses during period 1
@@ -168,10 +251,12 @@ Can I take more than 3 courses during a period
 Can you take more than 3 courses during a period
 Can we take more than 3 courses during a period
 Can they take more than 3 courses during a period
-What are the electives for year 3
 Tell me how to change password
 Tell me how to change email address
 Tell me how to check my grades
+Give me step by step instructions to change password
+Give me step by step instructions to change email address
+Give me step by step instructions to check my grades
 Are there any tutorial for Discrete Mathematics
 Are there any tutorial for Linear Programing
 Are there any tutorial for Computer Science 1
@@ -226,6 +311,9 @@ Can you give me the email address of Steven
 What is the email of the board of examiners
 What is the email of Pietro
 What is the email of Steven
+Give me the email of the board of examiners
+Give me the email of Pietro
+Give me the email of Steven
 How much should I study
 How much should you study
 How much should we study
@@ -248,16 +336,35 @@ Is the examination of Logic open book
 Is the examination of Probability and Statistics open book
 Is the examination of Machine Learning open book
 Is the examination of Philosophy open book
+Is the exam of Discrete Mathematics open book
+Is the exam of Linear Programing open book
+Is the exam of Computer Science 1 open book
+Is the exam of Human Computer Interaction open book
+Is the exam of the Project open book
+Is the exam of Logic open book
+Is the exam of Probability and Statistics open book
+Is the exam of Machine Learning open book
+Is the exam of Philosophy open book
 How many meetings can I miss without lowering the grade
 How many meetings can you miss without lowering the grade
 How many meetings can we miss without lowering the grade
 How many meetings can they miss without lowering the grade
+I can't attend all project meeting, is that a problem
+you can't attend all project meeting, is that a problem
+we can't attend all project meeting, is that a problem
+they can't attend all project meeting, is that a problem
 What is the difference between KE@work and Marble
 What is the difference between the two master programs at dke
 What is the difference between on campus and online exams
 Between KE@work and Marble what is the difference
 Between the two master programs at dke what is the difference
 Between on campus and online exams what is the difference
+What is different between KE@work and Marble
+What is different between the two master programs at dke
+What is different between on campus and online exams
+Tell me the difference between KE@work and Marble
+Tell me the difference between the two master programs at dke
+Tell me the difference between on campus and online exams
 How can I get a project resit
 How can you get a project resit
 How can we get a project resit
@@ -296,6 +403,8 @@ What are the possible subject for project 1-2
 What are the possible subject for project 2-1
 For project 1-2 which subject is possible
 For project 2-1 which subject is possible
+Give me the possible subjects for project 1-2
+Give me the possible subjects for project 2-1
 What is the pass rate for Discrete Mathematics
 What is the pass rate for Linear Programing
 What is the pass rate for Computer Science 1
@@ -341,6 +450,9 @@ I want to learn yoga but I'm broke
 Where to learn handstand push-ups for free
 Where to learn dutch for free
 Where to learn yoga for free
+Tell me good tips for learning handstand push-ups without spending too much money
+Tell me good tips for learning dutch without spending too much money
+Tell me good tips for learning yoga without spending too much money
 My bike has a flat tire what can I do about it
 My bike was stolen what can I do about it
 What should I do if my bike has a flat tire
@@ -359,9 +471,12 @@ Can they block someone on collaborate ultra
 What is the best cafe in Maastricht
 What is the best restaurant in Maastricht
 What is the best bachelor program in Maastricht
-In Maastricht, what is the bast cafe
-In Maastricht, what is the bast restaurant
-In Maastricht, what is the bast bachelor program
+In Maastricht what is the bast cafe
+In Maastricht what is the bast restaurant
+In Maastricht what is the bast bachelor program
+Give me the bes cafe in Maastricht
+Give me the bes restaurant in Maastricht
+Give me the bes bachelor program in Maastricht
 Who is Pietro Bonizzi
 Who is Pietro
 Who is Alexia Briasouli
@@ -370,10 +485,26 @@ Tell me about Pietro Bonizzi
 Tell me about Pietro
 Tell me about Alexia Briasouli
 Tell me about Jan Niehues
+What do you know about Pietro Bonizzi
+What do you know about Pietro
+What do you know about Alexia Briasouli
+What do you know about Jan Niehues
+Do you know something about Pietro Bonizzi
+Do you know something about Pietro
+Do you know something about Alexia Briasouli
+Do you know something about Jan Niehues
 What is the average temperature in Maastricht
 What is the average temperature in the Netherlands
 How is the weather in Maastricht
 How is the weather in the Netherlands
+What is the weather like in Maastricht
+What is the weather like in the Netherlands
+How hot is it in Maastricht
+How hot is it in the Netherlands
+How cold is it in Maastricht
+How cold is it in the Netherlands
+How is the temperature in Maastricht
+How is the temperature in the Netherlands
 What is the website of Incognito
 What is the website of UM sports
 Give me the link for Incognito
@@ -388,6 +519,10 @@ Where can I get study help
 Where can you get study help
 Where can we get study help
 Where can they get study help
+Where can I go for the exchange program
+Where can you go for the exchange program
+Where can we go for the exchange program
+Where can they go for the exchange program
 Can I buy weed
 Can you buy weed
 Can we buy weed
@@ -403,18 +538,6 @@ How do we get to SpaceBox
 How do we get to student office
 How do they get to DeepSpace
 How do they get to SpaceBox
-How do they get to student office
-How do I get to DeepSpace
-How do you get to DeepSpace
-How do we get to DeepSpace
-How do they get to DeepSpace
-How do I get to SpaceBox
-How do you get to SpaceBox
-How do we get to SpaceBox
-How do they get to SpaceBox
-How do I get to student office
-How do you get to student office
-How do we get to student office
 How do they get to student office
 Who can I talk to if I have personal problems
 Who can I talk to if I have academic problems
@@ -455,18 +578,6 @@ Which books do we have to get for my classes this semester
 Which books do they have to get for my classes next year
 Which books do they have to get for my classes this period
 Which books do they have to get for my classes this semester
-Which books do I have to get for my classes next year
-Which books do you have to get for my classes next year
-Which books do we have to get for my classes next year
-Which books do they have to get for my classes next year
-Which books do I have to get for my classes this period
-Which books do you have to get for my classes this period
-Which books do we have to get for my classes this period
-Which books do they have to get for my classes this period
-Which books do I have to get for my classes this semester
-Which books do you have to get for my classes this semester
-Which books do we have to get for my classes this semester
-Which books do they have to get for my classes this semester
 What book do I have to acquire for next year
 What book do I have to acquire for this period
 What book do I have to acquire for this semester
@@ -478,18 +589,6 @@ What book do we have to acquire for this period
 What book do we have to acquire for this semester
 What book do they have to acquire for next year
 What book do they have to acquire for this period
-What book do they have to acquire for this semester
-What book do I have to acquire for next year
-What book do you have to acquire for next year
-What book do we have to acquire for next year
-What book do they have to acquire for next year
-What book do I have to acquire for this period
-What book do you have to acquire for this period
-What book do we have to acquire for this period
-What book do they have to acquire for this period
-What book do I have to acquire for this semester
-What book do you have to acquire for this semester
-What book do we have to acquire for this semester
 What book do they have to acquire for this semester
 Which books do I have to acquire for my classes next year
 Which books do I have to acquire for my classes this period
@@ -503,18 +602,6 @@ Which books do we have to acquire for my classes this semester
 Which books do they have to acquire for my classes next year
 Which books do they have to acquire for my classes this period
 Which books do they have to acquire for my classes this semester
-Which books do I have to acquire for my classes next year
-Which books do you have to acquire for my classes next year
-Which books do we have to acquire for my classes next year
-Which books do they have to acquire for my classes next year
-Which books do I have to acquire for my classes this period
-Which books do you have to acquire for my classes this period
-Which books do we have to acquire for my classes this period
-Which books do they have to acquire for my classes this period
-Which books do I have to acquire for my classes this semester
-Which books do you have to acquire for my classes this semester
-Which books do we have to acquire for my classes this semester
-Which books do they have to acquire for my classes this semester
 For next year what class do I have
 For next year what class do you have
 For next year what class do we have
@@ -527,18 +614,6 @@ For this semester what class do I have
 For this semester what class do you have
 For this semester what class do we have
 For this semester what class do they have
-For next year what class do I have
-For this period what class do I have
-For this semester what class do I have
-For next year what class do you have
-For this period what class do you have
-For this semester what class do you have
-For next year what class do we have
-For this period what class do we have
-For this semester what class do we have
-For next year what class do they have
-For this period what class do they have
-For this semester what class do they have
 Do I need a passport to study in the Netherlands
 Do I need a visa to study in the Netherlands
 Do you need a passport to study in the Netherlands
@@ -547,14 +622,6 @@ Do we need a passport to study in the Netherlands
 Do we need a visa to study in the Netherlands
 Do they need a passport to study in the Netherlands
 Do they need a visa to study in the Netherlands
-Do I need a passport to study in the Netherlands
-Do you need a passport to study in the Netherlands
-Do we need a passport to study in the Netherlands
-Do they need a passport to study in the Netherlands
-Do I need a visa to study in the Netherlands
-Do you need a visa to study in the Netherlands
-Do we need a visa to study in the Netherlands
-Do they need a visa to study in the Netherlands
 To study in the Netherlands, do I need a passport
 To study in the Netherlands, do I need a visa
 To study in the Netherlands, do you need a passport
@@ -562,14 +629,6 @@ To study in the Netherlands, do you need a visa
 To study in the Netherlands, do we need a passport
 To study in the Netherlands, do we need a visa
 To study in the Netherlands, do they need a passport
-To study in the Netherlands, do they need a visa
-To study in the Netherlands, do I need a passport
-To study in the Netherlands, do you need a passport
-To study in the Netherlands, do we need a passport
-To study in the Netherlands, do they need a passport
-To study in the Netherlands, do I need a visa
-To study in the Netherlands, do you need a visa
-To study in the Netherlands, do we need a visa
 To study in the Netherlands, do they need a visa
 Who can I talk to about the Honors program
 Who can I talk to about the exchange program
@@ -583,42 +642,26 @@ Who can we talk to about the masters program
 Who can they talk to about the Honors program
 Who can they talk to about the exchange program
 Who can they talk to about the masters program
-Who can I talk to about the Honors program
-Who can you talk to about the Honors program
-Who can we talk to about the Honors program
-Who can they talk to about the Honors program
-Who can I talk to about the exchange program
-Who can you talk to about the exchange program
-Who can we talk to about the exchange program
-Who can they talk to about the exchange program
-Who can I talk to about the masters program
-Who can you talk to about the masters program
-Who can we talk to about the masters program
-Who can they talk to about the masters program
+Do I still qualify for the Honors program
+Do I still qualify for the exchange program
+Do I still qualify for the masters program
+Do you still qualify for the Honors program
+Do you still qualify for the exchange program
+Do you still qualify for the masters program
+Do we still qualify for the Honors program
+Do we still qualify for the exchange program
+Do we still qualify for the masters program
+Do they still qualify for the Honors program
+Do they still qualify for the exchange program
+Do they still qualify for the masters program
 How can I get honors
 How can I get summa cum laude grade
-How can I get abroad
 How can you get honors
 How can you get summa cum laude grade
-How can you get abroad
 How can we get honors
 How can we get summa cum laude grade
-How can we get abroad
 How can they get honors
 How can they get summa cum laude grade
-How can they get abroad
-How can I get honors
-How can you get honors
-How can we get honors
-How can they get honors
-How can I get summa cum laude grade
-How can you get summa cum laude grade
-How can we get summa cum laude grade
-How can they get summa cum laude grade
-How can I get abroad
-How can you get abroad
-How can we get abroad
-How can they get abroad
 How can I apply to KE@work
 How can I apply to Marble
 How can I apply to the exchange program
@@ -631,18 +674,22 @@ How can we apply to the exchange program
 How can they apply to KE@work
 How can they apply to Marble
 How can they apply to the exchange program
-How can I apply to KE@work
-How can you apply to KE@work
-How can we apply to KE@work
-How can they apply to KE@work
-How can I apply to Marble
-How can you apply to Marble
-How can we apply to Marble
-How can they apply to Marble
-How can I apply to the exchange program
-How can you apply to the exchange program
-How can we apply to the exchange program
-How can they apply to the exchange program
+How do I get into KE@work
+How do I get into Marble
+How do I get into the exchange program
+How do you get into KE@work
+How do you get into Marble
+How do you get into the exchange program
+How do we get into KE@work
+How do we get into Marble
+How do we get into the exchange program
+How do they get into KE@work
+How do they get into Marble
+How do they get into the exchange program
+How do I do the exams online
+How do you do the exams online
+How do we do the exams online
+How do they do the exams online
 When do I have to hand in the report for Discrete Mathematics
 When do I have to hand in the report for Linear Programing
 When do I have to hand in the report for Computer Science 1
@@ -678,42 +725,6 @@ When do they have to hand in the report for the Project
 When do they have to hand in the report for Logic
 When do they have to hand in the report for Probability and Statistics
 When do they have to hand in the report for Machine Learning
-When do they have to hand in the report for Philosophy
-When do I have to hand in the report for Discrete Mathematics
-When do you have to hand in the report for Discrete Mathematics
-When do we have to hand in the report for Discrete Mathematics
-When do they have to hand in the report for Discrete Mathematics
-When do I have to hand in the report for Linear Programing
-When do you have to hand in the report for Linear Programing
-When do we have to hand in the report for Linear Programing
-When do they have to hand in the report for Linear Programing
-When do I have to hand in the report for Computer Science 1
-When do you have to hand in the report for Computer Science 1
-When do we have to hand in the report for Computer Science 1
-When do they have to hand in the report for Computer Science 1
-When do I have to hand in the report for Human Computer Interaction
-When do you have to hand in the report for Human Computer Interaction
-When do we have to hand in the report for Human Computer Interaction
-When do they have to hand in the report for Human Computer Interaction
-When do I have to hand in the report for the Project
-When do you have to hand in the report for the Project
-When do we have to hand in the report for the Project
-When do they have to hand in the report for the Project
-When do I have to hand in the report for Logic
-When do you have to hand in the report for Logic
-When do we have to hand in the report for Logic
-When do they have to hand in the report for Logic
-When do I have to hand in the report for Probability and Statistics
-When do you have to hand in the report for Probability and Statistics
-When do we have to hand in the report for Probability and Statistics
-When do they have to hand in the report for Probability and Statistics
-When do I have to hand in the report for Machine Learning
-When do you have to hand in the report for Machine Learning
-When do we have to hand in the report for Machine Learning
-When do they have to hand in the report for Machine Learning
-When do I have to hand in the report for Philosophy
-When do you have to hand in the report for Philosophy
-When do we have to hand in the report for Philosophy
 When do they have to hand in the report for Philosophy
 For Discrete Mathematics when do I have to hand in the report
 For Discrete Mathematics when do you have to hand in the report
@@ -751,42 +762,6 @@ For Philosophy when do I have to hand in the report
 For Philosophy when do you have to hand in the report
 For Philosophy when do we have to hand in the report
 For Philosophy when do they have to hand in the report
-For Discrete Mathematics when do I have to hand in the report
-For Linear Programing when do I have to hand in the report
-For Computer Science 1 when do I have to hand in the report
-For Human Computer Interaction when do I have to hand in the report
-For the Project when do I have to hand in the report
-For Logic when do I have to hand in the report
-For Probability and Statistics when do I have to hand in the report
-For Machine Learning when do I have to hand in the report
-For Philosophy when do I have to hand in the report
-For Discrete Mathematics when do you have to hand in the report
-For Linear Programing when do you have to hand in the report
-For Computer Science 1 when do you have to hand in the report
-For Human Computer Interaction when do you have to hand in the report
-For the Project when do you have to hand in the report
-For Logic when do you have to hand in the report
-For Probability and Statistics when do you have to hand in the report
-For Machine Learning when do you have to hand in the report
-For Philosophy when do you have to hand in the report
-For Discrete Mathematics when do we have to hand in the report
-For Linear Programing when do we have to hand in the report
-For Computer Science 1 when do we have to hand in the report
-For Human Computer Interaction when do we have to hand in the report
-For the Project when do we have to hand in the report
-For Logic when do we have to hand in the report
-For Probability and Statistics when do we have to hand in the report
-For Machine Learning when do we have to hand in the report
-For Philosophy when do we have to hand in the report
-For Discrete Mathematics when do they have to hand in the report
-For Linear Programing when do they have to hand in the report
-For Computer Science 1 when do they have to hand in the report
-For Human Computer Interaction when do they have to hand in the report
-For the Project when do they have to hand in the report
-For Logic when do they have to hand in the report
-For Probability and Statistics when do they have to hand in the report
-For Machine Learning when do they have to hand in the report
-For Philosophy when do they have to hand in the report
 When do I have to hand in the project code
 When do I have to hand in the project presentation
 When do you have to hand in the project code
@@ -794,19 +769,14 @@ When do you have to hand in the project presentation
 When do we have to hand in the project code
 When do we have to hand in the project presentation
 When do they have to hand in the project code
-When do they have to hand in the project presentation
-When do I have to hand in the project code
-When do you have to hand in the project code
-When do we have to hand in the project code
-When do they have to hand in the project code
-When do I have to hand in the project presentation
-When do you have to hand in the project presentation
-When do we have to hand in the project presentation
 When do they have to hand in the project presentation
 How many electives can I get
 How many electives can you get
 How many electives can we get
 How many electives can they get
+What are the electives for next year
+What are the electives for this period
+What are the electives for this semester
 How do I change password
 How do I change email address
 How do I check my grades
@@ -819,18 +789,6 @@ How do we check my grades
 How do they change password
 How do they change email address
 How do they check my grades
-How do I change password
-How do you change password
-How do we change password
-How do they change password
-How do I change email address
-How do you change email address
-How do we change email address
-How do they change email address
-How do I check my grades
-How do you check my grades
-How do we check my grades
-How do they check my grades
 How can I change password
 How can I change email address
 How can I check my grades
@@ -842,18 +800,6 @@ How can we change email address
 How can we check my grades
 How can they change password
 How can they change email address
-How can they check my grades
-How can I change password
-How can you change password
-How can we change password
-How can they change password
-How can I change email address
-How can you change email address
-How can we change email address
-How can they change email address
-How can I check my grades
-How can you check my grades
-How can we check my grades
 How can they check my grades
 I need help for Discrete Mathematics
 I need help for Linear Programing
@@ -891,42 +837,6 @@ they need help for Logic
 they need help for Probability and Statistics
 they need help for Machine Learning
 they need help for Philosophy
-I need help for Discrete Mathematics
-you need help for Discrete Mathematics
-we need help for Discrete Mathematics
-they need help for Discrete Mathematics
-I need help for Linear Programing
-you need help for Linear Programing
-we need help for Linear Programing
-they need help for Linear Programing
-I need help for Computer Science 1
-you need help for Computer Science 1
-we need help for Computer Science 1
-they need help for Computer Science 1
-I need help for Human Computer Interaction
-you need help for Human Computer Interaction
-we need help for Human Computer Interaction
-they need help for Human Computer Interaction
-I need help for the Project
-you need help for the Project
-we need help for the Project
-they need help for the Project
-I need help for Logic
-you need help for Logic
-we need help for Logic
-they need help for Logic
-I need help for Probability and Statistics
-you need help for Probability and Statistics
-we need help for Probability and Statistics
-they need help for Probability and Statistics
-I need help for Machine Learning
-you need help for Machine Learning
-we need help for Machine Learning
-they need help for Machine Learning
-I need help for Philosophy
-you need help for Philosophy
-we need help for Philosophy
-they need help for Philosophy
 Can I get any bonus for Discrete Mathematics
 Can I get any bonus for Linear Programing
 Can I get any bonus for Computer Science 1
@@ -962,42 +872,6 @@ Can they get any bonus for the Project
 Can they get any bonus for Logic
 Can they get any bonus for Probability and Statistics
 Can they get any bonus for Machine Learning
-Can they get any bonus for Philosophy
-Can I get any bonus for Discrete Mathematics
-Can you get any bonus for Discrete Mathematics
-Can we get any bonus for Discrete Mathematics
-Can they get any bonus for Discrete Mathematics
-Can I get any bonus for Linear Programing
-Can you get any bonus for Linear Programing
-Can we get any bonus for Linear Programing
-Can they get any bonus for Linear Programing
-Can I get any bonus for Computer Science 1
-Can you get any bonus for Computer Science 1
-Can we get any bonus for Computer Science 1
-Can they get any bonus for Computer Science 1
-Can I get any bonus for Human Computer Interaction
-Can you get any bonus for Human Computer Interaction
-Can we get any bonus for Human Computer Interaction
-Can they get any bonus for Human Computer Interaction
-Can I get any bonus for the Project
-Can you get any bonus for the Project
-Can we get any bonus for the Project
-Can they get any bonus for the Project
-Can I get any bonus for Logic
-Can you get any bonus for Logic
-Can we get any bonus for Logic
-Can they get any bonus for Logic
-Can I get any bonus for Probability and Statistics
-Can you get any bonus for Probability and Statistics
-Can we get any bonus for Probability and Statistics
-Can they get any bonus for Probability and Statistics
-Can I get any bonus for Machine Learning
-Can you get any bonus for Machine Learning
-Can we get any bonus for Machine Learning
-Can they get any bonus for Machine Learning
-Can I get any bonus for Philosophy
-Can you get any bonus for Philosophy
-Can we get any bonus for Philosophy
 Can they get any bonus for Philosophy
 Can you give me the email address of the guy teaching Discrete Mathematics
 Can you give me the email address of the guy teaching Linear Programing
@@ -1017,6 +891,15 @@ Can you give me the email address of the person teaching Logic
 Can you give me the email address of the person teaching Probability and Statistics
 Can you give me the email address of the person teaching Machine Learning
 Can you give me the email address of the person teaching Philosophy
+Can you give me the email address of the teacher of Discrete Mathematics
+Can you give me the email address of the teacher of Linear Programing
+Can you give me the email address of the teacher of Computer Science 1
+Can you give me the email address of the teacher of Human Computer Interaction
+Can you give me the email address of the teacher of the Project
+Can you give me the email address of the teacher of Logic
+Can you give me the email address of the teacher of Probability and Statistics
+Can you give me the email address of the teacher of Machine Learning
+Can you give me the email address of the teacher of Philosophy
 What is the email of the guy teaching Discrete Mathematics
 What is the email of the guy teaching Linear Programing
 What is the email of the guy teaching Computer Science 1
@@ -1035,6 +918,15 @@ What is the email of the person teaching Logic
 What is the email of the person teaching Probability and Statistics
 What is the email of the person teaching Machine Learning
 What is the email of the person teaching Philosophy
+What is the email of the teacher of Discrete Mathematics
+What is the email of the teacher of Linear Programing
+What is the email of the teacher of Computer Science 1
+What is the email of the teacher of Human Computer Interaction
+What is the email of the teacher of the Project
+What is the email of the teacher of Logic
+What is the email of the teacher of Probability and Statistics
+What is the email of the teacher of Machine Learning
+What is the email of the teacher of Philosophy
 How can I contact the board of examiners
 How can I contact Pietro
 How can I contact Steven
@@ -1047,18 +939,33 @@ How can we contact Steven
 How can they contact the board of examiners
 How can they contact Pietro
 How can they contact Steven
-How can I contact the board of examiners
-How can you contact the board of examiners
-How can we contact the board of examiners
-How can they contact the board of examiners
-How can I contact Pietro
-How can you contact Pietro
-How can we contact Pietro
-How can they contact Pietro
-How can I contact Steven
-How can you contact Steven
-How can we contact Steven
-How can they contact Steven
+Give me the email of the guy teaching Discrete Mathematics
+Give me the email of the guy teaching Linear Programing
+Give me the email of the guy teaching Computer Science 1
+Give me the email of the guy teaching Human Computer Interaction
+Give me the email of the guy teaching the Project
+Give me the email of the guy teaching Logic
+Give me the email of the guy teaching Probability and Statistics
+Give me the email of the guy teaching Machine Learning
+Give me the email of the guy teaching Philosophy
+Give me the email of the person teaching Discrete Mathematics
+Give me the email of the person teaching Linear Programing
+Give me the email of the person teaching Computer Science 1
+Give me the email of the person teaching Human Computer Interaction
+Give me the email of the person teaching the Project
+Give me the email of the person teaching Logic
+Give me the email of the person teaching Probability and Statistics
+Give me the email of the person teaching Machine Learning
+Give me the email of the person teaching Philosophy
+Give me the email of the teacher of Discrete Mathematics
+Give me the email of the teacher of Linear Programing
+Give me the email of the teacher of Computer Science 1
+Give me the email of the teacher of Human Computer Interaction
+Give me the email of the teacher of the Project
+Give me the email of the teacher of Logic
+Give me the email of the teacher of Probability and Statistics
+Give me the email of the teacher of Machine Learning
+Give me the email of the teacher of Philosophy
 How much should I study for Discrete Mathematics
 How much should I study for Linear Programing
 How much should I study for Computer Science 1
@@ -1095,42 +1002,78 @@ How much should they study for Logic
 How much should they study for Probability and Statistics
 How much should they study for Machine Learning
 How much should they study for Philosophy
-How much should I study for Discrete Mathematics
-How much should you study for Discrete Mathematics
-How much should we study for Discrete Mathematics
-How much should they study for Discrete Mathematics
-How much should I study for Linear Programing
-How much should you study for Linear Programing
-How much should we study for Linear Programing
-How much should they study for Linear Programing
-How much should I study for Computer Science 1
-How much should you study for Computer Science 1
-How much should we study for Computer Science 1
-How much should they study for Computer Science 1
-How much should I study for Human Computer Interaction
-How much should you study for Human Computer Interaction
-How much should we study for Human Computer Interaction
-How much should they study for Human Computer Interaction
-How much should I study for the Project
-How much should you study for the Project
-How much should we study for the Project
-How much should they study for the Project
-How much should I study for Logic
-How much should you study for Logic
-How much should we study for Logic
-How much should they study for Logic
-How much should I study for Probability and Statistics
-How much should you study for Probability and Statistics
-How much should we study for Probability and Statistics
-How much should they study for Probability and Statistics
-How much should I study for Machine Learning
-How much should you study for Machine Learning
-How much should we study for Machine Learning
-How much should they study for Machine Learning
-How much should I study for Philosophy
-How much should you study for Philosophy
-How much should we study for Philosophy
-How much should they study for Philosophy
+How much effort should I put in studying for Discrete Mathematics
+How much effort should I put in studying for Linear Programing
+How much effort should I put in studying for Computer Science 1
+How much effort should I put in studying for Human Computer Interaction
+How much effort should I put in studying for the Project
+How much effort should I put in studying for Logic
+How much effort should I put in studying for Probability and Statistics
+How much effort should I put in studying for Machine Learning
+How much effort should I put in studying for Philosophy
+How much effort should you put in studying for Discrete Mathematics
+How much effort should you put in studying for Linear Programing
+How much effort should you put in studying for Computer Science 1
+How much effort should you put in studying for Human Computer Interaction
+How much effort should you put in studying for the Project
+How much effort should you put in studying for Logic
+How much effort should you put in studying for Probability and Statistics
+How much effort should you put in studying for Machine Learning
+How much effort should you put in studying for Philosophy
+How much effort should we put in studying for Discrete Mathematics
+How much effort should we put in studying for Linear Programing
+How much effort should we put in studying for Computer Science 1
+How much effort should we put in studying for Human Computer Interaction
+How much effort should we put in studying for the Project
+How much effort should we put in studying for Logic
+How much effort should we put in studying for Probability and Statistics
+How much effort should we put in studying for Machine Learning
+How much effort should we put in studying for Philosophy
+How much effort should they put in studying for Discrete Mathematics
+How much effort should they put in studying for Linear Programing
+How much effort should they put in studying for Computer Science 1
+How much effort should they put in studying for Human Computer Interaction
+How much effort should they put in studying for the Project
+How much effort should they put in studying for Logic
+How much effort should they put in studying for Probability and Statistics
+How much effort should they put in studying for Machine Learning
+How much effort should they put in studying for Philosophy
+How much do I have to write for the report of Discrete Mathematics
+How much do I have to write for the report of Linear Programing
+How much do I have to write for the report of Computer Science 1
+How much do I have to write for the report of Human Computer Interaction
+How much do I have to write for the report of the Project
+How much do I have to write for the report of Logic
+How much do I have to write for the report of Probability and Statistics
+How much do I have to write for the report of Machine Learning
+How much do I have to write for the report of Philosophy
+How much do you have to write for the report of Discrete Mathematics
+How much do you have to write for the report of Linear Programing
+How much do you have to write for the report of Computer Science 1
+How much do you have to write for the report of Human Computer Interaction
+How much do you have to write for the report of the Project
+How much do you have to write for the report of Logic
+How much do you have to write for the report of Probability and Statistics
+How much do you have to write for the report of Machine Learning
+How much do you have to write for the report of Philosophy
+How much do we have to write for the report of Discrete Mathematics
+How much do we have to write for the report of Linear Programing
+How much do we have to write for the report of Computer Science 1
+How much do we have to write for the report of Human Computer Interaction
+How much do we have to write for the report of the Project
+How much do we have to write for the report of Logic
+How much do we have to write for the report of Probability and Statistics
+How much do we have to write for the report of Machine Learning
+How much do we have to write for the report of Philosophy
+How much do they have to write for the report of Discrete Mathematics
+How much do they have to write for the report of Linear Programing
+How much do they have to write for the report of Computer Science 1
+How much do they have to write for the report of Human Computer Interaction
+How much do they have to write for the report of the Project
+How much do they have to write for the report of Logic
+How much do they have to write for the report of Probability and Statistics
+How much do they have to write for the report of Machine Learning
+How much do they have to write for the report of Philosophy
 Is labs for Discrete Mathematics attendance mandatory
 Is labs for Linear Programing attendance mandatory
 Is labs for Computer Science 1 attendance mandatory
@@ -1149,22 +1092,22 @@ Is attending labs for Logic mandatory
 Is attending labs for Probability and Statistics mandatory
 Is attending labs for Machine Learning mandatory
 Is attending labs for Philosophy mandatory
-What can I have as subject for poject 1-2
-What can I have as subject for poject 2-1
-What can you have as subject for poject 1-2
-What can you have as subject for poject 2-1
-What can we have as subject for poject 1-2
-What can we have as subject for poject 2-1
-What can they have as subject for poject 1-2
-What can they have as subject for poject 2-1
-What can I have as subject for poject 1-2
-What can you have as subject for poject 1-2
-What can we have as subject for poject 1-2
-What can they have as subject for poject 1-2
-What can I have as subject for poject 2-1
-What can you have as subject for poject 2-1
-What can we have as subject for poject 2-1
-What can they have as subject for poject 2-1
+Do I have to show up for classes
+Do I have to show up for skill classes for the project
+Do you have to show up for classes
+Do you have to show up for skill classes for the project
+Do we have to show up for classes
+Do we have to show up for skill classes for the project
+Do they have to show up for classes
+Do they have to show up for skill classes for the project
+What can I have as subject for project 1-2
+What can I have as subject for project 2-1
+What can you have as subject for project 1-2
+What can you have as subject for project 2-1
+What can we have as subject for project 1-2
+What can we have as subject for project 2-1
+What can they have as subject for project 1-2
+What can they have as subject for project 2-1
 Which master courses are better if I want to work at a company
 Which master courses are better if I want to do research
 Which master courses are better if I want to stack more layers
@@ -1177,18 +1120,18 @@ Which master courses are better if we want to stack more layers
 Which master courses are better if they want to work at a company
 Which master courses are better if they want to do research
 Which master courses are better if they want to stack more layers
-Which master courses are better if I want to work at a company
-Which master courses are better if you want to work at a company
-Which master courses are better if we want to work at a company
-Which master courses are better if they want to work at a company
-Which master courses are better if I want to do research
-Which master courses are better if you want to do research
-Which master courses are better if we want to do research
-Which master courses are better if they want to do research
-Which master courses are better if I want to stack more layers
-Which master courses are better if you want to stack more layers
-Which master courses are better if we want to stack more layers
-Which master courses are better if they want to stack more layers
+Given that I want to work at a company what are the best master courses
+Given that I want to do research what are the best master courses
+Given that I want to stack more layers what are the best master courses
+Given that you want to work at a company what are the best master courses
+Given that you want to do research what are the best master courses
+Given that you want to stack more layers what are the best master courses
+Given that we want to work at a company what are the best master courses
+Given that we want to do research what are the best master courses
+Given that we want to stack more layers what are the best master courses
+Given that they want to work at a company what are the best master courses
+Given that they want to do research what are the best master courses
+Given that they want to stack more layers what are the best master courses
 Where can I learn handstand push-ups for free
 Where can I learn dutch for free
 Where can I learn yoga for free
@@ -1201,18 +1144,14 @@ Where can we learn yoga for free
 Where can they learn handstand push-ups for free
 Where can they learn dutch for free
 Where can they learn yoga for free
-Where can I learn handstand push-ups for free
-Where can you learn handstand push-ups for free
-Where can we learn handstand push-ups for free
-Where can they learn handstand push-ups for free
-Where can I learn dutch for free
-Where can you learn dutch for free
-Where can we learn dutch for free
-Where can they learn dutch for free
-Where can I learn yoga for free
-Where can you learn yoga for free
-Where can we learn yoga for free
-Where can they learn yoga for free
+A bike was has a flat tire what should I do
+A bike was has a flat tire what should you do
+A bike was has a flat tire what should we do
+A bike was has a flat tire what should they do
+A bike was was stolen what should I do
+A bike was was stolen what should you do
+A bike was was stolen what should we do
+A bike was was stolen what should they do
 Where can I eat near DKE
 Where can I go jogging
 Where can I go for a walk
@@ -1225,18 +1164,38 @@ Where can we go for a walk
 Where can they eat near DKE
 Where can they go jogging
 Where can they go for a walk
-Where can I eat near DKE
-Where can you eat near DKE
-Where can we eat near DKE
-Where can they eat near DKE
-Where can I go jogging
-Where can you go jogging
-Where can we go jogging
-Where can they go jogging
-Where can I go for a walk
-Where can you go for a walk
-Where can we go for a walk
-Where can they go for a walk
+Tell me where I can eat near DKE
+Tell me where I can go jogging
+Tell me where I can go for a walk
+Tell me where you can eat near DKE
+Tell me where you can go jogging
+Tell me where you can go for a walk
+Tell me where we can eat near DKE
+Tell me where we can go jogging
+Tell me where we can go for a walk
+Tell me where they can eat near DKE
+Tell me where they can go jogging
+Tell me where they can go for a walk
+How do I know which is the best cafe in Maastricht
+How do I know which is the best restaurant in Maastricht
+How do I know which is the best bachelor program in Maastricht
+How do you know which is the best cafe in Maastricht
+How do you know which is the best restaurant in Maastricht
+How do you know which is the best bachelor program in Maastricht
+How do we know which is the best cafe in Maastricht
+How do we know which is the best restaurant in Maastricht
+How do we know which is the best bachelor program in Maastricht
+How do they know which is the best cafe in Maastricht
+How do they know which is the best restaurant in Maastricht
+How do they know which is the best bachelor program in Maastricht
+How do I find the website for Incognito
+How do I find the website for UM sports
+How do you find the website for Incognito
+How do you find the website for UM sports
+How do we find the website for Incognito
+How do we find the website for UM sports
+How do they find the website for Incognito
+How do they find the website for UM sports
 Which lectures are there on Monday at 9
 Which lectures are there on Monday at 12
 Which lectures are there on Tuesday at 9
@@ -1250,20 +1209,6 @@ Which lectures are there on Friday at 12
 Which lectures are there on Saturday at 9
 Which lectures are there on Saturday at 12
 Which lectures are there on Sunday at 9
-Which lectures are there on Sunday at 12
-Which lectures are there on Monday at 9
-Which lectures are there on Tuesday at 9
-Which lectures are there on Wednesday at 9
-Which lectures are there on Thursday at 9
-Which lectures are there on Friday at 9
-Which lectures are there on Saturday at 9
-Which lectures are there on Sunday at 9
-Which lectures are there on Monday at 12
-Which lectures are there on Tuesday at 12
-Which lectures are there on Wednesday at 12
-Which lectures are there on Thursday at 12
-Which lectures are there on Friday at 12
-Which lectures are there on Saturday at 12
 Which lectures are there on Sunday at 12
 Which lectures are there at 9 on Monday
 Which lectures are there at 9 on Tuesday
@@ -1279,20 +1224,6 @@ Which lectures are there at 12 on Thursday
 Which lectures are there at 12 on Friday
 Which lectures are there at 12 on Saturday
 Which lectures are there at 12 on Sunday
-Which lectures are there at 9 on Monday
-Which lectures are there at 12 on Monday
-Which lectures are there at 9 on Tuesday
-Which lectures are there at 12 on Tuesday
-Which lectures are there at 9 on Wednesday
-Which lectures are there at 12 on Wednesday
-Which lectures are there at 9 on Thursday
-Which lectures are there at 12 on Thursday
-Which lectures are there at 9 on Friday
-Which lectures are there at 12 on Friday
-Which lectures are there at 9 on Saturday
-Which lectures are there at 12 on Saturday
-Which lectures are there at 9 on Sunday
-Which lectures are there at 12 on Sunday
 on Monday at 9 which lectures are there
 on Monday at 12 which lectures are there
 on Tuesday at 9 which lectures are there
@@ -1306,20 +1237,6 @@ on Friday at 12 which lectures are there
 on Saturday at 9 which lectures are there
 on Saturday at 12 which lectures are there
 on Sunday at 9 which lectures are there
-on Sunday at 12 which lectures are there
-on Monday at 9 which lectures are there
-on Tuesday at 9 which lectures are there
-on Wednesday at 9 which lectures are there
-on Thursday at 9 which lectures are there
-on Friday at 9 which lectures are there
-on Saturday at 9 which lectures are there
-on Sunday at 9 which lectures are there
-on Monday at 12 which lectures are there
-on Tuesday at 12 which lectures are there
-on Wednesday at 12 which lectures are there
-on Thursday at 12 which lectures are there
-on Friday at 12 which lectures are there
-on Saturday at 12 which lectures are there
 on Sunday at 12 which lectures are there
 at 9 on Monday which lectures are there
 at 9 on Tuesday which lectures are there
@@ -1335,20 +1252,6 @@ at 12 on Thursday which lectures are there
 at 12 on Friday which lectures are there
 at 12 on Saturday which lectures are there
 at 12 on Sunday which lectures are there
-at 9 on Monday which lectures are there
-at 12 on Monday which lectures are there
-at 9 on Tuesday which lectures are there
-at 12 on Tuesday which lectures are there
-at 9 on Wednesday which lectures are there
-at 12 on Wednesday which lectures are there
-at 9 on Thursday which lectures are there
-at 12 on Thursday which lectures are there
-at 9 on Friday which lectures are there
-at 12 on Friday which lectures are there
-at 9 on Saturday which lectures are there
-at 12 on Saturday which lectures are there
-at 9 on Sunday which lectures are there
-at 12 on Sunday which lectures are there
 How can I contact the guy teaching Discrete Mathematics
 How can I contact the guy teaching Linear Programing
 How can I contact the guy teaching Computer Science 1
@@ -1367,6 +1270,15 @@ How can I contact the person teaching Logic
 How can I contact the person teaching Probability and Statistics
 How can I contact the person teaching Machine Learning
 How can I contact the person teaching Philosophy
+How can I contact the teacher of Discrete Mathematics
+How can I contact the teacher of Linear Programing
+How can I contact the teacher of Computer Science 1
+How can I contact the teacher of Human Computer Interaction
+How can I contact the teacher of the Project
+How can I contact the teacher of Logic
+How can I contact the teacher of Probability and Statistics
+How can I contact the teacher of Machine Learning
+How can I contact the teacher of Philosophy
 How can you contact the guy teaching Discrete Mathematics
 How can you contact the guy teaching Linear Programing
 How can you contact the guy teaching Computer Science 1
@@ -1385,6 +1297,15 @@ How can you contact the person teaching Logic
 How can you contact the person teaching Probability and Statistics
 How can you contact the person teaching Machine Learning
 How can you contact the person teaching Philosophy
+How can you contact the teacher of Discrete Mathematics
+How can you contact the teacher of Linear Programing
+How can you contact the teacher of Computer Science 1
+How can you contact the teacher of Human Computer Interaction
+How can you contact the teacher of the Project
+How can you contact the teacher of Logic
+How can you contact the teacher of Probability and Statistics
+How can you contact the teacher of Machine Learning
+How can you contact the teacher of Philosophy
 How can we contact the guy teaching Discrete Mathematics
 How can we contact the guy teaching Linear Programing
 How can we contact the guy teaching Computer Science 1
@@ -1403,6 +1324,15 @@ How can we contact the person teaching Logic
 How can we contact the person teaching Probability and Statistics
 How can we contact the person teaching Machine Learning
 How can we contact the person teaching Philosophy
+How can we contact the teacher of Discrete Mathematics
+How can we contact the teacher of Linear Programing
+How can we contact the teacher of Computer Science 1
+How can we contact the teacher of Human Computer Interaction
+How can we contact the teacher of the Project
+How can we contact the teacher of Logic
+How can we contact the teacher of Probability and Statistics
+How can we contact the teacher of Machine Learning
+How can we contact the teacher of Philosophy
 How can they contact the guy teaching Discrete Mathematics
 How can they contact the guy teaching Linear Programing
 How can they contact the guy teaching Computer Science 1
@@ -1421,147 +1351,48 @@ How can they contact the person teaching Logic
 How can they contact the person teaching Probability and Statistics
 How can they contact the person teaching Machine Learning
 How can they contact the person teaching Philosophy
-How can I contact the guy teaching Discrete Mathematics
-How can I contact the guy teaching Linear Programing
-How can I contact the guy teaching Computer Science 1
-How can I contact the guy teaching Human Computer Interaction
-How can I contact the guy teaching the Project
-How can I contact the guy teaching Logic
-How can I contact the guy teaching Probability and Statistics
-How can I contact the guy teaching Machine Learning
-How can I contact the guy teaching Philosophy
-How can you contact the guy teaching Discrete Mathematics
-How can you contact the guy teaching Linear Programing
-How can you contact the guy teaching Computer Science 1
-How can you contact the guy teaching Human Computer Interaction
-How can you contact the guy teaching the Project
-How can you contact the guy teaching Logic
-How can you contact the guy teaching Probability and Statistics
-How can you contact the guy teaching Machine Learning
-How can you contact the guy teaching Philosophy
-How can we contact the guy teaching Discrete Mathematics
-How can we contact the guy teaching Linear Programing
-How can we contact the guy teaching Computer Science 1
-How can we contact the guy teaching Human Computer Interaction
-How can we contact the guy teaching the Project
-How can we contact the guy teaching Logic
-How can we contact the guy teaching Probability and Statistics
-How can we contact the guy teaching Machine Learning
-How can we contact the guy teaching Philosophy
-How can they contact the guy teaching Discrete Mathematics
-How can they contact the guy teaching Linear Programing
-How can they contact the guy teaching Computer Science 1
-How can they contact the guy teaching Human Computer Interaction
-How can they contact the guy teaching the Project
-How can they contact the guy teaching Logic
-How can they contact the guy teaching Probability and Statistics
-How can they contact the guy teaching Machine Learning
-How can they contact the guy teaching Philosophy
-How can I contact the guy teaching Discrete Mathematics
-How can you contact the guy teaching Discrete Mathematics
-How can we contact the guy teaching Discrete Mathematics
-How can they contact the guy teaching Discrete Mathematics
-How can I contact the guy teaching Linear Programing
-How can you contact the guy teaching Linear Programing
-How can we contact the guy teaching Linear Programing
-How can they contact the guy teaching Linear Programing
-How can I contact the guy teaching Computer Science 1
-How can you contact the guy teaching Computer Science 1
-How can we contact the guy teaching Computer Science 1
-How can they contact the guy teaching Computer Science 1
-How can I contact the guy teaching Human Computer Interaction
-How can you contact the guy teaching Human Computer Interaction
-How can we contact the guy teaching Human Computer Interaction
-How can they contact the guy teaching Human Computer Interaction
-How can I contact the guy teaching the Project
-How can you contact the guy teaching the Project
-How can we contact the guy teaching the Project
-How can they contact the guy teaching the Project
-How can I contact the guy teaching Logic
-How can you contact the guy teaching Logic
-How can we contact the guy teaching Logic
-How can they contact the guy teaching Logic
-How can I contact the guy teaching Probability and Statistics
-How can you contact the guy teaching Probability and Statistics
-How can we contact the guy teaching Probability and Statistics
-How can they contact the guy teaching Probability and Statistics
-How can I contact the guy teaching Machine Learning
-How can you contact the guy teaching Machine Learning
-How can we contact the guy teaching Machine Learning
-How can they contact the guy teaching Machine Learning
-How can I contact the guy teaching Philosophy
-How can you contact the guy teaching Philosophy
-How can we contact the guy teaching Philosophy
-How can they contact the guy teaching Philosophy
-How can I contact the person teaching Discrete Mathematics
-How can I contact the person teaching Linear Programing
-How can I contact the person teaching Computer Science 1
-How can I contact the person teaching Human Computer Interaction
-How can I contact the person teaching the Project
-How can I contact the person teaching Logic
-How can I contact the person teaching Probability and Statistics
-How can I contact the person teaching Machine Learning
-How can I contact the person teaching Philosophy
-How can you contact the person teaching Discrete Mathematics
-How can you contact the person teaching Linear Programing
-How can you contact the person teaching Computer Science 1
-How can you contact the person teaching Human Computer Interaction
-How can you contact the person teaching the Project
-How can you contact the person teaching Logic
-How can you contact the person teaching Probability and Statistics
-How can you contact the person teaching Machine Learning
-How can you contact the person teaching Philosophy
-How can we contact the person teaching Discrete Mathematics
-How can we contact the person teaching Linear Programing
-How can we contact the person teaching Computer Science 1
-How can we contact the person teaching Human Computer Interaction
-How can we contact the person teaching the Project
-How can we contact the person teaching Logic
-How can we contact the person teaching Probability and Statistics
-How can we contact the person teaching Machine Learning
-How can we contact the person teaching Philosophy
-How can they contact the person teaching Discrete Mathematics
-How can they contact the person teaching Linear Programing
-How can they contact the person teaching Computer Science 1
-How can they contact the person teaching Human Computer Interaction
-How can they contact the person teaching the Project
-How can they contact the person teaching Logic
-How can they contact the person teaching Probability and Statistics
-How can they contact the person teaching Machine Learning
-How can they contact the person teaching Philosophy
-How can I contact the person teaching Discrete Mathematics
-How can you contact the person teaching Discrete Mathematics
-How can we contact the person teaching Discrete Mathematics
-How can they contact the person teaching Discrete Mathematics
-How can I contact the person teaching Linear Programing
-How can you contact the person teaching Linear Programing
-How can we contact the person teaching Linear Programing
-How can they contact the person teaching Linear Programing
-How can I contact the person teaching Computer Science 1
-How can you contact the person teaching Computer Science 1
-How can we contact the person teaching Computer Science 1
-How can they contact the person teaching Computer Science 1
-How can I contact the person teaching Human Computer Interaction
-How can you contact the person teaching Human Computer Interaction
-How can we contact the person teaching Human Computer Interaction
-How can they contact the person teaching Human Computer Interaction
-How can I contact the person teaching the Project
-How can you contact the person teaching the Project
-How can we contact the person teaching the Project
-How can they contact the person teaching the Project
-How can I contact the person teaching Logic
-How can you contact the person teaching Logic
-How can we contact the person teaching Logic
-How can they contact the person teaching Logic
-How can I contact the person teaching Probability and Statistics
-How can you contact the person teaching Probability and Statistics
-How can we contact the person teaching Probability and Statistics
-How can they contact the person teaching Probability and Statistics
-How can I contact the person teaching Machine Learning
-How can you contact the person teaching Machine Learning
-How can we contact the person teaching Machine Learning
-How can they contact the person teaching Machine Learning
-How can I contact the person teaching Philosophy
-How can you contact the person teaching Philosophy
-How can we contact the person teaching Philosophy
-How can they contact the person teaching Philosophy
+How can they contact the teacher of Discrete Mathematics
+How can they contact the teacher of Linear Programing
+How can they contact the teacher of Computer Science 1
+How can they contact the teacher of Human Computer Interaction
+How can they contact the teacher of the Project
+How can they contact the teacher of Logic
+How can they contact the teacher of Probability and Statistics
+How can they contact the teacher of Machine Learning
+How can they contact the teacher of Philosophy
+Do I have to show up for labs for Discrete Mathematics
+Do I have to show up for labs for Linear Programing
+Do I have to show up for labs for Computer Science 1
+Do I have to show up for labs for Human Computer Interaction
+Do I have to show up for labs for the Project
+Do I have to show up for labs for Logic
+Do I have to show up for labs for Probability and Statistics
+Do I have to show up for labs for Machine Learning
+Do I have to show up for labs for Philosophy
+Do you have to show up for labs for Discrete Mathematics
+Do you have to show up for labs for Linear Programing
+Do you have to show up for labs for Computer Science 1
+Do you have to show up for labs for Human Computer Interaction
+Do you have to show up for labs for the Project
+Do you have to show up for labs for Logic
+Do you have to show up for labs for Probability and Statistics
+Do you have to show up for labs for Machine Learning
+Do you have to show up for labs for Philosophy
+Do we have to show up for labs for Discrete Mathematics
+Do we have to show up for labs for Linear Programing
+Do we have to show up for labs for Computer Science 1
+Do we have to show up for labs for Human Computer Interaction
+Do we have to show up for labs for the Project
+Do we have to show up for labs for Logic
+Do we have to show up for labs for Probability and Statistics
+Do we have to show up for labs for Machine Learning
+Do we have to show up for labs for Philosophy
+Do they have to show up for labs for Discrete Mathematics
+Do they have to show up for labs for Linear Programing
+Do they have to show up for labs for Computer Science 1
+Do they have to show up for labs for Human Computer Interaction
+Do they have to show up for labs for the Project
+Do they have to show up for labs for Logic
+Do they have to show up for labs for Probability and Statistics
+Do they have to show up for labs for Machine Learning
+Do they have to show up for labs for Philosophy

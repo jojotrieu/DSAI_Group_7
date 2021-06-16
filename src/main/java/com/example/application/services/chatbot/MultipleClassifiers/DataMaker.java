@@ -10,44 +10,8 @@ import java.util.*;
 
 public class DataMaker {
     private static List<String> allPossibleQ = null;
-    private static String PATH = "src/main/java/com/example/application/services/chatbot/MultipleClassifiers/data/";
+    private static String PATH = "src/main/java/com/example/application/services/chatbot/MultipleClassifiers/data2/";
     private static String P = "src/main/java/com/example/application/services/chatbot/MultipleClassifiers/";
-
-    public static void makeDataForUnique(String skill, double split){
-        generateAllQ();
-        Random r = new Random();
-
-        String currPath = PATH+skill.substring(1, skill.length()-1);
-        File dir = new File(currPath);
-        if(!dir.exists()){
-            dir.mkdir();
-        }
-        String[] traintest= new String[]{"/train", "/test"};
-        for(String tt: traintest){
-                File dir2 = new File(currPath+tt);
-                if(!dir2.exists()) dir2.mkdir();
-        }
-
-        List<String> positive = CFG.combos(skill);
-
-        double limit = (1.0-split)*positive.size();
-
-        for (int i = 0; i < Math.max(limit, 1); i++) {
-            TextFileIO.write(currPath+traintest[1]+"/"+i+".txt",List.of( positive.remove(r.nextInt(positive.size()))));
-        }
-        for (int i = 0; i < positive.size(); i++) {
-            TextFileIO.write(currPath+traintest[0]+"/"+i+".txt",List.of( positive.get(i)));
-        }
-
-    }
-
-    public static void makeAllQnA(){
-        List<String> result = new ArrayList<>();
-        generateAllQ();
-        
-        TextFileIO.write(P+"CFG_Q_corpus.txt", allPossibleQ);
-    }
-
     public static void makeData(String skill, double split){
         generateAllQ();
         String currPath = PATH+skill.substring(1, skill.length()-1);
@@ -71,7 +35,7 @@ public class DataMaker {
         String neg;
         for (int i = 0; i < positive.size(); i++) {
             do {
-                neg = allPossibleQ.get(r.nextInt(allPossibleQ.size()));
+               neg = allPossibleQ.get(r.nextInt(allPossibleQ.size()));
             }while(positive.contains(neg));
             negative.add(neg);
         }
@@ -98,6 +62,12 @@ public class DataMaker {
 //        TextFileIO.write(currPath+"/n_train.txt", train_n);
 //        TextFileIO.write(currPath+"/n_test.txt", test_n);
     }
+    public static void makeAllQnA(){
+        List<String> result = new ArrayList<>();
+        generateAllQ();
+        
+        TextFileIO.write(P+"CFG_Q_corpus.txt", allPossibleQ);
+    }
 
     private static void generateAllQ() {
         if(allPossibleQ==null) {
@@ -115,9 +85,9 @@ public class DataMaker {
 
     public static void main(String[] args){
         ChatBot.init();
-        for(String skill: CFG.getAllActionRules()){
-            makeDataForUnique(skill, 0.8);
-        }
-
+//        for(String skill: CFG.getAllActionRules()){
+//            makeData(skill, 0.8);
+//        }
+        makeAllQnA();
     }
 }
