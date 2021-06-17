@@ -49,7 +49,7 @@ public class UniqueClassifier {
     private  static PoolingType globalPoolingType = PoolingType.MAX;
     private static  Random rng = new Random(12345); //For shuffling repeatability
     private static Word2Vec w2v;
-    private static ComputationGraph model;
+    private static ComputationGraph model=null;
 
     @EqualsAndHashCode.Exclude
     private static Map<String, Integer> skillToInd = null;
@@ -215,7 +215,8 @@ public class UniqueClassifier {
         return "Undefined";
     }
 
-    public static Map<String, Double> predictWith(String query){
+    public static double predictDouble(String query){
+        if(model==null) init();
         INDArray value = w2v.getWordVectors(new ArrayList<>(List.of(query.split(" "))));
         Map<String, Double> result = new HashMap<>();
         if(value.shape().length>0){
@@ -231,10 +232,10 @@ public class UniqueClassifier {
                     ind = i;
                 }
             }
-
-            result.put(indToSkill[ind], max);
+            return max;
+//            result.put(indToSkill[ind], max);
         }
-        return result;
+        return -1;
     }
 
 
@@ -258,26 +259,25 @@ public class UniqueClassifier {
 
         init();
         // test the model
-   /*     try {
+        try {
             String pathtest = PATH2DATA;
             int correct = 0, wrong = 0;
             for (String skill : CFG.getAllActionRules()) {
-                String filePath = pathtest + skill.substring(1, skill.length() - 1) + "/test/";
+                String filePath = pathtest + skill.substring(1, skill.length() - 1) + "/unknown/";
                 List<File> test = Arrays.asList(new File(filePath).listFiles());
                 for(File t : test) {
-                    String query = FileUtils.readFileToString(t);
-                    String p = predict(query);
-                    if (p.equals(skill)) correct += 1;
-                    else wrong += 1;
+                    String query = FileUtils.readFileToString(t).stripTrailing();
+                    double score = predictDouble(query);
+                    System.out.println(query+": "+score);
                 }
             }
-            System.out.println("Correct: "+correct+"\nWrong: "+wrong);
-            System.out.println();
+//            System.out.println("Correct: "+correct+"\nWrong: "+wrong);
+//            System.out.println();
         }catch (IOException e){
             e.printStackTrace();
         }
 
-    */
+
 
         DataSetIterator iterator = getDataSetIterator(false, w2v, batchSize,truncateReviewsToLength);
         Evaluation eval = model.evaluate(iterator);
