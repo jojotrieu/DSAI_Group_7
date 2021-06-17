@@ -1,21 +1,18 @@
 package com.example.application.services.silichatbot;
 
-import com.example.application.services.chatbot.*;
-import com.example.application.services.utils.TextFileIO;
+import com.example.application.services.chatbot.CFG;
+import com.example.application.services.chatbot.rnnclassifier.RNNClassifier;
+import com.example.application.services.chatbot.spellcheckML.Rephraser;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Experiments {
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws IOException, InterruptedException {
 
     CFG.loadRules();
-
-    List<String> rule = CFG.getAllActionRules();
-    for(String phrase: rule){
-      System.out.println(phrase);
-    }
+    Rephraser.fill(15);
+    Rephraser.writeSeq2Disk();
+    RNNClassifier.init();
 
 
     /*

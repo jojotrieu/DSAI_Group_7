@@ -10,6 +10,8 @@ import java.util.List;
 
 public class Rephraser {
     private static List<String> rephrased = new ArrayList<>();
+    private static String alphabet = "abcdefghijklmnopqrstuvwxyz0123456789 ";
+    private static int space = alphabet.indexOf(' ');
 
     public static void fill(int augmentation){
         HashSet<String> set = new HashSet<>();
@@ -40,11 +42,13 @@ public class Rephraser {
             int index = (int) (Math.random() * (double) split.size());
             String word = split.get(index);
             double rand = Math.random();
-            if (rand < .3) {
-                split.set(index, Misspeller.mutate(new StringBuilder(word)));
-            } else if (rand < .6) {
-                split.remove(index);
-                split.add((int) (Math.random() * (double) split.size()), word);
+            if(alphabet.indexOf(word.charAt(0))<26){
+                if (rand < .3) {
+                    split.set(index, Misspeller.mutate(new StringBuilder(word)));
+                } else if (rand < .6) {
+                    split.remove(index);
+                    split.add((int) (Math.random() * (double) split.size()), word);
+                }
             }
             builder.append(split.remove(0)).append(" ");
         }
@@ -55,7 +59,37 @@ public class Rephraser {
         return rephrased;
     }
 
-    public static void write2Disk(){
-        TextFileIO.write("src/main/java/com/example/application/services/chatbot/spellcheckML/phraseVariations.txt",rephrased);
+    public static void writeSeq2Disk(){
+        String path = "src/main/java/com/example/application/services/chatbot/spellcheckML/phraseVariations.csv";
+
+        List<String> variations = new ArrayList<>();
+        for(String phrase : rephrased){
+            String [] split = phrase.split("\\W+");
+            StringBuilder stringBuilder = new StringBuilder();
+            int len = 0;
+            int label = 0;
+            for(String word : split){
+                int firstChar = alphabet.indexOf(word.charAt(0));
+                if(firstChar>25){
+                    int value = Integer.parseInt(word);
+                    if(value>=50000){
+                        label = value-50000;
+                        break;
+                    }
+                }
+                for (int i = 0; i < word.length(); i++) {
+                    int value = alphabet.indexOf(word.charAt(i));
+                    stringBuilder.append(value).append(" ");
+                    len++;
+                }
+            }
+            while(len<90){
+                stringBuilder.append(space).append(" ");
+                len++;
+            }
+            stringBuilder.append(label);
+            variations.add(stringBuilder.toString());
+        }
+        TextFileIO.write(path,variations);
     }
 }

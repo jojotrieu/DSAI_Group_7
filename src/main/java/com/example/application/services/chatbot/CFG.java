@@ -11,6 +11,7 @@ public class CFG {
     private static final String PATH = "src/main/java/com/example/application/services/chatbot/rules.txt";
     private static Rule actionRule = null;
     private static final List<List<String>> allPhrases = new ArrayList<>();
+    private static int longestPhraseSize = 0;
 
     public static boolean loadRules(){
         rules.clear();
@@ -178,6 +179,11 @@ public class CFG {
                 }
                 if(!duplicate){
                     allPhrases.add(phrase);
+                    int total = 0;
+                    for(String str : phrase){
+                        total += str.length();
+                    }
+                    longestPhraseSize = Math.max(total,longestPhraseSize);
                 }
 
             }
@@ -236,5 +242,9 @@ public class CFG {
             }
         }
         return result;
+    }
+
+    public static int getLongestPhraseSize() {
+        return longestPhraseSize;
     }
 }
