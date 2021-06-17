@@ -1,8 +1,8 @@
 package com.example.application.services;
 
 public class QATuple {
-    private String question;
-    private String answer;
+    private final String question;
+    private final String answer;
     private double evaluation;
     public QATuple(String question, String answer) {
         this.question = question;

@@ -154,7 +154,7 @@ public class CNF {
 
     public static String[] splitRules(String sentence){
         ArrayList<String> result = new ArrayList<>();
-        int last=0;
+        int last = 0;
         for (int i = 0; i < sentence.length(); i++) {
             if(sentence.charAt(i)=='<'){
                 for (int j = i; j < sentence.length(); j++) {

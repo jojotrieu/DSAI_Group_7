@@ -13,8 +13,8 @@ public class Main {
         Question question = new Question("What do we eat on <DAY> at <TIME>?",false);
         List<String> testProperties = question.getPropertiesList();
 
-        for (int i = 0; i < testProperties.size(); i++) {
-            System.out.println("property: " + testProperties.get(i));
+        for (String testProperty : testProperties) {
+            System.out.println("property: " + testProperty);
         }
 
         jsonFile.newSkill(question);

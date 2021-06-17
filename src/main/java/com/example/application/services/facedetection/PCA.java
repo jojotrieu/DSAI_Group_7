@@ -56,8 +56,10 @@ public class PCA {
         if (eigenVectors.cols() > count) {
             for (int i = 0; i < count; i++) {
                 Mat current = eigenVectors.col(i).clone();
+                // Reshape to original size
                 current = current.reshape(1, 240);
                 Mat normalized = new Mat();
+                // Normalize to 0-255 range using MinMax normalization
                 Core.normalize(current, normalized, 0, 255, Core.NORM_MINMAX, CV_8UC1);
                 Imgcodecs.imwrite("RecognizerDB/Eigenfaces/Eigenface" + (i+1) + ".png", normalized);
             }

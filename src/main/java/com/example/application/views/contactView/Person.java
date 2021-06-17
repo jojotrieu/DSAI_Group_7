@@ -1,5 +1,7 @@
 package com.example.application.views.contactView;
 
+import java.util.Objects;
+
 public class Person {
 
     private String studentID;
@@ -58,7 +60,7 @@ public class Person {
             return false;
         }
         Person other = (Person) obj;
-        return studentID == other.studentID;
+        return Objects.equals(studentID, other.studentID);
     }
 
     @Override
@@ -67,7 +69,7 @@ public class Person {
     }
 
     @Override
-    public Person clone() { //NOSONAR
+    public Person clone() {
         try {
             return (Person) super.clone();
         } catch (CloneNotSupportedException e) {

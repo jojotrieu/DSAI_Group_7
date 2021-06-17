@@ -32,18 +32,18 @@ import java.io.IOException;
 @CssImport("./styles/views/chatbot/chatbot.css")
 @RouteAlias(value = "", layout = MainView.class)
 public class ChatBotView extends HorizontalLayout {
-    private static int reloadCounter = 0;
-    private TextField questionTextField;
-    private Dialog cameraPopUp = new Dialog();
-    private Button clearButton = new Button("Clear Chat");
-    private Button analyzeButton = new Button("Analyze!");
-    private Button retakeImage = new Button("Retake!");
-    private Button snapshot = new Button("Snapshot!");
-    private Button cameraCheck = new Button("Camera Check");
-    private H4 thinking = new H4("ChatBot: Mmmm... Let me think.");
-    private TextArea area = new TextArea();
+
+    private final TextField questionTextField;
+    private final Dialog cameraPopUp = new Dialog();
+    private final Button clearButton = new Button("Clear Chat");
+    private final Button analyzeButton = new Button("Analyze!");
+    private final Button retakeImage = new Button("Retake!");
+    private final Button snapshot = new Button("Snapshot!");
+    private final Button cameraCheck = new Button("Camera Check");
+    private final H4 thinking = new H4("ChatBot: Mmmm... Let me think.");
+    private final TextArea area = new TextArea();
     private String conversation = "";
-    private Camera camera = new Camera();
+    private final Camera camera = new Camera();
     private String personRecognized;
 
     public ChatBotView() {
@@ -229,7 +229,7 @@ public class ChatBotView extends HorizontalLayout {
 
             }
             camera.closeCamera();
-            String responseH4 = "";
+            String responseH4;
             if (SettingsView.selectedAlgorithm.equalsIgnoreCase("PCA")) {
                 responseH4 = "ChatBot: " + "Hi " + personRecognized + ", let's chat!";
             } else {

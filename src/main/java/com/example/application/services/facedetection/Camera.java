@@ -9,7 +9,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.vaadin.flow.server.StreamResource;
@@ -25,7 +24,6 @@ import javax.imageio.ImageIO;
 public class Camera {
     private final HaarCascadeDetector haarCascadeDetector = new HaarCascadeDetector();
     private BufferedImage imageToAnalyze;
-    private List<DetectedFace> faces = new ArrayList<>();
     private int facesCount;
     private Webcam webcam;
 
@@ -60,7 +58,7 @@ public class Camera {
     }
 
     public BufferedImage detectFaces() {
-        this.faces = haarCascadeDetector.detectFaces(ImageUtilities.createFImage(imageToAnalyze));
+        List<DetectedFace> faces = haarCascadeDetector.detectFaces(ImageUtilities.createFImage(imageToAnalyze));
         this.facesCount = faces.size();
         BufferedImage newImage = imageToAnalyze;
         Graphics2D g2 = newImage.createGraphics();
@@ -90,5 +88,4 @@ public class Camera {
     public BufferedImage getImageToAnalyze(){
         return this.imageToAnalyze;
     }
-
 }

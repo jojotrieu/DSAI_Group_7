@@ -236,7 +236,7 @@ public class CFG {
             if(fullyExpressed){
                 String s = "";
                 for(String w : phrase){
-                    s+= w+" ";
+                    s += w + " ";
                 }
                 result.add(s.strip());
             }

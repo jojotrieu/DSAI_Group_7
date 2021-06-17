@@ -121,9 +121,7 @@ public class SkillParser {
             JSONObject conditions = (JSONObject) action.get(answer);
             String[] queryArray = query.split(" "), questionArray = skillQuestion.split(" ");
 
-            boolean found = true;
-
-            found = checkPlaceHolders(queryArray, questionArray, conditions);
+            boolean found = checkPlaceHolders(queryArray, questionArray, conditions);
 
             if (found) return (String) answer;
         }
