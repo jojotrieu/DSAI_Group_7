@@ -1,6 +1,7 @@
 package com.example.application.services.facedetection;
 
 import aist.science.aistcv.AistCVLoader;
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.face.BasicFaceRecognizer;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.util.*;
 
 import static org.opencv.core.CvType.CV_32SC1;
+import static org.opencv.core.CvType.CV_8UC1;
 
 public class PCA {
     private final List<Mat> trainingImages = new ArrayList<>();
@@ -23,7 +25,7 @@ public class PCA {
 
     public void trainRecognizer() {
         AistCVLoader.loadLocally();
-        faceRecognizer = EigenFaceRecognizer.create(1000, 15000);
+        faceRecognizer = EigenFaceRecognizer.create(0, 15000);
         Mat labels = new Mat(labelList.size(), 1, CV_32SC1);
         for (int i = 0; i < labelList.size(); i++) {
             labels.put(i, 0, labelList.get(i));
@@ -48,6 +50,22 @@ public class PCA {
             return "Unknown";
         }
     }
+
+    public void saveEigenFaces(int count) {
+        Mat eigenVectors = faceRecognizer.getEigenVectors();
+        if (eigenVectors.cols() > count) {
+            for (int i = 0; i < count; i++) {
+                Mat current = eigenVectors.col(i).clone();
+                current = current.reshape(1, 240);
+                Mat normalized = new Mat();
+                Core.normalize(current, normalized, 0, 255, Core.NORM_MINMAX, CV_8UC1);
+                Imgcodecs.imwrite("RecognizerDB/Eigenfaces/Eigenface" + (i+1) + ".png", normalized);
+            }
+        } else {
+            System.out.println("You are requesting too many eigenfaces! Try a lower value");
+        }
+    }
+
 
     public void readData(String path) {
         BufferedReader br;

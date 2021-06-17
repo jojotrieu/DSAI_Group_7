@@ -17,6 +17,7 @@ public class TestPCA {
         pca.readData(".\\RecognizerDB\\TrainDataPath.txt");
         pca.trainRecognizer();
         String output = pca.recognizeFace(converted);
+        pca.saveEigenFaces(10);
         System.out.println("Hello, " + output + " !");
     }
 }
