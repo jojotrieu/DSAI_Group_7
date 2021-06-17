@@ -1,1 +1,1 @@
-Are there any tutorial for Probability and Statistics
+Are there any tutorial for Machine Learning
