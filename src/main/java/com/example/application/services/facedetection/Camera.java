@@ -88,4 +88,9 @@ public class Camera {
     public BufferedImage getImageToAnalyze(){
         return this.imageToAnalyze;
     }
+
+    public void setImageToAnalyze(BufferedImage newImage){
+        this.facesCount = 0;
+        this.imageToAnalyze = newImage;
+    }
 }

@@ -73,6 +73,13 @@ public class SkinColorDetection {
     public void detectFaces(Mat skinMask, int minHeight, int minWidth, int maxHeight, int maxWidth) {
         List<MatOfPoint> contours = new ArrayList<>();
         Mat hierarchy = new Mat();
+        Mat eroded = new Mat();
+        Mat kernel = Imgproc.getStructuringElement(Imgproc.CV_SHAPE_RECT, new Size(1, 1),
+                new Point(0, 0));
+        Imgproc.erode(skinMask, eroded, kernel);
+        Mat opening = new Mat();
+        Imgproc.dilate(eroded, opening, kernel);
+        skinMask = opening;
         Imgproc.findContours(skinMask, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
         for (MatOfPoint contour : contours) {
             Rect faceRectangle = Imgproc.boundingRect(contour);
@@ -106,7 +113,7 @@ public class SkinColorDetection {
     }
 
     public boolean HSVRule(double h) {
-        return h < 50 || h > 150;
+        return h < 25 || h > 225;
     }
 
     public boolean YCrCbRule(double cr, double cb) {
@@ -129,6 +136,7 @@ public class SkinColorDetection {
     }
 
     public void setOriginalImage(BufferedImage capture) {
+        this.detectedFaces = 0;
         this.originalImage = BufferedImageToMat(capture);
     }
 
