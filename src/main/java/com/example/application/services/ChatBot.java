@@ -26,7 +26,7 @@ public class ChatBot {
 
 
     public static String parse(String question) {
-        if (CYK.isValidLanguage(question)) {
+        if (!question.isEmpty() && CYK.isValidLanguage(question)) {
             String action = CYK.getAction();
             String actionTemp;
             String actionVariable = null;
