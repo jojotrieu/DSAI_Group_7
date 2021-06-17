@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class Question {
     private String skill;
-    private List<String> propertiesList = new ArrayList<>();
+    private final List<String> propertiesList = new ArrayList<>();
 
     public Question(String question,boolean reconstruct) {
         this.skill = question;

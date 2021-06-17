@@ -26,27 +26,27 @@ import java.util.List;
 @PageTitle("Skills Editor")
 public class SkillsView extends Div {
 
-    private Dialog newTemplate = new Dialog();
-    private Button addTemplate = new Button("New");
-    private Button deleteEntry = new Button("Delete");
-    private Button editEntry = new Button("Edit");
-    private Button submitTemplate = new Button("Submit");
-    private Button mergeButton = new Button("Merge with other skills");
-    private Button cancelButton = new Button("Cancel");
+    private final Dialog newTemplate = new Dialog();
+    private final Button addTemplate = new Button("New");
+    private final Button deleteEntry = new Button("Delete");
+    private final Button editEntry = new Button("Edit");
+    private final Button submitTemplate = new Button("Submit");
+    private final Button mergeButton = new Button("Merge with other skills");
+    private final Button cancelButton = new Button("Cancel");
 
-    private TextField request = new TextField("Request");
-    private TextField slotOne = new TextField("Slot 1");
-    private TextField slotTwo = new TextField("Slot 2");
-    private TextField slotThree = new TextField("Slot 3");
-    private TextField slotFour = new TextField("Slot 4");
-    private TextField response = new TextField("Response");
-    private MemoryBuffer buffer = new MemoryBuffer();
-    private Upload upload = new Upload(buffer);
-    private Div output = new Div();
-    private Paragraph errorText = new Paragraph();
+    private final TextField request = new TextField("Request");
+    private final TextField slotOne = new TextField("Slot 1");
+    private final TextField slotTwo = new TextField("Slot 2");
+    private final TextField slotThree = new TextField("Slot 3");
+    private final TextField slotFour = new TextField("Slot 4");
+    private final TextField response = new TextField("Response");
+    private final MemoryBuffer buffer = new MemoryBuffer();
+    private final Upload upload = new Upload(buffer);
+    private final Div output = new Div();
+    private final Paragraph errorText = new Paragraph();
 
-    private Grid<Question> grid = new Grid<>(Question.class);
-    private SkillParser jsonFile = new SkillParser();
+    private final Grid<Question> grid = new Grid<>(Question.class);
+    private final SkillParser jsonFile = new SkillParser();
 
     private String deleteQuestion;
     private Question newQuestion;
@@ -129,9 +129,7 @@ public class SkillsView extends Div {
             }
         });
 
-        cancelButton.addClickListener(e -> {
-            newTemplate.close();
-        });
+        cancelButton.addClickListener(e -> newTemplate.close());
     }
 
     /**
@@ -229,8 +227,6 @@ public class SkillsView extends Div {
             errorText.setText(event.getErrorMessage());
             output.add(errorText);
         });
-        upload.addSucceededListener(event -> {
-            output.remove(errorText);
-        });
+        upload.addSucceededListener(event -> output.remove(errorText));
     }
 }

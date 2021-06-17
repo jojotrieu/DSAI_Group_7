@@ -3,9 +3,7 @@ package com.example.application.services.chatbot;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,33 +35,30 @@ public class Action {
         if(!nonTerminals.keySet().isEmpty()){
             StringBuilder mapAsString = new StringBuilder();
             for (String key : nonTerminals.keySet()) {
-                mapAsString.append(key + " " + nonTerminals.get(key) + " ");
+                mapAsString.append(key).append(" ").append(nonTerminals.get(key)).append(" ");
             }
             mapAsString.delete(mapAsString.length()-1, mapAsString.length());
             return mapAsString.toString();
         }else{
-            String empty = "";
-            return empty;
+            return "";
         }
     }
 
     public static Map<String, String> stringToHashMap(String nt){
         Map<String, String> map = new HashMap<>();
 
-        if(nt.isEmpty()){
-            return map; // return empty map
-        }else{
+        if (!nt.isEmpty()) {
             String[] array = nt.split(" ", 20);
 
-            for(int i = 0; i < array.length; i +=2){
-                if(i+1<array.length && i<array.length){
-                    map.put(array[i], array[i+1]);
-                }else if (i<array.length && i+1>=array.length){
+            for (int i = 0; i < array.length; i += 2) {
+                if (i + 1 < array.length) {
+                    map.put(array[i], array[i + 1]);
+                } else if (i + 1 >= array.length) {
                     map.put(array[i], "NULL");
                 }
             }
-            return map;
         }
+        return map;
     }
 
     public Action copy(){

@@ -89,7 +89,6 @@ public class SyntaxHandler {
      * @param line the line to verify
      * @param lineCounter if it is the 1st line or no -> also used for error message
      * @param valOrQ if we are verifying for question or value
-     * @return
      */
     private static void checkVarSyntax(String line, int lineCounter, String valOrQ){
         boolean open = false;

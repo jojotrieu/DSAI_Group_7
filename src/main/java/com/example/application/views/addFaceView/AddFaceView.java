@@ -4,7 +4,6 @@ import com.example.application.services.facedetection.Camera;
 import com.example.application.views.main.MainView;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
@@ -29,7 +28,7 @@ public class AddFaceView extends Div {
     private final TextField name = new TextField("Name:");
     private Image image = new Image();
     private final Button snapshot = new Button("Snapshot");
-    private List<BufferedImage> temporaryFaces = new ArrayList<>();
+    private final List<BufferedImage> temporaryFaces = new ArrayList<>();
     private final int nrOfImages = 15;
     private int count = 0;
     private final String counter = "/"+nrOfImages;
@@ -88,7 +87,7 @@ public class AddFaceView extends Div {
             image.setId("camera-frame");
             count++;
             temporaryFaces.add(cameraSnapshot);
-            
+
             Label label = new Label(count+counter);
             if(label.getText().equals(nrOfImages+"/"+nrOfImages)){
                 saveButton.setEnabled(true);

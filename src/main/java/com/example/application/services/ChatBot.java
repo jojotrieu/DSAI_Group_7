@@ -61,9 +61,7 @@ public class ChatBot {
                             actionVariable = r.getVariable();
                             action = r.getVariable();
                         }
-//                        if(actionVariable!=null) break;
                     }
-//                    if(actionVariable!=null) break;
                 }
             }
 
@@ -110,9 +108,7 @@ public class ChatBot {
             String[] arguments = CNF.splitRules(action);
             String nAction = "";
             for (int i = 0; i < arguments.length; i++) {
-//                    System.out.println("WTF" + CNF.getCnf().get("<zzzplhldY206>").get(0));
                 if (arguments[i].contains(PREFIX)) {
-//                        System.out.println("WTF" + CNF.getCnf().get("<zzzplhldY206>").get(0) + "   "+ arguments[i]);
                     nAction += CNF.getCnf().get(arguments[i]).get(0); // replace those with
                 } else {
                     nAction += arguments[i];

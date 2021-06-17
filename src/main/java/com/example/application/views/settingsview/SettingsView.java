@@ -18,14 +18,14 @@ import com.vaadin.flow.theme.lumo.Lumo;
 public class SettingsView extends VerticalLayout {
     public static String selectedAlgorithm = "Haar Cascade";
     public static String selectedType = "Background";
-    private final Select<String> algorithms = new Select<>();
-    private final Select<String> typeOfCheck = new Select<>();
 
     public SettingsView() {
         setId("settings-view");
         Button themeButton = new Button("Enable dark theme");
         themeButton.setId("theme-button");
+        Select<String> algorithms = new Select<>();
         algorithms.setId("algorithm-select");
+        Select<String> typeOfCheck = new Select<>();
         typeOfCheck.setId("type-select");
         algorithms.setItems("Haar Cascade", "Skin Color", "PCA");
         algorithms.setLabel("Face detection");

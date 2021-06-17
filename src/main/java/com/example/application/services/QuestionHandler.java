@@ -6,10 +6,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class QuestionHandler {
-    private File file;
-    private Scanner scanner;
-    private ArrayList<QATuple> tuples;
-    private double threshold = 0.3;
+    private final ArrayList<QATuple> tuples;
+
     /**
      * Creates a question handler.
      * The specified path is the path to the question-answer database.
@@ -19,13 +17,13 @@ public class QuestionHandler {
      * @param filePath A path to the question-answer database text file.
      */
     public QuestionHandler(String filePath) {
-        this.file = new File(filePath);
+        File file = new File(filePath);
         this.tuples = new ArrayList<QATuple>();
         try {
-            this.scanner = new Scanner(this.file);
+            Scanner scanner = new Scanner(file);
             ArrayList<String> lines = new ArrayList<String>();
-            while(this.scanner.hasNextLine()) {
-                String line = this.scanner.nextLine();
+            while(scanner.hasNextLine()) {
+                String line = scanner.nextLine();
                 lines.add(line);
                 System.out.println(line);
             }
@@ -99,6 +97,7 @@ public class QuestionHandler {
                 bestEvaluation = tuple;
             }
         }
+        double threshold = 0.3;
         if(bestEvaluation.getEvaluation() < threshold){
             return failureRandomAnswer();
         }else{
@@ -110,9 +109,9 @@ public class QuestionHandler {
         String[] arr1 = str1.split(" ");
         String[] arr2 = str2.split(" ");
         int count = 0;
-        for(int i = 0; i < arr1.length; i++) {
-            for(int j = 0; j < arr2.length; j++) {
-                if(arr2[j].equals(arr1[i])){
+        for (String s : arr1) {
+            for (String value : arr2) {
+                if (value.equals(s)) {
                     count++;
                 }
             }
@@ -136,11 +135,6 @@ public class QuestionHandler {
 
     private double evaluate (String str1, String str2) {
         return (wordsAtSameIndex(str1, str2) + wordsInCommon(str1, str2))/(str1.length()*1.0);
-    }
-    private void test(){
-        for (QATuple tuple: this.tuples) {
-            System.out.println(tuple.getAnswer());
-        }
     }
 
     private String failureRandomAnswer() {

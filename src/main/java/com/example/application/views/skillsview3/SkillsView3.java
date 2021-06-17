@@ -54,7 +54,7 @@ public class SkillsView3 extends Div {
     // elements of dialog box when currentTemplate = answerTemplate
     private final ArrayList<TextField> answers = new ArrayList<>();
     private final ArrayList<ArrayList<Object>> varVal = new ArrayList<>();
-    private final ArrayList<Button> plusButt = new ArrayList<>();
+    private final ArrayList<Button> plusButtons = new ArrayList<>();
     private final Button saveSkill = new Button("SAVE SKILL");
 
     public SkillsView3() {
@@ -412,7 +412,7 @@ public class SkillsView3 extends Div {
 
         Button plus = new Button("+");
         plus.setId("button-plus");
-        plusButt.add(plus);
+        plusButtons.add(plus);
         newTemplate.add(plus);
 
         initPlusButton(plus, list, hashmap);
