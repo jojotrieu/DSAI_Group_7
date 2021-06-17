@@ -100,7 +100,7 @@ public class CYK {
         int index = 0;
         for(Map.Entry<String, List<String>> entry: CNF.getCnf().entrySet()){
             for (int i = 0; i < entry.getValue().size(); i++) {
-                if(CNF.splitRules(entry.getValue().get(i)).length==1 && entry.getValue().get(i).equals(word)){
+                if(CNF.splitRules(entry.getValue().get(i)).length==1 && entry.getValue().get(i).equalsIgnoreCase(word)){
                     result.add(index);
                 }
             }
