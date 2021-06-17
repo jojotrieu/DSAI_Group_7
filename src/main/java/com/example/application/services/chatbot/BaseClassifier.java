@@ -8,7 +8,7 @@ import java.util.*;
 public class BaseClassifier {
     private static List<List<String>> allPhrases;
     private static final Set<String> allWords = new HashSet<>();
-    private static final double THRESHOLD = .75;
+    private static final double THRESHOLD = .55;
 
     public static void init(){
         allPhrases=CFG.getAllPhrases();
@@ -57,7 +57,7 @@ public class BaseClassifier {
         if(bestScore>THRESHOLD){
             return bestMatch;
         } else {
-            return "";
+            return query;
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.application.services;
 
 import com.example.application.services.chatbot.*;
+import com.example.application.services.chatbot.spellcheck.SpellCheck;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,12 @@ public class ChatBot {
         BaseClassifier.init();
     }
     public static String respondTo(String question) {
-        return parse(BaseClassifier.process(question));
+        StringBuilder spellchecked = new StringBuilder();
+        String[] split = question.split("\\W+");
+        for(String word : split){
+            spellchecked.append(SpellCheck.bestMatch(word)).append(" ");
+        }
+        return parse(BaseClassifier.process(spellchecked.toString()));
     }
 
 
