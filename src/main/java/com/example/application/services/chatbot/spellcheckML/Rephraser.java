@@ -2,6 +2,9 @@ package com.example.application.services.chatbot.spellcheckML;
 
 import com.example.application.services.chatbot.CFG;
 import com.example.application.services.utils.TextFileIO;
+import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.cpu.nativecpu.NDArray;
+import org.nd4j.linalg.factory.Nd4j;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +14,7 @@ import java.util.List;
 public class Rephraser {
     private static List<String> rephrased = new ArrayList<>();
     private static String alphabet = "abcdefghijklmnopqrstuvwxyz0123456789 ";
-    private static int space = alphabet.indexOf(' ');
+    private static int space = alphabet.indexOf(' ')+100;
 
     public static void fill(int augmentation){
         HashSet<String> set = new HashSet<>();
@@ -79,7 +82,7 @@ public class Rephraser {
                 }
                 for (int i = 0; i < word.length(); i++) {
                     int value = alphabet.indexOf(word.charAt(i));
-                    stringBuilder.append(value).append(" ");
+                    stringBuilder.append(value+100).append(" ");
                     len++;
                 }
             }
@@ -91,5 +94,24 @@ public class Rephraser {
             variations.add(stringBuilder.toString());
         }
         TextFileIO.write(path,variations);
+    }
+
+    public static INDArray convert (String phrase){
+        String [] split = phrase.split("\\W+");
+        int len = 0;
+        int[] arr  = new int[90];
+        for(String word : split) {
+            for (int i = 0; i < word.length(); i++) {
+                int value = alphabet.indexOf(word.charAt(i));
+                arr[len] = (value+100);
+                len++;
+            }
+        }
+        while(len<90){
+            arr[len] = space;
+            len++;
+        }
+        INDArray vector = Nd4j.createFromArray(arr);
+        return vector;
     }
 }
