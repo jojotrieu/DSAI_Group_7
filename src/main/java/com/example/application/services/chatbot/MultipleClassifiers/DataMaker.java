@@ -150,8 +150,32 @@ public class DataMaker {
         }
     }
 
+    public static void createBenchMarkData(){
+        String pathSource = PATH;
+        String pathDest = "src/main/java/com/example/application/services/chatbot/DataBenchMark/";
+        try {
+            int countSkill = 0, countS=0;
+            for (String skill : CFG.getAllActionRules()) {
+                String s = skill.substring(1, skill.length() - 1);
+                File f = new File(pathSource + s + "/unknown");
+                List<String> text = new ArrayList<>();
+                countSkill++;
+                for (File mf : f.listFiles()) {
+                    String curr = FileUtils.readFileToString(mf, "UTF-8").stripTrailing();
+                    text.add(curr);
+                    countS++;
+                }
+                TextFileIO.write(pathDest+s+".txt", text );
+
+            }
+            System.out.println("skill:"+countSkill+" sentences:"+ countS);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args){
-        ChatBot.init();
+      /*  ChatBot.init();
         for(String skill: CFG.getAllActionRules()){
             makeDataForUnique(skill, 0.8);
         }
@@ -161,5 +185,8 @@ public class DataMaker {
             verifyData(skill);
         }
 
+       */
+        ChatBot.init();
+        createBenchMarkData();
     }
 }

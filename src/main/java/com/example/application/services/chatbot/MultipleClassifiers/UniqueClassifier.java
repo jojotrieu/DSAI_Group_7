@@ -167,10 +167,22 @@ public class UniqueClassifier {
                                                       int maxSentenceLength ){
 
         Map<String, List<File>> reviewFilesMap = new HashMap<>();
-        for(String s:indToSkill){
-            reviewFilesMap.put(s,Arrays.asList(new File(PATH2DATA+s.substring(1,s.length()-1)+(isTraining?"/train":"/test")).listFiles()));
-        }
+        if(isTraining) {
+            for (String s : indToSkill) {
+                reviewFilesMap.put(s, Arrays.asList(Objects.requireNonNull(new File(PATH2DATA + s.substring(1, s.length() - 1) + "/train").listFiles())));
+            }
+        }else{
+            for (String s : indToSkill) {
+                ArrayList<File> files = new ArrayList<>(Arrays.asList(Objects.requireNonNull(new File(PATH2DATA + s.substring(1, s.length() - 1) + "/unknown").listFiles())));
+//                files.addAll(Arrays.asList(Objects.requireNonNull(new File(PATH2DATA + s.substring(1, s.length() - 1) + "/test").listFiles())));
+                reviewFilesMap.put(s, files);
+//                reviewFilesMap.put(s, Arrays.asList(Objects.requireNonNull(new File(PATH2DATA + s.substring(1, s.length() - 1) + "/unknown").listFiles())));
+//                for(File f : Objects.requireNonNull(new File(PATH2DATA + s.substring(1, s.length() - 1) + "/unknown").listFiles())){
+//                    reviewFilesMap.get(s).add(f);
+//                }
 
+            }
+        }
         LabeledSentenceProvider sentenceProvider = new FileLabeledSentenceProvider(reviewFilesMap,rng);
         CnnSentenceDataSetIterator iterator = new CnnSentenceDataSetIterator.Builder(CnnSentenceDataSetIterator.Format.CNN2D)
                 .sentenceProvider(sentenceProvider)
@@ -203,6 +215,28 @@ public class UniqueClassifier {
         return "Undefined";
     }
 
+    public static Map<String, Double> predictWith(String query){
+        INDArray value = w2v.getWordVectors(new ArrayList<>(List.of(query.split(" "))));
+        Map<String, Double> result = new HashMap<>();
+        if(value.shape().length>0){
+            INDArray output = model.outputSingle(w2v.getWordVectors(List.of(query.split(" "))).reshape(1,1,value.shape()[0], value.shape()[1]));
+//            System.out.println(output);
+//            System.out.println(Arrays.toString(output.shape()));
+
+            double max =0.0;
+            int ind=0;
+            for (int i = 0; i < output.shape()[1]; i++) {
+                if(output.getDouble(i)>max) {
+                    max = output.getDouble(i);
+                    ind = i;
+                }
+            }
+
+            result.put(indToSkill[ind], max);
+        }
+        return result;
+    }
+
 
     public static void main(String[] args){
         ChatBot.init();
@@ -213,13 +247,15 @@ public class UniqueClassifier {
 //        Word2Vec w2v = corpus2Vec.getWord2Vec();
 
         // write the model 5 epochs
-   /*     try {
+    /*    try {
             train();
         }catch(IOException ioe){
             ioe.printStackTrace();
         }
 
-    */
+     */
+
+
         init();
         // test the model
    /*     try {
@@ -245,6 +281,6 @@ public class UniqueClassifier {
 
         DataSetIterator iterator = getDataSetIterator(false, w2v, batchSize,truncateReviewsToLength);
         Evaluation eval = model.evaluate(iterator);
-        System.out.println(eval.stats());
+        System.out.println(eval.stats(false, true));
     }
 }
