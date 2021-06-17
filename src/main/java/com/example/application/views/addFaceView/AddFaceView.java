@@ -30,7 +30,7 @@ public class AddFaceView extends Div {
     private Image image = new Image();
     private final Button snapshot = new Button("Snapshot");
     private List<BufferedImage> temporaryFaces = new ArrayList<>();
-    private final int nrOfImages = 2;
+    private final int nrOfImages = 15;
     private int count = 0;
     private final String counter = "/"+nrOfImages;
     private final Button saveButton = new Button("SAVE FACE");
@@ -63,7 +63,6 @@ public class AddFaceView extends Div {
             for(BufferedImage cameraSnapshot: temporaryFaces){
                 String path = "./RecognizerDB/"+name.getValue().toLowerCase()+count+".jpg";
                 File file = new File(path);
-                System.out.println("ok");
                 try {
                     ImageIO.write(cameraSnapshot, "jpg", file);
                 } catch (IOException ioException) {
@@ -88,9 +87,8 @@ public class AddFaceView extends Div {
             image = new Image(streamResource, "capture");
             image.setId("camera-frame");
             count++;
-
             temporaryFaces.add(cameraSnapshot);
-
+            
             Label label = new Label(count+counter);
             if(label.getText().equals(nrOfImages+"/"+nrOfImages)){
                 saveButton.setEnabled(true);
