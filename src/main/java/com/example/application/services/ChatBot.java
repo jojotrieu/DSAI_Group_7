@@ -12,9 +12,14 @@ public class ChatBot {
         CFG.loadRules();
         Skills.loadActions();
         CNF.initialize();
+        BaseClassifier.init();
+    }
+    public static String respondTo(String question) {
+        return parse(BaseClassifier.process(question));
     }
 
-    public static String respondTo(String question) {
+
+    public static String parse(String question) {
         if (CYK.isValidLanguage(question)) {
             String action = CYK.getAction();
             String actionTemp;
