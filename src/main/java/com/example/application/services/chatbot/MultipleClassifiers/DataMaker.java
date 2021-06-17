@@ -155,19 +155,24 @@ public class DataMaker {
         String pathDest = "src/main/java/com/example/application/services/chatbot/DataBenchMark/";
         try {
             int countSkill = 0, countS=0;
+            ArrayList<String> phrases = new ArrayList<>();
+            ArrayList<String> labels = new ArrayList<>();
             for (String skill : CFG.getAllActionRules()) {
                 String s = skill.substring(1, skill.length() - 1);
                 File f = new File(pathSource + s + "/unknown");
-                List<String> text = new ArrayList<>();
                 countSkill++;
                 for (File mf : f.listFiles()) {
                     String curr = FileUtils.readFileToString(mf, "UTF-8").stripTrailing();
-                    text.add(curr);
+                    phrases.add(curr);
+                    labels.add(skill);
                     countS++;
                 }
-                TextFileIO.write(pathDest+s+".txt", text );
+
+//                TextFileIO.write(pathDest+s+".txt", text );
 
             }
+            TextFileIO.write(pathDest+"phrases.txt", phrases );
+            TextFileIO.write(pathDest+"labels.txt", labels );
             System.out.println("skill:"+countSkill+" sentences:"+ countS);
         }catch(IOException e){
             e.printStackTrace();
