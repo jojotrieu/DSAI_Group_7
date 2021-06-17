@@ -4,14 +4,57 @@ import com.example.application.services.ChatBot;
 import com.example.application.services.chatbot.CFG;
 import com.example.application.services.chatbot.CYK;
 import com.example.application.services.utils.TextFileIO;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 public class DataMaker {
     private static List<String> allPossibleQ = null;
-    private static String PATH = "src/main/java/com/example/application/services/chatbot/MultipleClassifiers/data2/";
+    private static String PATH = "src/main/java/com/example/application/services/chatbot/MultipleClassifiers/data/";
     private static String P = "src/main/java/com/example/application/services/chatbot/MultipleClassifiers/";
+
+    public static void makeDataForUnique(String skill, double split){
+        generateAllQ();
+        Random r = new Random();
+
+        String currPath = PATH+skill.substring(1, skill.length()-1);
+        File dir = new File(currPath);
+        if(!dir.exists()){
+            dir.mkdir();
+        }
+        String[] traintest= new String[]{"/train", "/test"};
+        for(String tt: traintest){
+            File dir2 = new File(currPath+tt);
+            if(!dir2.exists()) dir2.mkdir();
+        }
+
+        List<String> positive = CFG.combos(skill);
+
+        double limit = (1.0-split)*positive.size();
+        boolean oneOfTwo = false; // increment only once every two time we find duplicate
+        for (int i = 0; i < Math.max(limit, 1); i++) {
+            String currWord = positive.remove(r.nextInt(positive.size()));
+            TextFileIO.write(currPath+traintest[1]+"/"+i+".txt",List.of(currWord));
+            while(positive.contains(currWord)) {
+                positive.remove(currWord);
+                if(oneOfTwo){
+                    oneOfTwo = false;
+                    i++;
+                }else oneOfTwo = true;
+            }
+        }
+        List<String> woah = new ArrayList<>();
+        for (int i = 0; i < positive.size(); i++) {
+            String currWord = positive.get(i);
+            if(!woah.contains(currWord))
+            TextFileIO.write(currPath+traintest[0]+"/"+i+".txt",List.of( currWord));
+            woah.add(currWord);
+        }
+
+    }
+
     public static void makeData(String skill, double split){
         generateAllQ();
         String currPath = PATH+skill.substring(1, skill.length()-1);
@@ -83,11 +126,40 @@ public class DataMaker {
         }
     }
 
+    public static void verifyData(String skill){
+        String currentPath = PATH+ skill.substring(1,skill.length()-1)+"/";
+        List<String> test = new ArrayList<>();
+        List<String> train = new ArrayList<>();
+        File testFile= new File(currentPath+"test/");
+        File trainFile = new File(currentPath+"train/");
+        try {
+            for (File f : testFile.listFiles()) {
+                test.add(FileUtils.readFileToString(f));
+            }
+            for (File f : trainFile.listFiles()) {
+                train.add(FileUtils.readFileToString(f));
+            }
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }
+        for(String a:train){
+            for(String b:test){
+//                System.out.println(b);
+                if(a.equals(b)) System.out.println(a+"\n"+b);
+            }
+        }
+    }
+
     public static void main(String[] args){
         ChatBot.init();
-//        for(String skill: CFG.getAllActionRules()){
-//            makeData(skill, 0.8);
-//        }
-        makeAllQnA();
+        for(String skill: CFG.getAllActionRules()){
+            makeDataForUnique(skill, 0.8);
+        }
+//        makeAllQnA();
+
+        for(String skill: CFG.getAllActionRules()){
+            verifyData(skill);
+        }
+
     }
 }

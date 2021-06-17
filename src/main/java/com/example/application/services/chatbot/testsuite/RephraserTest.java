@@ -8,10 +8,11 @@ public class RephraserTest {
     @Test
     void fill(){
         CFG.loadRules();
-        Rephraser.fill(5);
+        Rephraser.fill(15);
         for(String phrase : Rephraser.getRephrased()){
             System.out.println(phrase);
         }
         System.out.println("Total set size: " + Rephraser.getRephrased().size());
+        Rephraser.writeSeq2Disk();
     }
 }
