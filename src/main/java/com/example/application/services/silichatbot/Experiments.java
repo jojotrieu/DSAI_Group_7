@@ -9,9 +9,9 @@ import java.io.IOException;
 public class Experiments {
   public static void main(String[] args) throws IOException, InterruptedException {
 
-    CFG.loadRules();
-    Rephraser.fill(15);
-    Rephraser.writeSeq2Disk();
+    //CFG.loadRules();
+    //Rephraser.fill(30);
+    //Rephraser.writeSeq2Disk();
     RNNClassifier.init();
 
 

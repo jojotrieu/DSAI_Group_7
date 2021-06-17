@@ -1,5 +1,6 @@
 package com.example.application.services.chatbot.rnnclassifier;
 
+import com.example.application.services.chatbot.spellcheckML.Rephraser;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.datavec.api.records.reader.SequenceRecordReader;
@@ -17,6 +18,7 @@ import org.deeplearning4j.nn.conf.layers.RnnOutputLayer;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
+import org.nd4j.evaluation.classification.Evaluation;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
@@ -31,6 +33,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class RNNClassifier {
+
+    private static MultiLayerNetwork model;
 
     public static void init() throws IOException, InterruptedException {
         String variationsPath = "src/main/java/com/example/application/services/chatbot/spellcheckML/phraseVariations.csv";
@@ -59,12 +63,16 @@ public class RNNClassifier {
             System.out.println("files already exist");
         }
 
-        int batchSize = 10;
+        int batchSize = 10000;
         int numLabelClasses = 52;
         CSVSequenceRecordReader trainRR = new CSVSequenceRecordReader(0, ", ");
-        trainRR.initialize(new NumberedFileInputSplit( dataPath.getAbsolutePath() + "/%d.csv", 0, 35000));
+        trainRR.initialize(new NumberedFileInputSplit( dataPath.getAbsolutePath() + "/%d.csv", 0, 50000));
         SequenceRecordReaderDataSetIterator trainIter =
                 new SequenceRecordReaderDataSetIterator(trainRR, batchSize, numLabelClasses, 90);
+        CSVSequenceRecordReader testRR = new CSVSequenceRecordReader(0, ", ");
+        testRR.initialize(new NumberedFileInputSplit( dataPath.getAbsolutePath() + "/%d.csv", 50001, 65001));
+        SequenceRecordReaderDataSetIterator testIter =
+                new SequenceRecordReaderDataSetIterator(testRR, batchSize, numLabelClasses, 90);
 
 
         MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
@@ -75,15 +83,26 @@ public class RNNClassifier {
                 .gradientNormalization(GradientNormalization.ClipElementWiseAbsoluteValue)  //Not always required, but helps with this data set
                 .gradientNormalizationThreshold(0.5)
                 .list()
-                .layer(0, new LSTM.Builder().activation(Activation.TANH).nIn(90).nOut(numLabelClasses).build())
+                .layer(0, new LSTM.Builder().activation(Activation.TANH).nIn(90).nOut(10).build())
                 .layer(1, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MCXENT)
-                        .activation(Activation.SOFTMAX).nIn(numLabelClasses).nOut(numLabelClasses).build())
+                        .activation(Activation.SOFTMAX).nIn(10).nOut(numLabelClasses).build())
                 .build();
 
-        MultiLayerNetwork model = new MultiLayerNetwork(conf);
+        model = new MultiLayerNetwork(conf);
         model.setListeners(new ScoreIterationListener(20));
 
-        int numEpochs = 5;
+        int numEpochs = 1;
         model.fit(trainIter, numEpochs);
+
+        Evaluation evaluation = model.evaluate(testIter);
+        System.out.println("Accuracy: "+evaluation.accuracy());
+        System.out.println("Precision: "+evaluation.precision());
+        System.out.println("Recall: "+evaluation.recall());
+
     }
+
+    public static int[] predict(String phrase){
+        return model.predict(Rephraser.convert(phrase));
+    }
+
 }
