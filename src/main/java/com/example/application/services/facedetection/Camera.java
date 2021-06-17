@@ -90,5 +90,4 @@ public class Camera {
     public BufferedImage getImageToAnalyze(){
         return this.imageToAnalyze;
     }
-
 }
