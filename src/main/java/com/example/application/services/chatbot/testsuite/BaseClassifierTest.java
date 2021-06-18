@@ -14,16 +14,16 @@ public class BaseClassifierTest {
         CNF.initialize();
         BaseClassifier.init();
         List<String> phrases =
-                TextFileIO.read("src/main/java/com/example/application/services/chatbot/DataBenchMark/phrases.txt");
+                TextFileIO.read("src/main/java/com/example/application/services/chatbot/DataBenchMark/invalidphrases.txt");
         List<String> labels =
-                TextFileIO.read("src/main/java/com/example/application/services/chatbot/DataBenchMark/labels.txt");
+                TextFileIO.read("src/main/java/com/example/application/services/chatbot/DataBenchMark/invalidlabels.txt");
         double correct = 0;
         for (int i = 0; i < phrases.size(); i++) {
             String phrase = phrases.get(i);
             String label = labels.get(i);
             System.out.println(i + ". " + label + " | " + phrase);
             String prediction = BaseClassifier.process(phrase);
-            String predictedClass = CYK.whichSkill(prediction);
+            String predictedClass = prediction.isEmpty() ? "<INVALID>" : CYK.whichSkill(prediction);
             if(label.equals(predictedClass)){
                 correct++;
             }
