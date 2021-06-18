@@ -29,7 +29,7 @@ public class AddFaceView extends Div {
     private final Button snapshot = new Button("Snapshot");
     private final List<BufferedImage> temporaryFaces = new ArrayList<>();
     private final int number = getNrOfFacesInDB() + 1;
-    private final int nrOfImages = 2;
+    private final int nrOfImages = 15;
     private int count = 0;
     private final String counter = "/"+nrOfImages;
     private final Button saveButton = new Button("SAVE FACE");
