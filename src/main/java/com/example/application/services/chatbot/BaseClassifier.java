@@ -10,6 +10,7 @@ public class BaseClassifier {
     private static final Set<String> allWords = new HashSet<>();
     private static final double THRESHOLD = .55;
 
+
     public static void init(){
         allPhrases=CFG.getAllPhrases();
         List<String> corpus = TextFileIO.read("src/main/java/com/example/application/services/chatbot/dsai.txt");
@@ -57,7 +58,7 @@ public class BaseClassifier {
         if(bestScore>THRESHOLD){
             return bestMatch;
         } else {
-            return query;
+            return "";
         }
     }
 
