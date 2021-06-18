@@ -4,43 +4,50 @@ addFace-view,
     padding: 1em;
 }
 
+addFace-view,
 #message {
     position: absolute;
     left: 18%;
     top: 10%;
 }
 
+addFace-view,
 #name {
     position: absolute;
     left: 50%;
     top: 20%;
 }
 
+addFace-view,
 #counter {
     position: absolute;
     left: 55%;
     top: 63%;
 }
 
-#snapshot-button {
+addFace-view,
+#button-snapshot {
     width: 110px;
     position: absolute;
     left: 47%;
     top: 70%;
 }
 
+addFace-view,
 #save-button {
     position: absolute;
     left: 58%;
     top: 70%;
 }
 
-#camera-frame {
+addFace-view,
+#camera-picture {
     position: absolute;
     left: 47%;
     top: 32%;
 }
 
+addFace-view,
 #success-message {
     color: green;
     position: absolute;

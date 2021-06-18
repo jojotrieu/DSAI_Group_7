@@ -36,9 +36,9 @@ public class AddFaceView extends Div {
     private final Label message = new Label();
 
     public AddFaceView() throws Exception {
+        setId("addFace-view");
         message.setText("Start by filling your name. Then, take 15 pictures of yourself. Try to change the light and your facial expression.");
         message.setId("message");
-        setId("addFace-view");
         name.setId("name");
         add(message);
         add(name);
@@ -110,14 +110,14 @@ public class AddFaceView extends Div {
     }
 
     private void initSnapshotButton(){
-        snapshot.setId("snapshot-button");
+        snapshot.setId("button-snapshot");
         snapshot.addClickListener(e->{
             camera.turnOnCamera();
             BufferedImage cameraSnapshot = camera.captureImage();
             camera.closeCamera();
             StreamResource streamResource = camera.generateUiImage(cameraSnapshot);
             image = new Image(streamResource, "capture");
-            image.setId("camera-frame");
+            image.setId("camera-picture");
             count++;
             temporaryFaces.add(cameraSnapshot);
 
