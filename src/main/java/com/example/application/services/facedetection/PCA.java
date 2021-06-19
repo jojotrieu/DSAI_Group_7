@@ -12,7 +12,9 @@ import org.opencv.imgproc.Imgproc;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
 
 import static org.opencv.core.CvType.CV_32SC1;
 import static org.opencv.core.CvType.CV_8UC1;
@@ -51,6 +53,11 @@ public class PCA {
         }
     }
 
+    // For experiments
+    public int predictLabelInt(Mat testImage) {
+        return faceRecognizer.predict_label(testImage);
+    }
+
     public void saveEigenFaces(int count) {
         Mat eigenVectors = faceRecognizer.getEigenVectors();
         if (eigenVectors.cols() > count) {
@@ -61,7 +68,7 @@ public class PCA {
                 Mat normalized = new Mat();
                 // Normalize to 0-255 range using MinMax normalization
                 Core.normalize(current, normalized, 0, 255, Core.NORM_MINMAX, CV_8UC1);
-                Imgcodecs.imwrite("RecognizerDB/Eigenfaces/Eigenface" + (i+1) + ".png", normalized);
+                Imgcodecs.imwrite("RecognizerDB/Eigenfaces/Eigenface" + (i + 1) + ".png", normalized);
             }
         } else {
             System.out.println("You are requesting too many eigenfaces! Try a lower value");
@@ -79,11 +86,12 @@ public class PCA {
                 String[] data = line.split(";");
                 // Read Images in Gray format
                 Mat readImage = Imgcodecs.imread(data[0]);
-                Imgproc.cvtColor(readImage, readImage, Imgproc.COLOR_BGR2GRAY);
+                Mat holdImage = new Mat();
+                Imgproc.cvtColor(readImage, holdImage, Imgproc.COLOR_BGR2GRAY);
                 if (readImage.rows() != 240 || readImage.cols() != 320) {
                     Imgproc.resize(readImage, readImage, new Size(320, 240));
                 }
-                this.trainingImages.add(readImage);
+                this.trainingImages.add(holdImage);
                 // Collect actual labels
                 this.labelList.add(Integer.parseInt(data[1]));
                 this.labelNames.add(retrieveName(data[0]));

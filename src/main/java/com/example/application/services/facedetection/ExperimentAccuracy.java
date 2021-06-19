@@ -52,12 +52,9 @@ public class ExperimentAccuracy {
             Mat mask = detection.detectSkinColor();
             detection.detectFaces(mask, 160, 140, 600, 500);
             detectedFaces_SCD += detection.getDetectedFaces();
-            Imgcodecs.imwrite("testSCD/test" + count + ".jpg", detection.getOriginalImage());
             camera.setImageToAnalyze(testImage);
             camera.detectFaces();
             detectedFaces_HCC += camera.getFacesCount();
-            String path = "./testHCC/test" + count + ".jpg";
-            ImageIO.write(camera.getImageToAnalyze(), "jpg", new File(path));
             count++;
         }
 
