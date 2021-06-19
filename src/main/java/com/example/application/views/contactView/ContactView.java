@@ -29,8 +29,6 @@ public class ContactView extends Div {
         team.add(new Person("i9812912", "William", "De Clercq", "w.declercq@student.maastrichtunviersity.nl"));
         team.add(new Person("i6209306", "Adèle", "Imparato", "a.imparato@student.maastrichtunviersity.nl"));
         team.add(new Person("i6316220", "Jo", "Trieu", "n.trieu@student.maastrichtunviersity.nl"));
-        team.add(new Person("i6810765", "Roy", "Withaar", "r.withaar@student.maastrichtunviersity.nl"));
-        team.add(new Person("i9810321", "Thibault", "Van de Sompele", "t.vandesompele@student.maastrichtunviersity.nl"));
         team.add(new Person("i1291712", "Nico", "Grassetto", "n.grassetto@student.maastrichtunviersity.nl"));
         team.add(new Person("i0725374", "Alex", "Rosca", "alexei.rosca@student.maastrichtunviersity.nl"));
 

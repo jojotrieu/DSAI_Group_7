@@ -86,7 +86,7 @@ public class MainView extends AppLayout {
         return new Tab[]{createTab("ChatBot", ChatBotView.class), createTab("Skills Editor", SkillsView.class),
                 createTab("Skills Editor 2", SkillsView2.class), createTab("User Friendly Skills Editor", SkillsView3.class),
                 createTab("Add Face", AddFaceView.class), createTab("Settings", SettingsView.class),
-                createTab("About", AboutView.class), createTab("Contact", ContactView.class)};
+                createTab("Contact", ContactView.class)};
     }
 
     private static Tab createTab(String text, Class<? extends Component> navigationTarget) {
