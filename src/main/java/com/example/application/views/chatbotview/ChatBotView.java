@@ -144,6 +144,7 @@ public class ChatBotView extends HorizontalLayout {
                     pca.readData(".\\RecognizerDB\\TrainDataPath.txt");
                     pca.trainRecognizer();
                     personRecognized = pca.recognizeFace(converted);
+                    detectedFaces = camera.detectFaces();
                 }
             }
 

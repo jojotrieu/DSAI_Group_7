@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 public class TestPCA {
     public static void main(String[] args) {
         OpenCV.loadLocally();
+
         Mat converted = Imgcodecs.imread("RecognizerDB/adele14.jpg");
 
         PCA pca = new PCA();

@@ -13,7 +13,7 @@ public class BaseClassifier {
 
     public static void init(){
         allPhrases=CFG.getAllPhrases();
-        List<String> corpus = TextFileIO.read("src/main/java/com/example/application/services/chatbot/dsai.txt");
+        List<String> corpus = TextFileIO.read(".\\src\\main\\java\\com\\example\\application\\services\\chatbot\\dsai.txt");
         //creates a set of all words in the phrases produced by CFG
         for(List<String> phrase : allPhrases){
             allWords.addAll(phrase);

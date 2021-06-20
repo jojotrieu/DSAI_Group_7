@@ -86,12 +86,11 @@ public class PCA {
                 String[] data = line.split(";");
                 // Read Images in Gray format
                 Mat readImage = Imgcodecs.imread(data[0]);
-                Mat holdImage = new Mat();
-                Imgproc.cvtColor(readImage, holdImage, Imgproc.COLOR_BGR2GRAY);
+                Imgproc.cvtColor(readImage, readImage, Imgproc.COLOR_BGR2GRAY);
                 if (readImage.rows() != 240 || readImage.cols() != 320) {
                     Imgproc.resize(readImage, readImage, new Size(320, 240));
                 }
-                this.trainingImages.add(holdImage);
+                this.trainingImages.add(readImage);
                 // Collect actual labels
                 this.labelList.add(Integer.parseInt(data[1]));
                 this.labelNames.add(retrieveName(data[0]));
