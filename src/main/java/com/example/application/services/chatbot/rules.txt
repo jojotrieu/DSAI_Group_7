@@ -73,7 +73,6 @@
 <ACTIVITYPLACE> Where can <PRO> <A> | What is a good place to <A> | Tell me where <PRO> can <A>
 <A> eat near DKE | go jogging | go for a walk
 <BLOCK> Can <PRO> block someone on collaborate ultra | Is it possible to block someone on collaborate | Tell me how to block someone on collaborate | I need to block someone on collaborate ultra
-<BEST> What is the best <P> in Maastricht | In Maastricht what is the bast <P> | Give me the bes <P> in Maastricht | How do <PRO> know which is the best <P> in Maastricht
 <P> cafe | restaurant | bachelor program
 <WHOIST> Who is <TEACHER> | Tell me about <TEACHER> | What do you know about <TEACHER> | Do you know something about <TEACHER>
 <TEACHER> Pietro Bonizzi | Pietro | Alexia Briasouli | Jan Niehues
@@ -87,3 +86,4 @@
 <WEED> Is weed legal | Is marijuana legal | Can <PRO> buy weed
 <COST> How much is <GOOD> | How much should <PRO> expect to pay for <GOOD> | Is <GOOD> expensive | How expensive is <GOOD> | Tell me how expensive is <GOOD>
 <GOOD> marijuana | weed | a private tutor
+<BEST> What is the best <P> in Maastricht | In Maastricht what is the best <P> | Give me the bes <P> in Maastricht | How do <PRO> know which is the best <P> in Maastricht
